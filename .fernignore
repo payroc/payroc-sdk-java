@@ -1,0 +1,21 @@
+# Specify files that shouldn't be modified by Fern
+src/main/java/com/payroc/api/core/SentryIntegration.java
+src/main/java/com/payroc/api/core/SentryInterceptor.java
+src/test/java/com/payroc/api/ReadmeExamplesCompilationTest.java
+
+# Integration tests
+src/test/java/com/payroc/api/integration/
+src/test/resources/testdata/
+src/test/java/com/payroc/api/core/SentryIntegrationTest.java
+src/test/java/com/payroc/api/core/SentryInterceptorTest.java
+scripts
+LICENSE
+CONTRIBUTING.md
+README.md
+.gitignore
+
+# Custom pagination implementation
+src/main/java/com/payroc/api/core/pagination/Page.java
+src/main/java/com/payroc/api/core/pagination/PayrocPager.java
+src/main/java/com/payroc/api/core/pagination/AsyncPayrocPager.java
+src/test/java/com/payroc/api/core/pagination/

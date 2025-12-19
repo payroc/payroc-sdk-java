@@ -1,0 +1,19 @@
+{
+  "cliVersion": "3.0.3",
+  "generatorName": "fernapi/fern-java-sdk",
+  "generatorVersion": "3.24.2",
+  "generatorConfig": {
+    "packageName": "com.payroc",
+    "clientClassName": "PayrocClient",
+    "exportedClientClassName": "PayrocClient",
+    "baseExceptionClassName": "PayrocException`",
+    "baseApiExceptionClassName": "PayrocApiException",
+    "environmentClassName": "PayrocEnvironment",
+    "use-local-date-for-dates": true,
+    "custom-pager-name": "PayrocPager",
+    "enable-wire-tests": true,
+    "custom-dependencies": [
+      "api io.sentry:sentry:7.22.0"
+    ]
+  }
+}

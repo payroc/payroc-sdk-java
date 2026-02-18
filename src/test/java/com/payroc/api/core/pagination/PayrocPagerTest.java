@@ -90,8 +90,8 @@ public class PayrocPagerTest {
     @Test
     void testCreatePagerWithNoLinks() throws IOException {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(2.0)
+                .limit(10)
+                .count(2)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -111,8 +111,8 @@ public class PayrocPagerTest {
         Link nextLink = Link.builder().rel("next").method("GET").href(nextUrl).build();
 
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(1.0)
+                .limit(10)
+                .count(1)
                 .hasMore(true)
                 .data(Collections.emptyList())
                 .links(Collections.singletonList(nextLink))
@@ -132,8 +132,8 @@ public class PayrocPagerTest {
                 Link.builder().rel("previous").method("GET").href(prevUrl).build();
 
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(1.0)
+                .limit(10)
+                .count(1)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.singletonList(prevLink))
@@ -155,8 +155,8 @@ public class PayrocPagerTest {
                 Link.builder().rel("previous").method("GET").href(prevUrl).build();
 
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(1.0)
+                .limit(10)
+                .count(1)
                 .hasMore(true)
                 .data(Collections.emptyList())
                 .links(Arrays.asList(prevLink, nextLink))
@@ -171,8 +171,8 @@ public class PayrocPagerTest {
     @Test
     void testNextPageThrowsWhenNoNextPage() throws IOException {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -186,8 +186,8 @@ public class PayrocPagerTest {
     @Test
     void testPreviousPageThrowsWhenNoPreviousPage() throws IOException {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -210,8 +210,8 @@ public class PayrocPagerTest {
         Link nextLink = Link.builder().rel("next").method("GET").href(nextUrl).build();
 
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(1.0)
+                .limit(10)
+                .count(1)
                 .hasMore(true)
                 .data(Collections.emptyList())
                 .links(Collections.singletonList(nextLink))
@@ -229,8 +229,8 @@ public class PayrocPagerTest {
     @Test
     void testIteratorWithSinglePageNoItems() throws IOException {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -245,8 +245,8 @@ public class PayrocPagerTest {
     @Test
     void testIteratorThrowsNoSuchElementWhenExhausted() throws IOException {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -261,8 +261,8 @@ public class PayrocPagerTest {
     @Test
     void testStreamWithEmptyPage() throws IOException {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -278,8 +278,8 @@ public class PayrocPagerTest {
     @Test
     void testPagesIterableWithSinglePage() throws IOException {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -299,8 +299,8 @@ public class PayrocPagerTest {
     @Test
     void testPreviousPagesIterableWithSinglePage() throws IOException {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -320,8 +320,8 @@ public class PayrocPagerTest {
     @Test
     void testGetResponseReturnsOriginalResponse() throws IOException {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -332,14 +332,14 @@ public class PayrocPagerTest {
         Optional<PaymentPaginatedListForRead> retrieved = pager.getResponse();
 
         assertTrue(retrieved.isPresent());
-        assertEquals(10.0, retrieved.get().getLimit().orElse(0.0));
+        assertEquals(10, retrieved.get().getLimit().orElse(0));
     }
 
     @Test
     void testGetCurrentPage() throws IOException {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())

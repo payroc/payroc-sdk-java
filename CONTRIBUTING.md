@@ -50,6 +50,130 @@ Build without running tests:
 
 ## Testing
 
+### Overview
+
+This project has two types of tests:
+
+1. **Unit/Wire Tests** - Mock-based tests that run without external dependencies
+2. **Integration Tests** - Tests that run against the Payroc UAT environment
+
+### Running Unit/Wire Tests
+
+**Important:** All commands must be run from the **project root directory** (`payroc-sdk-java/`).
+
+#### Prerequisites
+
+- **No external services required** - Tests use MockWebServer (included as a test dependency)
+- **No environment variables required** - Unit tests work out of the box
+- **No build step required** - Tests will compile automatically
+
+#### Quick Start
+
+Execute all unit/wire tests:
+
+```bash
+./gradlew test
+```
+
+**Windows:**
+```powershell
+.\gradlew test
+```
+
+That's it! The tests will:
+1. Automatically compile the project if needed
+2. Run all unit and wire tests (~195 tests)
+3. Complete in about 1-2 minutes
+
+#### Common Test Commands
+
+Force re-run all tests (ignoring Gradle cache):
+
+```bash
+./gradlew test --rerun-tasks
+```
+
+Run specific test class:
+
+```bash
+./gradlew test --tests "ClassName"
+```
+
+Run tests matching a pattern:
+
+```bash
+./gradlew test --tests "*Payments*"
+```
+
+Run tests with verbose output:
+
+```bash
+./gradlew test --info
+```
+
+View test results in HTML report:
+
+**macOS/Linux:**
+```bash
+./gradlew test && open build/reports/tests/test/index.html
+```
+
+**Windows (PowerShell):**
+```powershell
+.\gradlew test; start build/reports/tests/test/index.html
+```
+
+View test results summary (Windows PowerShell):
+
+```powershell
+.\gradlew test --rerun-tasks; $sum=0; $passed=0; $failed=0; Get-ChildItem build/test-results/test/*.xml | ForEach-Object { [xml]$xml = Get-Content $_; $sum += $xml.testsuite.tests; $passed += ($xml.testsuite.tests - $xml.testsuite.failures - $xml.testsuite.errors); $failed += ($xml.testsuite.failures + $xml.testsuite.errors) }; Write-Host "Total Tests: $sum | Passed: $passed | Failed: $failed"
+```
+
+### Running Integration Tests
+
+Integration tests run against the Payroc UAT environment and require API credentials.
+
+#### Prerequisites
+
+Set the following environment variables before running integration tests:
+
+```bash
+export PAYROC_API_KEY_PAYMENTS="your-payments-api-key"
+export PAYROC_API_KEY_GENERIC="your-generic-api-key"
+export TERMINAL_ID_AVS="your-terminal-id-with-avs"
+export TERMINAL_ID_NO_AVS="your-terminal-id-without-avs"
+```
+
+**Windows (PowerShell):**
+```powershell
+$env:PAYROC_API_KEY_PAYMENTS="your-payments-api-key"
+$env:PAYROC_API_KEY_GENERIC="your-generic-api-key"
+$env:TERMINAL_ID_AVS="your-terminal-id-with-avs"
+$env:TERMINAL_ID_NO_AVS="your-terminal-id-without-avs"
+```
+
+#### Running Integration Tests
+
+Run all integration tests:
+
+```bash
+./gradlew test --tests "com.payroc.api.integration.*"
+```
+
+Run specific integration test category:
+
+```bash
+./gradlew test --tests "com.payroc.api.integration.cardpayments.refunds.*"
+```
+
+Run a specific integration test:
+
+```bash
+./gradlew test --tests "com.payroc.api.integration.cardpayments.refunds.CreateTests.smokeTest"
+```
+
+> **Note:** Integration tests are tagged with `@Tag("integration")` and are located in `src/test/java/com/payroc/api/integration/`. See `src/test/java/com/payroc/api/integration/README.md` for more details.
+
 ### Prerequisites for Running Tests in VS Code
 
 To run and debug tests directly in VS Code, you'll need to:
@@ -88,55 +212,15 @@ After running the script, reload VS Code (`Ctrl+Shift+P` > `Reload Window`) to a
 
 > **Note:** The setup script installs VS Code extensions only. Make sure you've already built the project with `./gradlew build`.
 
-### Running Tests
-
-Execute all tests:
-
-```bash
-./gradlew test
-```
-
-Force re-run all tests (shows results even if cached):
-
-```bash
-./gradlew test --rerun-tasks
-```
-
-View test results summary (Windows PowerShell):
-
-```powershell
-.\gradlew.bat test --rerun-tasks; $sum=0; $passed=0; $failed=0; Get-ChildItem build/test-results/test/*.xml | ForEach-Object { [xml]$xml = Get-Content $_; $sum += $xml.testsuite.tests; $passed += ($xml.testsuite.tests - $xml.testsuite.failures - $xml.testsuite.errors); $failed += ($xml.testsuite.failures + $xml.testsuite.errors) }; Write-Host "Total Tests: $sum | Passed: $passed | Failed: $failed"
-```
-
-Run specific test class:
-
-```bash
-./gradlew test --tests ClassName
-```
-
-Run tests with verbose output:
-
-```bash
-./gradlew test --info
-```
-
-View test results in HTML report:
-
-**macOS/Linux:**
-```bash
-./gradlew test && open build/reports/tests/test/index.html
-```
-
-**Windows (PowerShell):**
-```powershell
-.\gradlew.bat test; start build/reports/tests/test/index.html
-```
-
-> **Note:** While VS Code has a Test Runner extension available, we recommend running tests from the command line using `./gradlew test` for the most reliable results. This is the standard approach for CI/CD pipelines and development workflows.
+> **Recommendation:** While VS Code has a Test Runner extension available, we recommend running tests from the command line using `./gradlew test` for the most reliable results. This is the standard approach for CI/CD pipelines and development workflows.
 
 ### Test Configuration
 
-Tests are configured in `build.gradle` and use JUnit 5 testing framework.
+Tests are configured in `build.gradle` and use JUnit 5 testing framework. The project uses:
+
+- **MockWebServer** (OkHttp) for mocking HTTP requests in unit/wire tests
+- **JUnit 5** for test framework
+- **No external services** required for unit/wire tests
 
 ## Code Quality
 

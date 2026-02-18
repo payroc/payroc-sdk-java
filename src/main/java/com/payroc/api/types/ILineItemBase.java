@@ -14,7 +14,7 @@ public interface ILineItemBase {
 
     Optional<UnitOfMeasure> getUnitOfMeasure();
 
-    double getUnitPrice();
+    long getUnitPrice();
 
     double getQuantity();
 

@@ -57,7 +57,12 @@ public final class Tiered4Fees {
     }
 
     /**
-     * @return Object that contains the fees for American Express transactions.
+     * @return Polymorphic object that contains fees for American Express transactions.
+     * <p>The value of the type field determines which variant you should use:</p>
+     * <ul>
+     * <li><code>optBlue</code> - Amex OptBlue pricing program.</li>
+     * <li><code>direct</code> - Amex Direct pricing program.</li>
+     * </ul>
      */
     @JsonProperty("amex")
     public Optional<Tiered4FeesAmex> getAmex() {
@@ -130,7 +135,12 @@ public final class Tiered4Fees {
         Tiered4Fees build();
 
         /**
-         * <p>Object that contains the fees for American Express transactions.</p>
+         * <p>Polymorphic object that contains fees for American Express transactions.</p>
+         * <p>The value of the type field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>optBlue</code> - Amex OptBlue pricing program.</li>
+         * <li><code>direct</code> - Amex Direct pricing program.</li>
+         * </ul>
          */
         _FinalStage amex(Optional<Tiered4FeesAmex> amex);
 
@@ -229,7 +239,12 @@ public final class Tiered4Fees {
         }
 
         /**
-         * <p>Object that contains the fees for American Express transactions.</p>
+         * <p>Polymorphic object that contains fees for American Express transactions.</p>
+         * <p>The value of the type field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>optBlue</code> - Amex OptBlue pricing program.</li>
+         * <li><code>direct</code> - Amex Direct pricing program.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -239,7 +254,12 @@ public final class Tiered4Fees {
         }
 
         /**
-         * <p>Object that contains the fees for American Express transactions.</p>
+         * <p>Polymorphic object that contains fees for American Express transactions.</p>
+         * <p>The value of the type field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>optBlue</code> - Amex OptBlue pricing program.</li>
+         * <li><code>direct</code> - Amex Direct pricing program.</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "amex", nulls = Nulls.SKIP)

@@ -65,6 +65,14 @@ public final class SingleUseTokenPayload {
         return token;
     }
 
+    /**
+     * @return Polymorphic object that contains information about a customer's PIN.
+     * <p>The value of the dataFormat parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>dukpt</code> - PIN information is encrypted.</li>
+     * <li><code>raw</code> - PIN information is unencrypted.</li>
+     * </ul>
+     */
     @JsonProperty("pinDetails")
     public Optional<SingleUseTokenPayloadPinDetails> getPinDetails() {
         return pinDetails;
@@ -142,6 +150,14 @@ public final class SingleUseTokenPayload {
 
         _FinalStage accountType(SingleUseTokenPayloadAccountType accountType);
 
+        /**
+         * <p>Polymorphic object that contains information about a customer's PIN.</p>
+         * <p>The value of the dataFormat parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>dukpt</code> - PIN information is encrypted.</li>
+         * <li><code>raw</code> - PIN information is unencrypted.</li>
+         * </ul>
+         */
         _FinalStage pinDetails(Optional<SingleUseTokenPayloadPinDetails> pinDetails);
 
         _FinalStage pinDetails(SingleUseTokenPayloadPinDetails pinDetails);
@@ -248,12 +264,29 @@ public final class SingleUseTokenPayload {
             return this;
         }
 
+        /**
+         * <p>Polymorphic object that contains information about a customer's PIN.</p>
+         * <p>The value of the dataFormat parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>dukpt</code> - PIN information is encrypted.</li>
+         * <li><code>raw</code> - PIN information is unencrypted.</li>
+         * </ul>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage pinDetails(SingleUseTokenPayloadPinDetails pinDetails) {
             this.pinDetails = Optional.ofNullable(pinDetails);
             return this;
         }
 
+        /**
+         * <p>Polymorphic object that contains information about a customer's PIN.</p>
+         * <p>The value of the dataFormat parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>dukpt</code> - PIN information is encrypted.</li>
+         * <li><code>raw</code> - PIN information is unencrypted.</li>
+         * </ul>
+         */
         @java.lang.Override
         @JsonSetter(value = "pinDetails", nulls = Nulls.SKIP)
         public _FinalStage pinDetails(Optional<SingleUseTokenPayloadPinDetails> pinDetails) {

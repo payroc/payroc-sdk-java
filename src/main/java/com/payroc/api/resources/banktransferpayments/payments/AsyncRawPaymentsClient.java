@@ -143,6 +143,11 @@ public class AsyncRawPaymentsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "status", request.getStatus().get(), true);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -253,10 +258,14 @@ public class AsyncRawPaymentsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<BankTransferPayment>> create(
             BankTransferPaymentRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
-                .addPathSegments("bank-transfer-payments")
-                .build();
+                .addPathSegments("bank-transfer-payments");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -265,7 +274,7 @@ public class AsyncRawPaymentsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -378,6 +387,24 @@ public class AsyncRawPaymentsClient {
      * <p>If the merchant saved the customer’s bank account details, our gateway returns a secureTokenID, which you can use to perform follow-on actions.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<BankTransferPayment>> retrieve(
+            String paymentId, RequestOptions requestOptions) {
+        return retrieve(paymentId, RetrievePaymentsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a bank transfer payment.
+     * <p>To retrieve a payment, you need its paymentId. Our gateway returned the paymentId in the response of the <a href="https://docs.payroc.com/api/schema/bank-transfer-payments/payments/create">Create Payment</a> method.</p>
+     * <p>Note: If you don’t have the paymentId, use our <a href="https://docs.payroc.com/api/schema/bank-transfer-payments/payments/list">List Payments</a> method to search for the payment.</p>
+     * <p>Our gateway returns the following information about the payment:</p>
+     * <ul>
+     * <li>Order details, including the transaction amount and when it was processed.</li>
+     * <li>Bank account details, including the customer’s name and account number.</li>
+     * <li>Customer’s details, including the customer’s phone number.</li>
+     * <li>Transaction details, including any refunds or re-presentments.</li>
+     * </ul>
+     * <p>If the merchant saved the customer’s bank account details, our gateway returns a secureTokenID, which you can use to perform follow-on actions.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<BankTransferPayment>> retrieve(
             String paymentId, RetrievePaymentsRequest request) {
         return retrieve(paymentId, request, null);
     }
@@ -397,13 +424,17 @@ public class AsyncRawPaymentsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<BankTransferPayment>> retrieve(
             String paymentId, RetrievePaymentsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("bank-transfer-payments")
-                .addPathSegment(paymentId)
-                .build();
+                .addPathSegment(paymentId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -504,12 +535,16 @@ public class AsyncRawPaymentsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<BankTransferPayment>> represent(
             String paymentId, Representment request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("bank-transfer-payments")
                 .addPathSegment(paymentId)
-                .addPathSegments("represent")
-                .build();
+                .addPathSegments("represent");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -518,7 +553,7 @@ public class AsyncRawPaymentsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

@@ -21,9 +21,9 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = PaymentPlanPaginatedList.Builder.class)
 public final class PaymentPlanPaginatedList implements IPaginatedList {
-    private final Optional<Double> limit;
+    private final Optional<Integer> limit;
 
-    private final Optional<Double> count;
+    private final Optional<Integer> count;
 
     private final Optional<Boolean> hasMore;
 
@@ -34,8 +34,8 @@ public final class PaymentPlanPaginatedList implements IPaginatedList {
     private final Map<String, Object> additionalProperties;
 
     private PaymentPlanPaginatedList(
-            Optional<Double> limit,
-            Optional<Double> count,
+            Optional<Integer> limit,
+            Optional<Integer> count,
             Optional<Boolean> hasMore,
             Optional<List<Link>> links,
             Optional<List<PaymentPlan>> data,
@@ -53,7 +53,7 @@ public final class PaymentPlanPaginatedList implements IPaginatedList {
      */
     @JsonProperty("limit")
     @java.lang.Override
-    public Optional<Double> getLimit() {
+    public Optional<Integer> getLimit() {
         return limit;
     }
 
@@ -63,7 +63,7 @@ public final class PaymentPlanPaginatedList implements IPaginatedList {
      */
     @JsonProperty("count")
     @java.lang.Override
-    public Optional<Double> getCount() {
+    public Optional<Integer> getCount() {
         return count;
     }
 
@@ -128,9 +128,9 @@ public final class PaymentPlanPaginatedList implements IPaginatedList {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<Double> limit = Optional.empty();
+        private Optional<Integer> limit = Optional.empty();
 
-        private Optional<Double> count = Optional.empty();
+        private Optional<Integer> count = Optional.empty();
 
         private Optional<Boolean> hasMore = Optional.empty();
 
@@ -156,12 +156,12 @@ public final class PaymentPlanPaginatedList implements IPaginatedList {
          * <p>Maximum number of results that we return for each page.</p>
          */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
-        public Builder limit(Optional<Double> limit) {
+        public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
             return this;
         }
 
-        public Builder limit(Double limit) {
+        public Builder limit(Integer limit) {
             this.limit = Optional.ofNullable(limit);
             return this;
         }
@@ -171,12 +171,12 @@ public final class PaymentPlanPaginatedList implements IPaginatedList {
          * <p><strong>Note:</strong> This might not be the total number of results that match your query.</p>
          */
         @JsonSetter(value = "count", nulls = Nulls.SKIP)
-        public Builder count(Optional<Double> count) {
+        public Builder count(Optional<Integer> count) {
             this.count = count;
             return this;
         }
 
-        public Builder count(Double count) {
+        public Builder count(Integer count) {
             this.count = Optional.ofNullable(count);
             return this;
         }

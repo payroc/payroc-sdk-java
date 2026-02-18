@@ -79,6 +79,21 @@ public class AsyncRawPricingIntentsClient {
      * <p>For each pricing intent, we also return its pricingIntentId which you can use to perform follow-on actions.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PricingIntent50>>>> list(
+            RequestOptions requestOptions) {
+        return list(ListPricingIntentsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of pricing intents associated with the ISV.
+     * <p><strong>Note:</strong> If you want to view the details of a specific pricing intent and you have its pricingIntentId, use our <a href="https://docs.payroc.com/api/schema/boarding/pricing-intents/retrieve">Retrieve Pricing Intent</a> method.</p>
+     * <p>Our gateway returns the following information about each pricing intent in the list:</p>
+     * <ul>
+     * <li>Information about the fees, including the base fees, gateway fees, and processor fees.</li>
+     * <li>Status of the pricing intent, including whether we approved the pricing intent.</li>
+     * </ul>
+     * <p>For each pricing intent, we also return its pricingIntentId which you can use to perform follow-on actions.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PricingIntent50>>>> list(
             ListPricingIntentsRequest request) {
         return list(request, null);
     }
@@ -109,6 +124,11 @@ public class AsyncRawPricingIntentsClient {
         if (request.getLimit().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "limit", request.getLimit().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -219,10 +239,14 @@ public class AsyncRawPricingIntentsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> create(
             CreatePricingIntentsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
-                .addPathSegments("pricing-intents")
-                .build();
+                .addPathSegments("pricing-intents");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -231,7 +255,7 @@ public class AsyncRawPricingIntentsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -332,6 +356,21 @@ public class AsyncRawPricingIntentsClient {
      * </ul>
      */
     public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> retrieve(
+            String pricingIntentId, RequestOptions requestOptions) {
+        return retrieve(pricingIntentId, RetrievePricingIntentsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a pricing intent.
+     * <p>To retrieve a pricing intent, you need its pricingIntentId. Our gateway returned the pricingIntentId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/pricing-intents/create">Create Pricing Intent</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the pricingIntentId, use our <a href="https://docs.payroc.com/api/schema/boarding/pricing-intents/list">List Pricing Intents</a> method to search for the pricing intent.</p>
+     * <p>Our gateway returns the following information about the pricing intent:</p>
+     * <ul>
+     * <li>Information about the fees, including the base fees, gateway fees, and processor fees.</li>
+     * <li>Status of the pricing intent, including whether we approved the pricing intent.</li>
+     * </ul>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> retrieve(
             String pricingIntentId, RetrievePricingIntentsRequest request) {
         return retrieve(pricingIntentId, request, null);
     }
@@ -348,13 +387,17 @@ public class AsyncRawPricingIntentsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> retrieve(
             String pricingIntentId, RetrievePricingIntentsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("pricing-intents")
-                .addPathSegment(pricingIntentId)
-                .build();
+                .addPathSegment(pricingIntentId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -452,11 +495,15 @@ public class AsyncRawPricingIntentsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<Void>> update(
             String pricingIntentId, UpdatePricingIntentsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("pricing-intents")
-                .addPathSegment(pricingIntentId)
-                .build();
+                .addPathSegment(pricingIntentId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -465,7 +512,7 @@ public class AsyncRawPricingIntentsClient {
             throw new PayrocApiException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -559,6 +606,19 @@ public class AsyncRawPricingIntentsClient {
      * <p><strong>Note:</strong> If you don't have the pricingIntentId, use our <a href="https://docs.payroc.com/api/schema/boarding/pricing-intents/list">List Pricing Intents</a> method to search for the pricing intent.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<Void>> delete(
+            String pricingIntentId, RequestOptions requestOptions) {
+        return delete(pricingIntentId, DeletePricingIntentsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to delete a pricing intent.
+     * <blockquote>
+     * <p><strong>Important:</strong> When you delete a pricing intent, you can't recover it. You also won't be able to assign the pricing intent to a merchant's boarding application.</p>
+     * </blockquote>
+     * <p>To delete a pricing intent, you need its pricingIntentId. Our gateway returned the pricingIntentId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/pricing-intents/create">Create Pricing Intent</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the pricingIntentId, use our <a href="https://docs.payroc.com/api/schema/boarding/pricing-intents/list">List Pricing Intents</a> method to search for the pricing intent.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<Void>> delete(
             String pricingIntentId, DeletePricingIntentsRequest request) {
         return delete(pricingIntentId, request, null);
     }
@@ -573,13 +633,17 @@ public class AsyncRawPricingIntentsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<Void>> delete(
             String pricingIntentId, DeletePricingIntentsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("pricing-intents")
-                .addPathSegment(pricingIntentId)
-                .build();
+                .addPathSegment(pricingIntentId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -672,11 +736,15 @@ public class AsyncRawPricingIntentsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> partiallyUpdate(
             String pricingIntentId, PartiallyUpdatePricingIntentsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("pricing-intents")
-                .addPathSegment(pricingIntentId)
-                .build();
+                .addPathSegment(pricingIntentId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -685,7 +753,7 @@ public class AsyncRawPricingIntentsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

@@ -48,6 +48,15 @@ public final class KeyedCardDetails {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Polymorphic object that contains payment card details that the merchant manually entered into the device.
+     * <p>The value of the dataFormat parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>fullyEncrypted</code> - Some payment card details are encrypted.</li>
+     * <li><code>partiallyEncrypted</code> - Payment card details are in plain text.</li>
+     * <li><code>plainText</code> - All payment card details are encrypted.</li>
+     * </ul>
+     */
     @JsonProperty("keyedData")
     public KeyedCardDetailsKeyedData getKeyedData() {
         return keyedData;
@@ -69,6 +78,9 @@ public final class KeyedCardDetails {
         return cardholderSignature;
     }
 
+    /**
+     * @return Polymorphic object that contains information about the customer's PIN.
+     */
     @JsonProperty("pinDetails")
     public Optional<KeyedCardDetailsPinDetails> getPinDetails() {
         return pinDetails;
@@ -114,6 +126,15 @@ public final class KeyedCardDetails {
     }
 
     public interface KeyedDataStage {
+        /**
+         * <p>Polymorphic object that contains payment card details that the merchant manually entered into the device.</p>
+         * <p>The value of the dataFormat parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>fullyEncrypted</code> - Some payment card details are encrypted.</li>
+         * <li><code>partiallyEncrypted</code> - Payment card details are in plain text.</li>
+         * <li><code>plainText</code> - All payment card details are encrypted.</li>
+         * </ul>
+         */
         _FinalStage keyedData(@NotNull KeyedCardDetailsKeyedData keyedData);
 
         Builder from(KeyedCardDetails other);
@@ -136,6 +157,9 @@ public final class KeyedCardDetails {
 
         _FinalStage cardholderSignature(String cardholderSignature);
 
+        /**
+         * <p>Polymorphic object that contains information about the customer's PIN.</p>
+         */
         _FinalStage pinDetails(Optional<KeyedCardDetailsPinDetails> pinDetails);
 
         _FinalStage pinDetails(KeyedCardDetailsPinDetails pinDetails);
@@ -172,6 +196,23 @@ public final class KeyedCardDetails {
             return this;
         }
 
+        /**
+         * <p>Polymorphic object that contains payment card details that the merchant manually entered into the device.</p>
+         * <p>The value of the dataFormat parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>fullyEncrypted</code> - Some payment card details are encrypted.</li>
+         * <li><code>partiallyEncrypted</code> - Payment card details are in plain text.</li>
+         * <li><code>plainText</code> - All payment card details are encrypted.</li>
+         * </ul>
+         * <p>Polymorphic object that contains payment card details that the merchant manually entered into the device.</p>
+         * <p>The value of the dataFormat parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>fullyEncrypted</code> - Some payment card details are encrypted.</li>
+         * <li><code>partiallyEncrypted</code> - Payment card details are in plain text.</li>
+         * <li><code>plainText</code> - All payment card details are encrypted.</li>
+         * </ul>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("keyedData")
         public _FinalStage keyedData(@NotNull KeyedCardDetailsKeyedData keyedData) {
@@ -192,12 +233,19 @@ public final class KeyedCardDetails {
             return this;
         }
 
+        /**
+         * <p>Polymorphic object that contains information about the customer's PIN.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage pinDetails(KeyedCardDetailsPinDetails pinDetails) {
             this.pinDetails = Optional.ofNullable(pinDetails);
             return this;
         }
 
+        /**
+         * <p>Polymorphic object that contains information about the customer's PIN.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "pinDetails", nulls = Nulls.SKIP)
         public _FinalStage pinDetails(Optional<KeyedCardDetailsPinDetails> pinDetails) {

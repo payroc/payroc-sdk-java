@@ -10,7 +10,7 @@ public interface IOrderItem {
 
     String getSolutionTemplateId();
 
-    Optional<Float> getSolutionQuantity();
+    Optional<Integer> getSolutionQuantity();
 
     Optional<OrderItemDeviceCondition> getDeviceCondition();
 

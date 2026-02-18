@@ -36,7 +36,19 @@ public final class PricingAgreementUs40Processor {
     }
 
     /**
-     * @return Object that contains the fees for card transactions.
+     * @return Polymorphic object that contains fees for card transactions.
+     * <p>The value of the planType field determines which variant you should use:</p>
+     * <ul>
+     * <li><code>interchangePlus</code> - Interchange + pricing</li>
+     * <li><code>interchangePlusTiered3</code> - Interchange pricing with three tiers</li>
+     * <li><code>tiered3</code> - Three-tiered pricing</li>
+     * <li><code>tiered4</code> - Four-tiered pricing</li>
+     * <li><code>tiered6</code> - Six-tiered pricing</li>
+     * <li><code>flatRate</code> - Flat rate pricing</li>
+     * <li><code>consumerChoice</code> - ConsumerChoice</li>
+     * <li><code>rewardPay</code> - RewardPay</li>
+     * <li><code>rewardPayChoice</code> - RewardPayChoice</li>
+     * </ul>
      */
     @JsonProperty("card")
     public Optional<PricingAgreementUs40ProcessorCard> getCard() {
@@ -95,7 +107,19 @@ public final class PricingAgreementUs40Processor {
         }
 
         /**
-         * <p>Object that contains the fees for card transactions.</p>
+         * <p>Polymorphic object that contains fees for card transactions.</p>
+         * <p>The value of the planType field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>interchangePlus</code> - Interchange + pricing</li>
+         * <li><code>interchangePlusTiered3</code> - Interchange pricing with three tiers</li>
+         * <li><code>tiered3</code> - Three-tiered pricing</li>
+         * <li><code>tiered4</code> - Four-tiered pricing</li>
+         * <li><code>tiered6</code> - Six-tiered pricing</li>
+         * <li><code>flatRate</code> - Flat rate pricing</li>
+         * <li><code>consumerChoice</code> - ConsumerChoice</li>
+         * <li><code>rewardPay</code> - RewardPay</li>
+         * <li><code>rewardPayChoice</code> - RewardPayChoice</li>
+         * </ul>
          */
         @JsonSetter(value = "card", nulls = Nulls.SKIP)
         public Builder card(Optional<PricingAgreementUs40ProcessorCard> card) {

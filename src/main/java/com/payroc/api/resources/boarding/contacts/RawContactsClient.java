@@ -66,6 +66,20 @@ public class RawContactsClient {
      * <li>Role within the business, for example, if they are a manager.</li>
      * </ul>
      */
+    public PayrocApiHttpResponse<Contact> retrieve(int contactId, RequestOptions requestOptions) {
+        return retrieve(contactId, RetrieveContactsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve details about a contact.
+     * <p>To retrieve a contact, you need its contactId. Our gateway returned the contactId in the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the contactId, use the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/list-contacts">List Contacts</a> method to search for the contact.</p>
+     * <p>Our gateway returns the following information about a contact:</p>
+     * <ul>
+     * <li>Name and contact method, including their phone number or mobile number.</li>
+     * <li>Role within the business, for example, if they are a manager.</li>
+     * </ul>
+     */
     public PayrocApiHttpResponse<Contact> retrieve(int contactId, RetrieveContactsRequest request) {
         return retrieve(contactId, request, null);
     }
@@ -82,13 +96,17 @@ public class RawContactsClient {
      */
     public PayrocApiHttpResponse<Contact> retrieve(
             int contactId, RetrieveContactsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("contacts")
-                .addPathSegment(Integer.toString(contactId))
-                .build();
+                .addPathSegment(Integer.toString(contactId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -165,11 +183,15 @@ public class RawContactsClient {
      */
     public PayrocApiHttpResponse<Void> update(
             int contactId, UpdateContactsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("contacts")
-                .addPathSegment(Integer.toString(contactId))
-                .build();
+                .addPathSegment(Integer.toString(contactId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -178,7 +200,7 @@ public class RawContactsClient {
             throw new PayrocApiException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -243,6 +265,15 @@ public class RawContactsClient {
      * <p>To delete a contact, you need their contactId. Our gateway returned the contactId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
      * <p><strong>Note:</strong> If you don’t have the contactId, use our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/retrieve">Retrieve Processing Account</a> method or our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/list-contacts">List Contacts</a> method to search for the contact.</p>
      */
+    public PayrocApiHttpResponse<Void> delete(int contactId, RequestOptions requestOptions) {
+        return delete(contactId, DeleteContactsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to delete a contact associated with a processing account.
+     * <p>To delete a contact, you need their contactId. Our gateway returned the contactId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
+     * <p><strong>Note:</strong> If you don’t have the contactId, use our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/retrieve">Retrieve Processing Account</a> method or our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/list-contacts">List Contacts</a> method to search for the contact.</p>
+     */
     public PayrocApiHttpResponse<Void> delete(int contactId, DeleteContactsRequest request) {
         return delete(contactId, request, null);
     }
@@ -254,13 +285,17 @@ public class RawContactsClient {
      */
     public PayrocApiHttpResponse<Void> delete(
             int contactId, DeleteContactsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("contacts")
-                .addPathSegment(Integer.toString(contactId))
-                .build();
+                .addPathSegment(Integer.toString(contactId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

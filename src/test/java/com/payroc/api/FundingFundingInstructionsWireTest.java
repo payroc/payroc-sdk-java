@@ -9,6 +9,14 @@ import com.payroc.api.resources.funding.fundinginstructions.requests.DeleteFundi
 import com.payroc.api.resources.funding.fundinginstructions.requests.RetrieveFundingInstructionsRequest;
 import com.payroc.api.resources.funding.fundinginstructions.requests.UpdateFundingInstructionsRequest;
 import com.payroc.api.types.Instruction;
+import com.payroc.api.types.InstructionMerchantsItem;
+import com.payroc.api.types.InstructionMerchantsItemRecipientsItem;
+import com.payroc.api.types.InstructionMerchantsItemRecipientsItemAmount;
+import com.payroc.api.types.InstructionMerchantsItemRecipientsItemAmountCurrency;
+import com.payroc.api.types.InstructionMerchantsItemRecipientsItemPaymentMethod;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Optional;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -50,7 +58,31 @@ public class FundingFundingInstructionsWireTest {
                 .fundingInstructions()
                 .create(CreateFundingInstructionsRequest.builder()
                         .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9324")
-                        .body(Instruction.builder().build())
+                        .body(Instruction.builder()
+                                .merchants(Optional.of(Arrays.asList(InstructionMerchantsItem.builder()
+                                        .merchantId("4525644354")
+                                        .recipients(Arrays.asList(InstructionMerchantsItemRecipientsItem.builder()
+                                                .fundingAccountId(123)
+                                                .paymentMethod(InstructionMerchantsItemRecipientsItemPaymentMethod.ACH)
+                                                .amount(InstructionMerchantsItemRecipientsItemAmount.builder()
+                                                        .value(120000)
+                                                        .currency(
+                                                                InstructionMerchantsItemRecipientsItemAmountCurrency
+                                                                        .USD)
+                                                        .build())
+                                                .metadata(new HashMap<String, String>() {
+                                                    {
+                                                        put("yourCustomField", "abc123");
+                                                    }
+                                                })
+                                                .build()))
+                                        .build())))
+                                .metadata(new HashMap<String, String>() {
+                                    {
+                                        put("yourCustomField", "abc123");
+                                    }
+                                })
+                                .build())
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -63,7 +95,30 @@ public class FundingFundingInstructionsWireTest {
                 "Header 'Idempotency-Key' should match expected value");
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = "" + "{}";
+        String expectedRequestBody = ""
+                + "{\n"
+                + "  \"merchants\": [\n"
+                + "    {\n"
+                + "      \"merchantId\": \"4525644354\",\n"
+                + "      \"recipients\": [\n"
+                + "        {\n"
+                + "          \"fundingAccountId\": 123,\n"
+                + "          \"paymentMethod\": \"ACH\",\n"
+                + "          \"amount\": {\n"
+                + "            \"value\": 120000,\n"
+                + "            \"currency\": \"USD\"\n"
+                + "          },\n"
+                + "          \"metadata\": {\n"
+                + "            \"yourCustomField\": \"abc123\"\n"
+                + "          }\n"
+                + "        }\n"
+                + "      ]\n"
+                + "    }\n"
+                + "  ],\n"
+                + "  \"metadata\": {\n"
+                + "    \"yourCustomField\": \"abc123\"\n"
+                + "  }\n"
+                + "}";
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
@@ -252,14 +307,66 @@ public class FundingFundingInstructionsWireTest {
                 .update(
                         1,
                         UpdateFundingInstructionsRequest.builder()
-                                .body(Instruction.builder().build())
+                                .body(Instruction.builder()
+                                        .merchants(Optional.of(Arrays.asList(InstructionMerchantsItem.builder()
+                                                .merchantId("9876543219")
+                                                .recipients(
+                                                        Arrays.asList(InstructionMerchantsItemRecipientsItem.builder()
+                                                                .fundingAccountId(124)
+                                                                .paymentMethod(
+                                                                        InstructionMerchantsItemRecipientsItemPaymentMethod
+                                                                                .ACH)
+                                                                .amount(
+                                                                        InstructionMerchantsItemRecipientsItemAmount
+                                                                                .builder()
+                                                                                .value(69950)
+                                                                                .currency(
+                                                                                        InstructionMerchantsItemRecipientsItemAmountCurrency
+                                                                                                .USD)
+                                                                                .build())
+                                                                .metadata(new HashMap<String, String>() {
+                                                                    {
+                                                                        put("supplier", "IT Support Services");
+                                                                    }
+                                                                })
+                                                                .build()))
+                                                .build())))
+                                        .metadata(new HashMap<String, String>() {
+                                            {
+                                                put("instructionCreatedBy", "Jane Doe");
+                                            }
+                                        })
+                                        .build())
                                 .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("PUT", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = "" + "{}";
+        String expectedRequestBody = ""
+                + "{\n"
+                + "  \"merchants\": [\n"
+                + "    {\n"
+                + "      \"merchantId\": \"9876543219\",\n"
+                + "      \"recipients\": [\n"
+                + "        {\n"
+                + "          \"fundingAccountId\": 124,\n"
+                + "          \"paymentMethod\": \"ACH\",\n"
+                + "          \"amount\": {\n"
+                + "            \"value\": 69950,\n"
+                + "            \"currency\": \"USD\"\n"
+                + "          },\n"
+                + "          \"metadata\": {\n"
+                + "            \"supplier\": \"IT Support Services\"\n"
+                + "          }\n"
+                + "        }\n"
+                + "      ]\n"
+                + "    }\n"
+                + "  ],\n"
+                + "  \"metadata\": {\n"
+                + "    \"instructionCreatedBy\": \"Jane Doe\"\n"
+                + "  }\n"
+                + "}";
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");

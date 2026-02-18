@@ -117,7 +117,7 @@ public final class CreateFundingRecipient {
     }
 
     /**
-     * @return Address of the funding recipient.
+     * @return Polymorphic object that contains address information for a funding recipient.
      */
     @JsonProperty("address")
     public Address getAddress() {
@@ -125,7 +125,15 @@ public final class CreateFundingRecipient {
     }
 
     /**
-     * @return Array of contactMethod objects that you can use to add contact methods for the funding recipient. You must provide at least an email address.
+     * @return Array of polymorphic objects, which contain contact information.
+     * <p><strong>Note:</strong> You must provide an email address.</p>
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>email</code> - Email address</li>
+     * <li><code>phone</code> - Phone number</li>
+     * <li><code>mobile</code> - Mobile number</li>
+     * <li><code>fax</code> - Fax number</li>
+     * </ul>
      */
     @JsonProperty("contactMethods")
     public List<ContactMethod> getContactMethods() {
@@ -236,7 +244,7 @@ public final class CreateFundingRecipient {
 
     public interface AddressStage {
         /**
-         * <p>Address of the funding recipient.</p>
+         * <p>Polymorphic object that contains address information for a funding recipient.</p>
          */
         _FinalStage address(@NotNull Address address);
     }
@@ -252,7 +260,15 @@ public final class CreateFundingRecipient {
         _FinalStage charityId(String charityId);
 
         /**
-         * <p>Array of contactMethod objects that you can use to add contact methods for the funding recipient. You must provide at least an email address.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> You must provide an email address.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          */
         _FinalStage contactMethods(List<ContactMethod> contactMethods);
 
@@ -382,8 +398,8 @@ public final class CreateFundingRecipient {
         }
 
         /**
-         * <p>Address of the funding recipient.</p>
-         * <p>Address of the funding recipient.</p>
+         * <p>Polymorphic object that contains address information for a funding recipient.</p>
+         * <p>Polymorphic object that contains address information for a funding recipient.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -484,7 +500,15 @@ public final class CreateFundingRecipient {
         }
 
         /**
-         * <p>Array of contactMethod objects that you can use to add contact methods for the funding recipient. You must provide at least an email address.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> You must provide an email address.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -496,7 +520,15 @@ public final class CreateFundingRecipient {
         }
 
         /**
-         * <p>Array of contactMethod objects that you can use to add contact methods for the funding recipient. You must provide at least an email address.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> You must provide an email address.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -506,7 +538,15 @@ public final class CreateFundingRecipient {
         }
 
         /**
-         * <p>Array of contactMethod objects that you can use to add contact methods for the funding recipient. You must provide at least an email address.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> You must provide an email address.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "contactMethods", nulls = Nulls.SKIP)

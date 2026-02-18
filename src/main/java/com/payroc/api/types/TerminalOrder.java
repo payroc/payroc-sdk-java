@@ -69,7 +69,7 @@ public final class TerminalOrder {
 
     /**
      * @return Status of the terminal order.
-     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Event Subscriptions</a>.</p>
+     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Event Subscriptions</a>.</p>
      */
     @JsonProperty("status")
     public TerminalOrderStatus getStatus() {
@@ -170,7 +170,7 @@ public final class TerminalOrder {
     public interface StatusStage {
         /**
          * <p>Status of the terminal order.</p>
-         * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Event Subscriptions</a>.</p>
+         * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Event Subscriptions</a>.</p>
          */
         _FinalStage status(@NotNull TerminalOrderStatus status);
     }
@@ -263,9 +263,9 @@ public final class TerminalOrder {
 
         /**
          * <p>Status of the terminal order.</p>
-         * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Event Subscriptions</a>.</p>
+         * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Event Subscriptions</a>.</p>
          * <p>Status of the terminal order.</p>
-         * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Event Subscriptions</a>.</p>
+         * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Event Subscriptions</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

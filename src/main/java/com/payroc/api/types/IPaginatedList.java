@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IPaginatedList {
-    Optional<Double> getLimit();
+    Optional<Integer> getLimit();
 
-    Optional<Double> getCount();
+    Optional<Integer> getCount();
 
     Optional<Boolean> getHasMore();
 

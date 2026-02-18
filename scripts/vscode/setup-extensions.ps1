@@ -1,4 +1,4 @@
-﻿# Setup VS Code Extensions for Payroc SDK Java Development (Windows PowerShell)
+# Setup VS Code Extensions for Payroc SDK Java Development (Windows PowerShell)
 # This script installs the recommended extensions for developing the Payroc Java SDK
 
 Write-Host "Installing VS Code extensions for Payroc SDK Java development..." -ForegroundColor Green

@@ -70,6 +70,22 @@ public class ProcessingAccountsClient {
      * <li>Pricing information, including <a href="https://docs.payroc.com/knowledge/basic-concepts/hypermedia-as-the-engine-of-application-state-hateoas">HATEOAS</a> links to retrieve the pricing program for the processing account.</li>
      * </ul>
      */
+    public ProcessingAccount retrieve(String processingAccountId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(processingAccountId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to retrieve information about a specific processing account.
+     * <p>To retrieve a processing account, you need its processingAccountId. Our gateway returned the processingAccountId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method or the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the processingAccountId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/list-processing-accounts">List Merchant Platform's Processing Accounts</a> method to search for the processing account.</p>
+     * <p>Our gateway returns the following information about the processing account:</p>
+     * <ul>
+     * <li>Business information, including the Merchant Category Code (MCC), status of the processing account, and address of the business.</li>
+     * <li>Processing information, including the merchant’s refund policies and card types that the merchant accepts.</li>
+     * <li>Funding information, including funding schedules, funding fees, and details for the merchant’s funding accounts.</li>
+     * <li>Pricing information, including <a href="https://docs.payroc.com/knowledge/basic-concepts/hypermedia-as-the-engine-of-application-state-hateoas">HATEOAS</a> links to retrieve the pricing program for the processing account.</li>
+     * </ul>
+     */
     public ProcessingAccount retrieve(String processingAccountId, RetrieveProcessingAccountsRequest request) {
         return this.rawClient.retrieve(processingAccountId, request).body();
     }
@@ -94,7 +110,14 @@ public class ProcessingAccountsClient {
     }
 
     /**
-     * Retrieve a list of funding accounts associated with a processing account.
+     * Use this method to return a list of funding accounts linked to a processing acccount.
+     * <p>To retrieve a list of funding accounts for a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method or the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Proccessing Account</a> method.</p>
+     * <p>Our gateway returns information about the following for each funding account in the list:</p>
+     * <ul>
+     * <li>Account information, including the name on the account and payment methods.</li>
+     * <li>Status, including whether we have approved or rejected the account.</li>
+     * </ul>
+     * <p>For each funding account, we also return its fundingAccountId, which you can use to perform follow-on actions.</p>
      */
     public List<FundingAccount> listProcessingAccountFundingAccounts(String processingAccountId) {
         return this.rawClient
@@ -103,7 +126,31 @@ public class ProcessingAccountsClient {
     }
 
     /**
-     * Retrieve a list of funding accounts associated with a processing account.
+     * Use this method to return a list of funding accounts linked to a processing acccount.
+     * <p>To retrieve a list of funding accounts for a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method or the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Proccessing Account</a> method.</p>
+     * <p>Our gateway returns information about the following for each funding account in the list:</p>
+     * <ul>
+     * <li>Account information, including the name on the account and payment methods.</li>
+     * <li>Status, including whether we have approved or rejected the account.</li>
+     * </ul>
+     * <p>For each funding account, we also return its fundingAccountId, which you can use to perform follow-on actions.</p>
+     */
+    public List<FundingAccount> listProcessingAccountFundingAccounts(
+            String processingAccountId, RequestOptions requestOptions) {
+        return this.rawClient
+                .listProcessingAccountFundingAccounts(processingAccountId, requestOptions)
+                .body();
+    }
+
+    /**
+     * Use this method to return a list of funding accounts linked to a processing acccount.
+     * <p>To retrieve a list of funding accounts for a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method or the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Proccessing Account</a> method.</p>
+     * <p>Our gateway returns information about the following for each funding account in the list:</p>
+     * <ul>
+     * <li>Account information, including the name on the account and payment methods.</li>
+     * <li>Status, including whether we have approved or rejected the account.</li>
+     * </ul>
+     * <p>For each funding account, we also return its fundingAccountId, which you can use to perform follow-on actions.</p>
      */
     public List<FundingAccount> listProcessingAccountFundingAccounts(
             String processingAccountId, ListProcessingAccountFundingAccountsRequest request) {
@@ -113,7 +160,14 @@ public class ProcessingAccountsClient {
     }
 
     /**
-     * Retrieve a list of funding accounts associated with a processing account.
+     * Use this method to return a list of funding accounts linked to a processing acccount.
+     * <p>To retrieve a list of funding accounts for a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method or the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Proccessing Account</a> method.</p>
+     * <p>Our gateway returns information about the following for each funding account in the list:</p>
+     * <ul>
+     * <li>Account information, including the name on the account and payment methods.</li>
+     * <li>Status, including whether we have approved or rejected the account.</li>
+     * </ul>
+     * <p>For each funding account, we also return its fundingAccountId, which you can use to perform follow-on actions.</p>
      */
     public List<FundingAccount> listProcessingAccountFundingAccounts(
             String processingAccountId,
@@ -137,6 +191,21 @@ public class ProcessingAccountsClient {
      */
     public PaginatedContacts listContacts(String processingAccountId) {
         return this.rawClient.listContacts(processingAccountId).body();
+    }
+
+    /**
+     * Use this method to return a list of contacts for a processing account.
+     * <p><strong>Note:</strong> If you want to view the details of a specific contact and you have their contactId, use our <a href="https://docs.payroc.com/api/schema/boarding/contacts/retrieve">Retrieve Contact</a> method.</p>
+     * <p>To list contacts for a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method or the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
+     * <p>Our gateway returns the following information about each contact:</p>
+     * <ul>
+     * <li>Name and contact method, including their phone number or mobile number.</li>
+     * <li>Role within the business, for example, if they are a manager.</li>
+     * </ul>
+     * <p>For each contact, we also return a contactId, which you can use to perform follow-on actions.</p>
+     */
+    public PaginatedContacts listContacts(String processingAccountId, RequestOptions requestOptions) {
+        return this.rawClient.listContacts(processingAccountId, requestOptions).body();
     }
 
     /**
@@ -204,6 +273,25 @@ public class ProcessingAccountsClient {
      * </ul>
      */
     public GetProcessingAccountPricingAgreementProcessingAccountsResponse getProcessingAccountPricingAgreement(
+            String processingAccountId, RequestOptions requestOptions) {
+        return this.rawClient
+                .getProcessingAccountPricingAgreement(processingAccountId, requestOptions)
+                .body();
+    }
+
+    /**
+     * Use this method to retrieve the pricing agreement that we apply to a processing account.
+     * <p>To retrieve the pricing agreement of a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response to the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method and <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the processingAccountId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/list-processing-accounts">List Merchant Platform’s Processing Accounts</a> method to search for the processing account.</p>
+     * <p>Our gateway returns the following information about the pricing agreement that we apply to the processing account:</p>
+     * <ul>
+     * <li>Base fees, including the annual fee and the fees for each chargeback and retrieval.</li>
+     * <li>Processor fees, including the fees that we apply for processing card and ACH payments.</li>
+     * <li>Gateway fees, including the setup fee and the fees for each transaction.</li>
+     * <li>Service fees, including the fee that we apply if the merchant has signed up to a Hardware Advantage Plan.</li>
+     * </ul>
+     */
+    public GetProcessingAccountPricingAgreementProcessingAccountsResponse getProcessingAccountPricingAgreement(
             String processingAccountId, GetProcessingAccountPricingAgreementProcessingAccountsRequest request) {
         return this.rawClient
                 .getProcessingAccountPricingAgreement(processingAccountId, request)
@@ -244,6 +332,21 @@ public class ProcessingAccountsClient {
      */
     public PayrocPager<Owner> listOwners(String processingAccountId) {
         return this.rawClient.listOwners(processingAccountId).body();
+    }
+
+    /**
+     * Use this method to return a list of owners of a processing account.
+     * <p><strong>Note:</strong> If you want to view the details of a specific owner and you have the ownerId, go to our <a href="https://docs.payroc.com/api/schema/boarding/owners/retrieve">Retrieve Owner</a> method.</p>
+     * <p>To list the owners of a processing account, you need its processingAccountId. If you don't have the processingAccountId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/list-processing-accounts">List Merchant Platform's Processing Accounts</a> method to search for the processing account.</p>
+     * <p>Our gateway returns the following information about each owner in the list:</p>
+     * <ul>
+     * <li>Name, date of birth, and address.</li>
+     * <li>Contact details, including their email address.</li>
+     * <li>Relationship to the business, including whether they are a control prong or authorized signatory, and their equity stake in the business.</li>
+     * </ul>
+     */
+    public PayrocPager<Owner> listOwners(String processingAccountId, RequestOptions requestOptions) {
+        return this.rawClient.listOwners(processingAccountId, requestOptions).body();
     }
 
     /**
@@ -339,6 +442,26 @@ public class ProcessingAccountsClient {
      * </ul>
      * <p>For each terminal order, we also return its terminalOrderId, which you can use to perform follow-on actions.</p>
      */
+    public List<TerminalOrder> listTerminalOrders(String processingAccountId, RequestOptions requestOptions) {
+        return this.rawClient
+                .listTerminalOrders(processingAccountId, requestOptions)
+                .body();
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of terminal orders associated with a processing account.
+     * <p><strong>Note:</strong> If you want to view the details of a specific terminal order and you have its terminalOrderId, use our <a href="https://docs.payroc.com/api/schema/boarding/terminal-orders/retrieve">Retrieve Terminal Order</a> method.</p>
+     * <p>Use the query parameters to filter the list of results that we return, for example, to search for terminal orders by their status.</p>
+     * <p>To list the terminal orders for a processing account, you need its processingAccountId. If you don't have the processingAccountId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/list">List Merchant Platforms</a> method to search for a merchant platform and its processing accounts.</p>
+     * <p>Our gateway returns the following information for each terminal order in the list:</p>
+     * <ul>
+     * <li>Status of the order</li>
+     * <li>Items in the order</li>
+     * <li>Training provider</li>
+     * <li>Shipping information</li>
+     * </ul>
+     * <p>For each terminal order, we also return its terminalOrderId, which you can use to perform follow-on actions.</p>
+     */
     public List<TerminalOrder> listTerminalOrders(
             String processingAccountId, ListTerminalOrdersProcessingAccountsRequest request) {
         return this.rawClient.listTerminalOrders(processingAccountId, request).body();
@@ -372,7 +495,7 @@ public class ProcessingAccountsClient {
      * <p><strong>Note</strong>: You need the ID of the processing account before you can create an order. If you don't know the processingAccountId, go to the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/retrieve">Retrieve a Merchant Platform</a> method.</p>
      * <p>In the request, specify the gateway settings, device settings, and application settings for the terminal.</p>
      * <p>In the response, our gateway returns information about the terminal order including its status and terminalOrderId that you can use to <a href="https://docs.payroc.com/api/schema/boarding/terminal-orders/retrieve">retrieve the terminal order</a>.</p>
-     * <p><strong>Note</strong>: You can subscribe to the terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Events Subscriptions</a>.</p>
+     * <p><strong>Note</strong>: You can subscribe to the terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Events Subscriptions</a>.</p>
      */
     public TerminalOrder createTerminalOrder(String processingAccountId, CreateTerminalOrder request) {
         return this.rawClient.createTerminalOrder(processingAccountId, request).body();
@@ -383,7 +506,7 @@ public class ProcessingAccountsClient {
      * <p><strong>Note</strong>: You need the ID of the processing account before you can create an order. If you don't know the processingAccountId, go to the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/retrieve">Retrieve a Merchant Platform</a> method.</p>
      * <p>In the request, specify the gateway settings, device settings, and application settings for the terminal.</p>
      * <p>In the response, our gateway returns information about the terminal order including its status and terminalOrderId that you can use to <a href="https://docs.payroc.com/api/schema/boarding/terminal-orders/retrieve">retrieve the terminal order</a>.</p>
-     * <p><strong>Note</strong>: You can subscribe to the terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Events Subscriptions</a>.</p>
+     * <p><strong>Note</strong>: You can subscribe to the terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Events Subscriptions</a>.</p>
      */
     public TerminalOrder createTerminalOrder(
             String processingAccountId, CreateTerminalOrder request, RequestOptions requestOptions) {
@@ -407,6 +530,26 @@ public class ProcessingAccountsClient {
      */
     public PayrocPager<ProcessingTerminal> listProcessingTerminals(String processingAccountId) {
         return this.rawClient.listProcessingTerminals(processingAccountId).body();
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of processing terminals associated with a processing account.
+     * <p><strong>Note:</strong> If you want to view the details of a specific processing terminal and you have its processingTerminalId, use our <a href="https://docs.payroc.com/api/schema/boarding/processing-terminals/retrieve">Retrieve Processing Terminal</a> method.</p>
+     * <p>To list the terminals for a processing account, you need its processingAccountId. If you don't have the processingAccountId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/list">List Merchant Platforms</a> method to search for a merchant platform and its processing accounts.</p>
+     * <p>Our gateway returns the following information for each processing terminal in the list:</p>
+     * <ul>
+     * <li>Status indicating whether the terminal is active or inactive.</li>
+     * <li>Configuration settings, including gateway settings and application settings.</li>
+     * <li>Features, receipt settings, and security settings.</li>
+     * <li>Devices that use the processing terminal's configuration.</li>
+     * </ul>
+     * <p>For each processing terminal, we also return its processingTerminalId, which you can use to perform follow-on actions.</p>
+     */
+    public PayrocPager<ProcessingTerminal> listProcessingTerminals(
+            String processingAccountId, RequestOptions requestOptions) {
+        return this.rawClient
+                .listProcessingTerminals(processingAccountId, requestOptions)
+                .body();
     }
 
     /**

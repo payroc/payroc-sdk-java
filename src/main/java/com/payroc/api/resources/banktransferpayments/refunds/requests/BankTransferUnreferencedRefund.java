@@ -85,7 +85,12 @@ public final class BankTransferUnreferencedRefund {
     }
 
     /**
-     * @return Object that contains information about how the merchant refunds the customer.
+     * @return Polymorphic object that contains payment details for the refund.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+     * <li><code>secureToken</code> - Secure token details</li>
+     * </ul>
      */
     @JsonProperty("refundMethod")
     public BankTransferUnreferencedRefundRefundMethod getRefundMethod() {
@@ -162,7 +167,12 @@ public final class BankTransferUnreferencedRefund {
 
     public interface RefundMethodStage {
         /**
-         * <p>Object that contains information about how the merchant refunds the customer.</p>
+         * <p>Polymorphic object that contains payment details for the refund.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * </ul>
          */
         _FinalStage refundMethod(@NotNull BankTransferUnreferencedRefundRefundMethod refundMethod);
     }
@@ -245,8 +255,18 @@ public final class BankTransferUnreferencedRefund {
         }
 
         /**
-         * <p>Object that contains information about how the merchant refunds the customer.</p>
-         * <p>Object that contains information about how the merchant refunds the customer.</p>
+         * <p>Polymorphic object that contains payment details for the refund.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * </ul>
+         * <p>Polymorphic object that contains payment details for the refund.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

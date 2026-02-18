@@ -40,7 +40,7 @@ public class AsyncRawApplePaySessionsClient {
     /**
      * Use this method to start an Apple Pay session for your merchant.
      * <p>In the response, we return the startSessionObject that you send to Apple when you retrieve the cardholder's encrypted payment details.</p>
-     * <p><strong>Note:</strong> For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/integrate/apple-pay">Apple Pay</a>.</p>
+     * <p><strong>Note:</strong> For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/take-payments/apple-pay">Apple Pay</a>.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<ApplePayResponseSession>> create(
             String processingTerminalId, ApplePaySessions request) {
@@ -50,16 +50,20 @@ public class AsyncRawApplePaySessionsClient {
     /**
      * Use this method to start an Apple Pay session for your merchant.
      * <p>In the response, we return the startSessionObject that you send to Apple when you retrieve the cardholder's encrypted payment details.</p>
-     * <p><strong>Note:</strong> For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/integrate/apple-pay">Apple Pay</a>.</p>
+     * <p><strong>Note:</strong> For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/take-payments/apple-pay">Apple Pay</a>.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<ApplePayResponseSession>> create(
             String processingTerminalId, ApplePaySessions request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
-                .addPathSegments("apple-pay-sessions")
-                .build();
+                .addPathSegments("apple-pay-sessions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -68,7 +72,7 @@ public class AsyncRawApplePaySessionsClient {
             throw new PayrocApiException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

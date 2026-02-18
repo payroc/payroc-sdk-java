@@ -68,7 +68,14 @@ public final class BinLookup {
     }
 
     /**
-     * @return Object that contains information about the card.
+     * @return Polymorphic object that contains payment details.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>card</code> - Payment card details</li>
+     * <li><code>cardBin</code> - Bank identification number (BIN) of the payment card</li>
+     * <li><code>secureToken</code> - Secure token details</li>
+     * <li><code>digitalWallet</code> - Digital wallet details</li>
+     * </ul>
      */
     @JsonProperty("card")
     public BinLookupCard getCard() {
@@ -109,7 +116,14 @@ public final class BinLookup {
 
     public interface CardStage {
         /**
-         * <p>Object that contains information about the card.</p>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>cardBin</code> - Bank identification number (BIN) of the payment card</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * <li><code>digitalWallet</code> - Digital wallet details</li>
+         * </ul>
          */
         _FinalStage card(@NotNull BinLookupCard card);
 
@@ -163,8 +177,22 @@ public final class BinLookup {
         }
 
         /**
-         * <p>Object that contains information about the card.</p>
-         * <p>Object that contains information about the card.</p>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>cardBin</code> - Bank identification number (BIN) of the payment card</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * <li><code>digitalWallet</code> - Digital wallet details</li>
+         * </ul>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>cardBin</code> - Bank identification number (BIN) of the payment card</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * <li><code>digitalWallet</code> - Digital wallet details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

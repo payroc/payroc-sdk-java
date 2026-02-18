@@ -20,14 +20,14 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = InstructionMerchantsItemRecipientsItemAmount.Builder.class)
 public final class InstructionMerchantsItemRecipientsItemAmount {
-    private final double value;
+    private final int value;
 
     private final Optional<InstructionMerchantsItemRecipientsItemAmountCurrency> currency;
 
     private final Map<String, Object> additionalProperties;
 
     private InstructionMerchantsItemRecipientsItemAmount(
-            double value,
+            int value,
             Optional<InstructionMerchantsItemRecipientsItemAmountCurrency> currency,
             Map<String, Object> additionalProperties) {
         this.value = value;
@@ -39,7 +39,7 @@ public final class InstructionMerchantsItemRecipientsItemAmount {
      * @return Amount of funds in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("value")
-    public double getValue() {
+    public int getValue() {
         return value;
     }
 
@@ -85,7 +85,7 @@ public final class InstructionMerchantsItemRecipientsItemAmount {
         /**
          * <p>Amount of funds in the currency's lowest denomination, for example, cents.</p>
          */
-        _FinalStage value(double value);
+        _FinalStage value(int value);
 
         Builder from(InstructionMerchantsItemRecipientsItemAmount other);
     }
@@ -103,7 +103,7 @@ public final class InstructionMerchantsItemRecipientsItemAmount {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ValueStage, _FinalStage {
-        private double value;
+        private int value;
 
         private Optional<InstructionMerchantsItemRecipientsItemAmountCurrency> currency = Optional.empty();
 
@@ -126,7 +126,7 @@ public final class InstructionMerchantsItemRecipientsItemAmount {
          */
         @java.lang.Override
         @JsonSetter("value")
-        public _FinalStage value(double value) {
+        public _FinalStage value(int value) {
             this.value = value;
             return this;
         }

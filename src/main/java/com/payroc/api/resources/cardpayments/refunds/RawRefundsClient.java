@@ -72,12 +72,16 @@ public class RawRefundsClient {
      */
     public PayrocApiHttpResponse<Payment> reverse(
             String paymentId, PaymentReversal request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("payments")
                 .addPathSegment(paymentId)
-                .addPathSegments("reverse")
-                .build();
+                .addPathSegments("reverse");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -86,7 +90,7 @@ public class RawRefundsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -175,12 +179,16 @@ public class RawRefundsClient {
      */
     public PayrocApiHttpResponse<Payment> createReferencedRefund(
             String paymentId, ReferencedRefund request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("payments")
                 .addPathSegment(paymentId)
-                .addPathSegments("refund")
-                .build();
+                .addPathSegments("refund");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -189,7 +197,7 @@ public class RawRefundsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -264,6 +272,22 @@ public class RawRefundsClient {
      */
     public PayrocApiHttpResponse<PayrocPager<RetrievedRefund>> list() {
         return list(ListRefundsRequest.builder().build());
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of refunds.
+     * <p><strong>Note:</strong> If you want to view the details of a specific refund and you have its refundId, use our <a href="https://docs.payroc.com/api/schema/card-payments/refunds/retrieve">Retrieve Refund</a> method.</p>
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for refunds for a customer, a tender type, or a date range.
+     * Our gateway returns the following information about each refund in the list:</p>
+     * <ul>
+     * <li>Order details, including the refund amount and when we processed the refund.</li>
+     * <li>Payment card details, including the masked card number, expiry date, and payment method.</li>
+     * <li>Cardholder details, including their contact information and shipping address.</li>
+     * </ul>
+     * <p>For referenced refunds, our gateway also returns details about the payment that the refund is linked to.</p>
+     */
+    public PayrocApiHttpResponse<PayrocPager<RetrievedRefund>> list(RequestOptions requestOptions) {
+        return list(ListRefundsRequest.builder().build(), requestOptions);
     }
 
     /**
@@ -362,6 +386,11 @@ public class RawRefundsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "status", request.getStatus().get(), true);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -440,10 +469,14 @@ public class RawRefundsClient {
      */
     public PayrocApiHttpResponse<RetrievedRefund> createUnreferencedRefund(
             UnreferencedRefund request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
-                .addPathSegments("refunds")
-                .build();
+                .addPathSegments("refunds");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -452,7 +485,7 @@ public class RawRefundsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -537,6 +570,22 @@ public class RawRefundsClient {
      * </ul>
      * <p>If the refund is a referenced refund, our gateway also returns details about the payment that the refund is linked to.</p>
      */
+    public PayrocApiHttpResponse<RetrievedRefund> retrieve(String refundId, RequestOptions requestOptions) {
+        return retrieve(refundId, RetrieveRefundsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a refund.
+     * <p>To retrieve a refund, you need its refundId. Our gateway returned the refundId in the response of the <a href="https://docs.payroc.com/api/schema/card-payments/refunds/create-referenced-refund">Refund Payment</a> method or the <a href="https://docs.payroc.com/api/schema/card-payments/refunds/create-unreferenced-refund">Create Refund</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the refundId, use our <a href="https://docs.payroc.com/api/schema/card-payments/refunds/list">List Refunds</a> method to search for the refund.</p>
+     * <p>Our gateway returns the following information about the refund:</p>
+     * <ul>
+     * <li>Order details, including the refund amount and when we processed the refund.</li>
+     * <li>Payment card details, including the masked card number, expiry date, and payment method.</li>
+     * <li>Cardholder details, including their contact information and shipping address.</li>
+     * </ul>
+     * <p>If the refund is a referenced refund, our gateway also returns details about the payment that the refund is linked to.</p>
+     */
     public PayrocApiHttpResponse<RetrievedRefund> retrieve(String refundId, RetrieveRefundsRequest request) {
         return retrieve(refundId, request, null);
     }
@@ -555,13 +604,17 @@ public class RawRefundsClient {
      */
     public PayrocApiHttpResponse<RetrievedRefund> retrieve(
             String refundId, RetrieveRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("refunds")
-                .addPathSegment(refundId)
-                .build();
+                .addPathSegment(refundId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -652,12 +705,16 @@ public class RawRefundsClient {
      */
     public PayrocApiHttpResponse<RetrievedRefund> adjust(
             String refundId, RefundAdjustment request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("refunds")
                 .addPathSegment(refundId)
-                .addPathSegments("adjust")
-                .build();
+                .addPathSegments("adjust");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -666,7 +723,7 @@ public class RawRefundsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -745,14 +802,18 @@ public class RawRefundsClient {
      */
     public PayrocApiHttpResponse<RetrievedRefund> reverseRefund(
             String refundId, ReverseRefundRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("refunds")
                 .addPathSegment(refundId)
-                .addPathSegments("reverse")
-                .build();
+                .addPathSegments("reverse");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

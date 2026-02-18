@@ -106,6 +106,11 @@ public class AsyncRawFundingInstructionsClient {
         }
         QueryStringMapper.addQueryParameter(httpUrl, "dateFrom", request.getDateFrom(), false);
         QueryStringMapper.addQueryParameter(httpUrl, "dateTo", request.getDateTo(), false);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -208,10 +213,14 @@ public class AsyncRawFundingInstructionsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<Instruction>> create(
             CreateFundingInstructionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
-                .addPathSegments("funding-instructions")
-                .build();
+                .addPathSegments("funding-instructions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -220,7 +229,7 @@ public class AsyncRawFundingInstructionsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -321,6 +330,22 @@ public class AsyncRawFundingInstructionsClient {
      * </ul>
      */
     public CompletableFuture<PayrocApiHttpResponse<Instruction>> retrieve(
+            int instructionId, RequestOptions requestOptions) {
+        return retrieve(
+                instructionId, RetrieveFundingInstructionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a funding instruction.
+     * <p>To retrieve a funding instruction, you need its instructionId. Our gateway returned the instructionId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-instructions/create">Create Funding Instruction</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the instructionId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-instructions/list">List Funding Instructions</a> method to search for the funding instruction.</p>
+     * <p>Our gateway returns the following information about the funding instruction:</p>
+     * <ul>
+     * <li>Status of the funding instruction.</li>
+     * <li>Funding information, including which merchant's funding balance we distribute and the funding account that we send the balance to.</li>
+     * </ul>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<Instruction>> retrieve(
             int instructionId, RetrieveFundingInstructionsRequest request) {
         return retrieve(instructionId, request, null);
     }
@@ -337,13 +362,17 @@ public class AsyncRawFundingInstructionsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<Instruction>> retrieve(
             int instructionId, RetrieveFundingInstructionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("funding-instructions")
-                .addPathSegment(Integer.toString(instructionId))
-                .build();
+                .addPathSegment(Integer.toString(instructionId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -451,11 +480,15 @@ public class AsyncRawFundingInstructionsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<Void>> update(
             int instructionId, UpdateFundingInstructionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("funding-instructions")
-                .addPathSegment(Integer.toString(instructionId))
-                .build();
+                .addPathSegment(Integer.toString(instructionId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -464,7 +497,7 @@ public class AsyncRawFundingInstructionsClient {
             throw new PayrocApiException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -552,6 +585,18 @@ public class AsyncRawFundingInstructionsClient {
      * <p>To delete a funding instruction, you need its instructionId. Our gateway returned the instructionId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-instructions/create">Create Funding Instruction</a> method.</p>
      * <p><strong>Note:</strong> If you don't have the instructionId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-instructions/list">List Funding Instructions</a> method to search for the funding instruction.</p>
      */
+    public CompletableFuture<PayrocApiHttpResponse<Void>> delete(int instructionId, RequestOptions requestOptions) {
+        return delete(instructionId, DeleteFundingInstructionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * <blockquote>
+     * <strong>Important:</strong> You can delete a funding instruction only if its status is <code>accepted</code>. To view the status of a funding instruction, use our <a href="https://docs.payroc.com/api/schema/funding/funding-instructions/retrieve">Retrieve Funding Instruction</a> method.
+     * </blockquote>
+     * <p>Use this method to delete a funding instruction.</p>
+     * <p>To delete a funding instruction, you need its instructionId. Our gateway returned the instructionId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-instructions/create">Create Funding Instruction</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the instructionId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-instructions/list">List Funding Instructions</a> method to search for the funding instruction.</p>
+     */
     public CompletableFuture<PayrocApiHttpResponse<Void>> delete(
             int instructionId, DeleteFundingInstructionsRequest request) {
         return delete(instructionId, request, null);
@@ -567,13 +612,17 @@ public class AsyncRawFundingInstructionsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<Void>> delete(
             int instructionId, DeleteFundingInstructionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("funding-instructions")
-                .addPathSegment(Integer.toString(instructionId))
-                .build();
+                .addPathSegment(Integer.toString(instructionId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

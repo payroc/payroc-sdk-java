@@ -68,6 +68,15 @@ public class RefundInstructionsClient {
      * <p>To retrieve a refund instruction, you need its refundInstructionId. Our gateway returned the refundInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/refund-instructions/submit">Submit Refund Instruction</a> method.</p>
      * <p>Our gateway returns the status of the refund instruction. If the payment device completed the refund instruction, the response also includes a link to the refund.</p>
      */
+    public RefundInstruction retrieve(String refundInstructionId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(refundInstructionId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to retrieve information about a refund instruction.
+     * <p>To retrieve a refund instruction, you need its refundInstructionId. Our gateway returned the refundInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/refund-instructions/submit">Submit Refund Instruction</a> method.</p>
+     * <p>Our gateway returns the status of the refund instruction. If the payment device completed the refund instruction, the response also includes a link to the refund.</p>
+     */
     public RefundInstruction retrieve(String refundInstructionId, RetrieveRefundInstructionsRequest request) {
         return this.rawClient.retrieve(refundInstructionId, request).body();
     }
@@ -91,6 +100,15 @@ public class RefundInstructionsClient {
      */
     public void delete(String refundInstructionId) {
         this.rawClient.delete(refundInstructionId).body();
+    }
+
+    /**
+     * Use this method to cancel a refund instruction.
+     * <p>You can cancel a refund instruction only if its status is <code>inProgress</code>. To retrieve the status of a refund instruction, use our <a href="https://docs.payroc.com/api/schema/payroc-cloud/refund-instructions/retrieve">Retrieve Refund Instruction</a> method.</p>
+     * <p>To cancel a refund instruction, you need its refundInstructionId. Our gateway returned the refundInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/refund-instructions/submit">Submit Refund Instruction</a> method.</p>
+     */
+    public void delete(String refundInstructionId, RequestOptions requestOptions) {
+        this.rawClient.delete(refundInstructionId, requestOptions).body();
     }
 
     /**

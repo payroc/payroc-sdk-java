@@ -70,6 +70,21 @@ public class AsyncRawFundingActivityClient {
      * </ul>
      */
     public CompletableFuture<PayrocApiHttpResponse<RetrieveBalanceFundingActivityResponse>> retrieveBalance(
+            RequestOptions requestOptions) {
+        return retrieveBalance(RetrieveBalanceFundingActivityRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of funding balances available for each merchant linked to your account.
+     * <p>Use query parameters to filter the list of results we return, for example, to search for the funding balance for a specific merchant.</p>
+     * <p>Our gateway returns the following information about each merchant in the list:</p>
+     * <ul>
+     * <li>Total funds for the merchant.</li>
+     * <li>Available funds that you can use for funding instructions.</li>
+     * <li>Pending funds that we have not yet sent to funding accounts.</li>
+     * </ul>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<RetrieveBalanceFundingActivityResponse>> retrieveBalance(
             RetrieveBalanceFundingActivityRequest request) {
         return retrieveBalance(request, null);
     }
@@ -104,6 +119,11 @@ public class AsyncRawFundingActivityClient {
         if (request.getMerchantId().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "merchantId", request.getMerchantId().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -224,6 +244,11 @@ public class AsyncRawFundingActivityClient {
         if (request.getMerchantId().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "merchantId", request.getMerchantId().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())

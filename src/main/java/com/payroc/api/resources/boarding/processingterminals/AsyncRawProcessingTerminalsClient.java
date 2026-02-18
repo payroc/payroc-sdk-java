@@ -77,6 +77,27 @@ public class AsyncRawProcessingTerminalsClient {
      * </ul>
      */
     public CompletableFuture<PayrocApiHttpResponse<ProcessingTerminal>> retrieve(
+            String processingTerminalId, RequestOptions requestOptions) {
+        return retrieve(
+                processingTerminalId,
+                RetrieveProcessingTerminalsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * <strong>Important:</strong> You can retrieve a processing terminal only if the terminal order was created using the Payroc API.
+     * <p>Use this method to retrieve information about a processing terminal.</p>
+     * <p>To retrieve a processing terminal, you need its processingTerminalId. Our gateway returned the processingTerminalId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/create-terminal-order">Create Terminal Order</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the processingTerminalId, use our <a href="https://docs.payroc.com/api/schema/boarding/terminal-orders/retrieve">Retrieve Terminal Order</a> method or our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/list-processing-terminals">List Processing Terminals</a> method to search for the processing terminal.</p>
+     * <p>Our gateway returns the following information about the processing terminal:</p>
+     * <ul>
+     * <li>Status indicating whether the terminal is active or inactive.</li>
+     * <li>Configuration settings, including gateway settings and application settings.</li>
+     * <li>Features, receipt settings, and security settings.</li>
+     * <li>Devices that use the processing terminal's configuration.</li>
+     * </ul>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<ProcessingTerminal>> retrieve(
             String processingTerminalId, RetrieveProcessingTerminalsRequest request) {
         return retrieve(processingTerminalId, request, null);
     }
@@ -96,13 +117,17 @@ public class AsyncRawProcessingTerminalsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<ProcessingTerminal>> retrieve(
             String processingTerminalId, RetrieveProcessingTerminalsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
-                .addPathSegment(processingTerminalId)
-                .build();
+                .addPathSegment(processingTerminalId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -192,6 +217,18 @@ public class AsyncRawProcessingTerminalsClient {
      * <p>Our gateway returns the configuration settings for the merchant and the payment terminal.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<HostConfiguration>> retrieveHostConfiguration(
+            String processingTerminalId, RequestOptions requestOptions) {
+        return retrieveHostConfiguration(
+                processingTerminalId,
+                RetrieveHostConfigurationProcessingTerminalsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve the host processor configuration of a processing terminal. Integrate with this method only if you use your own gateway and want to validate the processor configuration.
+     * <p>Our gateway returns the configuration settings for the merchant and the payment terminal.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<HostConfiguration>> retrieveHostConfiguration(
             String processingTerminalId, RetrieveHostConfigurationProcessingTerminalsRequest request) {
         return retrieveHostConfiguration(processingTerminalId, request, null);
     }
@@ -204,14 +241,18 @@ public class AsyncRawProcessingTerminalsClient {
             String processingTerminalId,
             RetrieveHostConfigurationProcessingTerminalsRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
-                .addPathSegments("host-configurations")
-                .build();
+                .addPathSegments("host-configurations");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

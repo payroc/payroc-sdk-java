@@ -69,12 +69,16 @@ public class RawSignatureInstructionsClient {
      */
     public PayrocApiHttpResponse<SignatureInstruction> submit(
             String serialNumber, SignatureInstructionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("devices")
                 .addPathSegment(serialNumber)
-                .addPathSegments("signature-instructions")
-                .build();
+                .addPathSegments("signature-instructions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -83,7 +87,7 @@ public class RawSignatureInstructionsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -161,6 +165,19 @@ public class RawSignatureInstructionsClient {
      * <p>Our gateway returns the status of the instruction. If the payment device completed the instruction, the response also includes a link to retrieve the signature.</p>
      */
     public PayrocApiHttpResponse<SignatureInstruction> retrieve(
+            String signatureInstructionId, RequestOptions requestOptions) {
+        return retrieve(
+                signatureInstructionId,
+                RetrieveSignatureInstructionsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a signature instruction.
+     * <p>To retrieve a signature instruction, you need its signatureInstructionId. Our gateway returned the signatureInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/signature-instructions/submit">Submit Signature Instruction</a> method.</p>
+     * <p>Our gateway returns the status of the instruction. If the payment device completed the instruction, the response also includes a link to retrieve the signature.</p>
+     */
+    public PayrocApiHttpResponse<SignatureInstruction> retrieve(
             String signatureInstructionId, RetrieveSignatureInstructionsRequest request) {
         return retrieve(signatureInstructionId, request, null);
     }
@@ -174,13 +191,17 @@ public class RawSignatureInstructionsClient {
             String signatureInstructionId,
             RetrieveSignatureInstructionsRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("signature-instructions")
-                .addPathSegment(signatureInstructionId)
-                .build();
+                .addPathSegment(signatureInstructionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -245,6 +266,17 @@ public class RawSignatureInstructionsClient {
      * Use this method to cancel a signature instruction.
      * <p>To cancel a signature instruction, you need its signatureInstructionId. Our gateway returned the signatureInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/signature-instructions/submit">Submit signature instruction</a> method.</p>
      */
+    public PayrocApiHttpResponse<Void> delete(String signatureInstructionId, RequestOptions requestOptions) {
+        return delete(
+                signatureInstructionId,
+                DeleteSignatureInstructionsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to cancel a signature instruction.
+     * <p>To cancel a signature instruction, you need its signatureInstructionId. Our gateway returned the signatureInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/signature-instructions/submit">Submit signature instruction</a> method.</p>
+     */
     public PayrocApiHttpResponse<Void> delete(
             String signatureInstructionId, DeleteSignatureInstructionsRequest request) {
         return delete(signatureInstructionId, request, null);
@@ -256,13 +288,17 @@ public class RawSignatureInstructionsClient {
      */
     public PayrocApiHttpResponse<Void> delete(
             String signatureInstructionId, DeleteSignatureInstructionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("signature-instructions")
-                .addPathSegment(signatureInstructionId)
-                .build();
+                .addPathSegment(signatureInstructionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

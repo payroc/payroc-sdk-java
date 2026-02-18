@@ -34,7 +34,7 @@ public final class PaymentSummary {
 
     private final PaymentSummaryResponseCode responseCode;
 
-    private final String responseMessage;
+    private final Optional<String> responseMessage;
 
     private final Optional<Link> link;
 
@@ -47,7 +47,7 @@ public final class PaymentSummary {
             long amount,
             PaymentSummaryStatus status,
             PaymentSummaryResponseCode responseCode,
-            String responseMessage,
+            Optional<String> responseMessage,
             Optional<Link> link,
             Map<String, Object> additionalProperties) {
         this.paymentId = paymentId;
@@ -118,7 +118,7 @@ public final class PaymentSummary {
      * @return Response description from the processor.
      */
     @JsonProperty("responseMessage")
-    public String getResponseMessage() {
+    public Optional<String> getResponseMessage() {
         return responseMessage;
     }
 
@@ -217,18 +217,18 @@ public final class PaymentSummary {
          * <li><code>C</code> - The issuer declined the transaction and indicated that the merchant should keep the card as it was reported lost or stolen.</li>
          * </ul>
          */
-        ResponseMessageStage responseCode(@NotNull PaymentSummaryResponseCode responseCode);
-    }
-
-    public interface ResponseMessageStage {
-        /**
-         * <p>Response description from the processor.</p>
-         */
-        _FinalStage responseMessage(@NotNull String responseMessage);
+        _FinalStage responseCode(@NotNull PaymentSummaryResponseCode responseCode);
     }
 
     public interface _FinalStage {
         PaymentSummary build();
+
+        /**
+         * <p>Response description from the processor.</p>
+         */
+        _FinalStage responseMessage(Optional<String> responseMessage);
+
+        _FinalStage responseMessage(String responseMessage);
 
         _FinalStage link(Optional<Link> link);
 
@@ -243,7 +243,6 @@ public final class PaymentSummary {
                     AmountStage,
                     StatusStage,
                     ResponseCodeStage,
-                    ResponseMessageStage,
                     _FinalStage {
         private String paymentId;
 
@@ -257,9 +256,9 @@ public final class PaymentSummary {
 
         private PaymentSummaryResponseCode responseCode;
 
-        private String responseMessage;
-
         private Optional<Link> link = Optional.empty();
+
+        private Optional<String> responseMessage = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -357,20 +356,8 @@ public final class PaymentSummary {
          */
         @java.lang.Override
         @JsonSetter("responseCode")
-        public ResponseMessageStage responseCode(@NotNull PaymentSummaryResponseCode responseCode) {
+        public _FinalStage responseCode(@NotNull PaymentSummaryResponseCode responseCode) {
             this.responseCode = Objects.requireNonNull(responseCode, "responseCode must not be null");
-            return this;
-        }
-
-        /**
-         * <p>Response description from the processor.</p>
-         * <p>Response description from the processor.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("responseMessage")
-        public _FinalStage responseMessage(@NotNull String responseMessage) {
-            this.responseMessage = Objects.requireNonNull(responseMessage, "responseMessage must not be null");
             return this;
         }
 
@@ -384,6 +371,26 @@ public final class PaymentSummary {
         @JsonSetter(value = "link", nulls = Nulls.SKIP)
         public _FinalStage link(Optional<Link> link) {
             this.link = link;
+            return this;
+        }
+
+        /**
+         * <p>Response description from the processor.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage responseMessage(String responseMessage) {
+            this.responseMessage = Optional.ofNullable(responseMessage);
+            return this;
+        }
+
+        /**
+         * <p>Response description from the processor.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "responseMessage", nulls = Nulls.SKIP)
+        public _FinalStage responseMessage(Optional<String> responseMessage) {
+            this.responseMessage = responseMessage;
             return this;
         }
 

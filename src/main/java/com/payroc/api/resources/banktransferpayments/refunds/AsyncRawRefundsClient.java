@@ -76,14 +76,18 @@ public class AsyncRawRefundsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<BankTransferPayment>> reversePayment(
             String paymentId, ReversePaymentRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("bank-transfer-payments")
                 .addPathSegment(paymentId)
-                .addPathSegments("reverse")
-                .build();
+                .addPathSegments("reverse");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -198,12 +202,16 @@ public class AsyncRawRefundsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<BankTransferPayment>> refund(
             String paymentId, BankTransferReferencedRefund request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("bank-transfer-payments")
                 .addPathSegment(paymentId)
-                .addPathSegments("refund")
-                .build();
+                .addPathSegments("refund");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -212,7 +220,7 @@ public class AsyncRawRefundsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -380,6 +388,11 @@ public class AsyncRawRefundsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "status", request.getStatus().get(), true);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -478,10 +491,14 @@ public class AsyncRawRefundsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<BankTransferRefund>> create(
             BankTransferUnreferencedRefund request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
-                .addPathSegments("bank-transfer-refunds")
-                .build();
+                .addPathSegments("bank-transfer-refunds");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -490,7 +507,7 @@ public class AsyncRawRefundsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -599,6 +616,22 @@ public class AsyncRawRefundsClient {
      * <p>If the refund is a referenced refund, our gateway also returns details about the payment that the refund is linked to.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<BankTransferRefund>> retrieve(
+            String refundId, RequestOptions requestOptions) {
+        return retrieve(refundId, RetrieveRefundsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a refund.
+     * <p>To retrieve a refund, you need its refundId. Our gateway returned the refundId in the response of the <a href="https://docs.payroc.com/api/schema/bank-transfer-payments/refunds/refund">Refund Payment</a> method or the <a href="https://docs.payroc.com/api/schema/bank-transfer-payments/refunds/create">Create Refund</a> method.</p>
+     * <p><strong>Note:</strong> If you don’t have the refundId, use our <a href="https://docs.payroc.com/api/schema/bank-transfer-payments/refunds/list">List Refunds</a> method to search for the refund.</p>
+     * <p>Our gateway returns the following information about the refund:</p>
+     * <ul>
+     * <li>Order details, including the refund amount and when it was processed.</li>
+     * <li>Bank account details, including the customer’s name and account number.</li>
+     * </ul>
+     * <p>If the refund is a referenced refund, our gateway also returns details about the payment that the refund is linked to.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<BankTransferRefund>> retrieve(
             String refundId, RetrieveRefundsRequest request) {
         return retrieve(refundId, request, null);
     }
@@ -616,13 +649,17 @@ public class AsyncRawRefundsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<BankTransferRefund>> retrieve(
             String refundId, RetrieveRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("bank-transfer-refunds")
-                .addPathSegment(refundId)
-                .build();
+                .addPathSegment(refundId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -715,14 +752,18 @@ public class AsyncRawRefundsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<BankTransferRefund>> reverseRefund(
             String refundId, ReverseRefundRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("bank-transfer-refunds")
                 .addPathSegment(refundId)
-                .addPathSegments("reverse")
-                .build();
+                .addPathSegments("reverse");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

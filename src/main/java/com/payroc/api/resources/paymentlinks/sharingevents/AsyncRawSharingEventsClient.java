@@ -80,6 +80,22 @@ public class AsyncRawSharingEventsClient {
      * </ul>
      */
     public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PaymentLinkEmailShareEvent>>>>
+            list(String paymentLinkId, RequestOptions requestOptions) {
+        return list(paymentLinkId, ListSharingEventsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of sharing events for a payment link. A sharing event occurs when a merchant shares a payment link with a customer.
+     * <p>To list the sharing events for a payment link, you need its paymentLinkId. Our gateway returned the paymentLinkId in the response of the <a href="https://docs.payroc.com/api/schema/payment-links/create">Create Payment Link</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the paymentLinkId, use our <a href="https://docs.payroc.com/api/schema/payment-links/list">List Payment Links</a> method to search for the payment link.</p>
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for links sent to a specific customer.</p>
+     * <p>Our gateway returns the following information for each sharing event in the list:</p>
+     * <ul>
+     * <li>Customer that the merchant sent the link to.</li>
+     * <li>Date that the merchant sent the link.</li>
+     * </ul>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PaymentLinkEmailShareEvent>>>>
             list(String paymentLinkId, ListSharingEventsRequest request) {
         return list(paymentLinkId, request, null);
     }
@@ -121,6 +137,11 @@ public class AsyncRawSharingEventsClient {
         if (request.getLimit().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "limit", request.getLimit().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -220,12 +241,16 @@ public class AsyncRawSharingEventsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<PaymentLinkEmailShareEvent>> share(
             String paymentLinkId, ShareSharingEventsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("payment-links")
                 .addPathSegment(paymentLinkId)
-                .addPathSegments("sharing-events")
-                .build();
+                .addPathSegments("sharing-events");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -234,7 +259,7 @@ public class AsyncRawSharingEventsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

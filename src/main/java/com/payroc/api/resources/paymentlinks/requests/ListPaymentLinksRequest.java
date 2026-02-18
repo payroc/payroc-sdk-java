@@ -84,7 +84,7 @@ public final class ListPaymentLinksRequest {
     }
 
     /**
-     * @return Filter results by the type of link. Send a value of &lt;code&gt;singleUse&lt;/code&gt; or &lt;code&gt;multiUse&lt;/code&gt;.
+     * @return Filter results by the type of link. Send a value of <code>singleUse</code> or <code>multiUse</code>.
      */
     @JsonProperty("linkType")
     public Optional<ListPaymentLinksRequestLinkType> getLinkType() {
@@ -94,8 +94,8 @@ public final class ListPaymentLinksRequest {
     /**
      * @return Filter results by the user that entered the amount. Send one of the following values:
      * <ul>
-     * <li>&lt;code&gt;prompt&lt;/code&gt; - Customer entered the amount.</li>
-     * <li>&lt;code&gt;preset&lt;/code&gt; - Merchant entered the amount.</li>
+     * <li><code>prompt</code> - Customer entered the amount.</li>
+     * <li><code>preset</code> - Merchant entered the amount.</li>
      * </ul>
      */
     @JsonProperty("chargeType")
@@ -104,7 +104,7 @@ public final class ListPaymentLinksRequest {
     }
 
     /**
-     * @return Filter results by the status of the payment link. Send a value of &lt;code&gt;active&lt;/code&gt;, &lt;code&gt;completed&lt;/code&gt;,&lt;code&gt;deactived&lt;/code&gt;, or &lt;code&gt;expired&lt;/code&gt;.
+     * @return Filter results by the status of the payment link. Send a value of <code>active</code>, <code>completed</code>,<code>deactived</code>, or <code>expired</code>.
      */
     @JsonProperty("status")
     public Optional<ListPaymentLinksRequestStatus> getStatus() {
@@ -278,7 +278,7 @@ public final class ListPaymentLinksRequest {
         }
 
         /**
-         * <p>Filter results by the type of link. Send a value of &lt;code&gt;singleUse&lt;/code&gt; or &lt;code&gt;multiUse&lt;/code&gt;.</p>
+         * <p>Filter results by the type of link. Send a value of <code>singleUse</code> or <code>multiUse</code>.</p>
          */
         @JsonSetter(value = "linkType", nulls = Nulls.SKIP)
         public Builder linkType(Optional<ListPaymentLinksRequestLinkType> linkType) {
@@ -294,8 +294,8 @@ public final class ListPaymentLinksRequest {
         /**
          * <p>Filter results by the user that entered the amount. Send one of the following values:</p>
          * <ul>
-         * <li>&lt;code&gt;prompt&lt;/code&gt; - Customer entered the amount.</li>
-         * <li>&lt;code&gt;preset&lt;/code&gt; - Merchant entered the amount.</li>
+         * <li><code>prompt</code> - Customer entered the amount.</li>
+         * <li><code>preset</code> - Merchant entered the amount.</li>
          * </ul>
          */
         @JsonSetter(value = "chargeType", nulls = Nulls.SKIP)
@@ -310,7 +310,7 @@ public final class ListPaymentLinksRequest {
         }
 
         /**
-         * <p>Filter results by the status of the payment link. Send a value of &lt;code&gt;active&lt;/code&gt;, &lt;code&gt;completed&lt;/code&gt;,&lt;code&gt;deactived&lt;/code&gt;, or &lt;code&gt;expired&lt;/code&gt;.</p>
+         * <p>Filter results by the status of the payment link. Send a value of <code>active</code>, <code>completed</code>,<code>deactived</code>, or <code>expired</code>.</p>
          */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<ListPaymentLinksRequestStatus> status) {

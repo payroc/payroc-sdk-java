@@ -75,12 +75,16 @@ public class AsyncRawRefundInstructionsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<RefundInstruction>> submit(
             String serialNumber, RefundInstructionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("devices")
                 .addPathSegment(serialNumber)
-                .addPathSegments("refund-instructions")
-                .build();
+                .addPathSegments("refund-instructions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -89,7 +93,7 @@ public class AsyncRawRefundInstructionsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -192,6 +196,17 @@ public class AsyncRawRefundInstructionsClient {
      * <p>Our gateway returns the status of the refund instruction. If the payment device completed the refund instruction, the response also includes a link to the refund.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<RefundInstruction>> retrieve(
+            String refundInstructionId, RequestOptions requestOptions) {
+        return retrieve(
+                refundInstructionId, RetrieveRefundInstructionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a refund instruction.
+     * <p>To retrieve a refund instruction, you need its refundInstructionId. Our gateway returned the refundInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/refund-instructions/submit">Submit Refund Instruction</a> method.</p>
+     * <p>Our gateway returns the status of the refund instruction. If the payment device completed the refund instruction, the response also includes a link to the refund.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<RefundInstruction>> retrieve(
             String refundInstructionId, RetrieveRefundInstructionsRequest request) {
         return retrieve(refundInstructionId, request, null);
     }
@@ -203,13 +218,17 @@ public class AsyncRawRefundInstructionsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<RefundInstruction>> retrieve(
             String refundInstructionId, RetrieveRefundInstructionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("refund-instructions")
-                .addPathSegment(refundInstructionId)
-                .build();
+                .addPathSegment(refundInstructionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -299,6 +318,17 @@ public class AsyncRawRefundInstructionsClient {
      * <p>To cancel a refund instruction, you need its refundInstructionId. Our gateway returned the refundInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/refund-instructions/submit">Submit Refund Instruction</a> method.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<Void>> delete(
+            String refundInstructionId, RequestOptions requestOptions) {
+        return delete(
+                refundInstructionId, DeleteRefundInstructionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to cancel a refund instruction.
+     * <p>You can cancel a refund instruction only if its status is <code>inProgress</code>. To retrieve the status of a refund instruction, use our <a href="https://docs.payroc.com/api/schema/payroc-cloud/refund-instructions/retrieve">Retrieve Refund Instruction</a> method.</p>
+     * <p>To cancel a refund instruction, you need its refundInstructionId. Our gateway returned the refundInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/refund-instructions/submit">Submit Refund Instruction</a> method.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<Void>> delete(
             String refundInstructionId, DeleteRefundInstructionsRequest request) {
         return delete(refundInstructionId, request, null);
     }
@@ -310,13 +340,17 @@ public class AsyncRawRefundInstructionsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<Void>> delete(
             String refundInstructionId, DeleteRefundInstructionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("refund-instructions")
-                .addPathSegment(refundInstructionId)
-                .build();
+                .addPathSegment(refundInstructionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

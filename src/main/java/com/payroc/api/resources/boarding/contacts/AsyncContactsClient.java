@@ -52,6 +52,20 @@ public class AsyncContactsClient {
      * <li>Role within the business, for example, if they are a manager.</li>
      * </ul>
      */
+    public CompletableFuture<Contact> retrieve(int contactId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(contactId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to retrieve details about a contact.
+     * <p>To retrieve a contact, you need its contactId. Our gateway returned the contactId in the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the contactId, use the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/list-contacts">List Contacts</a> method to search for the contact.</p>
+     * <p>Our gateway returns the following information about a contact:</p>
+     * <ul>
+     * <li>Name and contact method, including their phone number or mobile number.</li>
+     * <li>Role within the business, for example, if they are a manager.</li>
+     * </ul>
+     */
     public CompletableFuture<Contact> retrieve(int contactId, RetrieveContactsRequest request) {
         return this.rawClient.retrieve(contactId, request).thenApply(response -> response.body());
     }
@@ -110,6 +124,15 @@ public class AsyncContactsClient {
      */
     public CompletableFuture<Void> delete(int contactId) {
         return this.rawClient.delete(contactId).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to delete a contact associated with a processing account.
+     * <p>To delete a contact, you need their contactId. Our gateway returned the contactId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
+     * <p><strong>Note:</strong> If you don’t have the contactId, use our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/retrieve">Retrieve Processing Account</a> method or our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/list-contacts">List Contacts</a> method to search for the contact.</p>
+     */
+    public CompletableFuture<Void> delete(int contactId, RequestOptions requestOptions) {
+        return this.rawClient.delete(contactId, requestOptions).thenApply(response -> response.body());
     }
 
     /**

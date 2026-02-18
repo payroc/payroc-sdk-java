@@ -29,7 +29,7 @@ public class AsyncApplePaySessionsClient {
     /**
      * Use this method to start an Apple Pay session for your merchant.
      * <p>In the response, we return the startSessionObject that you send to Apple when you retrieve the cardholder's encrypted payment details.</p>
-     * <p><strong>Note:</strong> For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/integrate/apple-pay">Apple Pay</a>.</p>
+     * <p><strong>Note:</strong> For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/take-payments/apple-pay">Apple Pay</a>.</p>
      */
     public CompletableFuture<ApplePayResponseSession> create(String processingTerminalId, ApplePaySessions request) {
         return this.rawClient.create(processingTerminalId, request).thenApply(response -> response.body());
@@ -38,7 +38,7 @@ public class AsyncApplePaySessionsClient {
     /**
      * Use this method to start an Apple Pay session for your merchant.
      * <p>In the response, we return the startSessionObject that you send to Apple when you retrieve the cardholder's encrypted payment details.</p>
-     * <p><strong>Note:</strong> For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/integrate/apple-pay">Apple Pay</a>.</p>
+     * <p><strong>Note:</strong> For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/take-payments/apple-pay">Apple Pay</a>.</p>
      */
     public CompletableFuture<ApplePayResponseSession> create(
             String processingTerminalId, ApplePaySessions request, RequestOptions requestOptions) {

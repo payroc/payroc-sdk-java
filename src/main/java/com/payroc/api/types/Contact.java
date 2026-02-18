@@ -107,8 +107,15 @@ public final class Contact {
     }
 
     /**
-     * @return Array of contactMethod objects.
-     * <strong>Note:</strong> If you are adding information about an owner, you must provide at least an email address. If you are adding information about a contact, you must provide at least a contact number.
+     * @return Array of polymorphic objects, which contain contact information.
+     * <p><strong>Note:</strong> If you are adding information about an owner, you must provide at least an email address. If you are adding information about a contact, you must provide at least a contact number.</p>
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>email</code> - Email address</li>
+     * <li><code>phone</code> - Phone number</li>
+     * <li><code>mobile</code> - Mobile number</li>
+     * <li><code>fax</code> - Fax number</li>
+     * </ul>
      */
     @JsonProperty("contactMethods")
     public List<ContactMethod> getContactMethods() {
@@ -207,8 +214,15 @@ public final class Contact {
         _FinalStage addAllIdentifiers(List<Identifier> identifiers);
 
         /**
-         * <p>Array of contactMethod objects.
-         * <strong>Note:</strong> If you are adding information about an owner, you must provide at least an email address. If you are adding information about a contact, you must provide at least a contact number.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> If you are adding information about an owner, you must provide at least an email address. If you are adding information about a contact, you must provide at least a contact number.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          */
         _FinalStage contactMethods(List<ContactMethod> contactMethods);
 
@@ -287,8 +301,15 @@ public final class Contact {
         }
 
         /**
-         * <p>Array of contactMethod objects.
-         * <strong>Note:</strong> If you are adding information about an owner, you must provide at least an email address. If you are adding information about a contact, you must provide at least a contact number.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> If you are adding information about an owner, you must provide at least an email address. If you are adding information about a contact, you must provide at least a contact number.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -300,8 +321,15 @@ public final class Contact {
         }
 
         /**
-         * <p>Array of contactMethod objects.
-         * <strong>Note:</strong> If you are adding information about an owner, you must provide at least an email address. If you are adding information about a contact, you must provide at least a contact number.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> If you are adding information about an owner, you must provide at least an email address. If you are adding information about a contact, you must provide at least a contact number.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -311,8 +339,15 @@ public final class Contact {
         }
 
         /**
-         * <p>Array of contactMethod objects.
-         * <strong>Note:</strong> If you are adding information about an owner, you must provide at least an email address. If you are adding information about a contact, you must provide at least a contact number.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> If you are adding information about an owner, you must provide at least an email address. If you are adding information about a contact, you must provide at least a contact number.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "contactMethods", nulls = Nulls.SKIP)

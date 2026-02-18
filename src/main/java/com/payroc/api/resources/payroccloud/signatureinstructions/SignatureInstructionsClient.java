@@ -66,6 +66,15 @@ public class SignatureInstructionsClient {
      * <p>To retrieve a signature instruction, you need its signatureInstructionId. Our gateway returned the signatureInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/signature-instructions/submit">Submit Signature Instruction</a> method.</p>
      * <p>Our gateway returns the status of the instruction. If the payment device completed the instruction, the response also includes a link to retrieve the signature.</p>
      */
+    public SignatureInstruction retrieve(String signatureInstructionId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(signatureInstructionId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to retrieve information about a signature instruction.
+     * <p>To retrieve a signature instruction, you need its signatureInstructionId. Our gateway returned the signatureInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/signature-instructions/submit">Submit Signature Instruction</a> method.</p>
+     * <p>Our gateway returns the status of the instruction. If the payment device completed the instruction, the response also includes a link to retrieve the signature.</p>
+     */
     public SignatureInstruction retrieve(String signatureInstructionId, RetrieveSignatureInstructionsRequest request) {
         return this.rawClient.retrieve(signatureInstructionId, request).body();
     }
@@ -90,6 +99,14 @@ public class SignatureInstructionsClient {
      */
     public void delete(String signatureInstructionId) {
         this.rawClient.delete(signatureInstructionId).body();
+    }
+
+    /**
+     * Use this method to cancel a signature instruction.
+     * <p>To cancel a signature instruction, you need its signatureInstructionId. Our gateway returned the signatureInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/signature-instructions/submit">Submit signature instruction</a> method.</p>
+     */
+    public void delete(String signatureInstructionId, RequestOptions requestOptions) {
+        this.rawClient.delete(signatureInstructionId, requestOptions).body();
     }
 
     /**

@@ -95,6 +95,26 @@ public class AsyncRawPaymentLinksClient {
      */
     public CompletableFuture<
                     PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PaymentLinkPaginatedListDataItem>>>>
+            list(String processingTerminalId, RequestOptions requestOptions) {
+        return list(processingTerminalId, ListPaymentLinksRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of payment links linked to a processing terminal.
+     * <p><strong>Note:</strong> If you want to view the details of a specific payment link and you have its paymentLinkId, use our <a href="https://docs.payroc.com/api/schema/payment-links/retrieve">Retrieve Payment Link</a> method.</p>
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for only active links or multi-use links.</p>
+     * <p>Our gateway returns the following information about each payment link in the list:</p>
+     * <ul>
+     * <li><strong>type</strong> - Indicates whether the link can be used only once or if it can be used multiple times.</li>
+     * <li><strong>authType</strong> - Indicates whether the transaction is a sale or a pre-authorization.</li>
+     * <li><strong>paymentMethods</strong> - Indicates the payment method that the merchant accepts.</li>
+     * <li><strong>charge</strong> - Indicates whether the merchant or the customer enters the amount for the transaction.</li>
+     * <li><strong>status</strong> - Indicates if the payment link is active.</li>
+     * </ul>
+     * <p>For each payment link, we also return a paymentLinkId, which you can use for follow-on actions.</p>
+     */
+    public CompletableFuture<
+                    PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PaymentLinkPaginatedListDataItem>>>>
             list(String processingTerminalId, ListPaymentLinksRequest request) {
         return list(processingTerminalId, request, null);
     }
@@ -164,6 +184,11 @@ public class AsyncRawPaymentLinksClient {
         if (request.getLimit().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "limit", request.getLimit().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -273,12 +298,16 @@ public class AsyncRawPaymentLinksClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<CreatePaymentLinksResponse>> create(
             String processingTerminalId, CreatePaymentLinksRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
-                .addPathSegments("payment-links")
-                .build();
+                .addPathSegments("payment-links");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -287,7 +316,7 @@ public class AsyncRawPaymentLinksClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -406,6 +435,24 @@ public class AsyncRawPaymentLinksClient {
      * </ul>
      */
     public CompletableFuture<PayrocApiHttpResponse<RetrievePaymentLinksResponse>> retrieve(
+            String paymentLinkId, RequestOptions requestOptions) {
+        return retrieve(paymentLinkId, RetrievePaymentLinksRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a payment link.
+     * <p>To retrieve a payment link, you need its paymentLinkId. Our gateway returned the paymentLinkId in the response of the <a href="https://docs.payroc.com/api/schema/payment-links/create">Create Payment Link</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the paymentLinkId, use our <a href="https://docs.payroc.com/api/schema/payment-links/list">List Payment Links</a> method to search for the payment link.</p>
+     * <p>Our gateway returns the following information about the payment link:</p>
+     * <ul>
+     * <li><strong>type</strong> - Indicates whether the link can be used only once or if it can be used multiple times.</li>
+     * <li><strong>authType</strong> - Indicates whether the transaction is a sale or a pre-authorization.</li>
+     * <li><strong>paymentMethods</strong> - Indicates the payment method that the merchant accepts.</li>
+     * <li><strong>charge</strong> - Indicates whether the merchant or the customer enters the amount for the transaction.</li>
+     * <li><strong>status</strong> - Indicates if the payment link is active.</li>
+     * </ul>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<RetrievePaymentLinksResponse>> retrieve(
             String paymentLinkId, RetrievePaymentLinksRequest request) {
         return retrieve(paymentLinkId, request, null);
     }
@@ -425,13 +472,17 @@ public class AsyncRawPaymentLinksClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<RetrievePaymentLinksResponse>> retrieve(
             String paymentLinkId, RetrievePaymentLinksRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("payment-links")
-                .addPathSegment(paymentLinkId)
-                .build();
+                .addPathSegment(paymentLinkId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -557,11 +608,15 @@ public class AsyncRawPaymentLinksClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<PartiallyUpdatePaymentLinksResponse>> partiallyUpdate(
             String paymentLinkId, PartiallyUpdatePaymentLinksRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("payment-links")
-                .addPathSegment(paymentLinkId)
-                .build();
+                .addPathSegment(paymentLinkId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -570,7 +625,7 @@ public class AsyncRawPaymentLinksClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -676,6 +731,17 @@ public class AsyncRawPaymentLinksClient {
      * <p>If your request is successful, our gateway deactivates the payment link. The customer can't use the link to make a payment, and you can't reactivate the payment link.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<DeactivatePaymentLinksResponse>> deactivate(
+            String paymentLinkId, RequestOptions requestOptions) {
+        return deactivate(paymentLinkId, DeactivatePaymentLinksRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to deactivate a payment link.
+     * <p>To deactivate a payment link, you need its paymentLinkId. Our gateway returned the paymentLinkId in the response of the <a href="https://docs.payroc.com/api/schema/payment-links/create">Create Payment Link</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the paymentLinkId, use our <a href="https://docs.payroc.com/api/schema/payment-links/list">List Payment Links</a> method to search for the payment link.</p>
+     * <p>If your request is successful, our gateway deactivates the payment link. The customer can't use the link to make a payment, and you can't reactivate the payment link.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<DeactivatePaymentLinksResponse>> deactivate(
             String paymentLinkId, DeactivatePaymentLinksRequest request) {
         return deactivate(paymentLinkId, request, null);
     }
@@ -688,14 +754,18 @@ public class AsyncRawPaymentLinksClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<DeactivatePaymentLinksResponse>> deactivate(
             String paymentLinkId, DeactivatePaymentLinksRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("payment-links")
                 .addPathSegment(paymentLinkId)
-                .addPathSegments("deactivate")
-                .build();
+                .addPathSegments("deactivate");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

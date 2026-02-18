@@ -48,6 +48,19 @@ public class AsyncSignaturesClient {
      * <li>Date that the device captured the image</li>
      * </ul>
      */
+    public CompletableFuture<RetrieveSignaturesResponse> retrieve(String signatureId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(signatureId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to retrieve a signature that a payment device captured using Payroc Cloud.
+     * <p>Our gateway returns the following information about the signature:</p>
+     * <ul>
+     * <li>Image of the signature</li>
+     * <li>Format of the image</li>
+     * <li>Date that the device captured the image</li>
+     * </ul>
+     */
     public CompletableFuture<RetrieveSignaturesResponse> retrieve(
             String signatureId, RetrieveSignaturesRequest request) {
         return this.rawClient.retrieve(signatureId, request).thenApply(response -> response.body());

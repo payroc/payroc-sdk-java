@@ -45,10 +45,60 @@ java {
 }
 
 
+group = 'com.payroc'
+
+version = '0.0.3700'
+
+jar {
+    dependsOn(":generatePomFileForMavenPublication")
+    archiveBaseName = "payroc"
+}
+
+sourcesJar {
+    archiveBaseName = "payroc"
+}
+
+javadocJar {
+    archiveBaseName = "payroc"
+}
+
 test {
     useJUnitPlatform()
     testLogging {
         showStandardStreams = true
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.payroc'
+            artifactId = 'payroc'
+            version = '0.0.3700'
+            from components.java
+            pom {
+                licenses {
+                    license {
+                        name = 'The MIT License (MIT)'
+                        url = 'https://mit-license.org/'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/payroc/payroc-sdk-java.git'
+                    developerConnection = 'scm:git:git://github.com/payroc/payroc-sdk-java.git'
+                    url = 'https://github.com/payroc/payroc-sdk-java'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "$System.env.MAVEN_PUBLISH_REGISTRY_URL"
+            credentials {
+                username "$System.env.MAVEN_USERNAME"
+                password "$System.env.MAVEN_PASSWORD"
+            }
+        }
     }
 }
 

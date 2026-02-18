@@ -82,6 +82,23 @@ public class RawPaymentsClient {
      * </ul>
      * <p>For each transaction, we also return the paymentId and an optional secureTokenId, which you can use to perform follow-on actions.</p>
      */
+    public PayrocApiHttpResponse<PayrocPager<RetrievedPayment>> list(RequestOptions requestOptions) {
+        return list(ListPaymentsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of payments.
+     * <p><strong>Note:</strong> If you want to view the details of a specific payment and you have its paymentId, use our <a href="https://docs.payroc.com/api/schema/card-payments/payments/retrieve">Retrieve Payment</a> method.</p>
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for payments for a customer, a tip mode, or a date range.</p>
+     * <p>Our gateway returns the following information about each payment in the list:</p>
+     * <ul>
+     * <li>Order details, including the transaction amount and when it was processed.</li>
+     * <li>Payment card details, including the masked card number, expiry date, and payment method.</li>
+     * <li>Cardholder details, including their contact information and shipping address.</li>
+     * <li>Payment details, including the payment type, status, and response.</li>
+     * </ul>
+     * <p>For each transaction, we also return the paymentId and an optional secureTokenId, which you can use to perform follow-on actions.</p>
+     */
     public PayrocApiHttpResponse<PayrocPager<RetrievedPayment>> list(ListPaymentsRequest request) {
         return list(request, null);
     }
@@ -179,6 +196,11 @@ public class RawPaymentsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "status", request.getStatus().get(), true);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -242,17 +264,17 @@ public class RawPaymentsClient {
      * <p><strong>Payment methods</strong></p>
      * <ul>
      * <li><strong>Cards</strong> - Credit, debit, and EBT</li>
-     * <li><strong>Digital wallets</strong> - <a href="https://docs.payroc.com/guides/integrate/apple-pay">Apple Pay®</a> and <a href="https://docs.payroc.com/guides/integrate/google-pay">Google Pay®</a></li>
+     * <li><strong>Digital wallets</strong> - <a href="https://docs.payroc.com/guides/take-payments/apple-pay">Apple Pay®</a> and <a href="https://docs.payroc.com/guides/take-payments/google-pay">Google Pay®</a></li>
      * <li><strong>Tokens</strong> - Secure tokens and single-use tokens</li>
      * </ul>
      * <p><strong>Features</strong></p>
      * <p>Our Create Payment method also supports the following features:</p>
      * <ul>
-     * <li><a href="https://docs.payroc.com/guides/integrate/repeat-payments/use-your-own-software">Repeat payments</a> - Run multiple payments as part of a payment schedule that you manage with your own software.</li>
+     * <li><a href="https://docs.payroc.com/guides/take-payments/repeat-payments/use-your-own-software">Repeat payments</a> - Run multiple payments as part of a payment schedule that you manage with your own software.</li>
      * <li><strong>Offline sales</strong> - Run a sale or a pre-authorization if the terminal loses its connection to our gateway.</li>
-     * <li><a href="https://docs.payroc.com/guides/integrate/save-payment-details">Tokenization</a> - Save card details to use in future transactions.</li>
-     * <li><a href="https://docs.payroc.com/guides/integrate/3-d-secure">3-D Secure</a> - Verify the identity of the cardholder.</li>
-     * <li><a href="https://docs.payroc.com/guides/integrate/add-custom-fields">Custom fields</a> - Add your own data to a payment.</li>
+     * <li><a href="https://docs.payroc.com/guides/take-payments/save-payment-details">Tokenization</a> - Save card details to use in future transactions.</li>
+     * <li><a href="https://docs.payroc.com/guides/take-payments/3-d-secure">3-D Secure</a> - Verify the identity of the cardholder.</li>
+     * <li><a href="https://docs.payroc.com/guides/take-payments/add-custom-fields">Custom fields</a> - Add your own data to a payment.</li>
      * <li><strong>Tips</strong> - Add tips to the card payment.</li>
      * <li><strong>Taxes</strong> - Add local taxes to the card payment.</li>
      * <li><strong>Surcharging</strong> - Add a surcharge to the card payment.</li>
@@ -276,17 +298,17 @@ public class RawPaymentsClient {
      * <p><strong>Payment methods</strong></p>
      * <ul>
      * <li><strong>Cards</strong> - Credit, debit, and EBT</li>
-     * <li><strong>Digital wallets</strong> - <a href="https://docs.payroc.com/guides/integrate/apple-pay">Apple Pay®</a> and <a href="https://docs.payroc.com/guides/integrate/google-pay">Google Pay®</a></li>
+     * <li><strong>Digital wallets</strong> - <a href="https://docs.payroc.com/guides/take-payments/apple-pay">Apple Pay®</a> and <a href="https://docs.payroc.com/guides/take-payments/google-pay">Google Pay®</a></li>
      * <li><strong>Tokens</strong> - Secure tokens and single-use tokens</li>
      * </ul>
      * <p><strong>Features</strong></p>
      * <p>Our Create Payment method also supports the following features:</p>
      * <ul>
-     * <li><a href="https://docs.payroc.com/guides/integrate/repeat-payments/use-your-own-software">Repeat payments</a> - Run multiple payments as part of a payment schedule that you manage with your own software.</li>
+     * <li><a href="https://docs.payroc.com/guides/take-payments/repeat-payments/use-your-own-software">Repeat payments</a> - Run multiple payments as part of a payment schedule that you manage with your own software.</li>
      * <li><strong>Offline sales</strong> - Run a sale or a pre-authorization if the terminal loses its connection to our gateway.</li>
-     * <li><a href="https://docs.payroc.com/guides/integrate/save-payment-details">Tokenization</a> - Save card details to use in future transactions.</li>
-     * <li><a href="https://docs.payroc.com/guides/integrate/3-d-secure">3-D Secure</a> - Verify the identity of the cardholder.</li>
-     * <li><a href="https://docs.payroc.com/guides/integrate/add-custom-fields">Custom fields</a> - Add your own data to a payment.</li>
+     * <li><a href="https://docs.payroc.com/guides/take-payments/save-payment-details">Tokenization</a> - Save card details to use in future transactions.</li>
+     * <li><a href="https://docs.payroc.com/guides/take-payments/3-d-secure">3-D Secure</a> - Verify the identity of the cardholder.</li>
+     * <li><a href="https://docs.payroc.com/guides/take-payments/add-custom-fields">Custom fields</a> - Add your own data to a payment.</li>
      * <li><strong>Tips</strong> - Add tips to the card payment.</li>
      * <li><strong>Taxes</strong> - Add local taxes to the card payment.</li>
      * <li><strong>Surcharging</strong> - Add a surcharge to the card payment.</li>
@@ -294,10 +316,14 @@ public class RawPaymentsClient {
      * </ul>
      */
     public PayrocApiHttpResponse<Payment> create(PaymentRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
-                .addPathSegments("payments")
-                .build();
+                .addPathSegments("payments");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -306,7 +332,7 @@ public class RawPaymentsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -393,6 +419,23 @@ public class RawPaymentsClient {
      * </ul>
      * <p>If the merchant saved the customer's card details, our gateway returns a secureTokenID, which you can use to perform follow-on actions.</p>
      */
+    public PayrocApiHttpResponse<RetrievedPayment> retrieve(String paymentId, RequestOptions requestOptions) {
+        return retrieve(paymentId, RetrievePaymentsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a card payment.
+     * <p>To retrieve a payment, you need its paymentId. Our gateway returned the paymentId in the response of the <a href="https://docs.payroc.com/api/schema/card-payments/payments/create">Create Payment</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the paymentId, use our <a href="https://docs.payroc.com/api/schema/card-payments/payments/list">List Payments</a> method to search for the payment.</p>
+     * <p>Our gateway returns the following information about the payment:</p>
+     * <ul>
+     * <li>Order details, including the transaction amount and when it was processed.</li>
+     * <li>Payment card details, including the masked card number, expiry date, and payment method.</li>
+     * <li>Cardholder details, including their contact information and shipping address.</li>
+     * <li>Payment details, including the payment type, status, and response.</li>
+     * </ul>
+     * <p>If the merchant saved the customer's card details, our gateway returns a secureTokenID, which you can use to perform follow-on actions.</p>
+     */
     public PayrocApiHttpResponse<RetrievedPayment> retrieve(String paymentId, RetrievePaymentsRequest request) {
         return retrieve(paymentId, request, null);
     }
@@ -412,13 +455,17 @@ public class RawPaymentsClient {
      */
     public PayrocApiHttpResponse<RetrievedPayment> retrieve(
             String paymentId, RetrievePaymentsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("payments")
-                .addPathSegment(paymentId)
-                .build();
+                .addPathSegment(paymentId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -501,12 +548,16 @@ public class RawPaymentsClient {
      */
     public PayrocApiHttpResponse<Payment> adjust(
             String paymentId, PaymentAdjustment request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("payments")
                 .addPathSegment(paymentId)
-                .addPathSegments("adjust")
-                .build();
+                .addPathSegments("adjust");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -515,7 +566,7 @@ public class RawPaymentsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -608,12 +659,16 @@ public class RawPaymentsClient {
      */
     public PayrocApiHttpResponse<Payment> capture(
             String paymentId, PaymentCapture request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("payments")
                 .addPathSegment(paymentId)
-                .addPathSegments("capture")
-                .build();
+                .addPathSegments("capture");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -622,7 +677,7 @@ public class RawPaymentsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

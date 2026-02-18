@@ -30,13 +30,13 @@ public final class Batch {
 
     private final Optional<LocalDate> lastModifiedDate;
 
-    private final Optional<Integer> saleAmount;
+    private final Optional<Long> saleAmount;
 
-    private final Optional<Integer> heldAmount;
+    private final Optional<Long> heldAmount;
 
-    private final Optional<Integer> returnAmount;
+    private final Optional<Long> returnAmount;
 
-    private final Optional<Integer> transactionCount;
+    private final Optional<Long> transactionCount;
 
     private final Optional<String> currency;
 
@@ -51,10 +51,10 @@ public final class Batch {
             Optional<LocalDate> date,
             Optional<LocalDate> createdDate,
             Optional<LocalDate> lastModifiedDate,
-            Optional<Integer> saleAmount,
-            Optional<Integer> heldAmount,
-            Optional<Integer> returnAmount,
-            Optional<Integer> transactionCount,
+            Optional<Long> saleAmount,
+            Optional<Long> heldAmount,
+            Optional<Long> returnAmount,
+            Optional<Long> transactionCount,
             Optional<String> currency,
             Optional<MerchantSummary> merchant,
             Optional<List<Link>> links,
@@ -109,7 +109,7 @@ public final class Batch {
      * @return Total value of sales in the batch. We return the value in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("saleAmount")
-    public Optional<Integer> getSaleAmount() {
+    public Optional<Long> getSaleAmount() {
         return saleAmount;
     }
 
@@ -117,7 +117,7 @@ public final class Batch {
      * @return Total value of authorizations in the batch. We return the value in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("heldAmount")
-    public Optional<Integer> getHeldAmount() {
+    public Optional<Long> getHeldAmount() {
         return heldAmount;
     }
 
@@ -125,7 +125,7 @@ public final class Batch {
      * @return Total value of returns in the batch. We return the value in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("returnAmount")
-    public Optional<Integer> getReturnAmount() {
+    public Optional<Long> getReturnAmount() {
         return returnAmount;
     }
 
@@ -133,7 +133,7 @@ public final class Batch {
      * @return Total number of transactions in the batch.
      */
     @JsonProperty("transactionCount")
-    public Optional<Integer> getTransactionCount() {
+    public Optional<Long> getTransactionCount() {
         return transactionCount;
     }
 
@@ -215,13 +215,13 @@ public final class Batch {
 
         private Optional<LocalDate> lastModifiedDate = Optional.empty();
 
-        private Optional<Integer> saleAmount = Optional.empty();
+        private Optional<Long> saleAmount = Optional.empty();
 
-        private Optional<Integer> heldAmount = Optional.empty();
+        private Optional<Long> heldAmount = Optional.empty();
 
-        private Optional<Integer> returnAmount = Optional.empty();
+        private Optional<Long> returnAmount = Optional.empty();
 
-        private Optional<Integer> transactionCount = Optional.empty();
+        private Optional<Long> transactionCount = Optional.empty();
 
         private Optional<String> currency = Optional.empty();
 
@@ -309,12 +309,12 @@ public final class Batch {
          * <p>Total value of sales in the batch. We return the value in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "saleAmount", nulls = Nulls.SKIP)
-        public Builder saleAmount(Optional<Integer> saleAmount) {
+        public Builder saleAmount(Optional<Long> saleAmount) {
             this.saleAmount = saleAmount;
             return this;
         }
 
-        public Builder saleAmount(Integer saleAmount) {
+        public Builder saleAmount(Long saleAmount) {
             this.saleAmount = Optional.ofNullable(saleAmount);
             return this;
         }
@@ -323,12 +323,12 @@ public final class Batch {
          * <p>Total value of authorizations in the batch. We return the value in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "heldAmount", nulls = Nulls.SKIP)
-        public Builder heldAmount(Optional<Integer> heldAmount) {
+        public Builder heldAmount(Optional<Long> heldAmount) {
             this.heldAmount = heldAmount;
             return this;
         }
 
-        public Builder heldAmount(Integer heldAmount) {
+        public Builder heldAmount(Long heldAmount) {
             this.heldAmount = Optional.ofNullable(heldAmount);
             return this;
         }
@@ -337,12 +337,12 @@ public final class Batch {
          * <p>Total value of returns in the batch. We return the value in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "returnAmount", nulls = Nulls.SKIP)
-        public Builder returnAmount(Optional<Integer> returnAmount) {
+        public Builder returnAmount(Optional<Long> returnAmount) {
             this.returnAmount = returnAmount;
             return this;
         }
 
-        public Builder returnAmount(Integer returnAmount) {
+        public Builder returnAmount(Long returnAmount) {
             this.returnAmount = Optional.ofNullable(returnAmount);
             return this;
         }
@@ -351,12 +351,12 @@ public final class Batch {
          * <p>Total number of transactions in the batch.</p>
          */
         @JsonSetter(value = "transactionCount", nulls = Nulls.SKIP)
-        public Builder transactionCount(Optional<Integer> transactionCount) {
+        public Builder transactionCount(Optional<Long> transactionCount) {
             this.transactionCount = transactionCount;
             return this;
         }
 
-        public Builder transactionCount(Integer transactionCount) {
+        public Builder transactionCount(Long transactionCount) {
             this.transactionCount = Optional.ofNullable(transactionCount);
             return this;
         }

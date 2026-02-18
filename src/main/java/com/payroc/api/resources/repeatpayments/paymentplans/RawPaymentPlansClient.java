@@ -80,6 +80,23 @@ public class RawPaymentPlansClient {
      * <p>For each payment plan, we return the paymentPlanId, which you can use to perform follow-on actions.</p>
      */
     public PayrocApiHttpResponse<PayrocPager<PaymentPlan>> list(
+            String processingTerminalId, RequestOptions requestOptions) {
+        return list(processingTerminalId, ListPaymentPlansRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of payment plans for a processing terminal.
+     * <p><strong>Note:</strong> If you want to view the details of a specific payment plan and you have its paymentPlanId, use our <a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/retrieve">Retrieve Payment Plan</a> method.</p>
+     * <p>Our gateway returns the following information about each payment plan in the list:</p>
+     * <ul>
+     * <li>Name, length, and currency of the plan</li>
+     * <li>How often our gateway collects each payment</li>
+     * <li>How much our gateway collects for each payment</li>
+     * <li>What happens if the merchant updates or deletes the plan</li>
+     * </ul>
+     * <p>For each payment plan, we return the paymentPlanId, which you can use to perform follow-on actions.</p>
+     */
+    public PayrocApiHttpResponse<PayrocPager<PaymentPlan>> list(
             String processingTerminalId, ListPaymentPlansRequest request) {
         return list(processingTerminalId, request, null);
     }
@@ -114,6 +131,11 @@ public class RawPaymentPlansClient {
         if (request.getLimit().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "limit", request.getLimit().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -167,7 +189,7 @@ public class RawPaymentPlansClient {
 
     /**
      * Use this method to create a payment schedule that you can assign customers to.
-     * <p><strong>Note:</strong> This method is part of our Repeat Payments feature. To help you understand how this method works with our Subscriptions endpoints, go to <a href="https://docs.payroc.com/guides/integrate/repeat-payments">Repeat Payments</a>.</p>
+     * <p><strong>Note:</strong> This method is part of our Repeat Payments feature. To help you understand how this method works with our Subscriptions endpoints, go to <a href="https://docs.payroc.com/guides/take-payments/repeat-payments">Repeat Payments</a>.</p>
      * <p>When you create a payment plan you need to provide a unique paymentPlanId that you use to run follow-on actions:</p>
      * <ul>
      * <li><a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/retrieve">Retrieve Payment Plan</a>  - View the details of the payment plan.</li>
@@ -189,7 +211,7 @@ public class RawPaymentPlansClient {
 
     /**
      * Use this method to create a payment schedule that you can assign customers to.
-     * <p><strong>Note:</strong> This method is part of our Repeat Payments feature. To help you understand how this method works with our Subscriptions endpoints, go to <a href="https://docs.payroc.com/guides/integrate/repeat-payments">Repeat Payments</a>.</p>
+     * <p><strong>Note:</strong> This method is part of our Repeat Payments feature. To help you understand how this method works with our Subscriptions endpoints, go to <a href="https://docs.payroc.com/guides/take-payments/repeat-payments">Repeat Payments</a>.</p>
      * <p>When you create a payment plan you need to provide a unique paymentPlanId that you use to run follow-on actions:</p>
      * <ul>
      * <li><a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/retrieve">Retrieve Payment Plan</a>  - View the details of the payment plan.</li>
@@ -207,12 +229,16 @@ public class RawPaymentPlansClient {
      */
     public PayrocApiHttpResponse<PaymentPlan> create(
             String processingTerminalId, CreatePaymentPlansRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
-                .addPathSegments("payment-plans")
-                .build();
+                .addPathSegments("payment-plans");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -221,7 +247,7 @@ public class RawPaymentPlansClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -310,6 +336,27 @@ public class RawPaymentPlansClient {
      * </ul>
      */
     public PayrocApiHttpResponse<PaymentPlan> retrieve(
+            String processingTerminalId, String paymentPlanId, RequestOptions requestOptions) {
+        return retrieve(
+                processingTerminalId,
+                paymentPlanId,
+                RetrievePaymentPlansRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a payment plan.
+     * <p>To retrieve a payment plan, you need its paymentPlanId. Our gateway returned the paymentPlanId in the response of the <a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/create">Create Payment Plan</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the paymentPlanId, use our <a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/list">List Payment Plans</a> method to search for the payment plan.</p>
+     * <p>Our gateway returns the following information about the payment plan:</p>
+     * <ul>
+     * <li>Name, length, and currency of the plan</li>
+     * <li>How often our gateway collects each payment</li>
+     * <li>How much our gateway collects for each payment</li>
+     * <li>What happens if the merchant updates or deletes the plan</li>
+     * </ul>
+     */
+    public PayrocApiHttpResponse<PaymentPlan> retrieve(
             String processingTerminalId, String paymentPlanId, RetrievePaymentPlansRequest request) {
         return retrieve(processingTerminalId, paymentPlanId, request, null);
     }
@@ -331,15 +378,19 @@ public class RawPaymentPlansClient {
             String paymentPlanId,
             RetrievePaymentPlansRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
                 .addPathSegments("payment-plans")
-                .addPathSegment(paymentPlanId)
-                .build();
+                .addPathSegment(paymentPlanId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -424,6 +475,28 @@ public class RawPaymentPlansClient {
      * </ul>
      */
     public PayrocApiHttpResponse<Void> delete(
+            String processingTerminalId, String paymentPlanId, RequestOptions requestOptions) {
+        return delete(
+                processingTerminalId,
+                paymentPlanId,
+                DeletePaymentPlansRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to delete a payment plan.
+     * <blockquote>
+     * <p><strong>Important:</strong> When you delete a payment plan, you can’t recover it. You also won’t be able to add subscriptions to the payment plan.</p>
+     * </blockquote>
+     * <p>To delete a payment plan, you need its paymentPlanId, which you sent in the request of the <a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/create">Create Payment Plan</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the paymentPlanId, use our <a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/list">List Payment Plans</a> method to search for the payment plan.</p>
+     * <p>The value you sent for the onDelete parameter when you created the payment plan indicates what happens to associated subscriptions when you delete the plan:</p>
+     * <ul>
+     * <li><code>complete</code> - Our gateway stops taking payments for the subscriptions associated with the payment plan.</li>
+     * <li><code>continue</code> - Our gateway continues to take payments for the subscriptions associated with the payment plan. To stop a subscription for a cancelled payment plan, go to the <a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/deactivate">Deactivate Subscription</a> method.</li>
+     * </ul>
+     */
+    public PayrocApiHttpResponse<Void> delete(
             String processingTerminalId, String paymentPlanId, DeletePaymentPlansRequest request) {
         return delete(processingTerminalId, paymentPlanId, request, null);
     }
@@ -446,15 +519,19 @@ public class RawPaymentPlansClient {
             String paymentPlanId,
             DeletePaymentPlansRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
                 .addPathSegments("payment-plans")
-                .addPathSegment(paymentPlanId)
-                .build();
+                .addPathSegment(paymentPlanId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -532,13 +609,17 @@ public class RawPaymentPlansClient {
             String paymentPlanId,
             PartiallyUpdatePaymentPlansRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
                 .addPathSegments("payment-plans")
-                .addPathSegment(paymentPlanId)
-                .build();
+                .addPathSegment(paymentPlanId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -547,7 +628,7 @@ public class RawPaymentPlansClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

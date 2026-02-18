@@ -84,6 +84,24 @@ public class AsyncRawEventSubscriptionsClient {
      * <p>For each event subscription, we also return its id, which you can use to perform follow-on actions.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<EventSubscription>>>> list(
+            RequestOptions requestOptions) {
+        return list(ListEventSubscriptionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of event subscriptions that are linked to your ISV account.
+     * <p><strong>Note:</strong> If you want to view the details of a specific event subscription and you have its id, use our <a href="https://docs.payroc.com/api/schema/notifications/event-subscriptions/retrieve">Retrieve Event Subscription</a> method.</p>
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for subscriptions with a specific status or an event type.</p>
+     * <p>Our gateway returns the following information about each subscription in the list:</p>
+     * <ul>
+     * <li>Event types that you have subscribed to.</li>
+     * <li>Whether you have enabled notifications for the subscription.</li>
+     * <li>How we contact you when an event occurs, including the endpoint that send notifications to.</li>
+     * <li>If there are any issues when we try to send you a notification, for example, if we can't contact your endpoint.</li>
+     * </ul>
+     * <p>For each event subscription, we also return its id, which you can use to perform follow-on actions.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<EventSubscription>>>> list(
             ListEventSubscriptionsRequest request) {
         return list(request, null);
     }
@@ -113,6 +131,11 @@ public class AsyncRawEventSubscriptionsClient {
         if (request.getEvent().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "event", request.getEvent().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -197,10 +220,14 @@ public class AsyncRawEventSubscriptionsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<EventSubscription>> create(
             CreateEventSubscriptionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
-                .addPathSegments("event-subscriptions")
-                .build();
+                .addPathSegments("event-subscriptions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -209,7 +236,7 @@ public class AsyncRawEventSubscriptionsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -288,7 +315,7 @@ public class AsyncRawEventSubscriptionsClient {
     /**
      * Use this method to retrieve the details of an event subscription.
      * <p>In your request, include the subscriptionId that we sent to you when we created the event subscription.</p>
-     * <p><strong>Note:</strong> If you don't know the subscriptionId of the event subscription, go to <a href="#listEventSubscriptions">List event subscriptions</a>.</p>
+     * <p><strong>Note:</strong> If you don't know the subscriptionId of the event subscription, go to <a href="https://docs.payroc.com/api/schema/notifications/event-subscriptions/list">List event subscriptions</a>.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<EventSubscription>> retrieve(int subscriptionId) {
         return retrieve(
@@ -298,7 +325,18 @@ public class AsyncRawEventSubscriptionsClient {
     /**
      * Use this method to retrieve the details of an event subscription.
      * <p>In your request, include the subscriptionId that we sent to you when we created the event subscription.</p>
-     * <p><strong>Note:</strong> If you don't know the subscriptionId of the event subscription, go to <a href="#listEventSubscriptions">List event subscriptions</a>.</p>
+     * <p><strong>Note:</strong> If you don't know the subscriptionId of the event subscription, go to <a href="https://docs.payroc.com/api/schema/notifications/event-subscriptions/list">List event subscriptions</a>.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<EventSubscription>> retrieve(
+            int subscriptionId, RequestOptions requestOptions) {
+        return retrieve(
+                subscriptionId, RetrieveEventSubscriptionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve the details of an event subscription.
+     * <p>In your request, include the subscriptionId that we sent to you when we created the event subscription.</p>
+     * <p><strong>Note:</strong> If you don't know the subscriptionId of the event subscription, go to <a href="https://docs.payroc.com/api/schema/notifications/event-subscriptions/list">List event subscriptions</a>.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<EventSubscription>> retrieve(
             int subscriptionId, RetrieveEventSubscriptionsRequest request) {
@@ -308,17 +346,21 @@ public class AsyncRawEventSubscriptionsClient {
     /**
      * Use this method to retrieve the details of an event subscription.
      * <p>In your request, include the subscriptionId that we sent to you when we created the event subscription.</p>
-     * <p><strong>Note:</strong> If you don't know the subscriptionId of the event subscription, go to <a href="#listEventSubscriptions">List event subscriptions</a>.</p>
+     * <p><strong>Note:</strong> If you don't know the subscriptionId of the event subscription, go to <a href="https://docs.payroc.com/api/schema/notifications/event-subscriptions/list">List event subscriptions</a>.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<EventSubscription>> retrieve(
             int subscriptionId, RetrieveEventSubscriptionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("event-subscriptions")
-                .addPathSegment(Integer.toString(subscriptionId))
-                .build();
+                .addPathSegment(Integer.toString(subscriptionId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -411,11 +453,15 @@ public class AsyncRawEventSubscriptionsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<Void>> update(
             int subscriptionId, UpdateEventSubscriptionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("event-subscriptions")
-                .addPathSegment(Integer.toString(subscriptionId))
-                .build();
+                .addPathSegment(Integer.toString(subscriptionId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -424,7 +470,7 @@ public class AsyncRawEventSubscriptionsClient {
             throw new PayrocApiException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -512,6 +558,18 @@ public class AsyncRawEventSubscriptionsClient {
      * <p>To delete an event subscription, you need its subscriptionId. Our gateway returned the subscriptionId in the response of the <a href="https://docs.payroc.com/api/schema/notifications/event-subscriptions/create">Create Event Subscription</a> method.</p>
      * <p>If you want to stop receiving event notifications but don't want to delete the event subscription, use our <a href="https://docs.payroc.com/api/schema/notifications/event-subscriptions/update">Update Event Subscription</a> method to deactivate it.</p>
      */
+    public CompletableFuture<PayrocApiHttpResponse<Void>> delete(int subscriptionId, RequestOptions requestOptions) {
+        return delete(subscriptionId, DeleteEventSubscriptionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to delete an event subscription.
+     * <blockquote>
+     * <p><strong>Important:</strong> After you delete an event subscription, you can’t recover it. You won't receive event notifications from the event subscription.</p>
+     * </blockquote>
+     * <p>To delete an event subscription, you need its subscriptionId. Our gateway returned the subscriptionId in the response of the <a href="https://docs.payroc.com/api/schema/notifications/event-subscriptions/create">Create Event Subscription</a> method.</p>
+     * <p>If you want to stop receiving event notifications but don't want to delete the event subscription, use our <a href="https://docs.payroc.com/api/schema/notifications/event-subscriptions/update">Update Event Subscription</a> method to deactivate it.</p>
+     */
     public CompletableFuture<PayrocApiHttpResponse<Void>> delete(
             int subscriptionId, DeleteEventSubscriptionsRequest request) {
         return delete(subscriptionId, request, null);
@@ -527,13 +585,17 @@ public class AsyncRawEventSubscriptionsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<Void>> delete(
             int subscriptionId, DeleteEventSubscriptionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("event-subscriptions")
-                .addPathSegment(Integer.toString(subscriptionId))
-                .build();
+                .addPathSegment(Integer.toString(subscriptionId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -624,11 +686,15 @@ public class AsyncRawEventSubscriptionsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<EventSubscription>> partiallyUpdate(
             int subscriptionId, PartiallyUpdateEventSubscriptionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("event-subscriptions")
-                .addPathSegment(Integer.toString(subscriptionId))
-                .build();
+                .addPathSegment(Integer.toString(subscriptionId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -637,7 +703,7 @@ public class AsyncRawEventSubscriptionsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

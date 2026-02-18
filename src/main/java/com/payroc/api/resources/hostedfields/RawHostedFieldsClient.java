@@ -46,7 +46,7 @@ public class RawHostedFieldsClient {
      * Use this method to create a Hosted Fields session token. You need to generate a new session token each time you load Hosted Fields on a webpage.
      * <p>In your request, you need to indicate whether the merchant is using Hosted Fields to run a sale, save payment details, or update saved payment details.</p>
      * <p>In the response, our gateway returns the session token and the time that it expires. You need the session token when you configure the JavaScript for Hosted Fields.</p>
-     * <p>For more information about adding Hosted Fields to a webpage, go to <a href="https://docs.payroc.com/guides/integrate/hosted-fields">Hosted Fields</a>.</p>
+     * <p>For more information about adding Hosted Fields to a webpage, go to <a href="https://docs.payroc.com/guides/take-payments/hosted-fields">Hosted Fields</a>.</p>
      */
     public PayrocApiHttpResponse<HostedFieldsCreateSessionResponse> create(
             String processingTerminalId, HostedFieldsCreateSessionRequest request) {
@@ -57,16 +57,20 @@ public class RawHostedFieldsClient {
      * Use this method to create a Hosted Fields session token. You need to generate a new session token each time you load Hosted Fields on a webpage.
      * <p>In your request, you need to indicate whether the merchant is using Hosted Fields to run a sale, save payment details, or update saved payment details.</p>
      * <p>In the response, our gateway returns the session token and the time that it expires. You need the session token when you configure the JavaScript for Hosted Fields.</p>
-     * <p>For more information about adding Hosted Fields to a webpage, go to <a href="https://docs.payroc.com/guides/integrate/hosted-fields">Hosted Fields</a>.</p>
+     * <p>For more information about adding Hosted Fields to a webpage, go to <a href="https://docs.payroc.com/guides/take-payments/hosted-fields">Hosted Fields</a>.</p>
      */
     public PayrocApiHttpResponse<HostedFieldsCreateSessionResponse> create(
             String processingTerminalId, HostedFieldsCreateSessionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
-                .addPathSegments("hosted-fields-sessions")
-                .build();
+                .addPathSegments("hosted-fields-sessions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -75,7 +79,7 @@ public class RawHostedFieldsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

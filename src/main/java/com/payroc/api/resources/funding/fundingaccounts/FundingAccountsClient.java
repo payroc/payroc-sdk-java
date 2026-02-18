@@ -55,6 +55,21 @@ public class FundingAccountsClient {
      * </ul>
      * <p>For each funding account, we also return the fundingAccountId, which you can use to perform follow-on actions.</p>
      */
+    public PayrocPager<FundingAccount> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of funding accounts associated with your account.
+     * <p><strong>Note:</strong> If you want to view the details of a specific funding account and you have its fundingAccountId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-accounts/retrieve">Retrieve Funding Account</a> method.</p>
+     * <p>Our gateway returns the following information about each funding account in the list:</p>
+     * <ul>
+     * <li>Name of the account holder and ACH details for the account.</li>
+     * <li>Status of the account.</li>
+     * <li>Whether we send funds to the account, withdraw funds from the account, or both.</li>
+     * </ul>
+     * <p>For each funding account, we also return the fundingAccountId, which you can use to perform follow-on actions.</p>
+     */
     public PayrocPager<FundingAccount> list(ListFundingAccountsRequest request) {
         return this.rawClient.list(request).body();
     }
@@ -87,6 +102,21 @@ public class FundingAccountsClient {
      */
     public FundingAccount retrieve(int fundingAccountId) {
         return this.rawClient.retrieve(fundingAccountId).body();
+    }
+
+    /**
+     * Use this method to retrieve information about a funding account.
+     * <p>To retrieve a funding account, you need its fundingAccountId. Our gateway returned the fundingAccountId when you created the funding account.</p>
+     * <p><strong>Note:</strong> If you don't have the fundingAccountId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-accounts/list">List Funding Accounts</a> method to search for the account.</p>
+     * <p>Our gateway returns the following information about the funding account:</p>
+     * <ul>
+     * <li>Name of the account holder and ACH details for the account.</li>
+     * <li>Status of the account.</li>
+     * <li>Whether we send funds to the account, withdraw funds from the account, or both.</li>
+     * </ul>
+     */
+    public FundingAccount retrieve(int fundingAccountId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(fundingAccountId, requestOptions).body();
     }
 
     /**
@@ -168,6 +198,18 @@ public class FundingAccountsClient {
      */
     public void delete(int fundingAccountId) {
         this.rawClient.delete(fundingAccountId).body();
+    }
+
+    /**
+     * <blockquote>
+     * <strong>Important:</strong> You can't delete a funding account that is associated with a processing account.
+     * </blockquote>
+     * <p>Use this method to delete a funding account that is associated with a funding recipient.</p>
+     * <p>To delete a funding account, you need its fundingAccountId. Our gateway returned the fundingAccountId when you created the funding account.</p>
+     * <p><strong>Note:</strong> If you don't have the fundingAccountId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-accounts/list">List Funding Accounts</a> method to search for the funding account.</p>
+     */
+    public void delete(int fundingAccountId, RequestOptions requestOptions) {
+        this.rawClient.delete(fundingAccountId, requestOptions).body();
     }
 
     /**

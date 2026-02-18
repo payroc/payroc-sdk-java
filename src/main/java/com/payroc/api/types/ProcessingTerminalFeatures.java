@@ -61,7 +61,12 @@ public final class ProcessingTerminalFeatures {
     }
 
     /**
-     * @return Object that contains the tip settings for the processing terminal.
+     * @return Polymorphic object that indicates if the terminal accepts tips.
+     * <p>The value of the enabled field determines which variant you should use:</p>
+     * <ul>
+     * <li><code>true</code> - Terminal allows tips.</li>
+     * <li><code>false</code> - Terminal doesn't allow tips.</li>
+     * </ul>
      */
     @JsonProperty("tips")
     public Optional<ProcessingTerminalFeaturesTips> getTips() {
@@ -77,7 +82,12 @@ public final class ProcessingTerminalFeatures {
     }
 
     /**
-     * @return Object that contains details about EBT transactions.
+     * @return Polymorphic object that indicates if the terminal accepts EBT transactions.
+     * <p>The value of the enabled field determines which variant you should use:</p>
+     * <ul>
+     * <li><code>true</code> - Terminal allows EBT transactions.</li>
+     * <li><code>false</code> - Terminal doesn't allow EBT transactions.</li>
+     * </ul>
      */
     @JsonProperty("ebt")
     public ProcessingTerminalFeaturesEbt getEbt() {
@@ -93,7 +103,7 @@ public final class ProcessingTerminalFeatures {
     }
 
     /**
-     * @return Indicates if the terminal can run repeat payments. For more information about repeat payments, go to <a href="https://docs.payroc.com/guides/integrate/repeat-payments">Payment Plans</a>.
+     * @return Indicates if the terminal can run repeat payments. For more information about repeat payments, go to <a href="https://docs.payroc.com/guides/take-payments/repeat-payments">Payment Plans</a>.
      */
     @JsonProperty("recurringPayments")
     public Optional<Boolean> getRecurringPayments() {
@@ -179,7 +189,12 @@ public final class ProcessingTerminalFeatures {
 
     public interface EbtStage {
         /**
-         * <p>Object that contains details about EBT transactions.</p>
+         * <p>Polymorphic object that indicates if the terminal accepts EBT transactions.</p>
+         * <p>The value of the enabled field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>true</code> - Terminal allows EBT transactions.</li>
+         * <li><code>false</code> - Terminal doesn't allow EBT transactions.</li>
+         * </ul>
          */
         PinDebitCashbackStage ebt(@NotNull ProcessingTerminalFeaturesEbt ebt);
     }
@@ -195,14 +210,19 @@ public final class ProcessingTerminalFeatures {
         ProcessingTerminalFeatures build();
 
         /**
-         * <p>Object that contains the tip settings for the processing terminal.</p>
+         * <p>Polymorphic object that indicates if the terminal accepts tips.</p>
+         * <p>The value of the enabled field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>true</code> - Terminal allows tips.</li>
+         * <li><code>false</code> - Terminal doesn't allow tips.</li>
+         * </ul>
          */
         _FinalStage tips(Optional<ProcessingTerminalFeaturesTips> tips);
 
         _FinalStage tips(ProcessingTerminalFeaturesTips tips);
 
         /**
-         * <p>Indicates if the terminal can run repeat payments. For more information about repeat payments, go to <a href="https://docs.payroc.com/guides/integrate/repeat-payments">Payment Plans</a>.</p>
+         * <p>Indicates if the terminal can run repeat payments. For more information about repeat payments, go to <a href="https://docs.payroc.com/guides/take-payments/repeat-payments">Payment Plans</a>.</p>
          */
         _FinalStage recurringPayments(Optional<Boolean> recurringPayments);
 
@@ -279,8 +299,18 @@ public final class ProcessingTerminalFeatures {
         }
 
         /**
-         * <p>Object that contains details about EBT transactions.</p>
-         * <p>Object that contains details about EBT transactions.</p>
+         * <p>Polymorphic object that indicates if the terminal accepts EBT transactions.</p>
+         * <p>The value of the enabled field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>true</code> - Terminal allows EBT transactions.</li>
+         * <li><code>false</code> - Terminal doesn't allow EBT transactions.</li>
+         * </ul>
+         * <p>Polymorphic object that indicates if the terminal accepts EBT transactions.</p>
+         * <p>The value of the enabled field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>true</code> - Terminal allows EBT transactions.</li>
+         * <li><code>false</code> - Terminal doesn't allow EBT transactions.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -363,7 +393,7 @@ public final class ProcessingTerminalFeatures {
         }
 
         /**
-         * <p>Indicates if the terminal can run repeat payments. For more information about repeat payments, go to <a href="https://docs.payroc.com/guides/integrate/repeat-payments">Payment Plans</a>.</p>
+         * <p>Indicates if the terminal can run repeat payments. For more information about repeat payments, go to <a href="https://docs.payroc.com/guides/take-payments/repeat-payments">Payment Plans</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -373,7 +403,7 @@ public final class ProcessingTerminalFeatures {
         }
 
         /**
-         * <p>Indicates if the terminal can run repeat payments. For more information about repeat payments, go to <a href="https://docs.payroc.com/guides/integrate/repeat-payments">Payment Plans</a>.</p>
+         * <p>Indicates if the terminal can run repeat payments. For more information about repeat payments, go to <a href="https://docs.payroc.com/guides/take-payments/repeat-payments">Payment Plans</a>.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "recurringPayments", nulls = Nulls.SKIP)
@@ -383,7 +413,12 @@ public final class ProcessingTerminalFeatures {
         }
 
         /**
-         * <p>Object that contains the tip settings for the processing terminal.</p>
+         * <p>Polymorphic object that indicates if the terminal accepts tips.</p>
+         * <p>The value of the enabled field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>true</code> - Terminal allows tips.</li>
+         * <li><code>false</code> - Terminal doesn't allow tips.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -393,7 +428,12 @@ public final class ProcessingTerminalFeatures {
         }
 
         /**
-         * <p>Object that contains the tip settings for the processing terminal.</p>
+         * <p>Polymorphic object that indicates if the terminal accepts tips.</p>
+         * <p>The value of the enabled field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>true</code> - Terminal allows tips.</li>
+         * <li><code>false</code> - Terminal doesn't allow tips.</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "tips", nulls = Nulls.SKIP)

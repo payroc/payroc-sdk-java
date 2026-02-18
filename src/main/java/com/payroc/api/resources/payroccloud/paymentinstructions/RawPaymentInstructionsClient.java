@@ -70,12 +70,16 @@ public class RawPaymentInstructionsClient {
      */
     public PayrocApiHttpResponse<PaymentInstruction> submit(
             String serialNumber, PaymentInstructionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("devices")
                 .addPathSegment(serialNumber)
-                .addPathSegments("payment-instructions")
-                .build();
+                .addPathSegments("payment-instructions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -84,7 +88,7 @@ public class RawPaymentInstructionsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -162,6 +166,19 @@ public class RawPaymentInstructionsClient {
      * <p>Our gateway returns the status of the payment instruction. If the payment device completed the payment instruction, the response also includes a link to the payment.</p>
      */
     public PayrocApiHttpResponse<PaymentInstruction> retrieve(
+            String paymentInstructionId, RequestOptions requestOptions) {
+        return retrieve(
+                paymentInstructionId,
+                RetrievePaymentInstructionsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a payment instruction.
+     * <p>To retrieve a payment instruction, you need its paymentInstructionId. Our gateway returned the paymentInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/submit">Submit Payment Instruction</a> method.</p>
+     * <p>Our gateway returns the status of the payment instruction. If the payment device completed the payment instruction, the response also includes a link to the payment.</p>
+     */
+    public PayrocApiHttpResponse<PaymentInstruction> retrieve(
             String paymentInstructionId, RetrievePaymentInstructionsRequest request) {
         return retrieve(paymentInstructionId, request, null);
     }
@@ -173,13 +190,17 @@ public class RawPaymentInstructionsClient {
      */
     public PayrocApiHttpResponse<PaymentInstruction> retrieve(
             String paymentInstructionId, RetrievePaymentInstructionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("payment-instructions")
-                .addPathSegment(paymentInstructionId)
-                .build();
+                .addPathSegment(paymentInstructionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -245,6 +266,16 @@ public class RawPaymentInstructionsClient {
      * <p>You can cancel a payment instruction only if its status is <code>inProgress</code>. To retrieve the status of a payment instruction, use our <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/retrieve">Retrieve Payment Instruction</a> method.</p>
      * <p>To cancel a payment instruction, you need its paymentInstructionId. Our gateway returned the paymentInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/submit">Submit Payment Instruction</a> method.</p>
      */
+    public PayrocApiHttpResponse<Void> delete(String paymentInstructionId, RequestOptions requestOptions) {
+        return delete(
+                paymentInstructionId, DeletePaymentInstructionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to cancel a payment instruction.
+     * <p>You can cancel a payment instruction only if its status is <code>inProgress</code>. To retrieve the status of a payment instruction, use our <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/retrieve">Retrieve Payment Instruction</a> method.</p>
+     * <p>To cancel a payment instruction, you need its paymentInstructionId. Our gateway returned the paymentInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/submit">Submit Payment Instruction</a> method.</p>
+     */
     public PayrocApiHttpResponse<Void> delete(String paymentInstructionId, DeletePaymentInstructionsRequest request) {
         return delete(paymentInstructionId, request, null);
     }
@@ -256,13 +287,17 @@ public class RawPaymentInstructionsClient {
      */
     public PayrocApiHttpResponse<Void> delete(
             String paymentInstructionId, DeletePaymentInstructionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("payment-instructions")
-                .addPathSegment(paymentInstructionId)
-                .build();
+                .addPathSegment(paymentInstructionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

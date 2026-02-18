@@ -25,7 +25,7 @@ public final class OrderItem implements IOrderItem {
 
     private final String solutionTemplateId;
 
-    private final Optional<Float> solutionQuantity;
+    private final Optional<Integer> solutionQuantity;
 
     private final Optional<OrderItemDeviceCondition> deviceCondition;
 
@@ -36,7 +36,7 @@ public final class OrderItem implements IOrderItem {
     private OrderItem(
             OrderItemType type,
             String solutionTemplateId,
-            Optional<Float> solutionQuantity,
+            Optional<Integer> solutionQuantity,
             Optional<OrderItemDeviceCondition> deviceCondition,
             Optional<OrderItemSolutionSetup> solutionSetup,
             Map<String, Object> additionalProperties) {
@@ -98,7 +98,7 @@ public final class OrderItem implements IOrderItem {
      */
     @JsonProperty("solutionQuantity")
     @java.lang.Override
-    public Optional<Float> getSolutionQuantity() {
+    public Optional<Integer> getSolutionQuantity() {
         return solutionQuantity;
     }
 
@@ -202,9 +202,9 @@ public final class OrderItem implements IOrderItem {
         /**
          * <p>Quantity of the solution.</p>
          */
-        _FinalStage solutionQuantity(Optional<Float> solutionQuantity);
+        _FinalStage solutionQuantity(Optional<Integer> solutionQuantity);
 
-        _FinalStage solutionQuantity(Float solutionQuantity);
+        _FinalStage solutionQuantity(Integer solutionQuantity);
 
         /**
          * <p>Indicates if the order contains a new item or a refurbished item.</p>
@@ -231,7 +231,7 @@ public final class OrderItem implements IOrderItem {
 
         private Optional<OrderItemDeviceCondition> deviceCondition = Optional.empty();
 
-        private Optional<Float> solutionQuantity = Optional.empty();
+        private Optional<Integer> solutionQuantity = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -373,7 +373,7 @@ public final class OrderItem implements IOrderItem {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage solutionQuantity(Float solutionQuantity) {
+        public _FinalStage solutionQuantity(Integer solutionQuantity) {
             this.solutionQuantity = Optional.ofNullable(solutionQuantity);
             return this;
         }
@@ -383,7 +383,7 @@ public final class OrderItem implements IOrderItem {
          */
         @java.lang.Override
         @JsonSetter(value = "solutionQuantity", nulls = Nulls.SKIP)
-        public _FinalStage solutionQuantity(Optional<Float> solutionQuantity) {
+        public _FinalStage solutionQuantity(Optional<Integer> solutionQuantity) {
             this.solutionQuantity = solutionQuantity;
             return this;
         }

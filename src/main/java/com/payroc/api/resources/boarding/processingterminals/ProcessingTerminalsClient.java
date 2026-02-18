@@ -57,6 +57,23 @@ public class ProcessingTerminalsClient {
      * <li>Devices that use the processing terminal's configuration.</li>
      * </ul>
      */
+    public ProcessingTerminal retrieve(String processingTerminalId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(processingTerminalId, requestOptions).body();
+    }
+
+    /**
+     * <strong>Important:</strong> You can retrieve a processing terminal only if the terminal order was created using the Payroc API.
+     * <p>Use this method to retrieve information about a processing terminal.</p>
+     * <p>To retrieve a processing terminal, you need its processingTerminalId. Our gateway returned the processingTerminalId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/create-terminal-order">Create Terminal Order</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the processingTerminalId, use our <a href="https://docs.payroc.com/api/schema/boarding/terminal-orders/retrieve">Retrieve Terminal Order</a> method or our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/list-processing-terminals">List Processing Terminals</a> method to search for the processing terminal.</p>
+     * <p>Our gateway returns the following information about the processing terminal:</p>
+     * <ul>
+     * <li>Status indicating whether the terminal is active or inactive.</li>
+     * <li>Configuration settings, including gateway settings and application settings.</li>
+     * <li>Features, receipt settings, and security settings.</li>
+     * <li>Devices that use the processing terminal's configuration.</li>
+     * </ul>
+     */
     public ProcessingTerminal retrieve(String processingTerminalId, RetrieveProcessingTerminalsRequest request) {
         return this.rawClient.retrieve(processingTerminalId, request).body();
     }
@@ -87,6 +104,16 @@ public class ProcessingTerminalsClient {
      */
     public HostConfiguration retrieveHostConfiguration(String processingTerminalId) {
         return this.rawClient.retrieveHostConfiguration(processingTerminalId).body();
+    }
+
+    /**
+     * Use this method to retrieve the host processor configuration of a processing terminal. Integrate with this method only if you use your own gateway and want to validate the processor configuration.
+     * <p>Our gateway returns the configuration settings for the merchant and the payment terminal.</p>
+     */
+    public HostConfiguration retrieveHostConfiguration(String processingTerminalId, RequestOptions requestOptions) {
+        return this.rawClient
+                .retrieveHostConfiguration(processingTerminalId, requestOptions)
+                .body();
     }
 
     /**

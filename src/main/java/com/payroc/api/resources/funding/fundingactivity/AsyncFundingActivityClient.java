@@ -53,6 +53,20 @@ public class AsyncFundingActivityClient {
      * <li>Pending funds that we have not yet sent to funding accounts.</li>
      * </ul>
      */
+    public CompletableFuture<RetrieveBalanceFundingActivityResponse> retrieveBalance(RequestOptions requestOptions) {
+        return this.rawClient.retrieveBalance(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of funding balances available for each merchant linked to your account.
+     * <p>Use query parameters to filter the list of results we return, for example, to search for the funding balance for a specific merchant.</p>
+     * <p>Our gateway returns the following information about each merchant in the list:</p>
+     * <ul>
+     * <li>Total funds for the merchant.</li>
+     * <li>Available funds that you can use for funding instructions.</li>
+     * <li>Pending funds that we have not yet sent to funding accounts.</li>
+     * </ul>
+     */
     public CompletableFuture<RetrieveBalanceFundingActivityResponse> retrieveBalance(
             RetrieveBalanceFundingActivityRequest request) {
         return this.rawClient.retrieveBalance(request).thenApply(response -> response.body());

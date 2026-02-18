@@ -61,6 +61,14 @@ public final class SwipedCardDetails {
         return downgradeTo;
     }
 
+    /**
+     * @return Polymorphic object that contains payment card details that a device captured from the magnetic strip.
+     * <p>The value of the dataFormat parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>encrypted</code> - Payment card details are encrypted.</li>
+     * <li><code>plainText</code> - Payment card details are in plain text.</li>
+     * </ul>
+     */
     @JsonProperty("swipedData")
     public SwipedCardDetailsSwipedData getSwipedData() {
         return swipedData;
@@ -82,6 +90,9 @@ public final class SwipedCardDetails {
         return cardholderSignature;
     }
 
+    /**
+     * @return Polymorphic object that contains information about the customer's PIN.
+     */
     @JsonProperty("pinDetails")
     public Optional<SwipedCardDetailsPinDetails> getPinDetails() {
         return pinDetails;
@@ -133,6 +144,14 @@ public final class SwipedCardDetails {
     }
 
     public interface SwipedDataStage {
+        /**
+         * <p>Polymorphic object that contains payment card details that a device captured from the magnetic strip.</p>
+         * <p>The value of the dataFormat parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>encrypted</code> - Payment card details are encrypted.</li>
+         * <li><code>plainText</code> - Payment card details are in plain text.</li>
+         * </ul>
+         */
         _FinalStage swipedData(@NotNull SwipedCardDetailsSwipedData swipedData);
 
         Builder from(SwipedCardDetails other);
@@ -163,6 +182,9 @@ public final class SwipedCardDetails {
 
         _FinalStage cardholderSignature(String cardholderSignature);
 
+        /**
+         * <p>Polymorphic object that contains information about the customer's PIN.</p>
+         */
         _FinalStage pinDetails(Optional<SwipedCardDetailsPinDetails> pinDetails);
 
         _FinalStage pinDetails(SwipedCardDetailsPinDetails pinDetails);
@@ -202,6 +224,21 @@ public final class SwipedCardDetails {
             return this;
         }
 
+        /**
+         * <p>Polymorphic object that contains payment card details that a device captured from the magnetic strip.</p>
+         * <p>The value of the dataFormat parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>encrypted</code> - Payment card details are encrypted.</li>
+         * <li><code>plainText</code> - Payment card details are in plain text.</li>
+         * </ul>
+         * <p>Polymorphic object that contains payment card details that a device captured from the magnetic strip.</p>
+         * <p>The value of the dataFormat parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>encrypted</code> - Payment card details are encrypted.</li>
+         * <li><code>plainText</code> - Payment card details are in plain text.</li>
+         * </ul>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("swipedData")
         public _FinalStage swipedData(@NotNull SwipedCardDetailsSwipedData swipedData) {
@@ -222,12 +259,19 @@ public final class SwipedCardDetails {
             return this;
         }
 
+        /**
+         * <p>Polymorphic object that contains information about the customer's PIN.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage pinDetails(SwipedCardDetailsPinDetails pinDetails) {
             this.pinDetails = Optional.ofNullable(pinDetails);
             return this;
         }
 
+        /**
+         * <p>Polymorphic object that contains information about the customer's PIN.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "pinDetails", nulls = Nulls.SKIP)
         public _FinalStage pinDetails(Optional<SwipedCardDetailsPinDetails> pinDetails) {

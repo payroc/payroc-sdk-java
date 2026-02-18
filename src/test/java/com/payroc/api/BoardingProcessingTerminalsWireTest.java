@@ -40,11 +40,10 @@ public class BoardingProcessingTerminalsWireTest {
 
     @Test
     public void testRetrieve() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"processingTerminalId\":\"011234001\",\"status\":\"active\",\"timezone\":\"Pacific/Midway\",\"program\":\"Payroc Cloud\",\"gateway\":{\"gateway\":\"payroc\",\"terminalTemplateId\":\"Roc Services_DX8000\"},\"batchClosure\":{\"batchCloseTime\":\"23:40\",\"batchCloseType\":\"automatic\"},\"applicationSettings\":{\"invoiceNumberPrompt\":true,\"clerkPrompt\":false},\"features\":{\"tips\":{\"enabled\":false,\"tipPrompt\":false,\"tipAdjust\":true,\"suggestedTips\":{\"enabled\":true,\"tipPercentages\":[\"tipPercentages\",\"tipPercentages\"]}},\"enhancedProcessing\":{\"enabled\":true,\"transactionDataLevel\":\"level2\",\"shippingAddressMode\":\"fullAddress\"},\"ebt\":{\"enabled\":true,\"ebtType\":\"foodStamp\",\"fnsNumber\":\"1234567890\"},\"pinDebitCashback\":false,\"recurringPayments\":true,\"paymentLinks\":{\"enabled\":true,\"logoUrl\":\"LogoPayLink\",\"footerNotes\":\"FooterNotesPayLink\"},\"preAuthorizations\":true,\"offlinePayments\":true},\"taxes\":[{\"taxRate\":1.1,\"taxLabel\":\"taxLabel\"}],\"security\":{\"tokenization\":true,\"avsPrompt\":true,\"avsLevel\":\"fullAddress\",\"cvvPrompt\":true},\"receiptNotifications\":{\"emailReceipt\":true,\"smsReceipt\":true},\"devices\":[{\"manufacturer\":\"manufacturer\",\"model\":\"model\",\"serialNumber\":\"serialNumber\",\"communicationType\":\"bluetooth\"}]}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/BoardingProcessingTerminalsWireTest_testRetrieve_response.json")));
         ProcessingTerminal response = client.boarding()
                 .processingTerminals()
                 .retrieve(
@@ -56,82 +55,8 @@ public class BoardingProcessingTerminalsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"processingTerminalId\": \"011234001\",\n"
-                + "  \"status\": \"active\",\n"
-                + "  \"timezone\": \"Pacific/Midway\",\n"
-                + "  \"program\": \"Payroc Cloud\",\n"
-                + "  \"gateway\": {\n"
-                + "    \"gateway\": \"payroc\",\n"
-                + "    \"terminalTemplateId\": \"Roc Services_DX8000\"\n"
-                + "  },\n"
-                + "  \"batchClosure\": {\n"
-                + "    \"batchCloseTime\": \"23:40\",\n"
-                + "    \"batchCloseType\": \"automatic\"\n"
-                + "  },\n"
-                + "  \"applicationSettings\": {\n"
-                + "    \"invoiceNumberPrompt\": true,\n"
-                + "    \"clerkPrompt\": false\n"
-                + "  },\n"
-                + "  \"features\": {\n"
-                + "    \"tips\": {\n"
-                + "      \"enabled\": false,\n"
-                + "      \"tipPrompt\": false,\n"
-                + "      \"tipAdjust\": true,\n"
-                + "      \"suggestedTips\": {\n"
-                + "        \"enabled\": true,\n"
-                + "        \"tipPercentages\": [\n"
-                + "          \"tipPercentages\",\n"
-                + "          \"tipPercentages\"\n"
-                + "        ]\n"
-                + "      }\n"
-                + "    },\n"
-                + "    \"enhancedProcessing\": {\n"
-                + "      \"enabled\": true,\n"
-                + "      \"transactionDataLevel\": \"level2\",\n"
-                + "      \"shippingAddressMode\": \"fullAddress\"\n"
-                + "    },\n"
-                + "    \"ebt\": {\n"
-                + "      \"enabled\": true,\n"
-                + "      \"ebtType\": \"foodStamp\",\n"
-                + "      \"fnsNumber\": \"1234567890\"\n"
-                + "    },\n"
-                + "    \"pinDebitCashback\": false,\n"
-                + "    \"recurringPayments\": true,\n"
-                + "    \"paymentLinks\": {\n"
-                + "      \"enabled\": true,\n"
-                + "      \"logoUrl\": \"LogoPayLink\",\n"
-                + "      \"footerNotes\": \"FooterNotesPayLink\"\n"
-                + "    },\n"
-                + "    \"preAuthorizations\": true,\n"
-                + "    \"offlinePayments\": true\n"
-                + "  },\n"
-                + "  \"taxes\": [\n"
-                + "    {\n"
-                + "      \"taxRate\": 1.1,\n"
-                + "      \"taxLabel\": \"taxLabel\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"security\": {\n"
-                + "    \"tokenization\": true,\n"
-                + "    \"avsPrompt\": true,\n"
-                + "    \"avsLevel\": \"fullAddress\",\n"
-                + "    \"cvvPrompt\": true\n"
-                + "  },\n"
-                + "  \"receiptNotifications\": {\n"
-                + "    \"emailReceipt\": true,\n"
-                + "    \"smsReceipt\": true\n"
-                + "  },\n"
-                + "  \"devices\": [\n"
-                + "    {\n"
-                + "      \"manufacturer\": \"manufacturer\",\n"
-                + "      \"model\": \"model\",\n"
-                + "      \"serialNumber\": \"serialNumber\",\n"
-                + "      \"communicationType\": \"bluetooth\"\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedResponseBody = TestResources.loadResource(
+                "/wire-tests/BoardingProcessingTerminalsWireTest_testRetrieve_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(

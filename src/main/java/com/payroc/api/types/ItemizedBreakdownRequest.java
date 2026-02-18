@@ -69,7 +69,12 @@ public final class ItemizedBreakdownRequest implements IBreakdownRequest, IBreak
     }
 
     /**
-     * @return List of taxes.
+     * @return Array of polymorphic tax objects, which contain information about a tax.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>amount</code> - Tax is a fixed amount.</li>
+     * <li><code>rate</code> - Tax is a percentage.</li>
+     * </ul>
      */
     @JsonProperty("taxes")
     @java.lang.Override
@@ -212,7 +217,12 @@ public final class ItemizedBreakdownRequest implements IBreakdownRequest, IBreak
         ItemizedBreakdownRequest build();
 
         /**
-         * <p>List of taxes.</p>
+         * <p>Array of polymorphic tax objects, which contain information about a tax.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>amount</code> - Tax is a fixed amount.</li>
+         * <li><code>rate</code> - Tax is a percentage.</li>
+         * </ul>
          */
         _FinalStage taxes(Optional<List<Tax>> taxes);
 
@@ -480,7 +490,12 @@ public final class ItemizedBreakdownRequest implements IBreakdownRequest, IBreak
         }
 
         /**
-         * <p>List of taxes.</p>
+         * <p>Array of polymorphic tax objects, which contain information about a tax.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>amount</code> - Tax is a fixed amount.</li>
+         * <li><code>rate</code> - Tax is a percentage.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -490,7 +505,12 @@ public final class ItemizedBreakdownRequest implements IBreakdownRequest, IBreak
         }
 
         /**
-         * <p>List of taxes.</p>
+         * <p>Array of polymorphic tax objects, which contain information about a tax.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>amount</code> - Tax is a fixed amount.</li>
+         * <li><code>rate</code> - Tax is a percentage.</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "taxes", nulls = Nulls.SKIP)

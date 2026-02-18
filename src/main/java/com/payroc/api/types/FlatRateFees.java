@@ -57,7 +57,7 @@ public final class FlatRateFees {
     }
 
     /**
-     * @return Object that contains the fees for American Express transactions.
+     * @return Polymorphic object that contains fees for American Express transactions.
      */
     @JsonProperty("amex")
     public Optional<FlatRateFeesAmex> getAmex() {
@@ -126,7 +126,7 @@ public final class FlatRateFees {
         FlatRateFees build();
 
         /**
-         * <p>Object that contains the fees for American Express transactions.</p>
+         * <p>Polymorphic object that contains fees for American Express transactions.</p>
          */
         _FinalStage amex(Optional<FlatRateFeesAmex> amex);
 
@@ -224,7 +224,7 @@ public final class FlatRateFees {
         }
 
         /**
-         * <p>Object that contains the fees for American Express transactions.</p>
+         * <p>Polymorphic object that contains fees for American Express transactions.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -234,7 +234,7 @@ public final class FlatRateFees {
         }
 
         /**
-         * <p>Object that contains the fees for American Express transactions.</p>
+         * <p>Polymorphic object that contains fees for American Express transactions.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "amex", nulls = Nulls.SKIP)

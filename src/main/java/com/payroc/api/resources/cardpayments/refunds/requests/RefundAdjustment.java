@@ -61,7 +61,12 @@ public final class RefundAdjustment {
     }
 
     /**
-     * @return Array of objects that contain information about the adjustments to the refund.
+     * @return Array of polymorphic objects that contain information about adjustments to the refund.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>status</code> - Status of the transaction.</li>
+     * <li><code>customer</code> - Customer's contact information and shipping address.</li>
+     * </ul>
      */
     @JsonProperty("adjustments")
     public List<RefundAdjustmentAdjustmentsItem> getAdjustments() {
@@ -119,7 +124,12 @@ public final class RefundAdjustment {
         _FinalStage operator(String operator);
 
         /**
-         * <p>Array of objects that contain information about the adjustments to the refund.</p>
+         * <p>Array of polymorphic objects that contain information about adjustments to the refund.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>status</code> - Status of the transaction.</li>
+         * <li><code>customer</code> - Customer's contact information and shipping address.</li>
+         * </ul>
          */
         _FinalStage adjustments(List<RefundAdjustmentAdjustmentsItem> adjustments);
 
@@ -161,7 +171,12 @@ public final class RefundAdjustment {
         }
 
         /**
-         * <p>Array of objects that contain information about the adjustments to the refund.</p>
+         * <p>Array of polymorphic objects that contain information about adjustments to the refund.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>status</code> - Status of the transaction.</li>
+         * <li><code>customer</code> - Customer's contact information and shipping address.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -173,7 +188,12 @@ public final class RefundAdjustment {
         }
 
         /**
-         * <p>Array of objects that contain information about the adjustments to the refund.</p>
+         * <p>Array of polymorphic objects that contain information about adjustments to the refund.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>status</code> - Status of the transaction.</li>
+         * <li><code>customer</code> - Customer's contact information and shipping address.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -183,7 +203,12 @@ public final class RefundAdjustment {
         }
 
         /**
-         * <p>Array of objects that contain information about the adjustments to the refund.</p>
+         * <p>Array of polymorphic objects that contain information about adjustments to the refund.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>status</code> - Status of the transaction.</li>
+         * <li><code>customer</code> - Customer's contact information and shipping address.</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "adjustments", nulls = Nulls.SKIP)

@@ -1,0 +1,76 @@
+{
+  "recipientType": "privateCorporation",
+  "taxId": "12-3456789",
+  "doingBusinessAs": "Pizza Doe",
+  "address": {
+    "address1": "1 Example Ave.",
+    "address2": "Example Address Line 2",
+    "address3": "Example Address Line 3",
+    "city": "Chicago",
+    "state": "Illinois",
+    "country": "US",
+    "postalCode": "60056"
+  },
+  "contactMethods": [
+    {
+      "value": "jane.doe@example.com",
+      "type": "email"
+    },
+    {
+      "value": "2025550164",
+      "type": "phone"
+    }
+  ],
+  "metadata": {
+    "yourCustomField": "abc123"
+  },
+  "owners": [
+    {
+      "firstName": "Jane",
+      "middleName": "Helen",
+      "lastName": "Doe",
+      "dateOfBirth": "1964-03-22",
+      "address": {
+        "address1": "1 Example Ave.",
+        "city": "Chicago",
+        "state": "Illinois",
+        "country": "US",
+        "postalCode": "60056"
+      },
+      "identifiers": [
+        {
+          "type": "nationalId",
+          "value": "000-00-4320"
+        }
+      ],
+      "contactMethods": [
+        {
+          "value": "jane.doe@example.com",
+          "type": "email"
+        },
+        {
+          "value": "2025550164",
+          "type": "phone"
+        }
+      ],
+      "relationship": {
+        "equityPercentage": 48.5,
+        "title": "CFO",
+        "isControlProng": true,
+        "isAuthorizedSignatory": false
+      }
+    }
+  ],
+  "fundingAccounts": [
+    {
+      "type": "checking",
+      "use": "credit",
+      "nameOnAccount": "Jane Doe",
+      "paymentMethods": [
+        {
+          "type": "ach"
+        }
+      ]
+    }
+  ]
+}

@@ -68,6 +68,21 @@ public class RawOwnersClient {
      * <li>Relationship to the business, including whether they are a control prong or authorized signatory, and their equity stake in the business.</li>
      * </ul>
      */
+    public PayrocApiHttpResponse<Owner> retrieve(int ownerId, RequestOptions requestOptions) {
+        return retrieve(ownerId, RetrieveOwnersRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve details about an owner of a processing account or an owner associated with a funding recipient.
+     * <p>To retrieve an owner, you need their ownerId. Our gateway returned the ownerId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method or the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create-owner">Create Funding Recipient Owner</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the ownerId, use the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/retrieve">Retrieve Processing Account</a> method if you are searching for a processing account owner, or use the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list-owners">List Funding Recipient Owners</a> method if you are searching for a funding recipient owner.</p>
+     * <p>Our gateway returns the following information about an owner:</p>
+     * <ul>
+     * <li>Name, date of birth, and address.</li>
+     * <li>Contact details, including their email address.</li>
+     * <li>Relationship to the business, including whether they are a control prong or authorized signatory, and their equity stake in the business.</li>
+     * </ul>
+     */
     public PayrocApiHttpResponse<Owner> retrieve(int ownerId, RetrieveOwnersRequest request) {
         return retrieve(ownerId, request, null);
     }
@@ -85,13 +100,17 @@ public class RawOwnersClient {
      */
     public PayrocApiHttpResponse<Owner> retrieve(
             int ownerId, RetrieveOwnersRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("owners")
-                .addPathSegment(Integer.toString(ownerId))
-                .build();
+                .addPathSegment(Integer.toString(ownerId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -173,11 +192,15 @@ public class RawOwnersClient {
      * </ul>
      */
     public PayrocApiHttpResponse<Void> update(int ownerId, UpdateOwnersRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("owners")
-                .addPathSegment(Integer.toString(ownerId))
-                .build();
+                .addPathSegment(Integer.toString(ownerId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -186,7 +209,7 @@ public class RawOwnersClient {
             throw new PayrocApiException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -257,6 +280,18 @@ public class RawOwnersClient {
      * <p>To delete an owner, you need their ownerId. Our gateway returned the ownerId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create">Create Funding Recipient</a> method and the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create-owner">Create Funding Recipient Owner</a> method.</p>
      * <p><strong>Note:</strong> If you don't have the ownerId, use the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list-owners">List Funding Recipient Owners</a> method, the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/retrieve">Retrieve Funding Recipient</a> method, or the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient owner.</p>
      */
+    public PayrocApiHttpResponse<Void> delete(int ownerId, RequestOptions requestOptions) {
+        return delete(ownerId, DeleteOwnersRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * <blockquote>
+     * <strong>Important:</strong> You can't delete an owner of a processing account.
+     * </blockquote>
+     * <p>Use this method to delete an owner associated with a funding recipient. You can delete an owner only if the funding recipient has more than one owner.</p>
+     * <p>To delete an owner, you need their ownerId. Our gateway returned the ownerId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create">Create Funding Recipient</a> method and the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create-owner">Create Funding Recipient Owner</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the ownerId, use the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list-owners">List Funding Recipient Owners</a> method, the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/retrieve">Retrieve Funding Recipient</a> method, or the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient owner.</p>
+     */
     public PayrocApiHttpResponse<Void> delete(int ownerId, DeleteOwnersRequest request) {
         return delete(ownerId, request, null);
     }
@@ -270,13 +305,17 @@ public class RawOwnersClient {
      * <p><strong>Note:</strong> If you don't have the ownerId, use the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list-owners">List Funding Recipient Owners</a> method, the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/retrieve">Retrieve Funding Recipient</a> method, or the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient owner.</p>
      */
     public PayrocApiHttpResponse<Void> delete(int ownerId, DeleteOwnersRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("owners")
-                .addPathSegment(Integer.toString(ownerId))
-                .build();
+                .addPathSegment(Integer.toString(ownerId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

@@ -64,11 +64,10 @@ public class BoardingPricingIntentsWireTest {
 
     @Test
     public void testCreate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"country\":\"US\",\"version\":\"5.0\",\"base\":{\"addressVerification\":5,\"annualFee\":{\"billInMonth\":\"june\",\"amount\":100},\"regulatoryAssistanceProgram\":15,\"pciNonCompliance\":4995,\"merchantAdvantage\":10,\"platinumSecurity\":{\"amount\":1295,\"billingFrequency\":\"monthly\"},\"maintenance\":500,\"minimum\":100,\"voiceAuthorization\":95,\"chargeback\":2500,\"retrieval\":1500,\"batch\":1000,\"earlyTermination\":57500},\"processor\":{\"card\":{\"fees\":{\"mastercardVisaDiscover\":{\"volume\":1.25},\"amex\":{\"volume\":1.25,\"transaction\":1,\"type\":\"optBlue\"},\"pinDebit\":{\"additionalDiscount\":1.25,\"transaction\":1,\"monthlyAccess\":1},\"enhancedInterchange\":{\"enrollment\":1,\"creditToMerchant\":1.25}},\"planType\":\"interchangePlus\"},\"ach\":{\"fees\":{\"transaction\":50,\"batch\":1000,\"returns\":400,\"unauthorizedReturn\":1999,\"statement\":800,\"monthlyMinimum\":20000,\"accountVerification\":100,\"discountRateUnder10000\":5.25,\"discountRateAbove10000\":10}}},\"gateway\":{\"fees\":{\"monthly\":1000,\"setup\":25000,\"perTransaction\":0,\"perDeviceMonthly\":0}},\"services\":[{\"enabled\":true,\"name\":\"hardwareAdvantagePlan\"}],\"id\":\"5\",\"createdDate\":\"2024-07-02T09:00:00Z\",\"lastUpdatedDate\":\"2024-07-02T09:00:00Z\",\"status\":\"pendingReview\",\"key\":\"string\",\"metadata\":{\"yourCustomField\":\"abc123\"}}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/BoardingPricingIntentsWireTest_testCreate_response.json")));
         PricingIntent50 response = client.boarding()
                 .pricingIntents()
                 .create(CreatePricingIntentsRequest.builder()
@@ -200,91 +199,8 @@ public class BoardingPricingIntentsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"country\": \"US\",\n"
-                + "  \"version\": \"5.0\",\n"
-                + "  \"base\": {\n"
-                + "    \"addressVerification\": 5,\n"
-                + "    \"annualFee\": {\n"
-                + "      \"billInMonth\": \"june\",\n"
-                + "      \"amount\": 100\n"
-                + "    },\n"
-                + "    \"regulatoryAssistanceProgram\": 15,\n"
-                + "    \"pciNonCompliance\": 4995,\n"
-                + "    \"merchantAdvantage\": 10,\n"
-                + "    \"platinumSecurity\": {\n"
-                + "      \"amount\": 1295,\n"
-                + "      \"billingFrequency\": \"monthly\"\n"
-                + "    },\n"
-                + "    \"maintenance\": 500,\n"
-                + "    \"minimum\": 100,\n"
-                + "    \"voiceAuthorization\": 95,\n"
-                + "    \"chargeback\": 2500,\n"
-                + "    \"retrieval\": 1500,\n"
-                + "    \"batch\": 1000,\n"
-                + "    \"earlyTermination\": 57500\n"
-                + "  },\n"
-                + "  \"processor\": {\n"
-                + "    \"card\": {\n"
-                + "      \"fees\": {\n"
-                + "        \"mastercardVisaDiscover\": {\n"
-                + "          \"volume\": 1.25\n"
-                + "        },\n"
-                + "        \"amex\": {\n"
-                + "          \"volume\": 1.25,\n"
-                + "          \"transaction\": 1,\n"
-                + "          \"type\": \"optBlue\"\n"
-                + "        },\n"
-                + "        \"pinDebit\": {\n"
-                + "          \"additionalDiscount\": 1.25,\n"
-                + "          \"transaction\": 1,\n"
-                + "          \"monthlyAccess\": 1\n"
-                + "        },\n"
-                + "        \"enhancedInterchange\": {\n"
-                + "          \"enrollment\": 1,\n"
-                + "          \"creditToMerchant\": 1.25\n"
-                + "        }\n"
-                + "      },\n"
-                + "      \"planType\": \"interchangePlus\"\n"
-                + "    },\n"
-                + "    \"ach\": {\n"
-                + "      \"fees\": {\n"
-                + "        \"transaction\": 50,\n"
-                + "        \"batch\": 1000,\n"
-                + "        \"returns\": 400,\n"
-                + "        \"unauthorizedReturn\": 1999,\n"
-                + "        \"statement\": 800,\n"
-                + "        \"monthlyMinimum\": 20000,\n"
-                + "        \"accountVerification\": 100,\n"
-                + "        \"discountRateUnder10000\": 5.25,\n"
-                + "        \"discountRateAbove10000\": 10\n"
-                + "      }\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"gateway\": {\n"
-                + "    \"fees\": {\n"
-                + "      \"monthly\": 1000,\n"
-                + "      \"setup\": 25000,\n"
-                + "      \"perTransaction\": 0,\n"
-                + "      \"perDeviceMonthly\": 0\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"services\": [\n"
-                + "    {\n"
-                + "      \"enabled\": true,\n"
-                + "      \"name\": \"hardwareAdvantagePlan\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"id\": \"5\",\n"
-                + "  \"createdDate\": \"2024-07-02T09:00:00Z\",\n"
-                + "  \"lastUpdatedDate\": \"2024-07-02T09:00:00Z\",\n"
-                + "  \"status\": \"pendingReview\",\n"
-                + "  \"key\": \"string\",\n"
-                + "  \"metadata\": {\n"
-                + "    \"yourCustomField\": \"abc123\"\n"
-                + "  }\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/BoardingPricingIntentsWireTest_testCreate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -318,11 +234,10 @@ public class BoardingPricingIntentsWireTest {
 
     @Test
     public void testRetrieve() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"country\":\"US\",\"version\":\"5.0\",\"base\":{\"addressVerification\":5,\"annualFee\":{\"billInMonth\":\"june\",\"amount\":100},\"regulatoryAssistanceProgram\":15,\"pciNonCompliance\":4995,\"merchantAdvantage\":10,\"platinumSecurity\":{\"amount\":1295,\"billingFrequency\":\"monthly\"},\"maintenance\":500,\"minimum\":100,\"voiceAuthorization\":95,\"chargeback\":2500,\"retrieval\":1500,\"batch\":1000,\"earlyTermination\":57500},\"processor\":{\"card\":{\"fees\":{\"mastercardVisaDiscover\":{\"volume\":1.25},\"amex\":{\"volume\":1.25,\"transaction\":1,\"type\":\"optBlue\"},\"pinDebit\":{\"additionalDiscount\":1.25,\"transaction\":1,\"monthlyAccess\":1},\"enhancedInterchange\":{\"enrollment\":1,\"creditToMerchant\":1.25}},\"planType\":\"interchangePlus\"},\"ach\":{\"fees\":{\"transaction\":50,\"batch\":1000,\"returns\":400,\"unauthorizedReturn\":1999,\"statement\":800,\"monthlyMinimum\":20000,\"accountVerification\":100,\"discountRateUnder10000\":5.25,\"discountRateAbove10000\":10}}},\"gateway\":{\"fees\":{\"monthly\":1000,\"setup\":25000,\"perTransaction\":0,\"perDeviceMonthly\":0}},\"services\":[{\"enabled\":true,\"name\":\"hardwareAdvantagePlan\"}],\"id\":\"5\",\"createdDate\":\"2024-07-02T09:00:00Z\",\"lastUpdatedDate\":\"2024-07-02T09:00:00Z\",\"status\":\"pendingReview\",\"key\":\"string\",\"metadata\":{\"yourCustomField\":\"abc123\"}}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/BoardingPricingIntentsWireTest_testRetrieve_response.json")));
         PricingIntent50 response = client.boarding()
                 .pricingIntents()
                 .retrieve("5", RetrievePricingIntentsRequest.builder().build());
@@ -333,91 +248,8 @@ public class BoardingPricingIntentsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"country\": \"US\",\n"
-                + "  \"version\": \"5.0\",\n"
-                + "  \"base\": {\n"
-                + "    \"addressVerification\": 5,\n"
-                + "    \"annualFee\": {\n"
-                + "      \"billInMonth\": \"june\",\n"
-                + "      \"amount\": 100\n"
-                + "    },\n"
-                + "    \"regulatoryAssistanceProgram\": 15,\n"
-                + "    \"pciNonCompliance\": 4995,\n"
-                + "    \"merchantAdvantage\": 10,\n"
-                + "    \"platinumSecurity\": {\n"
-                + "      \"amount\": 1295,\n"
-                + "      \"billingFrequency\": \"monthly\"\n"
-                + "    },\n"
-                + "    \"maintenance\": 500,\n"
-                + "    \"minimum\": 100,\n"
-                + "    \"voiceAuthorization\": 95,\n"
-                + "    \"chargeback\": 2500,\n"
-                + "    \"retrieval\": 1500,\n"
-                + "    \"batch\": 1000,\n"
-                + "    \"earlyTermination\": 57500\n"
-                + "  },\n"
-                + "  \"processor\": {\n"
-                + "    \"card\": {\n"
-                + "      \"fees\": {\n"
-                + "        \"mastercardVisaDiscover\": {\n"
-                + "          \"volume\": 1.25\n"
-                + "        },\n"
-                + "        \"amex\": {\n"
-                + "          \"volume\": 1.25,\n"
-                + "          \"transaction\": 1,\n"
-                + "          \"type\": \"optBlue\"\n"
-                + "        },\n"
-                + "        \"pinDebit\": {\n"
-                + "          \"additionalDiscount\": 1.25,\n"
-                + "          \"transaction\": 1,\n"
-                + "          \"monthlyAccess\": 1\n"
-                + "        },\n"
-                + "        \"enhancedInterchange\": {\n"
-                + "          \"enrollment\": 1,\n"
-                + "          \"creditToMerchant\": 1.25\n"
-                + "        }\n"
-                + "      },\n"
-                + "      \"planType\": \"interchangePlus\"\n"
-                + "    },\n"
-                + "    \"ach\": {\n"
-                + "      \"fees\": {\n"
-                + "        \"transaction\": 50,\n"
-                + "        \"batch\": 1000,\n"
-                + "        \"returns\": 400,\n"
-                + "        \"unauthorizedReturn\": 1999,\n"
-                + "        \"statement\": 800,\n"
-                + "        \"monthlyMinimum\": 20000,\n"
-                + "        \"accountVerification\": 100,\n"
-                + "        \"discountRateUnder10000\": 5.25,\n"
-                + "        \"discountRateAbove10000\": 10\n"
-                + "      }\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"gateway\": {\n"
-                + "    \"fees\": {\n"
-                + "      \"monthly\": 1000,\n"
-                + "      \"setup\": 25000,\n"
-                + "      \"perTransaction\": 0,\n"
-                + "      \"perDeviceMonthly\": 0\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"services\": [\n"
-                + "    {\n"
-                + "      \"enabled\": true,\n"
-                + "      \"name\": \"hardwareAdvantagePlan\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"id\": \"5\",\n"
-                + "  \"createdDate\": \"2024-07-02T09:00:00Z\",\n"
-                + "  \"lastUpdatedDate\": \"2024-07-02T09:00:00Z\",\n"
-                + "  \"status\": \"pendingReview\",\n"
-                + "  \"key\": \"string\",\n"
-                + "  \"metadata\": {\n"
-                + "    \"yourCustomField\": \"abc123\"\n"
-                + "  }\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/BoardingPricingIntentsWireTest_testRetrieve_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -526,70 +358,8 @@ public class BoardingPricingIntentsWireTest {
         Assertions.assertEquals("PUT", request.getMethod());
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = ""
-                + "{\n"
-                + "  \"country\": \"US\",\n"
-                + "  \"version\": \"5.0\",\n"
-                + "  \"base\": {\n"
-                + "    \"addressVerification\": 5,\n"
-                + "    \"annualFee\": {\n"
-                + "      \"billInMonth\": \"june\",\n"
-                + "      \"amount\": 9900\n"
-                + "    },\n"
-                + "    \"regulatoryAssistanceProgram\": 15,\n"
-                + "    \"pciNonCompliance\": 4995,\n"
-                + "    \"merchantAdvantage\": 10,\n"
-                + "    \"platinumSecurity\": {\n"
-                + "      \"billingFrequency\": \"monthly\"\n"
-                + "    },\n"
-                + "    \"maintenance\": 500,\n"
-                + "    \"minimum\": 100,\n"
-                + "    \"voiceAuthorization\": 95,\n"
-                + "    \"chargeback\": 2500,\n"
-                + "    \"retrieval\": 1500,\n"
-                + "    \"batch\": 1500,\n"
-                + "    \"earlyTermination\": 57500\n"
-                + "  },\n"
-                + "  \"processor\": {\n"
-                + "    \"card\": {\n"
-                + "      \"fees\": {\n"
-                + "        \"mastercardVisaDiscover\": {}\n"
-                + "      },\n"
-                + "      \"planType\": \"interchangePlus\"\n"
-                + "    },\n"
-                + "    \"ach\": {\n"
-                + "      \"fees\": {\n"
-                + "        \"transaction\": 50,\n"
-                + "        \"batch\": 5,\n"
-                + "        \"returns\": 400,\n"
-                + "        \"unauthorizedReturn\": 1999,\n"
-                + "        \"statement\": 800,\n"
-                + "        \"monthlyMinimum\": 20000,\n"
-                + "        \"accountVerification\": 10,\n"
-                + "        \"discountRateUnder10000\": 5.25,\n"
-                + "        \"discountRateAbove10000\": 10\n"
-                + "      }\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"gateway\": {\n"
-                + "    \"fees\": {\n"
-                + "      \"monthly\": 2000,\n"
-                + "      \"setup\": 5000,\n"
-                + "      \"perTransaction\": 2000,\n"
-                + "      \"perDeviceMonthly\": 10\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"services\": [\n"
-                + "    {\n"
-                + "      \"enabled\": true,\n"
-                + "      \"name\": \"hardwareAdvantagePlan\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"key\": \"Your-Unique-Identifier\",\n"
-                + "  \"metadata\": {\n"
-                + "    \"yourCustomField\": \"abc123\"\n"
-                + "  }\n"
-                + "}";
+        String expectedRequestBody =
+                TestResources.loadResource("/wire-tests/BoardingPricingIntentsWireTest_testUpdate_request.json");
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
@@ -631,11 +401,10 @@ public class BoardingPricingIntentsWireTest {
 
     @Test
     public void testPartiallyUpdate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"country\":\"US\",\"version\":\"5.0\",\"base\":{\"addressVerification\":5,\"annualFee\":{\"billInMonth\":\"june\",\"amount\":100},\"regulatoryAssistanceProgram\":15,\"pciNonCompliance\":4995,\"merchantAdvantage\":10,\"platinumSecurity\":{\"amount\":1295,\"billingFrequency\":\"monthly\"},\"maintenance\":500,\"minimum\":100,\"voiceAuthorization\":95,\"chargeback\":2500,\"retrieval\":1500,\"batch\":1000,\"earlyTermination\":57500},\"processor\":{\"card\":{\"fees\":{\"mastercardVisaDiscover\":{\"volume\":1.25},\"amex\":{\"volume\":1.25,\"transaction\":1,\"type\":\"optBlue\"},\"pinDebit\":{\"additionalDiscount\":1.25,\"transaction\":1,\"monthlyAccess\":1},\"enhancedInterchange\":{\"enrollment\":1,\"creditToMerchant\":1.25}},\"planType\":\"interchangePlus\"},\"ach\":{\"fees\":{\"transaction\":50,\"batch\":1000,\"returns\":400,\"unauthorizedReturn\":1999,\"statement\":800,\"monthlyMinimum\":20000,\"accountVerification\":100,\"discountRateUnder10000\":5.25,\"discountRateAbove10000\":10}}},\"gateway\":{\"fees\":{\"monthly\":1000,\"setup\":25000,\"perTransaction\":0,\"perDeviceMonthly\":0}},\"services\":[{\"enabled\":true,\"name\":\"hardwareAdvantagePlan\"}],\"id\":\"5\",\"createdDate\":\"2024-07-02T09:00:00Z\",\"lastUpdatedDate\":\"2024-07-02T09:00:00Z\",\"status\":\"pendingReview\",\"key\":\"string\",\"metadata\":{\"yourCustomField\":\"abc123\"}}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/BoardingPricingIntentsWireTest_testPartiallyUpdate_response.json")));
         PricingIntent50 response = client.boarding()
                 .pricingIntents()
                 .partiallyUpdate(
@@ -709,91 +478,8 @@ public class BoardingPricingIntentsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"country\": \"US\",\n"
-                + "  \"version\": \"5.0\",\n"
-                + "  \"base\": {\n"
-                + "    \"addressVerification\": 5,\n"
-                + "    \"annualFee\": {\n"
-                + "      \"billInMonth\": \"june\",\n"
-                + "      \"amount\": 100\n"
-                + "    },\n"
-                + "    \"regulatoryAssistanceProgram\": 15,\n"
-                + "    \"pciNonCompliance\": 4995,\n"
-                + "    \"merchantAdvantage\": 10,\n"
-                + "    \"platinumSecurity\": {\n"
-                + "      \"amount\": 1295,\n"
-                + "      \"billingFrequency\": \"monthly\"\n"
-                + "    },\n"
-                + "    \"maintenance\": 500,\n"
-                + "    \"minimum\": 100,\n"
-                + "    \"voiceAuthorization\": 95,\n"
-                + "    \"chargeback\": 2500,\n"
-                + "    \"retrieval\": 1500,\n"
-                + "    \"batch\": 1000,\n"
-                + "    \"earlyTermination\": 57500\n"
-                + "  },\n"
-                + "  \"processor\": {\n"
-                + "    \"card\": {\n"
-                + "      \"fees\": {\n"
-                + "        \"mastercardVisaDiscover\": {\n"
-                + "          \"volume\": 1.25\n"
-                + "        },\n"
-                + "        \"amex\": {\n"
-                + "          \"volume\": 1.25,\n"
-                + "          \"transaction\": 1,\n"
-                + "          \"type\": \"optBlue\"\n"
-                + "        },\n"
-                + "        \"pinDebit\": {\n"
-                + "          \"additionalDiscount\": 1.25,\n"
-                + "          \"transaction\": 1,\n"
-                + "          \"monthlyAccess\": 1\n"
-                + "        },\n"
-                + "        \"enhancedInterchange\": {\n"
-                + "          \"enrollment\": 1,\n"
-                + "          \"creditToMerchant\": 1.25\n"
-                + "        }\n"
-                + "      },\n"
-                + "      \"planType\": \"interchangePlus\"\n"
-                + "    },\n"
-                + "    \"ach\": {\n"
-                + "      \"fees\": {\n"
-                + "        \"transaction\": 50,\n"
-                + "        \"batch\": 1000,\n"
-                + "        \"returns\": 400,\n"
-                + "        \"unauthorizedReturn\": 1999,\n"
-                + "        \"statement\": 800,\n"
-                + "        \"monthlyMinimum\": 20000,\n"
-                + "        \"accountVerification\": 100,\n"
-                + "        \"discountRateUnder10000\": 5.25,\n"
-                + "        \"discountRateAbove10000\": 10\n"
-                + "      }\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"gateway\": {\n"
-                + "    \"fees\": {\n"
-                + "      \"monthly\": 1000,\n"
-                + "      \"setup\": 25000,\n"
-                + "      \"perTransaction\": 0,\n"
-                + "      \"perDeviceMonthly\": 0\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"services\": [\n"
-                + "    {\n"
-                + "      \"enabled\": true,\n"
-                + "      \"name\": \"hardwareAdvantagePlan\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"id\": \"5\",\n"
-                + "  \"createdDate\": \"2024-07-02T09:00:00Z\",\n"
-                + "  \"lastUpdatedDate\": \"2024-07-02T09:00:00Z\",\n"
-                + "  \"status\": \"pendingReview\",\n"
-                + "  \"key\": \"string\",\n"
-                + "  \"metadata\": {\n"
-                + "    \"yourCustomField\": \"abc123\"\n"
-                + "  }\n"
-                + "}";
+        String expectedResponseBody = TestResources.loadResource(
+                "/wire-tests/BoardingPricingIntentsWireTest_testPartiallyUpdate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(

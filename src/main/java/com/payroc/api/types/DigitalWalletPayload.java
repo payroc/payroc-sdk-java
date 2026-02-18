@@ -56,8 +56,8 @@ public final class DigitalWalletPayload {
     /**
      * @return Provider of the digital wallet. Send one of the following values:
      * <ul>
-     * <li><code>apple</code> - For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/integrate/apple-pay">Apple Pay®</a>.</li>
-     * <li><code>google</code> - For more information about how to integrate with google Pay, go to <a href="https://docs.payroc.com/guides/integrate/google-pay">Google Pay®</a>.</li>
+     * <li><code>apple</code> - For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/take-payments/apple-pay">Apple Pay®</a>.</li>
+     * <li><code>google</code> - For more information about how to integrate with google Pay, go to <a href="https://docs.payroc.com/guides/take-payments/google-pay">Google Pay®</a>.</li>
      * </ul>
      */
     @JsonProperty("serviceProvider")
@@ -117,8 +117,8 @@ public final class DigitalWalletPayload {
         /**
          * <p>Provider of the digital wallet. Send one of the following values:</p>
          * <ul>
-         * <li><code>apple</code> - For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/integrate/apple-pay">Apple Pay®</a>.</li>
-         * <li><code>google</code> - For more information about how to integrate with google Pay, go to <a href="https://docs.payroc.com/guides/integrate/google-pay">Google Pay®</a>.</li>
+         * <li><code>apple</code> - For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/take-payments/apple-pay">Apple Pay®</a>.</li>
+         * <li><code>google</code> - For more information about how to integrate with google Pay, go to <a href="https://docs.payroc.com/guides/take-payments/google-pay">Google Pay®</a>.</li>
          * </ul>
          */
         EncryptedDataStage serviceProvider(@NotNull DigitalWalletPayloadServiceProvider serviceProvider);
@@ -179,13 +179,13 @@ public final class DigitalWalletPayload {
         /**
          * <p>Provider of the digital wallet. Send one of the following values:</p>
          * <ul>
-         * <li><code>apple</code> - For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/integrate/apple-pay">Apple Pay®</a>.</li>
-         * <li><code>google</code> - For more information about how to integrate with google Pay, go to <a href="https://docs.payroc.com/guides/integrate/google-pay">Google Pay®</a>.</li>
+         * <li><code>apple</code> - For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/take-payments/apple-pay">Apple Pay®</a>.</li>
+         * <li><code>google</code> - For more information about how to integrate with google Pay, go to <a href="https://docs.payroc.com/guides/take-payments/google-pay">Google Pay®</a>.</li>
          * </ul>
          * <p>Provider of the digital wallet. Send one of the following values:</p>
          * <ul>
-         * <li><code>apple</code> - For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/integrate/apple-pay">Apple Pay®</a>.</li>
-         * <li><code>google</code> - For more information about how to integrate with google Pay, go to <a href="https://docs.payroc.com/guides/integrate/google-pay">Google Pay®</a>.</li>
+         * <li><code>apple</code> - For more information about how to integrate with Apple Pay, go to <a href="https://docs.payroc.com/guides/take-payments/apple-pay">Apple Pay®</a>.</li>
+         * <li><code>google</code> - For more information about how to integrate with google Pay, go to <a href="https://docs.payroc.com/guides/take-payments/google-pay">Google Pay®</a>.</li>
          * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -49,8 +49,8 @@ public final class SubscriptionPaymentOrderBase implements ISubscriptionPaymentO
     }
 
     /**
-     * @return Total amount for the transaction. The value is in the currency's lowest denomination, for example, cents.&lt;br/&gt;
-     * &lt;br/&gt;<strong>Important:</strong> Do not add the surcharge to the amount parameter in the request. If the transaction is eligible for surcharging, our gateway adds the surcharge to the amount in the request, and then returns the updated amount in the response.
+     * @return Total amount for the transaction. The value is in the currency's lowest denomination, for example, cents.<br/>
+     * <br/><strong>Important:</strong> Do not add the surcharge to the amount parameter in the request. If the transaction is eligible for surcharging, our gateway adds the surcharge to the amount in the request, and then returns the updated amount in the response.
      */
     @JsonProperty("amount")
     @java.lang.Override
@@ -131,8 +131,8 @@ public final class SubscriptionPaymentOrderBase implements ISubscriptionPaymentO
         }
 
         /**
-         * <p>Total amount for the transaction. The value is in the currency's lowest denomination, for example, cents.&lt;br/&gt;
-         * &lt;br/&gt;<strong>Important:</strong> Do not add the surcharge to the amount parameter in the request. If the transaction is eligible for surcharging, our gateway adds the surcharge to the amount in the request, and then returns the updated amount in the response.</p>
+         * <p>Total amount for the transaction. The value is in the currency's lowest denomination, for example, cents.<br/>
+         * <br/><strong>Important:</strong> Do not add the surcharge to the amount parameter in the request. If the transaction is eligible for surcharging, our gateway adds the surcharge to the amount in the request, and then returns the updated amount in the response.</p>
          */
         @JsonSetter(value = "amount", nulls = Nulls.SKIP)
         public Builder amount(Optional<Long> amount) {

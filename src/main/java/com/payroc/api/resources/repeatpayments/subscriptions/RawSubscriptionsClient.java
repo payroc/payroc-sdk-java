@@ -87,6 +87,25 @@ public class RawSubscriptionsClient {
      * <p>For each subscription, we also return the subscriptionId, the paymentPlanId, and the secureTokenId, which you can use to perform follow-actions.</p>
      */
     public PayrocApiHttpResponse<PayrocPager<Subscription>> list(
+            String processingTerminalId, RequestOptions requestOptions) {
+        return list(processingTerminalId, ListSubscriptionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of subscriptions.
+     * <p>Note: If you want to view the details of a specific subscription and you have its subscriptionId, use our <a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/retrieve">Retrieve subscription</a> method.</p>
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for subscriptions for a customer, a payment plan, or frequency.</p>
+     * <p>Our gateway returns information about the following for each subscription in the list:</p>
+     * <ul>
+     * <li>Payment plan the subscription is linked to.</li>
+     * <li>Secure token that represents cardholder’s payment details.</li>
+     * <li>Current state of the subscription, including its status, next due date, and invoices.</li>
+     * <li>Fees for setup and the cost of the recurring order.</li>
+     * <li>Subscription length, end date, and frequency.</li>
+     * </ul>
+     * <p>For each subscription, we also return the subscriptionId, the paymentPlanId, and the secureTokenId, which you can use to perform follow-actions.</p>
+     */
+    public PayrocApiHttpResponse<PayrocPager<Subscription>> list(
             String processingTerminalId, ListSubscriptionsRequest request) {
         return list(processingTerminalId, request, null);
     }
@@ -152,6 +171,11 @@ public class RawSubscriptionsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "limit", request.getLimit().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -204,7 +228,7 @@ public class RawSubscriptionsClient {
 
     /**
      * Use this method to assign a customer to a payment plan.
-     * <p><strong>Note:</strong> This method is part of our Repeat Payments feature. To help you understand how this method works with our Payment plans endpoints, go to <a href="https://docs.payroc.com/guides/integrate/repeat-payments">Repeat Payments</a>.</p>
+     * <p><strong>Note:</strong> This method is part of our Repeat Payments feature. To help you understand how this method works with our Payment plans endpoints, go to <a href="https://docs.payroc.com/guides/take-payments/repeat-payments">Repeat Payments</a>.</p>
      * <p>When you create a subscription you need to provide a unique subscriptionId that you use to run follow-on actions:</p>
      * <ul>
      * <li><a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/retrieve">Retrieve Subscription</a> - View the details of the subscription.</li>
@@ -227,7 +251,7 @@ public class RawSubscriptionsClient {
 
     /**
      * Use this method to assign a customer to a payment plan.
-     * <p><strong>Note:</strong> This method is part of our Repeat Payments feature. To help you understand how this method works with our Payment plans endpoints, go to <a href="https://docs.payroc.com/guides/integrate/repeat-payments">Repeat Payments</a>.</p>
+     * <p><strong>Note:</strong> This method is part of our Repeat Payments feature. To help you understand how this method works with our Payment plans endpoints, go to <a href="https://docs.payroc.com/guides/take-payments/repeat-payments">Repeat Payments</a>.</p>
      * <p>When you create a subscription you need to provide a unique subscriptionId that you use to run follow-on actions:</p>
      * <ul>
      * <li><a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/retrieve">Retrieve Subscription</a> - View the details of the subscription.</li>
@@ -246,12 +270,16 @@ public class RawSubscriptionsClient {
      */
     public PayrocApiHttpResponse<Subscription> create(
             String processingTerminalId, SubscriptionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
-                .addPathSegments("subscriptions")
-                .build();
+                .addPathSegments("subscriptions");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -260,7 +288,7 @@ public class RawSubscriptionsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -353,6 +381,29 @@ public class RawSubscriptionsClient {
      * <p>We also return the paymentPlanId and the secureTokenId, which you can use to perform follow-on actions.</p>
      */
     public PayrocApiHttpResponse<Subscription> retrieve(
+            String processingTerminalId, String subscriptionId, RequestOptions requestOptions) {
+        return retrieve(
+                processingTerminalId,
+                subscriptionId,
+                RetrieveSubscriptionsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a subscription.
+     * <p>To retrieve a subscription, you need its subscriptionId. You sent the subscriptionId in the request of the <a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/create">Create subscription</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the subscriptionId, use our <a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/list">List subscriptions</a> method to search for the subscription.</p>
+     * <p>Our gateway returns information about the following for the subscription:</p>
+     * <ul>
+     * <li>Payment plan the subscription is linked to.</li>
+     * <li>Secure token that represents cardholder’s payment details.</li>
+     * <li>Current state of the subscription, including its status, next due date, and invoices.</li>
+     * <li>Fees for setup and the cost of the recurring order.</li>
+     * <li>Subscription length, end date, and frequency.</li>
+     * </ul>
+     * <p>We also return the paymentPlanId and the secureTokenId, which you can use to perform follow-on actions.</p>
+     */
+    public PayrocApiHttpResponse<Subscription> retrieve(
             String processingTerminalId, String subscriptionId, RetrieveSubscriptionsRequest request) {
         return retrieve(processingTerminalId, subscriptionId, request, null);
     }
@@ -376,15 +427,19 @@ public class RawSubscriptionsClient {
             String subscriptionId,
             RetrieveSubscriptionsRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
                 .addPathSegments("subscriptions")
-                .addPathSegment(subscriptionId)
-                .build();
+                .addPathSegment(subscriptionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -483,13 +538,17 @@ public class RawSubscriptionsClient {
             String subscriptionId,
             PartiallyUpdateSubscriptionsRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
                 .addPathSegments("subscriptions")
-                .addPathSegment(subscriptionId)
-                .build();
+                .addPathSegment(subscriptionId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -498,7 +557,7 @@ public class RawSubscriptionsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -581,6 +640,22 @@ public class RawSubscriptionsClient {
      * <p>To reactivate the subscription, use our <a href="https://docs.payroc.com/api/schema/payments/subscriptions/reactivate">Reactivate Subscription</a> method.</p>
      */
     public PayrocApiHttpResponse<Subscription> deactivate(
+            String processingTerminalId, String subscriptionId, RequestOptions requestOptions) {
+        return deactivate(
+                processingTerminalId,
+                subscriptionId,
+                DeactivateSubscriptionsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to deactivate a subscription.
+     * <p>To deactivate a subscription, you need its subscriptionId, which you sent in the request of the <a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/create">Create Subscription</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the subscriptionId, use our <a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/list">List Subscriptions</a> method to search for the subscription.</p>
+     * <p>If your request is successful, our gateway stops taking payments from the customer.</p>
+     * <p>To reactivate the subscription, use our <a href="https://docs.payroc.com/api/schema/payments/subscriptions/reactivate">Reactivate Subscription</a> method.</p>
+     */
+    public PayrocApiHttpResponse<Subscription> deactivate(
             String processingTerminalId, String subscriptionId, DeactivateSubscriptionsRequest request) {
         return deactivate(processingTerminalId, subscriptionId, request, null);
     }
@@ -597,16 +672,20 @@ public class RawSubscriptionsClient {
             String subscriptionId,
             DeactivateSubscriptionsRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
                 .addPathSegments("subscriptions")
                 .addPathSegment(subscriptionId)
-                .addPathSegments("deactivate")
-                .build();
+                .addPathSegments("deactivate");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -687,6 +766,22 @@ public class RawSubscriptionsClient {
      * <p>To deactivate the subscription, use our <a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/deactivate">Deactivate Subscription</a> method.</p>
      */
     public PayrocApiHttpResponse<Subscription> reactivate(
+            String processingTerminalId, String subscriptionId, RequestOptions requestOptions) {
+        return reactivate(
+                processingTerminalId,
+                subscriptionId,
+                ReactivateSubscriptionsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to reactivate a subscription.
+     * <p>To reactivate a subscription, you need its subscriptionId, which you sent in the request of the <a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/create">Create Subscription</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the subscriptionId, use our <a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/list">List Subscriptions</a> method to search for the subscription.</p>
+     * <p>If your request is successful, our gateway restarts taking payments from the customer.</p>
+     * <p>To deactivate the subscription, use our <a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/deactivate">Deactivate Subscription</a> method.</p>
+     */
+    public PayrocApiHttpResponse<Subscription> reactivate(
             String processingTerminalId, String subscriptionId, ReactivateSubscriptionsRequest request) {
         return reactivate(processingTerminalId, subscriptionId, request, null);
     }
@@ -703,16 +798,20 @@ public class RawSubscriptionsClient {
             String subscriptionId,
             ReactivateSubscriptionsRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
                 .addPathSegments("subscriptions")
                 .addPathSegment(subscriptionId)
-                .addPathSegments("reactivate")
-                .build();
+                .addPathSegments("reactivate");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -795,14 +894,18 @@ public class RawSubscriptionsClient {
             String subscriptionId,
             SubscriptionPaymentRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
                 .addPathSegments("subscriptions")
                 .addPathSegment(subscriptionId)
-                .addPathSegments("pay")
-                .build();
+                .addPathSegments("pay");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -811,7 +914,7 @@ public class RawSubscriptionsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

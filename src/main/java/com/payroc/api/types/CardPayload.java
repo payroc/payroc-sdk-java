@@ -46,7 +46,14 @@ public final class CardPayload {
     }
 
     /**
-     * @return Object that contains the details of the payment card.
+     * @return Polymorphic object that contains payment card information.
+     * <p>The value of the entryMethod parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>raw</code> - Unencrypted payment data directly from the device.</li>
+     * <li><code>icc</code> - Payment data that the device captured from the chip.</li>
+     * <li><code>keyed</code> - Payment data that the merchant entered manually.</li>
+     * <li><code>swiped</code> - Payment data that the device captured from the magnetic strip.</li>
+     * </ul>
      */
     @JsonProperty("cardDetails")
     public CardPayloadCardDetails getCardDetails() {
@@ -84,7 +91,14 @@ public final class CardPayload {
 
     public interface CardDetailsStage {
         /**
-         * <p>Object that contains the details of the payment card.</p>
+         * <p>Polymorphic object that contains payment card information.</p>
+         * <p>The value of the entryMethod parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>raw</code> - Unencrypted payment data directly from the device.</li>
+         * <li><code>icc</code> - Payment data that the device captured from the chip.</li>
+         * <li><code>keyed</code> - Payment data that the merchant entered manually.</li>
+         * <li><code>swiped</code> - Payment data that the device captured from the magnetic strip.</li>
+         * </ul>
          */
         _FinalStage cardDetails(@NotNull CardPayloadCardDetails cardDetails);
 
@@ -122,8 +136,22 @@ public final class CardPayload {
         }
 
         /**
-         * <p>Object that contains the details of the payment card.</p>
-         * <p>Object that contains the details of the payment card.</p>
+         * <p>Polymorphic object that contains payment card information.</p>
+         * <p>The value of the entryMethod parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>raw</code> - Unencrypted payment data directly from the device.</li>
+         * <li><code>icc</code> - Payment data that the device captured from the chip.</li>
+         * <li><code>keyed</code> - Payment data that the merchant entered manually.</li>
+         * <li><code>swiped</code> - Payment data that the device captured from the magnetic strip.</li>
+         * </ul>
+         * <p>Polymorphic object that contains payment card information.</p>
+         * <p>The value of the entryMethod parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>raw</code> - Unencrypted payment data directly from the device.</li>
+         * <li><code>icc</code> - Payment data that the device captured from the chip.</li>
+         * <li><code>keyed</code> - Payment data that the merchant entered manually.</li>
+         * <li><code>swiped</code> - Payment data that the device captured from the magnetic strip.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -51,7 +51,7 @@ public class ReportingSettlementWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"batchId\":123,\"date\":\"2024-07-02\",\"createdDate\":\"2024-07-02\",\"lastModifiedDate\":\"2024-07-02\",\"saleAmount\":1,\"heldAmount\":1,\"returnAmount\":1,\"transactionCount\":1,\"currency\":\"currency\",\"merchant\":{\"merchantId\":\"4525644354\",\"doingBusinessAs\":\"Pizza Doe\",\"processingAccountId\":38765,\"link\":{\"rel\":\"processingAccount\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/processing-accounts/38765\"}},\"links\":[{\"rel\":\"transactions\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/transactions?batchId=123\"},{\"rel\":\"authorizations\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/authorizations?batchId=123\"}]}"));
+                                "{\"batchId\":123,\"date\":\"2024-07-02\",\"createdDate\":\"2024-07-02\",\"lastModifiedDate\":\"2024-07-02\",\"saleAmount\":1000000,\"heldAmount\":1000000,\"returnAmount\":1000000,\"transactionCount\":1000000,\"currency\":\"currency\",\"merchant\":{\"merchantId\":\"4525644354\",\"doingBusinessAs\":\"Pizza Doe\",\"processingAccountId\":38765,\"link\":{\"rel\":\"processingAccount\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/processing-accounts/38765\"}},\"links\":[{\"rel\":\"transactions\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/transactions?batchId=123\"},{\"rel\":\"authorizations\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/authorizations?batchId=123\"}]}"));
         Batch response = client.reporting()
                 .settlement()
                 .retrieveBatch(1, RetrieveBatchSettlementRequest.builder().build());
@@ -68,10 +68,10 @@ public class ReportingSettlementWireTest {
                 + "  \"date\": \"2024-07-02\",\n"
                 + "  \"createdDate\": \"2024-07-02\",\n"
                 + "  \"lastModifiedDate\": \"2024-07-02\",\n"
-                + "  \"saleAmount\": 1,\n"
-                + "  \"heldAmount\": 1,\n"
-                + "  \"returnAmount\": 1,\n"
-                + "  \"transactionCount\": 1,\n"
+                + "  \"saleAmount\": 1000000,\n"
+                + "  \"heldAmount\": 1000000,\n"
+                + "  \"returnAmount\": 1000000,\n"
+                + "  \"transactionCount\": 1000000,\n"
                 + "  \"currency\": \"currency\",\n"
                 + "  \"merchant\": {\n"
                 + "    \"merchantId\": \"4525644354\",\n"
@@ -129,11 +129,10 @@ public class ReportingSettlementWireTest {
 
     @Test
     public void testRetrieveTransaction() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"transactionId\":442233,\"type\":\"capture\",\"date\":\"2024-07-02\",\"amount\":4999,\"entryMethod\":\"barcodeRead\",\"createdDate\":\"2024-07-02\",\"lastModifiedDate\":\"2024-07-02\",\"status\":\"fullSuspense\",\"cashbackAmount\":0,\"interchange\":{\"basisPoint\":150,\"transactionFee\":50},\"currency\":\"USD\",\"merchant\":{\"merchantId\":\"4525644354\",\"doingBusinessAs\":\"Pizza Doe\",\"processingAccountId\":38765,\"link\":{\"rel\":\"processingAccount\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/processing-accounts/38765\"}},\"settled\":{\"settledBy\":\"3rd party\",\"achDate\":\"2024-07-02\",\"achDepositId\":99,\"link\":{\"rel\":\"achDeposit\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/ach-deposits/99?merchantId=4525644354\"}},\"batch\":{\"batchId\":1234,\"date\":\"2024-07-02\",\"cycle\":\"am\",\"link\":{\"rel\":\"previous\",\"method\":\"get\",\"href\":\"<uri>\"}},\"card\":{\"cardNumber\":\"453985******7062\",\"type\":\"visa\",\"cvvPresenceIndicator\":true,\"avsRequest\":true,\"avsResponse\":\"avsResponse\"},\"authorization\":{\"authorizationId\":303101,\"code\":\"A1B2C3\",\"amount\":4999,\"avsResponseCode\":\"Y\",\"link\":{\"rel\":\"previous\",\"method\":\"get\",\"href\":\"<uri>\"}}}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/ReportingSettlementWireTest_testRetrieveTransaction_response.json")));
         Transaction response = client.reporting()
                 .settlement()
                 .retrieveTransaction(
@@ -145,71 +144,8 @@ public class ReportingSettlementWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"transactionId\": 442233,\n"
-                + "  \"type\": \"capture\",\n"
-                + "  \"date\": \"2024-07-02\",\n"
-                + "  \"amount\": 4999,\n"
-                + "  \"entryMethod\": \"barcodeRead\",\n"
-                + "  \"createdDate\": \"2024-07-02\",\n"
-                + "  \"lastModifiedDate\": \"2024-07-02\",\n"
-                + "  \"status\": \"fullSuspense\",\n"
-                + "  \"cashbackAmount\": 0,\n"
-                + "  \"interchange\": {\n"
-                + "    \"basisPoint\": 150,\n"
-                + "    \"transactionFee\": 50\n"
-                + "  },\n"
-                + "  \"currency\": \"USD\",\n"
-                + "  \"merchant\": {\n"
-                + "    \"merchantId\": \"4525644354\",\n"
-                + "    \"doingBusinessAs\": \"Pizza Doe\",\n"
-                + "    \"processingAccountId\": 38765,\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"processingAccount\",\n"
-                + "      \"method\": \"get\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/processing-accounts/38765\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"settled\": {\n"
-                + "    \"settledBy\": \"3rd party\",\n"
-                + "    \"achDate\": \"2024-07-02\",\n"
-                + "    \"achDepositId\": 99,\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"achDeposit\",\n"
-                + "      \"method\": \"get\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/ach-deposits/99?merchantId=4525644354\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"batch\": {\n"
-                + "    \"batchId\": 1234,\n"
-                + "    \"date\": \"2024-07-02\",\n"
-                + "    \"cycle\": \"am\",\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"previous\",\n"
-                + "      \"method\": \"get\",\n"
-                + "      \"href\": \"<uri>\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"card\": {\n"
-                + "    \"cardNumber\": \"453985******7062\",\n"
-                + "    \"type\": \"visa\",\n"
-                + "    \"cvvPresenceIndicator\": true,\n"
-                + "    \"avsRequest\": true,\n"
-                + "    \"avsResponse\": \"avsResponse\"\n"
-                + "  },\n"
-                + "  \"authorization\": {\n"
-                + "    \"authorizationId\": 303101,\n"
-                + "    \"code\": \"A1B2C3\",\n"
-                + "    \"amount\": 4999,\n"
-                + "    \"avsResponseCode\": \"Y\",\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"previous\",\n"
-                + "      \"method\": \"get\",\n"
-                + "      \"href\": \"<uri>\"\n"
-                + "    }\n"
-                + "  }\n"
-                + "}";
+        String expectedResponseBody = TestResources.loadResource(
+                "/wire-tests/ReportingSettlementWireTest_testRetrieveTransaction_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -247,7 +183,7 @@ public class ReportingSettlementWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"authorizationId\":12345,\"createdDate\":\"2024-01-30\",\"lastModifiedDate\":\"2024-01-30\",\"authorizationResponse\":\"activityCountLimitExceeded\",\"preauthorizationRequestAmount\":10000,\"currency\":\"currency\",\"batch\":{\"batchId\":1234,\"date\":\"2024-07-02\",\"cycle\":\"am\",\"link\":{\"rel\":\"previous\",\"method\":\"get\",\"href\":\"<uri>\"}},\"card\":{\"cardNumber\":\"453985******7062\",\"type\":\"visa\",\"cvvPresenceIndicator\":true,\"avsRequest\":true,\"avsResponse\":\"avsResponse\"},\"merchant\":{\"merchantId\":\"4525644354\",\"doingBusinessAs\":\"Pizza Doe\",\"processingAccountId\":38765,\"link\":{\"rel\":\"processingAccount\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/processing-accounts/38765\"}},\"transaction\":{\"transactionId\":12345,\"type\":\"capture\",\"date\":\"2024-07-02\",\"entryMethod\":\"barcodeRead\",\"amount\":25000,\"link\":{\"rel\":\"previous\",\"method\":\"get\",\"href\":\"<uri>\"}}}"));
+                                "{\"authorizationId\":65,\"createdDate\":\"2024-07-02\",\"lastModifiedDate\":\"2024-07-02\",\"authorizationResponse\":\"successful\",\"preauthorizationRequestAmount\":10000,\"currency\":\"USD\",\"batch\":{\"batchId\":12,\"date\":\"2024-07-02\",\"cycle\":\"am\",\"link\":{\"rel\":\"batch\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/batches/12\"}},\"card\":{\"cardNumber\":\"453985******7062\",\"type\":\"visa\",\"cvvPresenceIndicator\":true,\"avsRequest\":true,\"avsResponse\":\"Y\"},\"merchant\":{\"merchantId\":\"4525644354\",\"doingBusinessAs\":\"Pizza Doe\",\"processingAccountId\":38765,\"link\":{\"rel\":\"processingAccount\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/processing-accounts/38765\"}},\"transaction\":{\"transactionId\":442233,\"type\":\"capture\",\"date\":\"2024-07-02\",\"entryMethod\":\"swiped\",\"amount\":100,\"link\":{\"rel\":\"transaction\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/transactions/12345\"}}}"));
         Authorization response = client.reporting()
                 .settlement()
                 .retrieveAuthorization(
@@ -261,20 +197,20 @@ public class ReportingSettlementWireTest {
         String actualResponseJson = objectMapper.writeValueAsString(response);
         String expectedResponseBody = ""
                 + "{\n"
-                + "  \"authorizationId\": 12345,\n"
-                + "  \"createdDate\": \"2024-01-30\",\n"
-                + "  \"lastModifiedDate\": \"2024-01-30\",\n"
-                + "  \"authorizationResponse\": \"activityCountLimitExceeded\",\n"
+                + "  \"authorizationId\": 65,\n"
+                + "  \"createdDate\": \"2024-07-02\",\n"
+                + "  \"lastModifiedDate\": \"2024-07-02\",\n"
+                + "  \"authorizationResponse\": \"successful\",\n"
                 + "  \"preauthorizationRequestAmount\": 10000,\n"
-                + "  \"currency\": \"currency\",\n"
+                + "  \"currency\": \"USD\",\n"
                 + "  \"batch\": {\n"
-                + "    \"batchId\": 1234,\n"
+                + "    \"batchId\": 12,\n"
                 + "    \"date\": \"2024-07-02\",\n"
                 + "    \"cycle\": \"am\",\n"
                 + "    \"link\": {\n"
-                + "      \"rel\": \"previous\",\n"
+                + "      \"rel\": \"batch\",\n"
                 + "      \"method\": \"get\",\n"
-                + "      \"href\": \"<uri>\"\n"
+                + "      \"href\": \"https://api.payroc.com/v1/batches/12\"\n"
                 + "    }\n"
                 + "  },\n"
                 + "  \"card\": {\n"
@@ -282,7 +218,7 @@ public class ReportingSettlementWireTest {
                 + "    \"type\": \"visa\",\n"
                 + "    \"cvvPresenceIndicator\": true,\n"
                 + "    \"avsRequest\": true,\n"
-                + "    \"avsResponse\": \"avsResponse\"\n"
+                + "    \"avsResponse\": \"Y\"\n"
                 + "  },\n"
                 + "  \"merchant\": {\n"
                 + "    \"merchantId\": \"4525644354\",\n"
@@ -295,15 +231,15 @@ public class ReportingSettlementWireTest {
                 + "    }\n"
                 + "  },\n"
                 + "  \"transaction\": {\n"
-                + "    \"transactionId\": 12345,\n"
+                + "    \"transactionId\": 442233,\n"
                 + "    \"type\": \"capture\",\n"
                 + "    \"date\": \"2024-07-02\",\n"
-                + "    \"entryMethod\": \"barcodeRead\",\n"
-                + "    \"amount\": 25000,\n"
+                + "    \"entryMethod\": \"swiped\",\n"
+                + "    \"amount\": 100,\n"
                 + "    \"link\": {\n"
-                + "      \"rel\": \"previous\",\n"
+                + "      \"rel\": \"transaction\",\n"
                 + "      \"method\": \"get\",\n"
-                + "      \"href\": \"<uri>\"\n"
+                + "      \"href\": \"https://api.payroc.com/v1/transactions/12345\"\n"
                 + "    }\n"
                 + "  }\n"
                 + "}";

@@ -133,6 +133,23 @@ public class PaymentsClient {
      * </ul>
      * <p>If the merchant saved the customer’s bank account details, our gateway returns a secureTokenID, which you can use to perform follow-on actions.</p>
      */
+    public BankTransferPayment retrieve(String paymentId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(paymentId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to retrieve information about a bank transfer payment.
+     * <p>To retrieve a payment, you need its paymentId. Our gateway returned the paymentId in the response of the <a href="https://docs.payroc.com/api/schema/bank-transfer-payments/payments/create">Create Payment</a> method.</p>
+     * <p>Note: If you don’t have the paymentId, use our <a href="https://docs.payroc.com/api/schema/bank-transfer-payments/payments/list">List Payments</a> method to search for the payment.</p>
+     * <p>Our gateway returns the following information about the payment:</p>
+     * <ul>
+     * <li>Order details, including the transaction amount and when it was processed.</li>
+     * <li>Bank account details, including the customer’s name and account number.</li>
+     * <li>Customer’s details, including the customer’s phone number.</li>
+     * <li>Transaction details, including any refunds or re-presentments.</li>
+     * </ul>
+     * <p>If the merchant saved the customer’s bank account details, our gateway returns a secureTokenID, which you can use to perform follow-on actions.</p>
+     */
     public BankTransferPayment retrieve(String paymentId, RetrievePaymentsRequest request) {
         return this.rawClient.retrieve(paymentId, request).body();
     }

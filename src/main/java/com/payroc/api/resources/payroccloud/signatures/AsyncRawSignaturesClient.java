@@ -65,6 +65,20 @@ public class AsyncRawSignaturesClient {
      * </ul>
      */
     public CompletableFuture<PayrocApiHttpResponse<RetrieveSignaturesResponse>> retrieve(
+            String signatureId, RequestOptions requestOptions) {
+        return retrieve(signatureId, RetrieveSignaturesRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve a signature that a payment device captured using Payroc Cloud.
+     * <p>Our gateway returns the following information about the signature:</p>
+     * <ul>
+     * <li>Image of the signature</li>
+     * <li>Format of the image</li>
+     * <li>Date that the device captured the image</li>
+     * </ul>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<RetrieveSignaturesResponse>> retrieve(
             String signatureId, RetrieveSignaturesRequest request) {
         return retrieve(signatureId, request, null);
     }
@@ -80,13 +94,17 @@ public class AsyncRawSignaturesClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<RetrieveSignaturesResponse>> retrieve(
             String signatureId, RetrieveSignaturesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("signatures")
-                .addPathSegment(signatureId)
-                .build();
+                .addPathSegment(signatureId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

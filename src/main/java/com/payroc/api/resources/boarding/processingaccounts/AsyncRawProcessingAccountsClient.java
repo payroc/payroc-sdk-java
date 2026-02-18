@@ -97,6 +97,24 @@ public class AsyncRawProcessingAccountsClient {
      * </ul>
      */
     public CompletableFuture<PayrocApiHttpResponse<ProcessingAccount>> retrieve(
+            String processingAccountId, RequestOptions requestOptions) {
+        return retrieve(
+                processingAccountId, RetrieveProcessingAccountsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a specific processing account.
+     * <p>To retrieve a processing account, you need its processingAccountId. Our gateway returned the processingAccountId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method or the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the processingAccountId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/list-processing-accounts">List Merchant Platform's Processing Accounts</a> method to search for the processing account.</p>
+     * <p>Our gateway returns the following information about the processing account:</p>
+     * <ul>
+     * <li>Business information, including the Merchant Category Code (MCC), status of the processing account, and address of the business.</li>
+     * <li>Processing information, including the merchant’s refund policies and card types that the merchant accepts.</li>
+     * <li>Funding information, including funding schedules, funding fees, and details for the merchant’s funding accounts.</li>
+     * <li>Pricing information, including <a href="https://docs.payroc.com/knowledge/basic-concepts/hypermedia-as-the-engine-of-application-state-hateoas">HATEOAS</a> links to retrieve the pricing program for the processing account.</li>
+     * </ul>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<ProcessingAccount>> retrieve(
             String processingAccountId, RetrieveProcessingAccountsRequest request) {
         return retrieve(processingAccountId, request, null);
     }
@@ -115,13 +133,17 @@ public class AsyncRawProcessingAccountsClient {
      */
     public CompletableFuture<PayrocApiHttpResponse<ProcessingAccount>> retrieve(
             String processingAccountId, RetrieveProcessingAccountsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-accounts")
-                .addPathSegment(processingAccountId)
-                .build();
+                .addPathSegment(processingAccountId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -196,7 +218,14 @@ public class AsyncRawProcessingAccountsClient {
     }
 
     /**
-     * Retrieve a list of funding accounts associated with a processing account.
+     * Use this method to return a list of funding accounts linked to a processing acccount.
+     * <p>To retrieve a list of funding accounts for a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method or the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Proccessing Account</a> method.</p>
+     * <p>Our gateway returns information about the following for each funding account in the list:</p>
+     * <ul>
+     * <li>Account information, including the name on the account and payment methods.</li>
+     * <li>Status, including whether we have approved or rejected the account.</li>
+     * </ul>
+     * <p>For each funding account, we also return its fundingAccountId, which you can use to perform follow-on actions.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<List<FundingAccount>>> listProcessingAccountFundingAccounts(
             String processingAccountId) {
@@ -206,7 +235,32 @@ public class AsyncRawProcessingAccountsClient {
     }
 
     /**
-     * Retrieve a list of funding accounts associated with a processing account.
+     * Use this method to return a list of funding accounts linked to a processing acccount.
+     * <p>To retrieve a list of funding accounts for a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method or the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Proccessing Account</a> method.</p>
+     * <p>Our gateway returns information about the following for each funding account in the list:</p>
+     * <ul>
+     * <li>Account information, including the name on the account and payment methods.</li>
+     * <li>Status, including whether we have approved or rejected the account.</li>
+     * </ul>
+     * <p>For each funding account, we also return its fundingAccountId, which you can use to perform follow-on actions.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<List<FundingAccount>>> listProcessingAccountFundingAccounts(
+            String processingAccountId, RequestOptions requestOptions) {
+        return listProcessingAccountFundingAccounts(
+                processingAccountId,
+                ListProcessingAccountFundingAccountsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to return a list of funding accounts linked to a processing acccount.
+     * <p>To retrieve a list of funding accounts for a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method or the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Proccessing Account</a> method.</p>
+     * <p>Our gateway returns information about the following for each funding account in the list:</p>
+     * <ul>
+     * <li>Account information, including the name on the account and payment methods.</li>
+     * <li>Status, including whether we have approved or rejected the account.</li>
+     * </ul>
+     * <p>For each funding account, we also return its fundingAccountId, which you can use to perform follow-on actions.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<List<FundingAccount>>> listProcessingAccountFundingAccounts(
             String processingAccountId, ListProcessingAccountFundingAccountsRequest request) {
@@ -214,20 +268,31 @@ public class AsyncRawProcessingAccountsClient {
     }
 
     /**
-     * Retrieve a list of funding accounts associated with a processing account.
+     * Use this method to return a list of funding accounts linked to a processing acccount.
+     * <p>To retrieve a list of funding accounts for a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method or the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Proccessing Account</a> method.</p>
+     * <p>Our gateway returns information about the following for each funding account in the list:</p>
+     * <ul>
+     * <li>Account information, including the name on the account and payment methods.</li>
+     * <li>Status, including whether we have approved or rejected the account.</li>
+     * </ul>
+     * <p>For each funding account, we also return its fundingAccountId, which you can use to perform follow-on actions.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<List<FundingAccount>>> listProcessingAccountFundingAccounts(
             String processingAccountId,
             ListProcessingAccountFundingAccountsRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-accounts")
                 .addPathSegment(processingAccountId)
-                .addPathSegments("funding-accounts")
-                .build();
+                .addPathSegments("funding-accounts");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -331,6 +396,25 @@ public class AsyncRawProcessingAccountsClient {
      * <p>For each contact, we also return a contactId, which you can use to perform follow-on actions.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<PaginatedContacts>> listContacts(
+            String processingAccountId, RequestOptions requestOptions) {
+        return listContacts(
+                processingAccountId,
+                ListContactsProcessingAccountsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to return a list of contacts for a processing account.
+     * <p><strong>Note:</strong> If you want to view the details of a specific contact and you have their contactId, use our <a href="https://docs.payroc.com/api/schema/boarding/contacts/retrieve">Retrieve Contact</a> method.</p>
+     * <p>To list contacts for a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method or the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
+     * <p>Our gateway returns the following information about each contact:</p>
+     * <ul>
+     * <li>Name and contact method, including their phone number or mobile number.</li>
+     * <li>Role within the business, for example, if they are a manager.</li>
+     * </ul>
+     * <p>For each contact, we also return a contactId, which you can use to perform follow-on actions.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<PaginatedContacts>> listContacts(
             String processingAccountId, ListContactsProcessingAccountsRequest request) {
         return listContacts(processingAccountId, request, null);
     }
@@ -364,6 +448,11 @@ public class AsyncRawProcessingAccountsClient {
         if (request.getLimit().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "limit", request.getLimit().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -468,6 +557,27 @@ public class AsyncRawProcessingAccountsClient {
      * </ul>
      */
     public CompletableFuture<PayrocApiHttpResponse<GetProcessingAccountPricingAgreementProcessingAccountsResponse>>
+            getProcessingAccountPricingAgreement(String processingAccountId, RequestOptions requestOptions) {
+        return getProcessingAccountPricingAgreement(
+                processingAccountId,
+                GetProcessingAccountPricingAgreementProcessingAccountsRequest.builder()
+                        .build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve the pricing agreement that we apply to a processing account.
+     * <p>To retrieve the pricing agreement of a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response to the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method and <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the processingAccountId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/list-processing-accounts">List Merchant Platform’s Processing Accounts</a> method to search for the processing account.</p>
+     * <p>Our gateway returns the following information about the pricing agreement that we apply to the processing account:</p>
+     * <ul>
+     * <li>Base fees, including the annual fee and the fees for each chargeback and retrieval.</li>
+     * <li>Processor fees, including the fees that we apply for processing card and ACH payments.</li>
+     * <li>Gateway fees, including the setup fee and the fees for each transaction.</li>
+     * <li>Service fees, including the fee that we apply if the merchant has signed up to a Hardware Advantage Plan.</li>
+     * </ul>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<GetProcessingAccountPricingAgreementProcessingAccountsResponse>>
             getProcessingAccountPricingAgreement(
                     String processingAccountId, GetProcessingAccountPricingAgreementProcessingAccountsRequest request) {
         return getProcessingAccountPricingAgreement(processingAccountId, request, null);
@@ -490,14 +600,18 @@ public class AsyncRawProcessingAccountsClient {
                     String processingAccountId,
                     GetProcessingAccountPricingAgreementProcessingAccountsRequest request,
                     RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-accounts")
                 .addPathSegment(processingAccountId)
-                .addPathSegments("pricing")
-                .build();
+                .addPathSegments("pricing");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -604,6 +718,25 @@ public class AsyncRawProcessingAccountsClient {
      * </ul>
      */
     public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<Owner>>>> listOwners(
+            String processingAccountId, RequestOptions requestOptions) {
+        return listOwners(
+                processingAccountId,
+                ListProcessingAccountOwnersRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to return a list of owners of a processing account.
+     * <p><strong>Note:</strong> If you want to view the details of a specific owner and you have the ownerId, go to our <a href="https://docs.payroc.com/api/schema/boarding/owners/retrieve">Retrieve Owner</a> method.</p>
+     * <p>To list the owners of a processing account, you need its processingAccountId. If you don't have the processingAccountId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/list-processing-accounts">List Merchant Platform's Processing Accounts</a> method to search for the processing account.</p>
+     * <p>Our gateway returns the following information about each owner in the list:</p>
+     * <ul>
+     * <li>Name, date of birth, and address.</li>
+     * <li>Contact details, including their email address.</li>
+     * <li>Relationship to the business, including whether they are a control prong or authorized signatory, and their equity stake in the business.</li>
+     * </ul>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<Owner>>>> listOwners(
             String processingAccountId, ListProcessingAccountOwnersRequest request) {
         return listOwners(processingAccountId, request, null);
     }
@@ -637,6 +770,11 @@ public class AsyncRawProcessingAccountsClient {
         if (request.getLimit().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "limit", request.getLimit().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -733,12 +871,16 @@ public class AsyncRawProcessingAccountsClient {
             String processingAccountId,
             CreateReminderProcessingAccountsRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-accounts")
                 .addPathSegment(processingAccountId)
-                .addPathSegments("reminders")
-                .build();
+                .addPathSegments("reminders");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -747,7 +889,7 @@ public class AsyncRawProcessingAccountsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -856,6 +998,28 @@ public class AsyncRawProcessingAccountsClient {
      * <p>For each terminal order, we also return its terminalOrderId, which you can use to perform follow-on actions.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<List<TerminalOrder>>> listTerminalOrders(
+            String processingAccountId, RequestOptions requestOptions) {
+        return listTerminalOrders(
+                processingAccountId,
+                ListTerminalOrdersProcessingAccountsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of terminal orders associated with a processing account.
+     * <p><strong>Note:</strong> If you want to view the details of a specific terminal order and you have its terminalOrderId, use our <a href="https://docs.payroc.com/api/schema/boarding/terminal-orders/retrieve">Retrieve Terminal Order</a> method.</p>
+     * <p>Use the query parameters to filter the list of results that we return, for example, to search for terminal orders by their status.</p>
+     * <p>To list the terminal orders for a processing account, you need its processingAccountId. If you don't have the processingAccountId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/list">List Merchant Platforms</a> method to search for a merchant platform and its processing accounts.</p>
+     * <p>Our gateway returns the following information for each terminal order in the list:</p>
+     * <ul>
+     * <li>Status of the order</li>
+     * <li>Items in the order</li>
+     * <li>Training provider</li>
+     * <li>Shipping information</li>
+     * </ul>
+     * <p>For each terminal order, we also return its terminalOrderId, which you can use to perform follow-on actions.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<List<TerminalOrder>>> listTerminalOrders(
             String processingAccountId, ListTerminalOrdersProcessingAccountsRequest request) {
         return listTerminalOrders(processingAccountId, request, null);
     }
@@ -894,6 +1058,11 @@ public class AsyncRawProcessingAccountsClient {
         if (request.getToDateTime().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "toDateTime", request.getToDateTime().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -976,7 +1145,7 @@ public class AsyncRawProcessingAccountsClient {
      * <p><strong>Note</strong>: You need the ID of the processing account before you can create an order. If you don't know the processingAccountId, go to the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/retrieve">Retrieve a Merchant Platform</a> method.</p>
      * <p>In the request, specify the gateway settings, device settings, and application settings for the terminal.</p>
      * <p>In the response, our gateway returns information about the terminal order including its status and terminalOrderId that you can use to <a href="https://docs.payroc.com/api/schema/boarding/terminal-orders/retrieve">retrieve the terminal order</a>.</p>
-     * <p><strong>Note</strong>: You can subscribe to the terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Events Subscriptions</a>.</p>
+     * <p><strong>Note</strong>: You can subscribe to the terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Events Subscriptions</a>.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<TerminalOrder>> createTerminalOrder(
             String processingAccountId, CreateTerminalOrder request) {
@@ -988,16 +1157,20 @@ public class AsyncRawProcessingAccountsClient {
      * <p><strong>Note</strong>: You need the ID of the processing account before you can create an order. If you don't know the processingAccountId, go to the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/retrieve">Retrieve a Merchant Platform</a> method.</p>
      * <p>In the request, specify the gateway settings, device settings, and application settings for the terminal.</p>
      * <p>In the response, our gateway returns information about the terminal order including its status and terminalOrderId that you can use to <a href="https://docs.payroc.com/api/schema/boarding/terminal-orders/retrieve">retrieve the terminal order</a>.</p>
-     * <p><strong>Note</strong>: You can subscribe to the terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Events Subscriptions</a>.</p>
+     * <p><strong>Note</strong>: You can subscribe to the terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Events Subscriptions</a>.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<TerminalOrder>> createTerminalOrder(
             String processingAccountId, CreateTerminalOrder request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-accounts")
                 .addPathSegment(processingAccountId)
-                .addPathSegments("terminal-orders")
-                .build();
+                .addPathSegments("terminal-orders");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -1006,7 +1179,7 @@ public class AsyncRawProcessingAccountsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -1116,6 +1289,27 @@ public class AsyncRawProcessingAccountsClient {
      * <p>For each processing terminal, we also return its processingTerminalId, which you can use to perform follow-on actions.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<ProcessingTerminal>>>>
+            listProcessingTerminals(String processingAccountId, RequestOptions requestOptions) {
+        return listProcessingTerminals(
+                processingAccountId,
+                ListProcessingTerminalsProcessingAccountsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of processing terminals associated with a processing account.
+     * <p><strong>Note:</strong> If you want to view the details of a specific processing terminal and you have its processingTerminalId, use our <a href="https://docs.payroc.com/api/schema/boarding/processing-terminals/retrieve">Retrieve Processing Terminal</a> method.</p>
+     * <p>To list the terminals for a processing account, you need its processingAccountId. If you don't have the processingAccountId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/list">List Merchant Platforms</a> method to search for a merchant platform and its processing accounts.</p>
+     * <p>Our gateway returns the following information for each processing terminal in the list:</p>
+     * <ul>
+     * <li>Status indicating whether the terminal is active or inactive.</li>
+     * <li>Configuration settings, including gateway settings and application settings.</li>
+     * <li>Features, receipt settings, and security settings.</li>
+     * <li>Devices that use the processing terminal's configuration.</li>
+     * </ul>
+     * <p>For each processing terminal, we also return its processingTerminalId, which you can use to perform follow-on actions.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<ProcessingTerminal>>>>
             listProcessingTerminals(
                     String processingAccountId, ListProcessingTerminalsProcessingAccountsRequest request) {
         return listProcessingTerminals(processingAccountId, request, null);
@@ -1155,6 +1349,11 @@ public class AsyncRawProcessingAccountsClient {
         if (request.getLimit().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "limit", request.getLimit().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())

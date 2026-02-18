@@ -100,6 +100,19 @@ public class SettlementClient {
      * <li>Merchant information, including the merchant ID (MID) and the processing account that the batch is associated with.</li>
      * </ul>
      */
+    public Batch retrieveBatch(int batchId, RequestOptions requestOptions) {
+        return this.rawClient.retrieveBatch(batchId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to retrieve information about a batch.
+     * <p><strong>Note:</strong> To retrieve a batch, you need its batchId. If you don't have the batchId, use our <a href="https://docs.payroc.com/api/schema/reporting/settlement/list-batches">List Batches</a> method to search for the batch.</p>
+     * <p>Our gateway returns the following information about the batch:</p>
+     * <ul>
+     * <li>Transaction information, including the number of transactions and total value of sales.</li>
+     * <li>Merchant information, including the merchant ID (MID) and the processing account that the batch is associated with.</li>
+     * </ul>
+     */
     public Batch retrieveBatch(int batchId, RetrieveBatchSettlementRequest request) {
         return this.rawClient.retrieveBatch(batchId, request).body();
     }
@@ -134,6 +147,25 @@ public class SettlementClient {
      */
     public PayrocPager<Transaction> listTransactions() {
         return this.rawClient.listTransactions().body();
+    }
+
+    /**
+     * Use this method to return a paginated list of your merchants’ transactions.
+     * <p><strong>Note:</strong> If you want to view the details of a specific transaction and you have its transactionId, use our <a href="https://docs.payroc.com/api/schema/reporting/settlement/retrieve-transaction">Retrieve Transaction</a> method.</p>
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for transactions for a specific merchant.</p>
+     * <blockquote>
+     * <p><strong>Important:</strong> You must provide a value for either the date query parameter or the batchId query parameter.</p>
+     * </blockquote>
+     * <p>Our gateway returns the following information about each transaction in the list:</p>
+     * <ul>
+     * <li>Merchant and processing account that ran the transaction.</li>
+     * <li>Transaction type, date, amount, and the payment method that the customer used.</li>
+     * <li>Batch that contains the transaction, and authorization details for the transaction.</li>
+     * <li>Processor that settled the transaction and the ACH deposit containing the transaction.</li>
+     * </ul>
+     */
+    public PayrocPager<Transaction> listTransactions(RequestOptions requestOptions) {
+        return this.rawClient.listTransactions(requestOptions).body();
     }
 
     /**
@@ -201,6 +233,21 @@ public class SettlementClient {
      * <li>Processor that settled the transaction and the ACH deposit containing the transaction.</li>
      * </ul>
      */
+    public Transaction retrieveTransaction(int transactionId, RequestOptions requestOptions) {
+        return this.rawClient.retrieveTransaction(transactionId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to retrieve information about a transaction.
+     * <p><strong>Note:</strong> To retrieve a transaction, you need its transactionId. If you don't have the transactionId, use our <a href="https://docs.payroc.com/api/schema/reporting/settlement/list-transactions">List Transactions</a> method to search for the transaction.</p>
+     * <p>Our gateway returns the following information about the transaction:</p>
+     * <ul>
+     * <li>Merchant and processing account that ran the transaction.</li>
+     * <li>Transaction type, date, amount, and the payment method that the customer used.</li>
+     * <li>Batch that contains the transaction, and authorization details for the transaction.</li>
+     * <li>Processor that settled the transaction and the ACH deposit containing the transaction.</li>
+     * </ul>
+     */
     public Transaction retrieveTransaction(int transactionId, RetrieveTransactionSettlementRequest request) {
         return this.rawClient.retrieveTransaction(transactionId, request).body();
     }
@@ -255,6 +302,24 @@ public class SettlementClient {
      * <li>Details about the customer's card, the transaction, and the batch.</li>
      * </ul>
      */
+    public PayrocPager<Authorization> listAuthorizations(RequestOptions requestOptions) {
+        return this.rawClient.listAuthorizations(requestOptions).body();
+    }
+
+    /**
+     * Use this method to retrieve a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of authorizations.
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for authorizations linked to a specific merchant.</p>
+     * <blockquote>
+     * <p><strong>Important:</strong> You must provide a value for either the date query parameter or the batchId query parameter.</p>
+     * </blockquote>
+     * <p>Our gateway returns the following information about each authorization in the list:</p>
+     * <ul>
+     * <li>Authorization response from the issuing bank.</li>
+     * <li>Amount that the issuing bank authorized.</li>
+     * <li>Merchant that ran the authorization.</li>
+     * <li>Details about the customer's card, the transaction, and the batch.</li>
+     * </ul>
+     */
     public PayrocPager<Authorization> listAuthorizations(ListReportingSettlementAuthorizationsRequest request) {
         return this.rawClient.listAuthorizations(request).body();
     }
@@ -291,6 +356,23 @@ public class SettlementClient {
      */
     public Authorization retrieveAuthorization(int authorizationId) {
         return this.rawClient.retrieveAuthorization(authorizationId).body();
+    }
+
+    /**
+     * Use this method to retrieve information about an authorization.
+     * <p><strong>Note:</strong> To retrieve an authorization, you need its authorizationId. If you don't have the authorizationId, use our <a href="https://docs.payroc.com/api/schema/reporting/settlement/list-authorizations">List Authorizations</a> method to search for the authorization.</p>
+     * <p>Our gateway returns the following information about the authorization:</p>
+     * <ul>
+     * <li>Authorization response from the issuing bank.</li>
+     * <li>Amount that the issuing bank authorized.</li>
+     * <li>Merchant that ran the authorization.</li>
+     * <li>Details about the customer's card, the transaction, and the batch.</li>
+     * </ul>
+     */
+    public Authorization retrieveAuthorization(int authorizationId, RequestOptions requestOptions) {
+        return this.rawClient
+                .retrieveAuthorization(authorizationId, requestOptions)
+                .body();
     }
 
     /**
@@ -366,6 +448,15 @@ public class SettlementClient {
      */
     public List<DisputeStatus> listDisputesStatuses(int disputeId) {
         return this.rawClient.listDisputesStatuses(disputeId).body();
+    }
+
+    /**
+     * Use this method to return the status history of a dispute.
+     * <p>To view the status history of a dispute, you need its disputeId. If you don't have the disputeId, use our <a href="https://docs.payroc.com/api/schema/reporting/settlement/list-disputes">List Disputes</a> method to search for the dispute.</p>
+     * <p>Our gateway returns a list that contains each status change, the date it was changed, and its updated status.</p>
+     */
+    public List<DisputeStatus> listDisputesStatuses(int disputeId, RequestOptions requestOptions) {
+        return this.rawClient.listDisputesStatuses(disputeId, requestOptions).body();
     }
 
     /**
@@ -450,6 +541,20 @@ public class SettlementClient {
      * <li>Breakdown of sales, returns, and fees.</li>
      * </ul>
      */
+    public AchDeposit retrieveAchDeposit(int achDepositId, RequestOptions requestOptions) {
+        return this.rawClient.retrieveAchDeposit(achDepositId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to retrieve information about an ACH deposit that we paid to a merchant.
+     * <p><strong>Note:</strong> To retrieve an ACH deposit, you need its achDepositId. If you don't have the achDepositId, use our <a href="https://docs.payroc.com/api/schema/reporting/settlement/list-ach-deposits">List ACH Deposits</a> method to search for the ACH deposit.</p>
+     * <p>Our gateway returns the following information about the ACH deposit:</p>
+     * <ul>
+     * <li>Merchant that we sent the ACH deposit to.</li>
+     * <li>Total amount that we paid the merchant.</li>
+     * <li>Breakdown of sales, returns, and fees.</li>
+     * </ul>
+     */
     public AchDeposit retrieveAchDeposit(int achDepositId, RetrieveAchDepositSettlementRequest request) {
         return this.rawClient.retrieveAchDeposit(achDepositId, request).body();
     }
@@ -479,6 +584,16 @@ public class SettlementClient {
      */
     public PayrocPager<AchDepositFee> listAchDepositFees() {
         return this.rawClient.listAchDepositFees().body();
+    }
+
+    /**
+     * Retrieve a list of ACH deposit fees.
+     * <blockquote>
+     * <p><strong>Important:</strong> You must provide a value for either the 'date' query parameter or the 'achDepositId' query parameter.</p>
+     * </blockquote>
+     */
+    public PayrocPager<AchDepositFee> listAchDepositFees(RequestOptions requestOptions) {
+        return this.rawClient.listAchDepositFees(requestOptions).body();
     }
 
     /**

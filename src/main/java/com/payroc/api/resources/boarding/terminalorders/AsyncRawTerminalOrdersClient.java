@@ -53,7 +53,7 @@ public class AsyncRawTerminalOrdersClient {
      * <li>Training provider</li>
      * <li>Shipping information</li>
      * </ul>
-     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Events Subscriptions</a>.</p>
+     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Events Subscriptions</a>.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<TerminalOrder>> retrieve(String terminalOrderId) {
         return retrieve(terminalOrderId, RetrieveTerminalOrdersRequest.builder().build());
@@ -70,7 +70,25 @@ public class AsyncRawTerminalOrdersClient {
      * <li>Training provider</li>
      * <li>Shipping information</li>
      * </ul>
-     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Events Subscriptions</a>.</p>
+     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Events Subscriptions</a>.</p>
+     */
+    public CompletableFuture<PayrocApiHttpResponse<TerminalOrder>> retrieve(
+            String terminalOrderId, RequestOptions requestOptions) {
+        return retrieve(terminalOrderId, RetrieveTerminalOrdersRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a terminal order.
+     * <p>To retrieve a terminal order, you need it's terminalOrderId. Our gateway returned the terminalOrderId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/create-terminal-order">Create Terminal Order</a> method.</p>
+     * <p><strong>Note</strong>: If you don't have the terminalOrderId, use our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/list-terminal-orders">List Terminal Orders</a> method to search for the terminal order.</p>
+     * <p>Our gateway returns the following information about the terminal order:</p>
+     * <ul>
+     * <li>Status of the order</li>
+     * <li>Items in the order</li>
+     * <li>Training provider</li>
+     * <li>Shipping information</li>
+     * </ul>
+     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Events Subscriptions</a>.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<TerminalOrder>> retrieve(
             String terminalOrderId, RetrieveTerminalOrdersRequest request) {
@@ -88,17 +106,21 @@ public class AsyncRawTerminalOrdersClient {
      * <li>Training provider</li>
      * <li>Shipping information</li>
      * </ul>
-     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Events Subscriptions</a>.</p>
+     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Events Subscriptions</a>.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<TerminalOrder>> retrieve(
             String terminalOrderId, RetrieveTerminalOrdersRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("terminal-orders")
-                .addPathSegment(terminalOrderId)
-                .build();
+                .addPathSegment(terminalOrderId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

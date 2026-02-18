@@ -42,6 +42,9 @@ public final class ShareSharingEventsRequest {
         return idempotencyKey;
     }
 
+    /**
+     * @return Polymorphic object that contains information about how to share a payment link.
+     */
     @JsonProperty("body")
     public PaymentLinkEmailShareEvent getBody() {
         return body;
@@ -86,6 +89,9 @@ public final class ShareSharingEventsRequest {
     }
 
     public interface BodyStage {
+        /**
+         * <p>Polymorphic object that contains information about how to share a payment link.</p>
+         */
         _FinalStage body(@NotNull PaymentLinkEmailShareEvent body);
     }
 
@@ -122,6 +128,11 @@ public final class ShareSharingEventsRequest {
             return this;
         }
 
+        /**
+         * <p>Polymorphic object that contains information about how to share a payment link.</p>
+         * <p>Polymorphic object that contains information about how to share a payment link.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("body")
         public _FinalStage body(@NotNull PaymentLinkEmailShareEvent body) {

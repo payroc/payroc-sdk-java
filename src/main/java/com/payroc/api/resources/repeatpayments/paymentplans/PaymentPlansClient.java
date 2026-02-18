@@ -58,6 +58,22 @@ public class PaymentPlansClient {
      * </ul>
      * <p>For each payment plan, we return the paymentPlanId, which you can use to perform follow-on actions.</p>
      */
+    public PayrocPager<PaymentPlan> list(String processingTerminalId, RequestOptions requestOptions) {
+        return this.rawClient.list(processingTerminalId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of payment plans for a processing terminal.
+     * <p><strong>Note:</strong> If you want to view the details of a specific payment plan and you have its paymentPlanId, use our <a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/retrieve">Retrieve Payment Plan</a> method.</p>
+     * <p>Our gateway returns the following information about each payment plan in the list:</p>
+     * <ul>
+     * <li>Name, length, and currency of the plan</li>
+     * <li>How often our gateway collects each payment</li>
+     * <li>How much our gateway collects for each payment</li>
+     * <li>What happens if the merchant updates or deletes the plan</li>
+     * </ul>
+     * <p>For each payment plan, we return the paymentPlanId, which you can use to perform follow-on actions.</p>
+     */
     public PayrocPager<PaymentPlan> list(String processingTerminalId, ListPaymentPlansRequest request) {
         return this.rawClient.list(processingTerminalId, request).body();
     }
@@ -83,7 +99,7 @@ public class PaymentPlansClient {
 
     /**
      * Use this method to create a payment schedule that you can assign customers to.
-     * <p><strong>Note:</strong> This method is part of our Repeat Payments feature. To help you understand how this method works with our Subscriptions endpoints, go to <a href="https://docs.payroc.com/guides/integrate/repeat-payments">Repeat Payments</a>.</p>
+     * <p><strong>Note:</strong> This method is part of our Repeat Payments feature. To help you understand how this method works with our Subscriptions endpoints, go to <a href="https://docs.payroc.com/guides/take-payments/repeat-payments">Repeat Payments</a>.</p>
      * <p>When you create a payment plan you need to provide a unique paymentPlanId that you use to run follow-on actions:</p>
      * <ul>
      * <li><a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/retrieve">Retrieve Payment Plan</a>  - View the details of the payment plan.</li>
@@ -105,7 +121,7 @@ public class PaymentPlansClient {
 
     /**
      * Use this method to create a payment schedule that you can assign customers to.
-     * <p><strong>Note:</strong> This method is part of our Repeat Payments feature. To help you understand how this method works with our Subscriptions endpoints, go to <a href="https://docs.payroc.com/guides/integrate/repeat-payments">Repeat Payments</a>.</p>
+     * <p><strong>Note:</strong> This method is part of our Repeat Payments feature. To help you understand how this method works with our Subscriptions endpoints, go to <a href="https://docs.payroc.com/guides/take-payments/repeat-payments">Repeat Payments</a>.</p>
      * <p>When you create a payment plan you need to provide a unique paymentPlanId that you use to run follow-on actions:</p>
      * <ul>
      * <li><a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/retrieve">Retrieve Payment Plan</a>  - View the details of the payment plan.</li>
@@ -142,6 +158,24 @@ public class PaymentPlansClient {
      */
     public PaymentPlan retrieve(String processingTerminalId, String paymentPlanId) {
         return this.rawClient.retrieve(processingTerminalId, paymentPlanId).body();
+    }
+
+    /**
+     * Use this method to retrieve information about a payment plan.
+     * <p>To retrieve a payment plan, you need its paymentPlanId. Our gateway returned the paymentPlanId in the response of the <a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/create">Create Payment Plan</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the paymentPlanId, use our <a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/list">List Payment Plans</a> method to search for the payment plan.</p>
+     * <p>Our gateway returns the following information about the payment plan:</p>
+     * <ul>
+     * <li>Name, length, and currency of the plan</li>
+     * <li>How often our gateway collects each payment</li>
+     * <li>How much our gateway collects for each payment</li>
+     * <li>What happens if the merchant updates or deletes the plan</li>
+     * </ul>
+     */
+    public PaymentPlan retrieve(String processingTerminalId, String paymentPlanId, RequestOptions requestOptions) {
+        return this.rawClient
+                .retrieve(processingTerminalId, paymentPlanId, requestOptions)
+                .body();
     }
 
     /**
@@ -200,6 +234,25 @@ public class PaymentPlansClient {
      */
     public void delete(String processingTerminalId, String paymentPlanId) {
         this.rawClient.delete(processingTerminalId, paymentPlanId).body();
+    }
+
+    /**
+     * Use this method to delete a payment plan.
+     * <blockquote>
+     * <p><strong>Important:</strong> When you delete a payment plan, you can’t recover it. You also won’t be able to add subscriptions to the payment plan.</p>
+     * </blockquote>
+     * <p>To delete a payment plan, you need its paymentPlanId, which you sent in the request of the <a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/create">Create Payment Plan</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the paymentPlanId, use our <a href="https://docs.payroc.com/api/schema/repeat-payments/payment-plans/list">List Payment Plans</a> method to search for the payment plan.</p>
+     * <p>The value you sent for the onDelete parameter when you created the payment plan indicates what happens to associated subscriptions when you delete the plan:</p>
+     * <ul>
+     * <li><code>complete</code> - Our gateway stops taking payments for the subscriptions associated with the payment plan.</li>
+     * <li><code>continue</code> - Our gateway continues to take payments for the subscriptions associated with the payment plan. To stop a subscription for a cancelled payment plan, go to the <a href="https://docs.payroc.com/api/schema/repeat-payments/subscriptions/deactivate">Deactivate Subscription</a> method.</li>
+     * </ul>
+     */
+    public void delete(String processingTerminalId, String paymentPlanId, RequestOptions requestOptions) {
+        this.rawClient
+                .delete(processingTerminalId, paymentPlanId, requestOptions)
+                .body();
     }
 
     /**

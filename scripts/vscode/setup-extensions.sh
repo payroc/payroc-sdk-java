@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 # Setup VS Code Extensions for Payroc SDK Java Development (macOS/Linux)
 # This script installs the recommended extensions for developing the Payroc Java SDK
 

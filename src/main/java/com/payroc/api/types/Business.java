@@ -87,7 +87,7 @@ public final class Business {
     }
 
     /**
-     * @return Object that contains the addresses for the business.
+     * @return Array of polymorphic objects that contain address information for the business.
      */
     @JsonProperty("addresses")
     public List<LegalAddress> getAddresses() {
@@ -95,7 +95,15 @@ public final class Business {
     }
 
     /**
-     * @return Array of contactMethod objects. One contact method must be an email address.
+     * @return Array of polymorphic objects, which contain contact information.
+     * <p><strong>Note:</strong> You must provide an email address.</p>
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>email</code> - Email address</li>
+     * <li><code>phone</code> - Phone number</li>
+     * <li><code>mobile</code> - Mobile number</li>
+     * <li><code>fax</code> - Fax number</li>
+     * </ul>
      */
     @JsonProperty("contactMethods")
     public List<ContactMethod> getContactMethods() {
@@ -176,7 +184,7 @@ public final class Business {
         _FinalStage countryOfOperation(BusinessCountryOfOperation countryOfOperation);
 
         /**
-         * <p>Object that contains the addresses for the business.</p>
+         * <p>Array of polymorphic objects that contain address information for the business.</p>
          */
         _FinalStage addresses(List<LegalAddress> addresses);
 
@@ -185,7 +193,15 @@ public final class Business {
         _FinalStage addAllAddresses(List<LegalAddress> addresses);
 
         /**
-         * <p>Array of contactMethod objects. One contact method must be an email address.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> You must provide an email address.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          */
         _FinalStage contactMethods(List<ContactMethod> contactMethods);
 
@@ -261,7 +277,15 @@ public final class Business {
         }
 
         /**
-         * <p>Array of contactMethod objects. One contact method must be an email address.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> You must provide an email address.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -273,7 +297,15 @@ public final class Business {
         }
 
         /**
-         * <p>Array of contactMethod objects. One contact method must be an email address.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> You must provide an email address.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -283,7 +315,15 @@ public final class Business {
         }
 
         /**
-         * <p>Array of contactMethod objects. One contact method must be an email address.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> You must provide an email address.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "contactMethods", nulls = Nulls.SKIP)
@@ -296,7 +336,7 @@ public final class Business {
         }
 
         /**
-         * <p>Object that contains the addresses for the business.</p>
+         * <p>Array of polymorphic objects that contain address information for the business.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -308,7 +348,7 @@ public final class Business {
         }
 
         /**
-         * <p>Object that contains the addresses for the business.</p>
+         * <p>Array of polymorphic objects that contain address information for the business.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -318,7 +358,7 @@ public final class Business {
         }
 
         /**
-         * <p>Object that contains the addresses for the business.</p>
+         * <p>Array of polymorphic objects that contain address information for the business.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "addresses", nulls = Nulls.SKIP)

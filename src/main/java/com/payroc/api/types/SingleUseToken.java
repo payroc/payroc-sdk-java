@@ -70,7 +70,7 @@ public final class SingleUseToken {
     }
 
     /**
-     * @return Object that contains information about the customer's payment details.
+     * @return Polymorphic object that contains payment card details.
      */
     @JsonProperty("paymentMethod")
     public Optional<SingleUseTokenPaymentMethod> getPaymentMethod() {
@@ -95,7 +95,13 @@ public final class SingleUseToken {
     }
 
     /**
-     * @return Object that contains information about the payment method that we tokenized.
+     * @return Polymorphic object that contains the payment method that we tokenized.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+     * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+     * <li><code>card</code> - Payment card details</li>
+     * </ul>
      */
     @JsonProperty("source")
     public SingleUseTokenSource getSource() {
@@ -139,7 +145,13 @@ public final class SingleUseToken {
 
     public interface SourceStage {
         /**
-         * <p>Object that contains information about the payment method that we tokenized.</p>
+         * <p>Polymorphic object that contains the payment method that we tokenized.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>card</code> - Payment card details</li>
+         * </ul>
          */
         _FinalStage source(@NotNull SingleUseTokenSource source);
 
@@ -164,7 +176,7 @@ public final class SingleUseToken {
         _FinalStage operator(String operator);
 
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains payment card details.</p>
          */
         _FinalStage paymentMethod(Optional<SingleUseTokenPaymentMethod> paymentMethod);
 
@@ -217,8 +229,20 @@ public final class SingleUseToken {
         }
 
         /**
-         * <p>Object that contains information about the payment method that we tokenized.</p>
-         * <p>Object that contains information about the payment method that we tokenized.</p>
+         * <p>Polymorphic object that contains the payment method that we tokenized.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>card</code> - Payment card details</li>
+         * </ul>
+         * <p>Polymorphic object that contains the payment method that we tokenized.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>card</code> - Payment card details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -271,7 +295,7 @@ public final class SingleUseToken {
         }
 
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains payment card details.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -281,7 +305,7 @@ public final class SingleUseToken {
         }
 
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains payment card details.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "paymentMethod", nulls = Nulls.SKIP)

@@ -83,6 +83,21 @@ public class RawFundingRecipientsClient {
      * </ul>
      * <p>For each funding recipient, we also return the recipientId, which you can use to perform follow-on actions.</p>
      */
+    public PayrocApiHttpResponse<PayrocPager<FundingRecipient>> list(RequestOptions requestOptions) {
+        return list(ListFundingRecipientsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of funding recipients linked to your account.
+     * <p>Note: If you want to view the details of a specific funding recipient and you have its recipientId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/retrieve">Retrieve Funding Recipient</a> method.</p>
+     * <p>Our gateway returns the following information about each funding recipient in the list:</p>
+     * <ul>
+     * <li>Tax ID and Doing Business As (DBA) name.</li>
+     * <li>Address and contact details.</li>
+     * <li>Funding accounts linked to the funding recipient.</li>
+     * </ul>
+     * <p>For each funding recipient, we also return the recipientId, which you can use to perform follow-on actions.</p>
+     */
     public PayrocApiHttpResponse<PayrocPager<FundingRecipient>> list(ListFundingRecipientsRequest request) {
         return list(request, null);
     }
@@ -114,6 +129,11 @@ public class RawFundingRecipientsClient {
         if (request.getLimit().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "limit", request.getLimit().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -191,10 +211,14 @@ public class RawFundingRecipientsClient {
      */
     public PayrocApiHttpResponse<FundingRecipient> create(
             CreateFundingRecipient request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
-                .addPathSegments("funding-recipients")
-                .build();
+                .addPathSegments("funding-recipients");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -203,7 +227,7 @@ public class RawFundingRecipientsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -282,6 +306,21 @@ public class RawFundingRecipientsClient {
      * <li>Funding accounts linked to the funding recipient.</li>
      * </ul>
      */
+    public PayrocApiHttpResponse<FundingRecipient> retrieve(int recipientId, RequestOptions requestOptions) {
+        return retrieve(recipientId, RetrieveFundingRecipientsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a funding recipient.
+     * <p>To retrieve a funding recipient, you need its recipientId. Our gateway returned the recipientId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create">Create Funding Recipient</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the recipientId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient.</p>
+     * <p>Our gateway returns the following information about the funding recipient:</p>
+     * <ul>
+     * <li>Tax ID and Doing Business As (DBA) name.</li>
+     * <li>Address and contact details.</li>
+     * <li>Funding accounts linked to the funding recipient.</li>
+     * </ul>
+     */
     public PayrocApiHttpResponse<FundingRecipient> retrieve(int recipientId, RetrieveFundingRecipientsRequest request) {
         return retrieve(recipientId, request, null);
     }
@@ -299,13 +338,17 @@ public class RawFundingRecipientsClient {
      */
     public PayrocApiHttpResponse<FundingRecipient> retrieve(
             int recipientId, RetrieveFundingRecipientsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("funding-recipients")
-                .addPathSegment(Integer.toString(recipientId))
-                .build();
+                .addPathSegment(Integer.toString(recipientId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -380,11 +423,15 @@ public class RawFundingRecipientsClient {
      */
     public PayrocApiHttpResponse<Void> update(
             int recipientId, UpdateFundingRecipientsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("funding-recipients")
-                .addPathSegment(Integer.toString(recipientId))
-                .build();
+                .addPathSegment(Integer.toString(recipientId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -393,7 +440,7 @@ public class RawFundingRecipientsClient {
             throw new PayrocApiException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -458,6 +505,15 @@ public class RawFundingRecipientsClient {
      * <p>To delete a funding recipient, you need its recipientId. Our gateway returned the recipientId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create">Create Funding Recipient</a> method.</p>
      * <p><strong>Note</strong>: If you don't have the recipientId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient.</p>
      */
+    public PayrocApiHttpResponse<Void> delete(int recipientId, RequestOptions requestOptions) {
+        return delete(recipientId, DeleteFundingRecipientsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to delete a funding recipient, including its funding accounts and owners.
+     * <p>To delete a funding recipient, you need its recipientId. Our gateway returned the recipientId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create">Create Funding Recipient</a> method.</p>
+     * <p><strong>Note</strong>: If you don't have the recipientId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient.</p>
+     */
     public PayrocApiHttpResponse<Void> delete(int recipientId, DeleteFundingRecipientsRequest request) {
         return delete(recipientId, request, null);
     }
@@ -469,13 +525,17 @@ public class RawFundingRecipientsClient {
      */
     public PayrocApiHttpResponse<Void> delete(
             int recipientId, DeleteFundingRecipientsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("funding-recipients")
-                .addPathSegment(Integer.toString(recipientId))
-                .build();
+                .addPathSegment(Integer.toString(recipientId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -551,6 +611,25 @@ public class RawFundingRecipientsClient {
      * </ul>
      * <p>Our gateway also returns the fundingAccountId, which you can use to run follow-on actions.</p>
      */
+    public PayrocApiHttpResponse<List<FundingAccount>> listAccounts(int recipientId, RequestOptions requestOptions) {
+        return listAccounts(
+                recipientId,
+                ListFundingRecipientFundingAccountsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use  this method to return a list of funding accounts associated with a funding recipient.
+     * <p><strong>Note:</strong> If you want to view the details of a specific funding account and you have its fundingAccountId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-accounts/retrieve">Retrieve Funding Account</a> method.</p>
+     * <p>To retrieve the funding accounts associated with a funding recipient, you need the recipientId. If you don't have the recipientId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient.</p>
+     * <p>Our gateway returns the following information about each funding account:</p>
+     * <ul>
+     * <li>Name of the account holder.</li>
+     * <li>ACH details for the account.</li>
+     * <li>Status of the account.</li>
+     * </ul>
+     * <p>Our gateway also returns the fundingAccountId, which you can use to run follow-on actions.</p>
+     */
     public PayrocApiHttpResponse<List<FundingAccount>> listAccounts(
             int recipientId, ListFundingRecipientFundingAccountsRequest request) {
         return listAccounts(recipientId, request, null);
@@ -570,14 +649,18 @@ public class RawFundingRecipientsClient {
      */
     public PayrocApiHttpResponse<List<FundingAccount>> listAccounts(
             int recipientId, ListFundingRecipientFundingAccountsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("funding-recipients")
                 .addPathSegment(Integer.toString(recipientId))
-                .addPathSegments("funding-accounts")
-                .build();
+                .addPathSegments("funding-accounts");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -657,12 +740,16 @@ public class RawFundingRecipientsClient {
      */
     public PayrocApiHttpResponse<FundingAccount> createAccount(
             int recipientId, CreateAccountFundingRecipientsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("funding-recipients")
                 .addPathSegment(Integer.toString(recipientId))
-                .addPathSegments("funding-accounts")
-                .build();
+                .addPathSegments("funding-accounts");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -671,7 +758,7 @@ public class RawFundingRecipientsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -757,6 +844,23 @@ public class RawFundingRecipientsClient {
      * </ul>
      * <p>Our gateway also returns the ownerId, which you can use to perform follow-on actions.</p>
      */
+    public PayrocApiHttpResponse<List<Owner>> listOwners(int recipientId, RequestOptions requestOptions) {
+        return listOwners(
+                recipientId, ListFundingRecipientOwnersRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a list of owners of a funding recipient.
+     * <p><strong>Note:</strong> If you want to view the details of a specific owner and you have their ownerId, use our <a href="https://docs.payroc.com/api/schema/boarding/owners/retrieve">Retrieve Owner</a> method.</p>
+     * <p>To list the owners of a funding recipient, you need its recipientId. Our gateway returned the recipientId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create">Create Funding Recipient</a> method. If you don't have the recipientId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient.</p>
+     * <p>Our gateway returns the following information about each owner in the list:</p>
+     * <ul>
+     * <li>Name, date of birth, and address.</li>
+     * <li>Contact details, including their email address.</li>
+     * <li>Relationship to the funding recipient.</li>
+     * </ul>
+     * <p>Our gateway also returns the ownerId, which you can use to perform follow-on actions.</p>
+     */
     public PayrocApiHttpResponse<List<Owner>> listOwners(int recipientId, ListFundingRecipientOwnersRequest request) {
         return listOwners(recipientId, request, null);
     }
@@ -775,14 +879,18 @@ public class RawFundingRecipientsClient {
      */
     public PayrocApiHttpResponse<List<Owner>> listOwners(
             int recipientId, ListFundingRecipientOwnersRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("funding-recipients")
                 .addPathSegment(Integer.toString(recipientId))
-                .addPathSegments("owners")
-                .build();
+                .addPathSegments("owners");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -860,12 +968,16 @@ public class RawFundingRecipientsClient {
      */
     public PayrocApiHttpResponse<Owner> createOwner(
             int recipientId, CreateOwnerFundingRecipientsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("funding-recipients")
                 .addPathSegment(Integer.toString(recipientId))
-                .addPathSegments("owners")
-                .build();
+                .addPathSegments("owners");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -874,7 +986,7 @@ public class RawFundingRecipientsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

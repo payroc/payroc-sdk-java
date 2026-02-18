@@ -13,6 +13,7 @@ import com.payroc.api.types.FundingAccountUse;
 import com.payroc.api.types.PaymentMethodAch;
 import com.payroc.api.types.PaymentMethodsItem;
 import java.util.Arrays;
+import java.util.HashMap;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -129,11 +130,16 @@ public class FundingFundingAccountsWireTest {
                         1,
                         UpdateFundingAccountsRequest.builder()
                                 .body(FundingAccount.builder()
-                                        .type(FundingAccountType.CHECKING)
+                                        .type(FundingAccountType.SAVINGS)
                                         .use(FundingAccountUse.CREDIT)
-                                        .nameOnAccount("Jane Doe")
+                                        .nameOnAccount("Fred Nerk")
                                         .paymentMethods(Arrays.asList(PaymentMethodsItem.ach(
                                                 PaymentMethodAch.builder().build())))
+                                        .metadata(new HashMap<String, String>() {
+                                            {
+                                                put("responsiblePerson", "Jane Doe");
+                                            }
+                                        })
                                         .build())
                                 .build());
         RecordedRequest request = server.takeRequest();
@@ -143,14 +149,17 @@ public class FundingFundingAccountsWireTest {
         String actualRequestBody = request.getBody().readUtf8();
         String expectedRequestBody = ""
                 + "{\n"
-                + "  \"type\": \"checking\",\n"
+                + "  \"type\": \"savings\",\n"
                 + "  \"use\": \"credit\",\n"
-                + "  \"nameOnAccount\": \"Jane Doe\",\n"
+                + "  \"nameOnAccount\": \"Fred Nerk\",\n"
                 + "  \"paymentMethods\": [\n"
                 + "    {\n"
                 + "      \"type\": \"ach\"\n"
                 + "    }\n"
-                + "  ]\n"
+                + "  ],\n"
+                + "  \"metadata\": {\n"
+                + "    \"responsiblePerson\": \"Jane Doe\"\n"
+                + "  }\n"
                 + "}";
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);

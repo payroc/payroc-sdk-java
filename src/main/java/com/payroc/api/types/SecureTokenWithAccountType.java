@@ -62,7 +62,13 @@ public final class SecureTokenWithAccountType {
     }
 
     /**
-     * @return Object that contains information about the payment method that we tokenized.
+     * @return Polymorphic object that contains the payment method that we tokenized.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+     * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+     * <li><code>card</code> - Payment card details</li>
+     * </ul>
      */
     @JsonProperty("source")
     public Optional<SecureTokenWithAccountTypeSource> getSource() {
@@ -217,7 +223,13 @@ public final class SecureTokenWithAccountType {
         SecureTokenWithAccountType build();
 
         /**
-         * <p>Object that contains information about the payment method that we tokenized.</p>
+         * <p>Polymorphic object that contains the payment method that we tokenized.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>card</code> - Payment card details</li>
+         * </ul>
          */
         _FinalStage source(Optional<SecureTokenWithAccountTypeSource> source);
 
@@ -409,7 +421,13 @@ public final class SecureTokenWithAccountType {
         }
 
         /**
-         * <p>Object that contains information about the payment method that we tokenized.</p>
+         * <p>Polymorphic object that contains the payment method that we tokenized.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>card</code> - Payment card details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -419,7 +437,13 @@ public final class SecureTokenWithAccountType {
         }
 
         /**
-         * <p>Object that contains information about the payment method that we tokenized.</p>
+         * <p>Polymorphic object that contains the payment method that we tokenized.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>card</code> - Payment card details</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "source", nulls = Nulls.SKIP)

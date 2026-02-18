@@ -95,7 +95,7 @@ public final class EventSubscription {
     }
 
     /**
-     * @return Array of notifications objects. Each object contains information about how we contact you when an event occurs.
+     * @return Array of polymorphic notification objects that contain information about how we contact you when an event occurs.
      */
     @JsonProperty("notifications")
     public List<Notification> getNotifications() {
@@ -189,7 +189,7 @@ public final class EventSubscription {
         _FinalStage addAllEventTypes(List<String> eventTypes);
 
         /**
-         * <p>Array of notifications objects. Each object contains information about how we contact you when an event occurs.</p>
+         * <p>Array of polymorphic notification objects that contain information about how we contact you when an event occurs.</p>
          */
         _FinalStage notifications(List<Notification> notifications);
 
@@ -276,7 +276,7 @@ public final class EventSubscription {
         }
 
         /**
-         * <p>Array of notifications objects. Each object contains information about how we contact you when an event occurs.</p>
+         * <p>Array of polymorphic notification objects that contain information about how we contact you when an event occurs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -288,7 +288,7 @@ public final class EventSubscription {
         }
 
         /**
-         * <p>Array of notifications objects. Each object contains information about how we contact you when an event occurs.</p>
+         * <p>Array of polymorphic notification objects that contain information about how we contact you when an event occurs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -298,7 +298,7 @@ public final class EventSubscription {
         }
 
         /**
-         * <p>Array of notifications objects. Each object contains information about how we contact you when an event occurs.</p>
+         * <p>Array of polymorphic notification objects that contain information about how we contact you when an event occurs.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "notifications", nulls = Nulls.SKIP)

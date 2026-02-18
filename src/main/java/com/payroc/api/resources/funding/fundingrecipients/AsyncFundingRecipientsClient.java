@@ -65,6 +65,22 @@ public class AsyncFundingRecipientsClient {
      * <p>For each funding recipient, we also return the recipientId, which you can use to perform follow-on actions.</p>
      */
     public CompletableFuture<CompletableFuture<AsyncPayrocPager<FundingRecipient>>> list(
+            RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of funding recipients linked to your account.
+     * <p>Note: If you want to view the details of a specific funding recipient and you have its recipientId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/retrieve">Retrieve Funding Recipient</a> method.</p>
+     * <p>Our gateway returns the following information about each funding recipient in the list:</p>
+     * <ul>
+     * <li>Tax ID and Doing Business As (DBA) name.</li>
+     * <li>Address and contact details.</li>
+     * <li>Funding accounts linked to the funding recipient.</li>
+     * </ul>
+     * <p>For each funding recipient, we also return the recipientId, which you can use to perform follow-on actions.</p>
+     */
+    public CompletableFuture<CompletableFuture<AsyncPayrocPager<FundingRecipient>>> list(
             ListFundingRecipientsRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
@@ -143,6 +159,21 @@ public class AsyncFundingRecipientsClient {
      * <li>Funding accounts linked to the funding recipient.</li>
      * </ul>
      */
+    public CompletableFuture<FundingRecipient> retrieve(int recipientId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(recipientId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to retrieve information about a funding recipient.
+     * <p>To retrieve a funding recipient, you need its recipientId. Our gateway returned the recipientId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create">Create Funding Recipient</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the recipientId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient.</p>
+     * <p>Our gateway returns the following information about the funding recipient:</p>
+     * <ul>
+     * <li>Tax ID and Doing Business As (DBA) name.</li>
+     * <li>Address and contact details.</li>
+     * <li>Funding accounts linked to the funding recipient.</li>
+     * </ul>
+     */
     public CompletableFuture<FundingRecipient> retrieve(int recipientId, RetrieveFundingRecipientsRequest request) {
         return this.rawClient.retrieve(recipientId, request).thenApply(response -> response.body());
     }
@@ -208,6 +239,15 @@ public class AsyncFundingRecipientsClient {
      * <p>To delete a funding recipient, you need its recipientId. Our gateway returned the recipientId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create">Create Funding Recipient</a> method.</p>
      * <p><strong>Note</strong>: If you don't have the recipientId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient.</p>
      */
+    public CompletableFuture<Void> delete(int recipientId, RequestOptions requestOptions) {
+        return this.rawClient.delete(recipientId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to delete a funding recipient, including its funding accounts and owners.
+     * <p>To delete a funding recipient, you need its recipientId. Our gateway returned the recipientId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create">Create Funding Recipient</a> method.</p>
+     * <p><strong>Note</strong>: If you don't have the recipientId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient.</p>
+     */
     public CompletableFuture<Void> delete(int recipientId, DeleteFundingRecipientsRequest request) {
         return this.rawClient.delete(recipientId, request).thenApply(response -> response.body());
     }
@@ -236,6 +276,22 @@ public class AsyncFundingRecipientsClient {
      */
     public CompletableFuture<List<FundingAccount>> listAccounts(int recipientId) {
         return this.rawClient.listAccounts(recipientId).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use  this method to return a list of funding accounts associated with a funding recipient.
+     * <p><strong>Note:</strong> If you want to view the details of a specific funding account and you have its fundingAccountId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-accounts/retrieve">Retrieve Funding Account</a> method.</p>
+     * <p>To retrieve the funding accounts associated with a funding recipient, you need the recipientId. If you don't have the recipientId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient.</p>
+     * <p>Our gateway returns the following information about each funding account:</p>
+     * <ul>
+     * <li>Name of the account holder.</li>
+     * <li>ACH details for the account.</li>
+     * <li>Status of the account.</li>
+     * </ul>
+     * <p>Our gateway also returns the fundingAccountId, which you can use to run follow-on actions.</p>
+     */
+    public CompletableFuture<List<FundingAccount>> listAccounts(int recipientId, RequestOptions requestOptions) {
+        return this.rawClient.listAccounts(recipientId, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -322,6 +378,22 @@ public class AsyncFundingRecipientsClient {
      */
     public CompletableFuture<List<Owner>> listOwners(int recipientId) {
         return this.rawClient.listOwners(recipientId).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to return a list of owners of a funding recipient.
+     * <p><strong>Note:</strong> If you want to view the details of a specific owner and you have their ownerId, use our <a href="https://docs.payroc.com/api/schema/boarding/owners/retrieve">Retrieve Owner</a> method.</p>
+     * <p>To list the owners of a funding recipient, you need its recipientId. Our gateway returned the recipientId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create">Create Funding Recipient</a> method. If you don't have the recipientId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient.</p>
+     * <p>Our gateway returns the following information about each owner in the list:</p>
+     * <ul>
+     * <li>Name, date of birth, and address.</li>
+     * <li>Contact details, including their email address.</li>
+     * <li>Relationship to the funding recipient.</li>
+     * </ul>
+     * <p>Our gateway also returns the ownerId, which you can use to perform follow-on actions.</p>
+     */
+    public CompletableFuture<List<Owner>> listOwners(int recipientId, RequestOptions requestOptions) {
+        return this.rawClient.listOwners(recipientId, requestOptions).thenApply(response -> response.body());
     }
 
     /**

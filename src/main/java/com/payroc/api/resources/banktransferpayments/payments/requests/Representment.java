@@ -47,7 +47,12 @@ public final class Representment {
     }
 
     /**
-     * @return Object that contains information about the customer's payment details.
+     * @return Polymorphic object that contains the customer's updated payment details.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+     * <li><code>secureToken</code> - Secure token details</li>
+     * </ul>
      */
     @JsonProperty("paymentMethod")
     public Optional<RepresentmentPaymentMethod> getPaymentMethod() {
@@ -96,7 +101,12 @@ public final class Representment {
         Representment build();
 
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains the customer's updated payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * </ul>
          */
         _FinalStage paymentMethod(Optional<RepresentmentPaymentMethod> paymentMethod);
 
@@ -133,7 +143,12 @@ public final class Representment {
         }
 
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains the customer's updated payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -143,7 +158,12 @@ public final class Representment {
         }
 
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains the customer's updated payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "paymentMethod", nulls = Nulls.SKIP)

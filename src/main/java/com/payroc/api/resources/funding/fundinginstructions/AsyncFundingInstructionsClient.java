@@ -123,6 +123,20 @@ public class AsyncFundingInstructionsClient {
      * <li>Funding information, including which merchant's funding balance we distribute and the funding account that we send the balance to.</li>
      * </ul>
      */
+    public CompletableFuture<Instruction> retrieve(int instructionId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(instructionId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to retrieve information about a funding instruction.
+     * <p>To retrieve a funding instruction, you need its instructionId. Our gateway returned the instructionId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-instructions/create">Create Funding Instruction</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the instructionId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-instructions/list">List Funding Instructions</a> method to search for the funding instruction.</p>
+     * <p>Our gateway returns the following information about the funding instruction:</p>
+     * <ul>
+     * <li>Status of the funding instruction.</li>
+     * <li>Funding information, including which merchant's funding balance we distribute and the funding account that we send the balance to.</li>
+     * </ul>
+     */
     public CompletableFuture<Instruction> retrieve(int instructionId, RetrieveFundingInstructionsRequest request) {
         return this.rawClient.retrieve(instructionId, request).thenApply(response -> response.body());
     }
@@ -189,6 +203,18 @@ public class AsyncFundingInstructionsClient {
      */
     public CompletableFuture<Void> delete(int instructionId) {
         return this.rawClient.delete(instructionId).thenApply(response -> response.body());
+    }
+
+    /**
+     * <blockquote>
+     * <strong>Important:</strong> You can delete a funding instruction only if its status is <code>accepted</code>. To view the status of a funding instruction, use our <a href="https://docs.payroc.com/api/schema/funding/funding-instructions/retrieve">Retrieve Funding Instruction</a> method.
+     * </blockquote>
+     * <p>Use this method to delete a funding instruction.</p>
+     * <p>To delete a funding instruction, you need its instructionId. Our gateway returned the instructionId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-instructions/create">Create Funding Instruction</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the instructionId, use our <a href="https://docs.payroc.com/api/schema/funding/funding-instructions/list">List Funding Instructions</a> method to search for the funding instruction.</p>
+     */
+    public CompletableFuture<Void> delete(int instructionId, RequestOptions requestOptions) {
+        return this.rawClient.delete(instructionId, requestOptions).thenApply(response -> response.body());
     }
 
     /**

@@ -93,7 +93,13 @@ public final class FxRateInquiry {
     }
 
     /**
-     * @return Object that contains information about the customer's payment details.
+     * @return Polymorphic object that contains payment details.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>card</code> - Payment card details</li>
+     * <li><code>secureToken</code> - Secure token details</li>
+     * <li><code>digitalWallet</code> - Digital wallet details</li>
+     * </ul>
      */
     @JsonProperty("paymentMethod")
     public FxRateInquiryPaymentMethod getPaymentMethod() {
@@ -169,7 +175,13 @@ public final class FxRateInquiry {
 
     public interface PaymentMethodStage {
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * <li><code>digitalWallet</code> - Digital wallet details</li>
+         * </ul>
          */
         _FinalStage paymentMethod(@NotNull FxRateInquiryPaymentMethod paymentMethod);
     }
@@ -266,8 +278,20 @@ public final class FxRateInquiry {
         }
 
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * <li><code>digitalWallet</code> - Digital wallet details</li>
+         * </ul>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * <li><code>digitalWallet</code> - Digital wallet details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

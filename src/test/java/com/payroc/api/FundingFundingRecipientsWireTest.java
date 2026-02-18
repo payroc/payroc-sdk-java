@@ -16,10 +16,16 @@ import com.payroc.api.resources.funding.fundingrecipients.types.CreateFundingRec
 import com.payroc.api.types.Address;
 import com.payroc.api.types.ContactMethod;
 import com.payroc.api.types.ContactMethodEmail;
+import com.payroc.api.types.ContactMethodPhone;
 import com.payroc.api.types.FundingAccount;
 import com.payroc.api.types.FundingAccountType;
 import com.payroc.api.types.FundingAccountUse;
 import com.payroc.api.types.FundingRecipient;
+import com.payroc.api.types.FundingRecipientFundingAccountsItem;
+import com.payroc.api.types.FundingRecipientFundingAccountsItemLink;
+import com.payroc.api.types.FundingRecipientFundingAccountsItemStatus;
+import com.payroc.api.types.FundingRecipientOwnersItem;
+import com.payroc.api.types.FundingRecipientOwnersItemLink;
 import com.payroc.api.types.FundingRecipientRecipientType;
 import com.payroc.api.types.Identifier;
 import com.payroc.api.types.IdentifierType;
@@ -29,7 +35,9 @@ import com.payroc.api.types.PaymentMethodAch;
 import com.payroc.api.types.PaymentMethodsItem;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -62,28 +70,33 @@ public class FundingFundingRecipientsWireTest {
 
     @Test
     public void testCreate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"recipientId\":234,\"status\":\"approved\",\"createdDate\":\"2024-07-02T15:30:00Z\",\"lastModifiedDate\":\"2024-07-02T15:30:00Z\",\"recipientType\":\"privateCorporation\",\"taxId\":\"123456789\",\"charityId\":\"charityId\",\"doingBusinessAs\":\"doingBusinessAs\",\"address\":{\"address1\":\"1 Example Ave.\",\"address2\":\"Example Address Line 2\",\"address3\":\"Example Address Line 3\",\"city\":\"Chicago\",\"state\":\"Illinois\",\"country\":\"US\",\"postalCode\":\"60056\"},\"contactMethods\":[{\"value\":\"jane.doe@example.com\",\"type\":\"email\"}],\"metadata\":{\"yourCustomField\":\"abc123\"},\"owners\":[{\"ownerId\":4564,\"link\":{\"rel\":\"owner\",\"href\":\"https://api.payroc.com/v1/owners/4564\",\"method\":\"get\"}}],\"fundingAccounts\":[{\"fundingAccountId\":123,\"status\":\"approved\",\"link\":{\"rel\":\"fundingAccount\",\"href\":\"https://api.payroc.com/v1/funding-accounts/123\",\"method\":\"get\"}},{\"fundingAccountId\":124,\"status\":\"rejected\",\"link\":{\"rel\":\"fundingAccount\",\"href\":\"https://api.payroc.com/v1/funding-accounts/124\",\"method\":\"get\"}}]}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/FundingFundingRecipientsWireTest_testCreate_response.json")));
         FundingRecipient response = client.funding()
                 .fundingRecipients()
                 .create(CreateFundingRecipient.builder()
                         .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9324")
                         .recipientType(CreateFundingRecipientRecipientType.PRIVATE_CORPORATION)
-                        .taxId("123456789")
-                        .doingBusinessAs("doingBusinessAs")
+                        .taxId("12-3456789")
+                        .doingBusinessAs("Pizza Doe")
                         .address(Address.builder()
                                 .address1("1 Example Ave.")
                                 .city("Chicago")
                                 .state("Illinois")
                                 .country("US")
                                 .postalCode("60056")
+                                .address2("Example Address Line 2")
+                                .address3("Example Address Line 3")
                                 .build())
-                        .contactMethods(Arrays.asList(ContactMethod.email(ContactMethodEmail.builder()
-                                .value("jane.doe@example.com")
-                                .build())))
+                        .contactMethods(Arrays.asList(
+                                ContactMethod.email(ContactMethodEmail.builder()
+                                        .value("jane.doe@example.com")
+                                        .build()),
+                                ContactMethod.phone(ContactMethodPhone.builder()
+                                        .value("2025550164")
+                                        .build())))
                         .owners(Arrays.asList(Owner.builder()
                                 .firstName("Jane")
                                 .lastName("Doe")
@@ -97,14 +110,22 @@ public class FundingFundingRecipientsWireTest {
                                         .build())
                                 .relationship(OwnerRelationship.builder()
                                         .isControlProng(true)
+                                        .equityPercentage(48.5f)
+                                        .title("CFO")
+                                        .isAuthorizedSignatory(false)
                                         .build())
+                                .middleName("Helen")
                                 .identifiers(Arrays.asList(Identifier.builder()
                                         .type(IdentifierType.NATIONAL_ID)
-                                        .value("xxxxx4320")
+                                        .value("000-00-4320")
                                         .build()))
-                                .contactMethods(Arrays.asList(ContactMethod.email(ContactMethodEmail.builder()
-                                        .value("jane.doe@example.com")
-                                        .build())))
+                                .contactMethods(Arrays.asList(
+                                        ContactMethod.email(ContactMethodEmail.builder()
+                                                .value("jane.doe@example.com")
+                                                .build()),
+                                        ContactMethod.phone(ContactMethodPhone.builder()
+                                                .value("2025550164")
+                                                .build())))
                                 .build()))
                         .fundingAccounts(Arrays.asList(FundingAccount.builder()
                                 .type(FundingAccountType.CHECKING)
@@ -113,6 +134,11 @@ public class FundingFundingRecipientsWireTest {
                                 .paymentMethods(Arrays.asList(PaymentMethodsItem.ach(
                                         PaymentMethodAch.builder().build())))
                                 .build()))
+                        .metadata(new HashMap<String, String>() {
+                            {
+                                put("yourCustomField", "abc123");
+                            }
+                        })
                         .build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
@@ -125,66 +151,8 @@ public class FundingFundingRecipientsWireTest {
                 "Header 'Idempotency-Key' should match expected value");
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = ""
-                + "{\n"
-                + "  \"recipientType\": \"privateCorporation\",\n"
-                + "  \"taxId\": \"123456789\",\n"
-                + "  \"doingBusinessAs\": \"doingBusinessAs\",\n"
-                + "  \"address\": {\n"
-                + "    \"address1\": \"1 Example Ave.\",\n"
-                + "    \"city\": \"Chicago\",\n"
-                + "    \"state\": \"Illinois\",\n"
-                + "    \"country\": \"US\",\n"
-                + "    \"postalCode\": \"60056\"\n"
-                + "  },\n"
-                + "  \"contactMethods\": [\n"
-                + "    {\n"
-                + "      \"value\": \"jane.doe@example.com\",\n"
-                + "      \"type\": \"email\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"owners\": [\n"
-                + "    {\n"
-                + "      \"firstName\": \"Jane\",\n"
-                + "      \"lastName\": \"Doe\",\n"
-                + "      \"dateOfBirth\": \"1964-03-22\",\n"
-                + "      \"address\": {\n"
-                + "        \"address1\": \"1 Example Ave.\",\n"
-                + "        \"city\": \"Chicago\",\n"
-                + "        \"state\": \"Illinois\",\n"
-                + "        \"country\": \"US\",\n"
-                + "        \"postalCode\": \"60056\"\n"
-                + "      },\n"
-                + "      \"identifiers\": [\n"
-                + "        {\n"
-                + "          \"type\": \"nationalId\",\n"
-                + "          \"value\": \"xxxxx4320\"\n"
-                + "        }\n"
-                + "      ],\n"
-                + "      \"contactMethods\": [\n"
-                + "        {\n"
-                + "          \"value\": \"jane.doe@example.com\",\n"
-                + "          \"type\": \"email\"\n"
-                + "        }\n"
-                + "      ],\n"
-                + "      \"relationship\": {\n"
-                + "        \"isControlProng\": true\n"
-                + "      }\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"fundingAccounts\": [\n"
-                + "    {\n"
-                + "      \"type\": \"checking\",\n"
-                + "      \"use\": \"credit\",\n"
-                + "      \"nameOnAccount\": \"Jane Doe\",\n"
-                + "      \"paymentMethods\": [\n"
-                + "        {\n"
-                + "          \"type\": \"ach\"\n"
-                + "        }\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedRequestBody =
+                TestResources.loadResource("/wire-tests/FundingFundingRecipientsWireTest_testCreate_request.json");
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
@@ -215,65 +183,8 @@ public class FundingFundingRecipientsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"recipientId\": 234,\n"
-                + "  \"status\": \"approved\",\n"
-                + "  \"createdDate\": \"2024-07-02T15:30:00Z\",\n"
-                + "  \"lastModifiedDate\": \"2024-07-02T15:30:00Z\",\n"
-                + "  \"recipientType\": \"privateCorporation\",\n"
-                + "  \"taxId\": \"123456789\",\n"
-                + "  \"charityId\": \"charityId\",\n"
-                + "  \"doingBusinessAs\": \"doingBusinessAs\",\n"
-                + "  \"address\": {\n"
-                + "    \"address1\": \"1 Example Ave.\",\n"
-                + "    \"address2\": \"Example Address Line 2\",\n"
-                + "    \"address3\": \"Example Address Line 3\",\n"
-                + "    \"city\": \"Chicago\",\n"
-                + "    \"state\": \"Illinois\",\n"
-                + "    \"country\": \"US\",\n"
-                + "    \"postalCode\": \"60056\"\n"
-                + "  },\n"
-                + "  \"contactMethods\": [\n"
-                + "    {\n"
-                + "      \"value\": \"jane.doe@example.com\",\n"
-                + "      \"type\": \"email\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"metadata\": {\n"
-                + "    \"yourCustomField\": \"abc123\"\n"
-                + "  },\n"
-                + "  \"owners\": [\n"
-                + "    {\n"
-                + "      \"ownerId\": 4564,\n"
-                + "      \"link\": {\n"
-                + "        \"rel\": \"owner\",\n"
-                + "        \"href\": \"https://api.payroc.com/v1/owners/4564\",\n"
-                + "        \"method\": \"get\"\n"
-                + "      }\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"fundingAccounts\": [\n"
-                + "    {\n"
-                + "      \"fundingAccountId\": 123,\n"
-                + "      \"status\": \"approved\",\n"
-                + "      \"link\": {\n"
-                + "        \"rel\": \"fundingAccount\",\n"
-                + "        \"href\": \"https://api.payroc.com/v1/funding-accounts/123\",\n"
-                + "        \"method\": \"get\"\n"
-                + "      }\n"
-                + "    },\n"
-                + "    {\n"
-                + "      \"fundingAccountId\": 124,\n"
-                + "      \"status\": \"rejected\",\n"
-                + "      \"link\": {\n"
-                + "        \"rel\": \"fundingAccount\",\n"
-                + "        \"href\": \"https://api.payroc.com/v1/funding-accounts/124\",\n"
-                + "        \"method\": \"get\"\n"
-                + "      }\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/FundingFundingRecipientsWireTest_testCreate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -307,11 +218,10 @@ public class FundingFundingRecipientsWireTest {
 
     @Test
     public void testRetrieve() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"recipientId\":234,\"status\":\"approved\",\"createdDate\":\"2024-07-02T15:30:00Z\",\"lastModifiedDate\":\"2024-07-02T15:30:00Z\",\"recipientType\":\"privateCorporation\",\"taxId\":\"123456789\",\"charityId\":\"charityId\",\"doingBusinessAs\":\"Pizza Doe\",\"address\":{\"address1\":\"1 Example Ave.\",\"address2\":\"Example Address Line 2\",\"address3\":\"Example Address Line 3\",\"city\":\"Chicago\",\"state\":\"Illinois\",\"country\":\"US\",\"postalCode\":\"60056\"},\"contactMethods\":[{\"value\":\"2025550164\",\"type\":\"phone\"}],\"metadata\":{\"yourCustomField\":\"abc123\"},\"owners\":[{\"ownerId\":4564,\"link\":{\"rel\":\"owner\",\"href\":\"https://api.payroc.com/v1/owners/4564\",\"method\":\"get\"}}],\"fundingAccounts\":[{\"fundingAccountId\":123,\"status\":\"approved\",\"link\":{\"rel\":\"fundingAccount\",\"href\":\"https://api.payroc.com/v1/funding-accounts/123\",\"method\":\"get\"}},{\"fundingAccountId\":124,\"status\":\"hold\",\"link\":{\"rel\":\"fundingAccount\",\"href\":\"https://api.payroc.com/v1/funding-accounts/124\",\"method\":\"get\"}}]}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/FundingFundingRecipientsWireTest_testRetrieve_response.json")));
         FundingRecipient response = client.funding()
                 .fundingRecipients()
                 .retrieve(1, RetrieveFundingRecipientsRequest.builder().build());
@@ -322,65 +232,8 @@ public class FundingFundingRecipientsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"recipientId\": 234,\n"
-                + "  \"status\": \"approved\",\n"
-                + "  \"createdDate\": \"2024-07-02T15:30:00Z\",\n"
-                + "  \"lastModifiedDate\": \"2024-07-02T15:30:00Z\",\n"
-                + "  \"recipientType\": \"privateCorporation\",\n"
-                + "  \"taxId\": \"123456789\",\n"
-                + "  \"charityId\": \"charityId\",\n"
-                + "  \"doingBusinessAs\": \"Pizza Doe\",\n"
-                + "  \"address\": {\n"
-                + "    \"address1\": \"1 Example Ave.\",\n"
-                + "    \"address2\": \"Example Address Line 2\",\n"
-                + "    \"address3\": \"Example Address Line 3\",\n"
-                + "    \"city\": \"Chicago\",\n"
-                + "    \"state\": \"Illinois\",\n"
-                + "    \"country\": \"US\",\n"
-                + "    \"postalCode\": \"60056\"\n"
-                + "  },\n"
-                + "  \"contactMethods\": [\n"
-                + "    {\n"
-                + "      \"value\": \"2025550164\",\n"
-                + "      \"type\": \"phone\"\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"metadata\": {\n"
-                + "    \"yourCustomField\": \"abc123\"\n"
-                + "  },\n"
-                + "  \"owners\": [\n"
-                + "    {\n"
-                + "      \"ownerId\": 4564,\n"
-                + "      \"link\": {\n"
-                + "        \"rel\": \"owner\",\n"
-                + "        \"href\": \"https://api.payroc.com/v1/owners/4564\",\n"
-                + "        \"method\": \"get\"\n"
-                + "      }\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"fundingAccounts\": [\n"
-                + "    {\n"
-                + "      \"fundingAccountId\": 123,\n"
-                + "      \"status\": \"approved\",\n"
-                + "      \"link\": {\n"
-                + "        \"rel\": \"fundingAccount\",\n"
-                + "        \"href\": \"https://api.payroc.com/v1/funding-accounts/123\",\n"
-                + "        \"method\": \"get\"\n"
-                + "      }\n"
-                + "    },\n"
-                + "    {\n"
-                + "      \"fundingAccountId\": 124,\n"
-                + "      \"status\": \"hold\",\n"
-                + "      \"link\": {\n"
-                + "        \"rel\": \"fundingAccount\",\n"
-                + "        \"href\": \"https://api.payroc.com/v1/funding-accounts/124\",\n"
-                + "        \"method\": \"get\"\n"
-                + "      }\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/FundingFundingRecipientsWireTest_testRetrieve_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -422,18 +275,47 @@ public class FundingFundingRecipientsWireTest {
                         UpdateFundingRecipientsRequest.builder()
                                 .body(FundingRecipient.builder()
                                         .recipientType(FundingRecipientRecipientType.PRIVATE_CORPORATION)
-                                        .taxId("123456789")
-                                        .doingBusinessAs("doingBusinessAs")
+                                        .taxId("12-3456789")
+                                        .doingBusinessAs("Doe Hot Dogs")
                                         .address(Address.builder()
-                                                .address1("1 Example Ave.")
+                                                .address1("2 Example Ave.")
                                                 .city("Chicago")
                                                 .state("Illinois")
                                                 .country("US")
                                                 .postalCode("60056")
+                                                .address2("Example Address Line 2")
+                                                .address3("Example Address Line 3")
                                                 .build())
-                                        .contactMethods(Arrays.asList(ContactMethod.email(ContactMethodEmail.builder()
-                                                .value("jane.doe@example.com")
+                                        .contactMethods(Arrays.asList(
+                                                ContactMethod.email(ContactMethodEmail.builder()
+                                                        .value("jane.doe@example.com")
+                                                        .build()),
+                                                ContactMethod.phone(ContactMethodPhone.builder()
+                                                        .value("2025550164")
+                                                        .build())))
+                                        .metadata(new HashMap<String, String>() {
+                                            {
+                                                put("responsiblePerson", "Jane Doe");
+                                            }
+                                        })
+                                        .owners(Optional.of(Arrays.asList(FundingRecipientOwnersItem.builder()
+                                                .ownerId(12346)
+                                                .link(FundingRecipientOwnersItemLink.builder()
+                                                        .rel("owner")
+                                                        .href("https://api.payroc.com/v1/owners/12346")
+                                                        .method("get")
+                                                        .build())
                                                 .build())))
+                                        .fundingAccounts(
+                                                Optional.of(Arrays.asList(FundingRecipientFundingAccountsItem.builder()
+                                                        .fundingAccountId(124)
+                                                        .status(FundingRecipientFundingAccountsItemStatus.APPROVED)
+                                                        .link(FundingRecipientFundingAccountsItemLink.builder()
+                                                                .rel("fundingAccount")
+                                                                .href("https://api.payroc.com/v1/funding-accounts/124")
+                                                                .method("get")
+                                                                .build())
+                                                        .build())))
                                         .build())
                                 .build());
         RecordedRequest request = server.takeRequest();
@@ -444,10 +326,12 @@ public class FundingFundingRecipientsWireTest {
         String expectedRequestBody = ""
                 + "{\n"
                 + "  \"recipientType\": \"privateCorporation\",\n"
-                + "  \"taxId\": \"123456789\",\n"
-                + "  \"doingBusinessAs\": \"doingBusinessAs\",\n"
+                + "  \"taxId\": \"12-3456789\",\n"
+                + "  \"doingBusinessAs\": \"Doe Hot Dogs\",\n"
                 + "  \"address\": {\n"
-                + "    \"address1\": \"1 Example Ave.\",\n"
+                + "    \"address1\": \"2 Example Ave.\",\n"
+                + "    \"address2\": \"Example Address Line 2\",\n"
+                + "    \"address3\": \"Example Address Line 3\",\n"
                 + "    \"city\": \"Chicago\",\n"
                 + "    \"state\": \"Illinois\",\n"
                 + "    \"country\": \"US\",\n"
@@ -457,6 +341,34 @@ public class FundingFundingRecipientsWireTest {
                 + "    {\n"
                 + "      \"value\": \"jane.doe@example.com\",\n"
                 + "      \"type\": \"email\"\n"
+                + "    },\n"
+                + "    {\n"
+                + "      \"value\": \"2025550164\",\n"
+                + "      \"type\": \"phone\"\n"
+                + "    }\n"
+                + "  ],\n"
+                + "  \"metadata\": {\n"
+                + "    \"responsiblePerson\": \"Jane Doe\"\n"
+                + "  },\n"
+                + "  \"owners\": [\n"
+                + "    {\n"
+                + "      \"ownerId\": 12346,\n"
+                + "      \"link\": {\n"
+                + "        \"rel\": \"owner\",\n"
+                + "        \"href\": \"https://api.payroc.com/v1/owners/12346\",\n"
+                + "        \"method\": \"get\"\n"
+                + "      }\n"
+                + "    }\n"
+                + "  ],\n"
+                + "  \"fundingAccounts\": [\n"
+                + "    {\n"
+                + "      \"fundingAccountId\": 124,\n"
+                + "      \"status\": \"approved\",\n"
+                + "      \"link\": {\n"
+                + "        \"rel\": \"fundingAccount\",\n"
+                + "        \"href\": \"https://api.payroc.com/v1/funding-accounts/124\",\n"
+                + "        \"method\": \"get\"\n"
+                + "      }\n"
                 + "    }\n"
                 + "  ]\n"
                 + "}";
@@ -501,11 +413,10 @@ public class FundingFundingRecipientsWireTest {
 
     @Test
     public void testListAccounts() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "[{\"fundingAccountId\":123,\"createdDate\":\"2024-07-02T15:30:00Z\",\"lastModifiedDate\":\"2024-07-02T15:30:00Z\",\"status\":\"approved\",\"type\":\"checking\",\"use\":\"credit\",\"nameOnAccount\":\"Jane Doe\",\"paymentMethods\":[{\"value\":{\"routingNumber\":\"123456789\",\"accountNumber\":\"1234567890\"},\"type\":\"ach\"}],\"metadata\":{\"yourCustomField\":\"abc123\"},\"links\":[{\"rel\":\"parent\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/funding-recipients/234\"}]},{\"fundingAccountId\":124,\"createdDate\":\"2024-07-02T15:30:00Z\",\"lastModifiedDate\":\"2024-07-02T15:30:00Z\",\"status\":\"pending\",\"type\":\"checking\",\"use\":\"debit\",\"nameOnAccount\":\"Jane Doe\",\"paymentMethods\":[{\"value\":{\"routingNumber\":\"123456789\",\"accountNumber\":\"1234567890\"},\"type\":\"ach\"}],\"metadata\":{\"yourCustomField\":\"abc123\"},\"links\":[{\"rel\":\"parent\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/funding-recipients/235\"}]}]"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/FundingFundingRecipientsWireTest_testListAccounts_response.json")));
         List<FundingAccount> response = client.funding()
                 .fundingRecipients()
                 .listAccounts(
@@ -517,65 +428,8 @@ public class FundingFundingRecipientsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "[\n"
-                + "  {\n"
-                + "    \"fundingAccountId\": 123,\n"
-                + "    \"createdDate\": \"2024-07-02T15:30:00Z\",\n"
-                + "    \"lastModifiedDate\": \"2024-07-02T15:30:00Z\",\n"
-                + "    \"status\": \"approved\",\n"
-                + "    \"type\": \"checking\",\n"
-                + "    \"use\": \"credit\",\n"
-                + "    \"nameOnAccount\": \"Jane Doe\",\n"
-                + "    \"paymentMethods\": [\n"
-                + "      {\n"
-                + "        \"value\": {\n"
-                + "          \"routingNumber\": \"123456789\",\n"
-                + "          \"accountNumber\": \"1234567890\"\n"
-                + "        },\n"
-                + "        \"type\": \"ach\"\n"
-                + "      }\n"
-                + "    ],\n"
-                + "    \"metadata\": {\n"
-                + "      \"yourCustomField\": \"abc123\"\n"
-                + "    },\n"
-                + "    \"links\": [\n"
-                + "      {\n"
-                + "        \"rel\": \"parent\",\n"
-                + "        \"method\": \"get\",\n"
-                + "        \"href\": \"https://api.payroc.com/v1/funding-recipients/234\"\n"
-                + "      }\n"
-                + "    ]\n"
-                + "  },\n"
-                + "  {\n"
-                + "    \"fundingAccountId\": 124,\n"
-                + "    \"createdDate\": \"2024-07-02T15:30:00Z\",\n"
-                + "    \"lastModifiedDate\": \"2024-07-02T15:30:00Z\",\n"
-                + "    \"status\": \"pending\",\n"
-                + "    \"type\": \"checking\",\n"
-                + "    \"use\": \"debit\",\n"
-                + "    \"nameOnAccount\": \"Jane Doe\",\n"
-                + "    \"paymentMethods\": [\n"
-                + "      {\n"
-                + "        \"value\": {\n"
-                + "          \"routingNumber\": \"123456789\",\n"
-                + "          \"accountNumber\": \"1234567890\"\n"
-                + "        },\n"
-                + "        \"type\": \"ach\"\n"
-                + "      }\n"
-                + "    ],\n"
-                + "    \"metadata\": {\n"
-                + "      \"yourCustomField\": \"abc123\"\n"
-                + "    },\n"
-                + "    \"links\": [\n"
-                + "      {\n"
-                + "        \"rel\": \"parent\",\n"
-                + "        \"method\": \"get\",\n"
-                + "        \"href\": \"https://api.payroc.com/v1/funding-recipients/235\"\n"
-                + "      }\n"
-                + "    ]\n"
-                + "  }\n"
-                + "]";
+        String expectedResponseBody = TestResources.loadResource(
+                "/wire-tests/FundingFundingRecipientsWireTest_testListAccounts_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -621,11 +475,16 @@ public class FundingFundingRecipientsWireTest {
                         CreateAccountFundingRecipientsRequest.builder()
                                 .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9324")
                                 .body(FundingAccount.builder()
-                                        .type(FundingAccountType.CHECKING)
+                                        .type(FundingAccountType.SAVINGS)
                                         .use(FundingAccountUse.CREDIT)
-                                        .nameOnAccount("Jane Doe")
+                                        .nameOnAccount("Fred Nerk")
                                         .paymentMethods(Arrays.asList(PaymentMethodsItem.ach(
                                                 PaymentMethodAch.builder().build())))
+                                        .metadata(new HashMap<String, String>() {
+                                            {
+                                                put("responsiblePerson", "Jane Doe");
+                                            }
+                                        })
                                         .build())
                                 .build());
         RecordedRequest request = server.takeRequest();
@@ -641,14 +500,17 @@ public class FundingFundingRecipientsWireTest {
         String actualRequestBody = request.getBody().readUtf8();
         String expectedRequestBody = ""
                 + "{\n"
-                + "  \"type\": \"checking\",\n"
+                + "  \"type\": \"savings\",\n"
                 + "  \"use\": \"credit\",\n"
-                + "  \"nameOnAccount\": \"Jane Doe\",\n"
+                + "  \"nameOnAccount\": \"Fred Nerk\",\n"
                 + "  \"paymentMethods\": [\n"
                 + "    {\n"
                 + "      \"type\": \"ach\"\n"
                 + "    }\n"
-                + "  ]\n"
+                + "  ],\n"
+                + "  \"metadata\": {\n"
+                + "    \"responsiblePerson\": \"Jane Doe\"\n"
+                + "  }\n"
                 + "}";
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
@@ -839,26 +701,34 @@ public class FundingFundingRecipientsWireTest {
                         CreateOwnerFundingRecipientsRequest.builder()
                                 .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9324")
                                 .body(Owner.builder()
-                                        .firstName("Jane")
-                                        .lastName("Doe")
-                                        .dateOfBirth(LocalDate.parse("1964-03-22"))
+                                        .firstName("Fred")
+                                        .lastName("Nerk")
+                                        .dateOfBirth(LocalDate.parse("1980-01-19"))
                                         .address(Address.builder()
-                                                .address1("1 Example Ave.")
+                                                .address1("2 Example Ave.")
                                                 .city("Chicago")
                                                 .state("Illinois")
                                                 .country("US")
                                                 .postalCode("60056")
                                                 .build())
                                         .relationship(OwnerRelationship.builder()
-                                                .isControlProng(true)
+                                                .isControlProng(false)
+                                                .equityPercentage(51.5f)
+                                                .title("CEO")
+                                                .isAuthorizedSignatory(true)
                                                 .build())
+                                        .middleName("Jim")
                                         .identifiers(Arrays.asList(Identifier.builder()
                                                 .type(IdentifierType.NATIONAL_ID)
-                                                .value("xxxxx4320")
+                                                .value("000-00-9876")
                                                 .build()))
-                                        .contactMethods(Arrays.asList(ContactMethod.email(ContactMethodEmail.builder()
-                                                .value("jane.doe@example.com")
-                                                .build())))
+                                        .contactMethods(Arrays.asList(
+                                                ContactMethod.email(ContactMethodEmail.builder()
+                                                        .value("jane.doe@example.com")
+                                                        .build()),
+                                                ContactMethod.phone(ContactMethodPhone.builder()
+                                                        .value("2025550164")
+                                                        .build())))
                                         .build())
                                 .build());
         RecordedRequest request = server.takeRequest();
@@ -874,11 +744,12 @@ public class FundingFundingRecipientsWireTest {
         String actualRequestBody = request.getBody().readUtf8();
         String expectedRequestBody = ""
                 + "{\n"
-                + "  \"firstName\": \"Jane\",\n"
-                + "  \"lastName\": \"Doe\",\n"
-                + "  \"dateOfBirth\": \"1964-03-22\",\n"
+                + "  \"firstName\": \"Fred\",\n"
+                + "  \"middleName\": \"Jim\",\n"
+                + "  \"lastName\": \"Nerk\",\n"
+                + "  \"dateOfBirth\": \"1980-01-19\",\n"
                 + "  \"address\": {\n"
-                + "    \"address1\": \"1 Example Ave.\",\n"
+                + "    \"address1\": \"2 Example Ave.\",\n"
                 + "    \"city\": \"Chicago\",\n"
                 + "    \"state\": \"Illinois\",\n"
                 + "    \"country\": \"US\",\n"
@@ -887,17 +758,24 @@ public class FundingFundingRecipientsWireTest {
                 + "  \"identifiers\": [\n"
                 + "    {\n"
                 + "      \"type\": \"nationalId\",\n"
-                + "      \"value\": \"xxxxx4320\"\n"
+                + "      \"value\": \"000-00-9876\"\n"
                 + "    }\n"
                 + "  ],\n"
                 + "  \"contactMethods\": [\n"
                 + "    {\n"
                 + "      \"value\": \"jane.doe@example.com\",\n"
                 + "      \"type\": \"email\"\n"
+                + "    },\n"
+                + "    {\n"
+                + "      \"value\": \"2025550164\",\n"
+                + "      \"type\": \"phone\"\n"
                 + "    }\n"
                 + "  ],\n"
                 + "  \"relationship\": {\n"
-                + "    \"isControlProng\": true\n"
+                + "    \"equityPercentage\": 51.5,\n"
+                + "    \"title\": \"CEO\",\n"
+                + "    \"isControlProng\": false,\n"
+                + "    \"isAuthorizedSignatory\": true\n"
                 + "  }\n"
                 + "}";
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);

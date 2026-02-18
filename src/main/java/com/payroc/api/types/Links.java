@@ -30,6 +30,9 @@ public final class Links implements ILinks {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Polymorphic object that contains information about the processing terminal that the order is linked to.
+     */
     @JsonProperty("links")
     @java.lang.Override
     public Optional<List<ProcessingTerminalSummary>> getLinks() {
@@ -79,6 +82,9 @@ public final class Links implements ILinks {
             return this;
         }
 
+        /**
+         * <p>Polymorphic object that contains information about the processing terminal that the order is linked to.</p>
+         */
         @JsonSetter(value = "links", nulls = Nulls.SKIP)
         public Builder links(Optional<List<ProcessingTerminalSummary>> links) {
             this.links = links;

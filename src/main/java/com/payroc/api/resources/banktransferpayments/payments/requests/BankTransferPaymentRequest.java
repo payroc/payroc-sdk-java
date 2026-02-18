@@ -95,7 +95,14 @@ public final class BankTransferPaymentRequest {
     }
 
     /**
-     * @return Object that contains information about the customer's payment details.
+     * @return Polymorphic object that contains payment detail information.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+     * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+     * <li><code>secureToken</code> - Secure token details</li>
+     * <li><code>singleUseToken</code> - Single-use token details</li>
+     * </ul>
      */
     @JsonProperty("paymentMethod")
     public BankTransferPaymentRequestPaymentMethod getPaymentMethod() {
@@ -174,7 +181,14 @@ public final class BankTransferPaymentRequest {
 
     public interface PaymentMethodStage {
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains payment detail information.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * <li><code>singleUseToken</code> - Single-use token details</li>
+         * </ul>
          */
         _FinalStage paymentMethod(@NotNull BankTransferPaymentRequestPaymentMethod paymentMethod);
     }
@@ -264,8 +278,22 @@ public final class BankTransferPaymentRequest {
         }
 
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains payment detail information.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * <li><code>singleUseToken</code> - Single-use token details</li>
+         * </ul>
+         * <p>Polymorphic object that contains payment detail information.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * <li><code>singleUseToken</code> - Single-use token details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

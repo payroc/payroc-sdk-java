@@ -25,13 +25,13 @@ public final class BankTransferResult {
 
     private final BankTransferResultStatus status;
 
-    private final Optional<Double> authorizedAmount;
+    private final Optional<Long> authorizedAmount;
 
-    private final Optional<Currency> currency;
+    private final Currency currency;
 
-    private final Optional<String> responseCode;
+    private final String responseCode;
 
-    private final String responseMessage;
+    private final Optional<String> responseMessage;
 
     private final Optional<String> processorResponseCode;
 
@@ -40,10 +40,10 @@ public final class BankTransferResult {
     private BankTransferResult(
             BankTransferResultType type,
             BankTransferResultStatus status,
-            Optional<Double> authorizedAmount,
-            Optional<Currency> currency,
-            Optional<String> responseCode,
-            String responseMessage,
+            Optional<Long> authorizedAmount,
+            Currency currency,
+            String responseCode,
+            Optional<String> responseMessage,
             Optional<String> processorResponseCode,
             Map<String, Object> additionalProperties) {
         this.type = type;
@@ -77,12 +77,12 @@ public final class BankTransferResult {
      * <strong>Note:</strong> The amount is negative for a refund.
      */
     @JsonProperty("authorizedAmount")
-    public Optional<Double> getAuthorizedAmount() {
+    public Optional<Long> getAuthorizedAmount() {
         return authorizedAmount;
     }
 
     @JsonProperty("currency")
-    public Optional<Currency> getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
@@ -94,7 +94,7 @@ public final class BankTransferResult {
      * </ul>
      */
     @JsonProperty("responseCode")
-    public Optional<String> getResponseCode() {
+    public String getResponseCode() {
         return responseCode;
     }
 
@@ -102,7 +102,7 @@ public final class BankTransferResult {
      * @return Description of the response from the processor.
      */
     @JsonProperty("responseMessage")
-    public String getResponseMessage() {
+    public Optional<String> getResponseMessage() {
         return responseMessage;
     }
 
@@ -169,14 +169,22 @@ public final class BankTransferResult {
         /**
          * <p>Status of the transaction.</p>
          */
-        ResponseMessageStage status(@NotNull BankTransferResultStatus status);
+        CurrencyStage status(@NotNull BankTransferResultStatus status);
     }
 
-    public interface ResponseMessageStage {
+    public interface CurrencyStage {
+        ResponseCodeStage currency(@NotNull Currency currency);
+    }
+
+    public interface ResponseCodeStage {
         /**
-         * <p>Description of the response from the processor.</p>
+         * <p>Response from the processor.</p>
+         * <ul>
+         * <li><code>A</code> - The processor approved the transaction.</li>
+         * <li><code>D</code> - The processor declined the transaction.</li>
+         * </ul>
          */
-        _FinalStage responseMessage(@NotNull String responseMessage);
+        _FinalStage responseCode(@NotNull String responseCode);
     }
 
     public interface _FinalStage {
@@ -186,24 +194,16 @@ public final class BankTransferResult {
          * <p>Amount of the transaction.
          * <strong>Note:</strong> The amount is negative for a refund.</p>
          */
-        _FinalStage authorizedAmount(Optional<Double> authorizedAmount);
+        _FinalStage authorizedAmount(Optional<Long> authorizedAmount);
 
-        _FinalStage authorizedAmount(Double authorizedAmount);
-
-        _FinalStage currency(Optional<Currency> currency);
-
-        _FinalStage currency(Currency currency);
+        _FinalStage authorizedAmount(Long authorizedAmount);
 
         /**
-         * <p>Response from the processor.</p>
-         * <ul>
-         * <li><code>A</code> - The processor approved the transaction.</li>
-         * <li><code>D</code> - The processor declined the transaction.</li>
-         * </ul>
+         * <p>Description of the response from the processor.</p>
          */
-        _FinalStage responseCode(Optional<String> responseCode);
+        _FinalStage responseMessage(Optional<String> responseMessage);
 
-        _FinalStage responseCode(String responseCode);
+        _FinalStage responseMessage(String responseMessage);
 
         /**
          * <p>Original response code that the processor sent.</p>
@@ -214,20 +214,20 @@ public final class BankTransferResult {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements TypeStage, StatusStage, ResponseMessageStage, _FinalStage {
+    public static final class Builder implements TypeStage, StatusStage, CurrencyStage, ResponseCodeStage, _FinalStage {
         private BankTransferResultType type;
 
         private BankTransferResultStatus status;
 
-        private String responseMessage;
+        private Currency currency;
+
+        private String responseCode;
 
         private Optional<String> processorResponseCode = Optional.empty();
 
-        private Optional<String> responseCode = Optional.empty();
+        private Optional<String> responseMessage = Optional.empty();
 
-        private Optional<Currency> currency = Optional.empty();
-
-        private Optional<Double> authorizedAmount = Optional.empty();
+        private Optional<Long> authorizedAmount = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -265,20 +265,35 @@ public final class BankTransferResult {
          */
         @java.lang.Override
         @JsonSetter("status")
-        public ResponseMessageStage status(@NotNull BankTransferResultStatus status) {
+        public CurrencyStage status(@NotNull BankTransferResultStatus status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
             return this;
         }
 
+        @java.lang.Override
+        @JsonSetter("currency")
+        public ResponseCodeStage currency(@NotNull Currency currency) {
+            this.currency = Objects.requireNonNull(currency, "currency must not be null");
+            return this;
+        }
+
         /**
-         * <p>Description of the response from the processor.</p>
-         * <p>Description of the response from the processor.</p>
+         * <p>Response from the processor.</p>
+         * <ul>
+         * <li><code>A</code> - The processor approved the transaction.</li>
+         * <li><code>D</code> - The processor declined the transaction.</li>
+         * </ul>
+         * <p>Response from the processor.</p>
+         * <ul>
+         * <li><code>A</code> - The processor approved the transaction.</li>
+         * <li><code>D</code> - The processor declined the transaction.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        @JsonSetter("responseMessage")
-        public _FinalStage responseMessage(@NotNull String responseMessage) {
-            this.responseMessage = Objects.requireNonNull(responseMessage, "responseMessage must not be null");
+        @JsonSetter("responseCode")
+        public _FinalStage responseCode(@NotNull String responseCode) {
+            this.responseCode = Objects.requireNonNull(responseCode, "responseCode must not be null");
             return this;
         }
 
@@ -303,43 +318,22 @@ public final class BankTransferResult {
         }
 
         /**
-         * <p>Response from the processor.</p>
-         * <ul>
-         * <li><code>A</code> - The processor approved the transaction.</li>
-         * <li><code>D</code> - The processor declined the transaction.</li>
-         * </ul>
+         * <p>Description of the response from the processor.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage responseCode(String responseCode) {
-            this.responseCode = Optional.ofNullable(responseCode);
+        public _FinalStage responseMessage(String responseMessage) {
+            this.responseMessage = Optional.ofNullable(responseMessage);
             return this;
         }
 
         /**
-         * <p>Response from the processor.</p>
-         * <ul>
-         * <li><code>A</code> - The processor approved the transaction.</li>
-         * <li><code>D</code> - The processor declined the transaction.</li>
-         * </ul>
+         * <p>Description of the response from the processor.</p>
          */
         @java.lang.Override
-        @JsonSetter(value = "responseCode", nulls = Nulls.SKIP)
-        public _FinalStage responseCode(Optional<String> responseCode) {
-            this.responseCode = responseCode;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage currency(Currency currency) {
-            this.currency = Optional.ofNullable(currency);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "currency", nulls = Nulls.SKIP)
-        public _FinalStage currency(Optional<Currency> currency) {
-            this.currency = currency;
+        @JsonSetter(value = "responseMessage", nulls = Nulls.SKIP)
+        public _FinalStage responseMessage(Optional<String> responseMessage) {
+            this.responseMessage = responseMessage;
             return this;
         }
 
@@ -349,7 +343,7 @@ public final class BankTransferResult {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage authorizedAmount(Double authorizedAmount) {
+        public _FinalStage authorizedAmount(Long authorizedAmount) {
             this.authorizedAmount = Optional.ofNullable(authorizedAmount);
             return this;
         }
@@ -360,7 +354,7 @@ public final class BankTransferResult {
          */
         @java.lang.Override
         @JsonSetter(value = "authorizedAmount", nulls = Nulls.SKIP)
-        public _FinalStage authorizedAmount(Optional<Double> authorizedAmount) {
+        public _FinalStage authorizedAmount(Optional<Long> authorizedAmount) {
             this.authorizedAmount = authorizedAmount;
             return this;
         }

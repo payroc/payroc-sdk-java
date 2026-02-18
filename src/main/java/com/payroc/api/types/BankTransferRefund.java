@@ -88,7 +88,12 @@ public final class BankTransferRefund {
     }
 
     /**
-     * @return Object that contains information about the bank account.
+     * @return Polymorphic object that contains bank account information.
+     * <p>The value of the type field determines which variant you should use:</p>
+     * <ul>
+     * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+     * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+     * </ul>
      */
     @JsonProperty("bankAccount")
     public BankTransferRefundBankAccount getBankAccount() {
@@ -179,7 +184,12 @@ public final class BankTransferRefund {
 
     public interface BankAccountStage {
         /**
-         * <p>Object that contains information about the bank account.</p>
+         * <p>Polymorphic object that contains bank account information.</p>
+         * <p>The value of the type field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * </ul>
          */
         TransactionResultStage bankAccount(@NotNull BankTransferRefundBankAccount bankAccount);
     }
@@ -282,8 +292,18 @@ public final class BankTransferRefund {
         }
 
         /**
-         * <p>Object that contains information about the bank account.</p>
-         * <p>Object that contains information about the bank account.</p>
+         * <p>Polymorphic object that contains bank account information.</p>
+         * <p>The value of the type field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * </ul>
+         * <p>Polymorphic object that contains bank account information.</p>
+         * <p>The value of the type field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

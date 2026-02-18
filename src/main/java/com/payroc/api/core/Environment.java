@@ -4,7 +4,7 @@
 package com.payroc.api.core;
 
 public final class Environment {
-    public static final Environment Production =
+    public static final Environment PRODUCTION =
             new Environment("https://api.payroc.com/v1", "https://identity.payroc.com");
 
     public static final Environment UAT =

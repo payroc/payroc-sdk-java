@@ -66,11 +66,10 @@ public class TokenizationSecureTokensWireTest {
 
     @Test
     public void testCreate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"secureTokenId\":\"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\"processingTerminalId\":\"1234001\",\"mitAgreement\":\"unscheduled\",\"customer\":{\"firstName\":\"Sarah\",\"lastName\":\"Hopper\",\"dateOfBirth\":\"1990-07-15\",\"referenceNumber\":\"Customer-12\",\"billingAddress\":{\"address1\":\"1 Example Ave.\",\"address2\":\"Example Address Line 2\",\"address3\":\"Example Address Line 3\",\"city\":\"Chicago\",\"state\":\"Illinois\",\"country\":\"US\",\"postalCode\":\"60056\"},\"shippingAddress\":{\"recipientName\":\"Sarah Hopper\",\"address\":{\"address1\":\"1 Example Ave.\",\"address2\":\"Example Address Line 2\",\"address3\":\"Example Address Line 3\",\"city\":\"Chicago\",\"state\":\"Illinois\",\"country\":\"US\",\"postalCode\":\"60056\"}},\"contactMethods\":[{\"value\":\"jane.doe@example.com\",\"type\":\"email\"}],\"notificationLanguage\":\"en\"},\"source\":{\"cardholderName\":\"Sarah Hazel Hopper\",\"cardNumber\":\"4539858876047062\",\"expiryDate\":\"1225\",\"cardType\":\"cardType\",\"currency\":\"AED\",\"debit\":true,\"surcharging\":{\"allowed\":true,\"amount\":87,\"percentage\":3,\"disclosure\":\"A 3% surcharge is applied to cover processing fees.\"},\"type\":\"card\"},\"token\":\"296753123456\",\"status\":\"notValidated\",\"customFields\":[{\"name\":\"yourCustomField\",\"value\":\"abc123\"}]}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/TokenizationSecureTokensWireTest_testCreate_response.json")));
         SecureToken response = client.tokenization()
                 .secureTokens()
                 .create(
@@ -141,66 +140,8 @@ public class TokenizationSecureTokensWireTest {
                 "Header 'Idempotency-Key' should match expected value");
         // Validate request body
         String actualRequestBody = request.getBody().readUtf8();
-        String expectedRequestBody = ""
-                + "{\n"
-                + "  \"operator\": \"Jane\",\n"
-                + "  \"mitAgreement\": \"unscheduled\",\n"
-                + "  \"customer\": {\n"
-                + "    \"firstName\": \"Sarah\",\n"
-                + "    \"lastName\": \"Hopper\",\n"
-                + "    \"dateOfBirth\": \"1990-07-15\",\n"
-                + "    \"referenceNumber\": \"Customer-12\",\n"
-                + "    \"billingAddress\": {\n"
-                + "      \"address1\": \"1 Example Ave.\",\n"
-                + "      \"address2\": \"Example Address Line 2\",\n"
-                + "      \"address3\": \"Example Address Line 3\",\n"
-                + "      \"city\": \"Chicago\",\n"
-                + "      \"state\": \"Illinois\",\n"
-                + "      \"country\": \"US\",\n"
-                + "      \"postalCode\": \"60056\"\n"
-                + "    },\n"
-                + "    \"shippingAddress\": {\n"
-                + "      \"recipientName\": \"Sarah Hopper\",\n"
-                + "      \"address\": {\n"
-                + "        \"address1\": \"1 Example Ave.\",\n"
-                + "        \"address2\": \"Example Address Line 2\",\n"
-                + "        \"address3\": \"Example Address Line 3\",\n"
-                + "        \"city\": \"Chicago\",\n"
-                + "        \"state\": \"Illinois\",\n"
-                + "        \"country\": \"US\",\n"
-                + "        \"postalCode\": \"60056\"\n"
-                + "      }\n"
-                + "    },\n"
-                + "    \"contactMethods\": [\n"
-                + "      {\n"
-                + "        \"value\": \"jane.doe@example.com\",\n"
-                + "        \"type\": \"email\"\n"
-                + "      }\n"
-                + "    ],\n"
-                + "    \"notificationLanguage\": \"en\"\n"
-                + "  },\n"
-                + "  \"ipAddress\": {\n"
-                + "    \"type\": \"ipv4\",\n"
-                + "    \"value\": \"104.18.24.203\"\n"
-                + "  },\n"
-                + "  \"source\": {\n"
-                + "    \"cardDetails\": {\n"
-                + "      \"device\": {\n"
-                + "        \"model\": \"bbposChp\",\n"
-                + "        \"serialNumber\": \"1850010868\"\n"
-                + "      },\n"
-                + "      \"rawData\": \"A1B2C3D4E5F67890ABCD1234567890ABCDEF1234567890ABCDEF1234567890ABCDEF\",\n"
-                + "      \"entryMethod\": \"raw\"\n"
-                + "    },\n"
-                + "    \"type\": \"card\"\n"
-                + "  },\n"
-                + "  \"customFields\": [\n"
-                + "    {\n"
-                + "      \"name\": \"yourCustomField\",\n"
-                + "      \"value\": \"abc123\"\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedRequestBody =
+                TestResources.loadResource("/wire-tests/TokenizationSecureTokensWireTest_testCreate_request.json");
         JsonNode actualJson = objectMapper.readTree(actualRequestBody);
         JsonNode expectedJson = objectMapper.readTree(expectedRequestBody);
         Assertions.assertTrue(jsonEquals(expectedJson, actualJson), "Request body structure does not match expected");
@@ -231,69 +172,8 @@ public class TokenizationSecureTokensWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"secureTokenId\": \"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\n"
-                + "  \"processingTerminalId\": \"1234001\",\n"
-                + "  \"mitAgreement\": \"unscheduled\",\n"
-                + "  \"customer\": {\n"
-                + "    \"firstName\": \"Sarah\",\n"
-                + "    \"lastName\": \"Hopper\",\n"
-                + "    \"dateOfBirth\": \"1990-07-15\",\n"
-                + "    \"referenceNumber\": \"Customer-12\",\n"
-                + "    \"billingAddress\": {\n"
-                + "      \"address1\": \"1 Example Ave.\",\n"
-                + "      \"address2\": \"Example Address Line 2\",\n"
-                + "      \"address3\": \"Example Address Line 3\",\n"
-                + "      \"city\": \"Chicago\",\n"
-                + "      \"state\": \"Illinois\",\n"
-                + "      \"country\": \"US\",\n"
-                + "      \"postalCode\": \"60056\"\n"
-                + "    },\n"
-                + "    \"shippingAddress\": {\n"
-                + "      \"recipientName\": \"Sarah Hopper\",\n"
-                + "      \"address\": {\n"
-                + "        \"address1\": \"1 Example Ave.\",\n"
-                + "        \"address2\": \"Example Address Line 2\",\n"
-                + "        \"address3\": \"Example Address Line 3\",\n"
-                + "        \"city\": \"Chicago\",\n"
-                + "        \"state\": \"Illinois\",\n"
-                + "        \"country\": \"US\",\n"
-                + "        \"postalCode\": \"60056\"\n"
-                + "      }\n"
-                + "    },\n"
-                + "    \"contactMethods\": [\n"
-                + "      {\n"
-                + "        \"value\": \"jane.doe@example.com\",\n"
-                + "        \"type\": \"email\"\n"
-                + "      }\n"
-                + "    ],\n"
-                + "    \"notificationLanguage\": \"en\"\n"
-                + "  },\n"
-                + "  \"source\": {\n"
-                + "    \"cardholderName\": \"Sarah Hazel Hopper\",\n"
-                + "    \"cardNumber\": \"4539858876047062\",\n"
-                + "    \"expiryDate\": \"1225\",\n"
-                + "    \"cardType\": \"cardType\",\n"
-                + "    \"currency\": \"AED\",\n"
-                + "    \"debit\": true,\n"
-                + "    \"surcharging\": {\n"
-                + "      \"allowed\": true,\n"
-                + "      \"amount\": 87,\n"
-                + "      \"percentage\": 3,\n"
-                + "      \"disclosure\": \"A 3% surcharge is applied to cover processing fees.\"\n"
-                + "    },\n"
-                + "    \"type\": \"card\"\n"
-                + "  },\n"
-                + "  \"token\": \"296753123456\",\n"
-                + "  \"status\": \"notValidated\",\n"
-                + "  \"customFields\": [\n"
-                + "    {\n"
-                + "      \"name\": \"yourCustomField\",\n"
-                + "      \"value\": \"abc123\"\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/TokenizationSecureTokensWireTest_testCreate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -327,11 +207,10 @@ public class TokenizationSecureTokensWireTest {
 
     @Test
     public void testRetrieve() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"secureTokenId\":\"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\"processingTerminalId\":\"1234001\",\"mitAgreement\":\"unscheduled\",\"customer\":{\"firstName\":\"Sarah\",\"lastName\":\"Hopper\",\"dateOfBirth\":\"1990-07-15\",\"referenceNumber\":\"Customer-12\",\"billingAddress\":{\"address1\":\"1 Example Ave.\",\"address2\":\"Example Address Line 2\",\"address3\":\"Example Address Line 3\",\"city\":\"Chicago\",\"state\":\"Illinois\",\"country\":\"US\",\"postalCode\":\"60056\"},\"shippingAddress\":{\"recipientName\":\"Sarah Hopper\",\"address\":{\"address1\":\"1 Example Ave.\",\"address2\":\"Example Address Line 2\",\"address3\":\"Example Address Line 3\",\"city\":\"Chicago\",\"state\":\"Illinois\",\"country\":\"US\",\"postalCode\":\"60056\"}},\"contactMethods\":[{\"value\":\"jane.doe@example.com\",\"type\":\"email\"}],\"notificationLanguage\":\"en\"},\"source\":{\"cardholderName\":\"Sarah Hazel Hopper\",\"cardNumber\":\"4539858876047062\",\"expiryDate\":\"1225\",\"cardType\":\"cardType\",\"currency\":\"AED\",\"debit\":true,\"surcharging\":{\"allowed\":true,\"amount\":87,\"percentage\":3,\"disclosure\":\"A 3% surcharge is applied to cover processing fees.\"},\"type\":\"card\"},\"token\":\"296753123456\",\"status\":\"notValidated\",\"customFields\":[{\"name\":\"yourCustomField\",\"value\":\"abc123\"}]}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/TokenizationSecureTokensWireTest_testRetrieve_response.json")));
         SecureTokenWithAccountType response = client.tokenization()
                 .secureTokens()
                 .retrieve(
@@ -345,69 +224,8 @@ public class TokenizationSecureTokensWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"secureTokenId\": \"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\n"
-                + "  \"processingTerminalId\": \"1234001\",\n"
-                + "  \"mitAgreement\": \"unscheduled\",\n"
-                + "  \"customer\": {\n"
-                + "    \"firstName\": \"Sarah\",\n"
-                + "    \"lastName\": \"Hopper\",\n"
-                + "    \"dateOfBirth\": \"1990-07-15\",\n"
-                + "    \"referenceNumber\": \"Customer-12\",\n"
-                + "    \"billingAddress\": {\n"
-                + "      \"address1\": \"1 Example Ave.\",\n"
-                + "      \"address2\": \"Example Address Line 2\",\n"
-                + "      \"address3\": \"Example Address Line 3\",\n"
-                + "      \"city\": \"Chicago\",\n"
-                + "      \"state\": \"Illinois\",\n"
-                + "      \"country\": \"US\",\n"
-                + "      \"postalCode\": \"60056\"\n"
-                + "    },\n"
-                + "    \"shippingAddress\": {\n"
-                + "      \"recipientName\": \"Sarah Hopper\",\n"
-                + "      \"address\": {\n"
-                + "        \"address1\": \"1 Example Ave.\",\n"
-                + "        \"address2\": \"Example Address Line 2\",\n"
-                + "        \"address3\": \"Example Address Line 3\",\n"
-                + "        \"city\": \"Chicago\",\n"
-                + "        \"state\": \"Illinois\",\n"
-                + "        \"country\": \"US\",\n"
-                + "        \"postalCode\": \"60056\"\n"
-                + "      }\n"
-                + "    },\n"
-                + "    \"contactMethods\": [\n"
-                + "      {\n"
-                + "        \"value\": \"jane.doe@example.com\",\n"
-                + "        \"type\": \"email\"\n"
-                + "      }\n"
-                + "    ],\n"
-                + "    \"notificationLanguage\": \"en\"\n"
-                + "  },\n"
-                + "  \"source\": {\n"
-                + "    \"cardholderName\": \"Sarah Hazel Hopper\",\n"
-                + "    \"cardNumber\": \"4539858876047062\",\n"
-                + "    \"expiryDate\": \"1225\",\n"
-                + "    \"cardType\": \"cardType\",\n"
-                + "    \"currency\": \"AED\",\n"
-                + "    \"debit\": true,\n"
-                + "    \"surcharging\": {\n"
-                + "      \"allowed\": true,\n"
-                + "      \"amount\": 87,\n"
-                + "      \"percentage\": 3,\n"
-                + "      \"disclosure\": \"A 3% surcharge is applied to cover processing fees.\"\n"
-                + "    },\n"
-                + "    \"type\": \"card\"\n"
-                + "  },\n"
-                + "  \"token\": \"296753123456\",\n"
-                + "  \"status\": \"notValidated\",\n"
-                + "  \"customFields\": [\n"
-                + "    {\n"
-                + "      \"name\": \"yourCustomField\",\n"
-                + "      \"value\": \"abc123\"\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/TokenizationSecureTokensWireTest_testRetrieve_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -455,11 +273,10 @@ public class TokenizationSecureTokensWireTest {
 
     @Test
     public void testPartiallyUpdate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"secureTokenId\":\"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\"processingTerminalId\":\"1234001\",\"mitAgreement\":\"unscheduled\",\"customer\":{\"firstName\":\"Sarah\",\"lastName\":\"Hopper\",\"dateOfBirth\":\"1990-07-15\",\"referenceNumber\":\"Customer-12\",\"billingAddress\":{\"address1\":\"1 Example Ave.\",\"address2\":\"Example Address Line 2\",\"address3\":\"Example Address Line 3\",\"city\":\"Chicago\",\"state\":\"Illinois\",\"country\":\"US\",\"postalCode\":\"60056\"},\"shippingAddress\":{\"recipientName\":\"Sarah Hopper\",\"address\":{\"address1\":\"1 Example Ave.\",\"address2\":\"Example Address Line 2\",\"address3\":\"Example Address Line 3\",\"city\":\"Chicago\",\"state\":\"Illinois\",\"country\":\"US\",\"postalCode\":\"60056\"}},\"contactMethods\":[{\"value\":\"jane.doe@example.com\",\"type\":\"email\"}],\"notificationLanguage\":\"en\"},\"source\":{\"cardholderName\":\"Sarah Hazel Hopper\",\"cardNumber\":\"4539858876047062\",\"expiryDate\":\"1225\",\"cardType\":\"cardType\",\"currency\":\"AED\",\"debit\":true,\"surcharging\":{\"allowed\":true,\"amount\":87,\"percentage\":3,\"disclosure\":\"A 3% surcharge is applied to cover processing fees.\"},\"type\":\"card\"},\"token\":\"296753123456\",\"status\":\"notValidated\",\"customFields\":[{\"name\":\"yourCustomField\",\"value\":\"abc123\"}]}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/TokenizationSecureTokensWireTest_testPartiallyUpdate_response.json")));
         SecureToken response = client.tokenization()
                 .secureTokens()
                 .partiallyUpdate(
@@ -534,69 +351,8 @@ public class TokenizationSecureTokensWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"secureTokenId\": \"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\n"
-                + "  \"processingTerminalId\": \"1234001\",\n"
-                + "  \"mitAgreement\": \"unscheduled\",\n"
-                + "  \"customer\": {\n"
-                + "    \"firstName\": \"Sarah\",\n"
-                + "    \"lastName\": \"Hopper\",\n"
-                + "    \"dateOfBirth\": \"1990-07-15\",\n"
-                + "    \"referenceNumber\": \"Customer-12\",\n"
-                + "    \"billingAddress\": {\n"
-                + "      \"address1\": \"1 Example Ave.\",\n"
-                + "      \"address2\": \"Example Address Line 2\",\n"
-                + "      \"address3\": \"Example Address Line 3\",\n"
-                + "      \"city\": \"Chicago\",\n"
-                + "      \"state\": \"Illinois\",\n"
-                + "      \"country\": \"US\",\n"
-                + "      \"postalCode\": \"60056\"\n"
-                + "    },\n"
-                + "    \"shippingAddress\": {\n"
-                + "      \"recipientName\": \"Sarah Hopper\",\n"
-                + "      \"address\": {\n"
-                + "        \"address1\": \"1 Example Ave.\",\n"
-                + "        \"address2\": \"Example Address Line 2\",\n"
-                + "        \"address3\": \"Example Address Line 3\",\n"
-                + "        \"city\": \"Chicago\",\n"
-                + "        \"state\": \"Illinois\",\n"
-                + "        \"country\": \"US\",\n"
-                + "        \"postalCode\": \"60056\"\n"
-                + "      }\n"
-                + "    },\n"
-                + "    \"contactMethods\": [\n"
-                + "      {\n"
-                + "        \"value\": \"jane.doe@example.com\",\n"
-                + "        \"type\": \"email\"\n"
-                + "      }\n"
-                + "    ],\n"
-                + "    \"notificationLanguage\": \"en\"\n"
-                + "  },\n"
-                + "  \"source\": {\n"
-                + "    \"cardholderName\": \"Sarah Hazel Hopper\",\n"
-                + "    \"cardNumber\": \"4539858876047062\",\n"
-                + "    \"expiryDate\": \"1225\",\n"
-                + "    \"cardType\": \"cardType\",\n"
-                + "    \"currency\": \"AED\",\n"
-                + "    \"debit\": true,\n"
-                + "    \"surcharging\": {\n"
-                + "      \"allowed\": true,\n"
-                + "      \"amount\": 87,\n"
-                + "      \"percentage\": 3,\n"
-                + "      \"disclosure\": \"A 3% surcharge is applied to cover processing fees.\"\n"
-                + "    },\n"
-                + "    \"type\": \"card\"\n"
-                + "  },\n"
-                + "  \"token\": \"296753123456\",\n"
-                + "  \"status\": \"notValidated\",\n"
-                + "  \"customFields\": [\n"
-                + "    {\n"
-                + "      \"name\": \"yourCustomField\",\n"
-                + "      \"value\": \"abc123\"\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedResponseBody = TestResources.loadResource(
+                "/wire-tests/TokenizationSecureTokensWireTest_testPartiallyUpdate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -630,11 +386,10 @@ public class TokenizationSecureTokensWireTest {
 
     @Test
     public void testUpdateAccount() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"secureTokenId\":\"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\"processingTerminalId\":\"1234001\",\"mitAgreement\":\"unscheduled\",\"customer\":{\"firstName\":\"Sarah\",\"lastName\":\"Hopper\",\"dateOfBirth\":\"1990-07-15\",\"referenceNumber\":\"Customer-12\",\"billingAddress\":{\"address1\":\"1 Example Ave.\",\"address2\":\"Example Address Line 2\",\"address3\":\"Example Address Line 3\",\"city\":\"Chicago\",\"state\":\"Illinois\",\"country\":\"US\",\"postalCode\":\"60056\"},\"shippingAddress\":{\"recipientName\":\"Sarah Hopper\",\"address\":{\"address1\":\"1 Example Ave.\",\"address2\":\"Example Address Line 2\",\"address3\":\"Example Address Line 3\",\"city\":\"Chicago\",\"state\":\"Illinois\",\"country\":\"US\",\"postalCode\":\"60056\"}},\"contactMethods\":[{\"value\":\"jane.doe@example.com\",\"type\":\"email\"}],\"notificationLanguage\":\"en\"},\"source\":{\"cardholderName\":\"Sarah Hazel Hopper\",\"cardNumber\":\"4539858876047062\",\"expiryDate\":\"1225\",\"cardType\":\"cardType\",\"currency\":\"AED\",\"debit\":true,\"surcharging\":{\"allowed\":true,\"amount\":87,\"percentage\":3,\"disclosure\":\"A 3% surcharge is applied to cover processing fees.\"},\"type\":\"card\"},\"token\":\"296753123456\",\"status\":\"notValidated\",\"customFields\":[{\"name\":\"yourCustomField\",\"value\":\"abc123\"}]}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/TokenizationSecureTokensWireTest_testUpdateAccount_response.json")));
         SecureToken response = client.tokenization()
                 .secureTokens()
                 .updateAccount(
@@ -693,69 +448,8 @@ public class TokenizationSecureTokensWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"secureTokenId\": \"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\n"
-                + "  \"processingTerminalId\": \"1234001\",\n"
-                + "  \"mitAgreement\": \"unscheduled\",\n"
-                + "  \"customer\": {\n"
-                + "    \"firstName\": \"Sarah\",\n"
-                + "    \"lastName\": \"Hopper\",\n"
-                + "    \"dateOfBirth\": \"1990-07-15\",\n"
-                + "    \"referenceNumber\": \"Customer-12\",\n"
-                + "    \"billingAddress\": {\n"
-                + "      \"address1\": \"1 Example Ave.\",\n"
-                + "      \"address2\": \"Example Address Line 2\",\n"
-                + "      \"address3\": \"Example Address Line 3\",\n"
-                + "      \"city\": \"Chicago\",\n"
-                + "      \"state\": \"Illinois\",\n"
-                + "      \"country\": \"US\",\n"
-                + "      \"postalCode\": \"60056\"\n"
-                + "    },\n"
-                + "    \"shippingAddress\": {\n"
-                + "      \"recipientName\": \"Sarah Hopper\",\n"
-                + "      \"address\": {\n"
-                + "        \"address1\": \"1 Example Ave.\",\n"
-                + "        \"address2\": \"Example Address Line 2\",\n"
-                + "        \"address3\": \"Example Address Line 3\",\n"
-                + "        \"city\": \"Chicago\",\n"
-                + "        \"state\": \"Illinois\",\n"
-                + "        \"country\": \"US\",\n"
-                + "        \"postalCode\": \"60056\"\n"
-                + "      }\n"
-                + "    },\n"
-                + "    \"contactMethods\": [\n"
-                + "      {\n"
-                + "        \"value\": \"jane.doe@example.com\",\n"
-                + "        \"type\": \"email\"\n"
-                + "      }\n"
-                + "    ],\n"
-                + "    \"notificationLanguage\": \"en\"\n"
-                + "  },\n"
-                + "  \"source\": {\n"
-                + "    \"cardholderName\": \"Sarah Hazel Hopper\",\n"
-                + "    \"cardNumber\": \"4539858876047062\",\n"
-                + "    \"expiryDate\": \"1225\",\n"
-                + "    \"cardType\": \"cardType\",\n"
-                + "    \"currency\": \"AED\",\n"
-                + "    \"debit\": true,\n"
-                + "    \"surcharging\": {\n"
-                + "      \"allowed\": true,\n"
-                + "      \"amount\": 87,\n"
-                + "      \"percentage\": 3,\n"
-                + "      \"disclosure\": \"A 3% surcharge is applied to cover processing fees.\"\n"
-                + "    },\n"
-                + "    \"type\": \"card\"\n"
-                + "  },\n"
-                + "  \"token\": \"296753123456\",\n"
-                + "  \"status\": \"notValidated\",\n"
-                + "  \"customFields\": [\n"
-                + "    {\n"
-                + "      \"name\": \"yourCustomField\",\n"
-                + "      \"value\": \"abc123\"\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedResponseBody = TestResources.loadResource(
+                "/wire-tests/TokenizationSecureTokensWireTest_testUpdateAccount_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(

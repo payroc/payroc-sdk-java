@@ -585,7 +585,7 @@ an issue first to discuss with us!
 
 On the other hand, contributions to the README are always very welcome!
 
-For details on setting up your development environment, running tests, and code quality standards, please see [CONTRIBUTING.md](./CONTRIBUTING.md).
+**For details on setting up your development environment, running tests, and code quality standards, please see [CONTRIBUTING.md](./CONTRIBUTING.md).** This guide includes comprehensive instructions for executing tests, including prerequisites, common commands, and troubleshooting tips.
 
 ## References
 

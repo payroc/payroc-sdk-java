@@ -172,6 +172,21 @@ public class AsyncRefundsClient {
      * </ul>
      * <p>If the refund is a referenced refund, our gateway also returns details about the payment that the refund is linked to.</p>
      */
+    public CompletableFuture<BankTransferRefund> retrieve(String refundId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(refundId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to retrieve information about a refund.
+     * <p>To retrieve a refund, you need its refundId. Our gateway returned the refundId in the response of the <a href="https://docs.payroc.com/api/schema/bank-transfer-payments/refunds/refund">Refund Payment</a> method or the <a href="https://docs.payroc.com/api/schema/bank-transfer-payments/refunds/create">Create Refund</a> method.</p>
+     * <p><strong>Note:</strong> If you don’t have the refundId, use our <a href="https://docs.payroc.com/api/schema/bank-transfer-payments/refunds/list">List Refunds</a> method to search for the refund.</p>
+     * <p>Our gateway returns the following information about the refund:</p>
+     * <ul>
+     * <li>Order details, including the refund amount and when it was processed.</li>
+     * <li>Bank account details, including the customer’s name and account number.</li>
+     * </ul>
+     * <p>If the refund is a referenced refund, our gateway also returns details about the payment that the refund is linked to.</p>
+     */
     public CompletableFuture<BankTransferRefund> retrieve(String refundId, RetrieveRefundsRequest request) {
         return this.rawClient.retrieve(refundId, request).thenApply(response -> response.body());
     }

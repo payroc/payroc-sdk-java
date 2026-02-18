@@ -77,6 +77,21 @@ public class RawMerchantPlatformsClient {
      * </ul>
      * <p>For each merchant platform, we also return its merchantPlatformId and its linked processingAccountIds, which you can use to perform follow-on actions.</p>
      */
+    public PayrocApiHttpResponse<PayrocPager<MerchantPlatform>> list(RequestOptions requestOptions) {
+        return list(ListMerchantPlatformsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of merchant platforms that are linked to your ISV account.
+     * <p><strong>Note</strong>: If you want to view the details of a specific merchant platform and you have its merchantPlatformId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/retrieve">Retrieve Merchant Platform</a> method.</p>
+     * <p>Our gateway returns the following information about each merchant platform in the list:</p>
+     * <ul>
+     * <li>Legal information, including its legal name and address.</li>
+     * <li>Contact information, including the email address for the business.</li>
+     * <li>Processing  account information, including the processingAccountId and status of each processing account that's linked to the merchant platform.</li>
+     * </ul>
+     * <p>For each merchant platform, we also return its merchantPlatformId and its linked processingAccountIds, which you can use to perform follow-on actions.</p>
+     */
     public PayrocApiHttpResponse<PayrocPager<MerchantPlatform>> list(ListMerchantPlatformsRequest request) {
         return list(request, null);
     }
@@ -108,6 +123,11 @@ public class RawMerchantPlatformsClient {
         if (request.getLimit().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "limit", request.getLimit().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -158,7 +178,7 @@ public class RawMerchantPlatformsClient {
 
     /**
      * Use this method to board a merchant with Payroc.
-     * <p><strong>Note</strong>: This method is part of our Boarding solution. To help you understand how this method works with other Boarding methods, go to <a href="https://docs.payroc.com/guides/integrate/boarding">Board a Merchant</a>.</p>
+     * <p><strong>Note</strong>: This method is part of our Boarding solution. To help you understand how this method works with other Boarding methods, go to <a href="https://docs.payroc.com/guides/board-merchants/boarding">Board a Merchant</a>.</p>
      * <p>In the request, include the following information:</p>
      * <ul>
      * <li>Legal information, including its legal name and address.</li>
@@ -178,7 +198,7 @@ public class RawMerchantPlatformsClient {
 
     /**
      * Use this method to board a merchant with Payroc.
-     * <p><strong>Note</strong>: This method is part of our Boarding solution. To help you understand how this method works with other Boarding methods, go to <a href="https://docs.payroc.com/guides/integrate/boarding">Board a Merchant</a>.</p>
+     * <p><strong>Note</strong>: This method is part of our Boarding solution. To help you understand how this method works with other Boarding methods, go to <a href="https://docs.payroc.com/guides/board-merchants/boarding">Board a Merchant</a>.</p>
      * <p>In the request, include the following information:</p>
      * <ul>
      * <li>Legal information, including its legal name and address.</li>
@@ -194,10 +214,14 @@ public class RawMerchantPlatformsClient {
      */
     public PayrocApiHttpResponse<MerchantPlatform> create(
             CreateMerchantAccount request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
-                .addPathSegments("merchant-platforms")
-                .build();
+                .addPathSegments("merchant-platforms");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -206,7 +230,7 @@ public class RawMerchantPlatformsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -286,6 +310,22 @@ public class RawMerchantPlatformsClient {
      * <li>Processing account information, including the processingAccountId and status of each processing account that's linked to the merchant platform.</li>
      * </ul>
      */
+    public PayrocApiHttpResponse<MerchantPlatform> retrieve(String merchantPlatformId, RequestOptions requestOptions) {
+        return retrieve(
+                merchantPlatformId, RetrieveMerchantPlatformsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a merchant platform.
+     * <p>To retrieve a merchant platform, you need its merchantPlatformId. Our gateway returned the merchantPlatformId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create">Create Merchant Platform</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the merchantPlatformId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/list">List Merchant Platforms</a> method to search for the merchant platform.</p>
+     * <p>Our gateway returns the following information about the merchant platform:</p>
+     * <ul>
+     * <li>Legal information, including its legal name and address.</li>
+     * <li>Contact information, including the email address for the business.</li>
+     * <li>Processing account information, including the processingAccountId and status of each processing account that's linked to the merchant platform.</li>
+     * </ul>
+     */
     public PayrocApiHttpResponse<MerchantPlatform> retrieve(
             String merchantPlatformId, RetrieveMerchantPlatformsRequest request) {
         return retrieve(merchantPlatformId, request, null);
@@ -304,13 +344,17 @@ public class RawMerchantPlatformsClient {
      */
     public PayrocApiHttpResponse<MerchantPlatform> retrieve(
             String merchantPlatformId, RetrieveMerchantPlatformsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("merchant-platforms")
-                .addPathSegment(merchantPlatformId)
-                .build();
+                .addPathSegment(merchantPlatformId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -394,6 +438,27 @@ public class RawMerchantPlatformsClient {
      * <p>For each processing account, we also return its processingAccountId, which you can use to perform follow-on actions.</p>
      */
     public PayrocApiHttpResponse<PayrocPager<ProcessingAccount>> listProcessingAccounts(
+            String merchantPlatformId, RequestOptions requestOptions) {
+        return listProcessingAccounts(
+                merchantPlatformId,
+                ListBoardingMerchantPlatformProcessingAccountsRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of processing accounts linked to a merchant platform.
+     * <p><strong>Note</strong>: If you want to view the details of a specific processing account and you have its processingAccountId, use our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/retrieve">Retrieve Processing Account</a> method.</p>
+     * <p>Use the query parameters to filter the list of results that we return, for example, to search for only closed processing accounts.</p>
+     * <p>To list the processing accounts for a merchant platform, you need its merchantPlatformId. If you don't have the merchantPlatformId, use our <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/list">List Merchant Platforms</a> method to search for the merchant platform.</p>
+     * <p>Our gateway returns the following information about eahc processing account in the list:</p>
+     * <ul>
+     * <li>Business details, including its status, time zone, and address.</li>
+     * <li>Owners' details, including their contact details.</li>
+     * <li>Funding, pricing, and processing information, including its pricing model and funding accounts.</li>
+     * </ul>
+     * <p>For each processing account, we also return its processingAccountId, which you can use to perform follow-on actions.</p>
+     */
+    public PayrocApiHttpResponse<PayrocPager<ProcessingAccount>> listProcessingAccounts(
             String merchantPlatformId, ListBoardingMerchantPlatformProcessingAccountsRequest request) {
         return listProcessingAccounts(merchantPlatformId, request, null);
     }
@@ -435,6 +500,11 @@ public class RawMerchantPlatformsClient {
         if (request.getIncludeClosed().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "includeClosed", request.getIncludeClosed().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -521,12 +591,16 @@ public class RawMerchantPlatformsClient {
             String merchantPlatformId,
             CreateProcessingAccountMerchantPlatformsRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("merchant-platforms")
                 .addPathSegment(merchantPlatformId)
-                .addPathSegments("processing-accounts")
-                .build();
+                .addPathSegments("processing-accounts");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -535,7 +609,7 @@ public class RawMerchantPlatformsClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

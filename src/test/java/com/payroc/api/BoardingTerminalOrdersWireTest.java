@@ -38,11 +38,10 @@ public class BoardingTerminalOrdersWireTest {
 
     @Test
     public void testRetrieve() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"terminalOrderId\":\"12345\",\"status\":\"open\",\"trainingProvider\":\"payroc\",\"shipping\":{\"preferences\":{\"method\":\"nextDay\",\"saturdayDelivery\":true},\"address\":{\"recipientName\":\"Recipient Name\",\"businessName\":\"Company Ltd\",\"addressLine1\":\"1 Example Ave.\",\"addressLine2\":\"Example Address Line 2\",\"city\":\"Chicago\",\"state\":\"Illinois\",\"postalCode\":\"60056\",\"email\":\"example@mail.com\",\"phone\":\"2025550164\"}},\"orderItems\":[{\"links\":[{\"processingTerminalId\":\"processingTerminalId\",\"link\":{\"href\":\"https://api.payroc.com/v1/processing-terminals/38765\",\"rel\":\"processingTerminal\",\"method\":\"get\"}}],\"type\":\"solution\",\"solutionTemplateId\":\"Roc Services_DX8000\",\"solutionQuantity\":1,\"deviceCondition\":\"new\",\"solutionSetup\":{\"timezone\":\"America/Chicago\",\"industryTemplateId\":\"Retail\",\"gatewaySettings\":{\"merchantPortfolioId\":\"Company Ltd\",\"merchantTemplateId\":\"Company Ltd Merchant Template\",\"userTemplateId\":\"Company Ltd User Template\",\"terminalTemplateId\":\"Company Ltd Terminal Template\"},\"applicationSettings\":{\"clerkPrompt\":false,\"security\":{\"refundPassword\":true,\"keyedSalePassword\":false,\"reversalPassword\":true}},\"deviceSettings\":{\"numberOfMobileUsers\":2,\"communicationType\":\"wifi\"},\"batchClosure\":{\"batchCloseTime\":\"23:40\",\"batchCloseType\":\"automatic\"},\"receiptNotifications\":{\"emailReceipt\":true,\"smsReceipt\":false},\"taxes\":[{\"taxRate\":6,\"taxLabel\":\"Sales Tax\"}],\"tips\":{\"enabled\":false},\"tokenization\":true}}],\"createdDate\":\"2020-09-08T12:00:00Z\",\"lastModifiedDate\":\"2020-09-09T12:00:00Z\"}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/BoardingTerminalOrdersWireTest_testRetrieve_response.json")));
         TerminalOrder response = client.boarding()
                 .terminalOrders()
                 .retrieve("12345", RetrieveTerminalOrdersRequest.builder().build());
@@ -53,89 +52,8 @@ public class BoardingTerminalOrdersWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"terminalOrderId\": \"12345\",\n"
-                + "  \"status\": \"open\",\n"
-                + "  \"trainingProvider\": \"payroc\",\n"
-                + "  \"shipping\": {\n"
-                + "    \"preferences\": {\n"
-                + "      \"method\": \"nextDay\",\n"
-                + "      \"saturdayDelivery\": true\n"
-                + "    },\n"
-                + "    \"address\": {\n"
-                + "      \"recipientName\": \"Recipient Name\",\n"
-                + "      \"businessName\": \"Company Ltd\",\n"
-                + "      \"addressLine1\": \"1 Example Ave.\",\n"
-                + "      \"addressLine2\": \"Example Address Line 2\",\n"
-                + "      \"city\": \"Chicago\",\n"
-                + "      \"state\": \"Illinois\",\n"
-                + "      \"postalCode\": \"60056\",\n"
-                + "      \"email\": \"example@mail.com\",\n"
-                + "      \"phone\": \"2025550164\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"orderItems\": [\n"
-                + "    {\n"
-                + "      \"links\": [\n"
-                + "        {\n"
-                + "          \"processingTerminalId\": \"processingTerminalId\",\n"
-                + "          \"link\": {\n"
-                + "            \"href\": \"https://api.payroc.com/v1/processing-terminals/38765\",\n"
-                + "            \"rel\": \"processingTerminal\",\n"
-                + "            \"method\": \"get\"\n"
-                + "          }\n"
-                + "        }\n"
-                + "      ],\n"
-                + "      \"type\": \"solution\",\n"
-                + "      \"solutionTemplateId\": \"Roc Services_DX8000\",\n"
-                + "      \"solutionQuantity\": 1,\n"
-                + "      \"deviceCondition\": \"new\",\n"
-                + "      \"solutionSetup\": {\n"
-                + "        \"timezone\": \"America/Chicago\",\n"
-                + "        \"industryTemplateId\": \"Retail\",\n"
-                + "        \"gatewaySettings\": {\n"
-                + "          \"merchantPortfolioId\": \"Company Ltd\",\n"
-                + "          \"merchantTemplateId\": \"Company Ltd Merchant Template\",\n"
-                + "          \"userTemplateId\": \"Company Ltd User Template\",\n"
-                + "          \"terminalTemplateId\": \"Company Ltd Terminal Template\"\n"
-                + "        },\n"
-                + "        \"applicationSettings\": {\n"
-                + "          \"clerkPrompt\": false,\n"
-                + "          \"security\": {\n"
-                + "            \"refundPassword\": true,\n"
-                + "            \"keyedSalePassword\": false,\n"
-                + "            \"reversalPassword\": true\n"
-                + "          }\n"
-                + "        },\n"
-                + "        \"deviceSettings\": {\n"
-                + "          \"numberOfMobileUsers\": 2,\n"
-                + "          \"communicationType\": \"wifi\"\n"
-                + "        },\n"
-                + "        \"batchClosure\": {\n"
-                + "          \"batchCloseTime\": \"23:40\",\n"
-                + "          \"batchCloseType\": \"automatic\"\n"
-                + "        },\n"
-                + "        \"receiptNotifications\": {\n"
-                + "          \"emailReceipt\": true,\n"
-                + "          \"smsReceipt\": false\n"
-                + "        },\n"
-                + "        \"taxes\": [\n"
-                + "          {\n"
-                + "            \"taxRate\": 6,\n"
-                + "            \"taxLabel\": \"Sales Tax\"\n"
-                + "          }\n"
-                + "        ],\n"
-                + "        \"tips\": {\n"
-                + "          \"enabled\": false\n"
-                + "        },\n"
-                + "        \"tokenization\": true\n"
-                + "      }\n"
-                + "    }\n"
-                + "  ],\n"
-                + "  \"createdDate\": \"2020-09-08T12:00:00Z\",\n"
-                + "  \"lastModifiedDate\": \"2020-09-09T12:00:00Z\"\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/BoardingTerminalOrdersWireTest_testRetrieve_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(

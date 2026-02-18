@@ -29,7 +29,7 @@ public final class LineItem implements ILineItemBase {
 
     private final Optional<UnitOfMeasure> unitOfMeasure;
 
-    private final double unitPrice;
+    private final long unitPrice;
 
     private final double quantity;
 
@@ -44,7 +44,7 @@ public final class LineItem implements ILineItemBase {
             Optional<String> productCode,
             Optional<String> description,
             Optional<UnitOfMeasure> unitOfMeasure,
-            double unitPrice,
+            long unitPrice,
             double quantity,
             Optional<Double> discountRate,
             Optional<List<RetrievedTax>> taxes,
@@ -98,7 +98,7 @@ public final class LineItem implements ILineItemBase {
      */
     @JsonProperty("unitPrice")
     @java.lang.Override
-    public double getUnitPrice() {
+    public long getUnitPrice() {
         return unitPrice;
     }
 
@@ -176,7 +176,7 @@ public final class LineItem implements ILineItemBase {
         /**
          * <p>Price of each unit.</p>
          */
-        QuantityStage unitPrice(double unitPrice);
+        QuantityStage unitPrice(long unitPrice);
 
         Builder from(LineItem other);
     }
@@ -233,7 +233,7 @@ public final class LineItem implements ILineItemBase {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements UnitPriceStage, QuantityStage, _FinalStage {
-        private double unitPrice;
+        private long unitPrice;
 
         private double quantity;
 
@@ -274,7 +274,7 @@ public final class LineItem implements ILineItemBase {
          */
         @java.lang.Override
         @JsonSetter("unitPrice")
-        public QuantityStage unitPrice(double unitPrice) {
+        public QuantityStage unitPrice(long unitPrice) {
             this.unitPrice = unitPrice;
             return this;
         }

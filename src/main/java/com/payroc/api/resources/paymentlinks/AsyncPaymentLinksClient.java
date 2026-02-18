@@ -75,6 +75,25 @@ public class AsyncPaymentLinksClient {
      * <p>For each payment link, we also return a paymentLinkId, which you can use for follow-on actions.</p>
      */
     public CompletableFuture<CompletableFuture<AsyncPayrocPager<PaymentLinkPaginatedListDataItem>>> list(
+            String processingTerminalId, RequestOptions requestOptions) {
+        return this.rawClient.list(processingTerminalId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of payment links linked to a processing terminal.
+     * <p><strong>Note:</strong> If you want to view the details of a specific payment link and you have its paymentLinkId, use our <a href="https://docs.payroc.com/api/schema/payment-links/retrieve">Retrieve Payment Link</a> method.</p>
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for only active links or multi-use links.</p>
+     * <p>Our gateway returns the following information about each payment link in the list:</p>
+     * <ul>
+     * <li><strong>type</strong> - Indicates whether the link can be used only once or if it can be used multiple times.</li>
+     * <li><strong>authType</strong> - Indicates whether the transaction is a sale or a pre-authorization.</li>
+     * <li><strong>paymentMethods</strong> - Indicates the payment method that the merchant accepts.</li>
+     * <li><strong>charge</strong> - Indicates whether the merchant or the customer enters the amount for the transaction.</li>
+     * <li><strong>status</strong> - Indicates if the payment link is active.</li>
+     * </ul>
+     * <p>For each payment link, we also return a paymentLinkId, which you can use for follow-on actions.</p>
+     */
+    public CompletableFuture<CompletableFuture<AsyncPayrocPager<PaymentLinkPaginatedListDataItem>>> list(
             String processingTerminalId, ListPaymentLinksRequest request) {
         return this.rawClient.list(processingTerminalId, request).thenApply(response -> response.body());
     }
@@ -151,6 +170,24 @@ public class AsyncPaymentLinksClient {
      */
     public CompletableFuture<RetrievePaymentLinksResponse> retrieve(String paymentLinkId) {
         return this.rawClient.retrieve(paymentLinkId).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to retrieve information about a payment link.
+     * <p>To retrieve a payment link, you need its paymentLinkId. Our gateway returned the paymentLinkId in the response of the <a href="https://docs.payroc.com/api/schema/payment-links/create">Create Payment Link</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the paymentLinkId, use our <a href="https://docs.payroc.com/api/schema/payment-links/list">List Payment Links</a> method to search for the payment link.</p>
+     * <p>Our gateway returns the following information about the payment link:</p>
+     * <ul>
+     * <li><strong>type</strong> - Indicates whether the link can be used only once or if it can be used multiple times.</li>
+     * <li><strong>authType</strong> - Indicates whether the transaction is a sale or a pre-authorization.</li>
+     * <li><strong>paymentMethods</strong> - Indicates the payment method that the merchant accepts.</li>
+     * <li><strong>charge</strong> - Indicates whether the merchant or the customer enters the amount for the transaction.</li>
+     * <li><strong>status</strong> - Indicates if the payment link is active.</li>
+     * </ul>
+     */
+    public CompletableFuture<RetrievePaymentLinksResponse> retrieve(
+            String paymentLinkId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(paymentLinkId, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -253,6 +290,17 @@ public class AsyncPaymentLinksClient {
      */
     public CompletableFuture<DeactivatePaymentLinksResponse> deactivate(String paymentLinkId) {
         return this.rawClient.deactivate(paymentLinkId).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to deactivate a payment link.
+     * <p>To deactivate a payment link, you need its paymentLinkId. Our gateway returned the paymentLinkId in the response of the <a href="https://docs.payroc.com/api/schema/payment-links/create">Create Payment Link</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the paymentLinkId, use our <a href="https://docs.payroc.com/api/schema/payment-links/list">List Payment Links</a> method to search for the payment link.</p>
+     * <p>If your request is successful, our gateway deactivates the payment link. The customer can't use the link to make a payment, and you can't reactivate the payment link.</p>
+     */
+    public CompletableFuture<DeactivatePaymentLinksResponse> deactivate(
+            String paymentLinkId, RequestOptions requestOptions) {
+        return this.rawClient.deactivate(paymentLinkId, requestOptions).thenApply(response -> response.body());
     }
 
     /**

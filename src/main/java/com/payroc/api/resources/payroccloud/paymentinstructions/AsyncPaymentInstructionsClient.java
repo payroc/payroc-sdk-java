@@ -69,6 +69,15 @@ public class AsyncPaymentInstructionsClient {
      * <p>To retrieve a payment instruction, you need its paymentInstructionId. Our gateway returned the paymentInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/submit">Submit Payment Instruction</a> method.</p>
      * <p>Our gateway returns the status of the payment instruction. If the payment device completed the payment instruction, the response also includes a link to the payment.</p>
      */
+    public CompletableFuture<PaymentInstruction> retrieve(String paymentInstructionId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(paymentInstructionId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to retrieve information about a payment instruction.
+     * <p>To retrieve a payment instruction, you need its paymentInstructionId. Our gateway returned the paymentInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/submit">Submit Payment Instruction</a> method.</p>
+     * <p>Our gateway returns the status of the payment instruction. If the payment device completed the payment instruction, the response also includes a link to the payment.</p>
+     */
     public CompletableFuture<PaymentInstruction> retrieve(
             String paymentInstructionId, RetrievePaymentInstructionsRequest request) {
         return this.rawClient.retrieve(paymentInstructionId, request).thenApply(response -> response.body());
@@ -93,6 +102,15 @@ public class AsyncPaymentInstructionsClient {
      */
     public CompletableFuture<Void> delete(String paymentInstructionId) {
         return this.rawClient.delete(paymentInstructionId).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to cancel a payment instruction.
+     * <p>You can cancel a payment instruction only if its status is <code>inProgress</code>. To retrieve the status of a payment instruction, use our <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/retrieve">Retrieve Payment Instruction</a> method.</p>
+     * <p>To cancel a payment instruction, you need its paymentInstructionId. Our gateway returned the paymentInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/submit">Submit Payment Instruction</a> method.</p>
+     */
+    public CompletableFuture<Void> delete(String paymentInstructionId, RequestOptions requestOptions) {
+        return this.rawClient.delete(paymentInstructionId, requestOptions).thenApply(response -> response.body());
     }
 
     /**

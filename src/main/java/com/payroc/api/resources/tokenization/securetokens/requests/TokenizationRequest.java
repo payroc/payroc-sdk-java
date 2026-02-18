@@ -121,7 +121,14 @@ public final class TokenizationRequest {
     }
 
     /**
-     * @return Object that contains information about the payment method to tokenize.
+     * @return Polymorphic object that contains the payment method to tokenize.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+     * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+     * <li><code>card</code> - Payment card details</li>
+     * <li><code>singleUseToken</code> - Single-use token details</li>
+     * </ul>
      */
     @JsonProperty("source")
     public TokenizationRequestSource getSource() {
@@ -129,7 +136,12 @@ public final class TokenizationRequest {
     }
 
     /**
-     * @return Object that contains information for an authentication check on the customer's payment details using the 3-D Secure protocol.
+     * @return Polymorphic object that contains authentication information from 3-D Secure.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>gatewayThreeDSecure</code> - Use our gateway to run a 3-D Secure check.</li>
+     * <li><code>thirdPartyThreeDSecure</code> - Use a third party to run a 3-D Secure check.</li>
+     * </ul>
      */
     @JsonProperty("threeDSecure")
     public Optional<TokenizationRequestThreeDSecure> getThreeDSecure() {
@@ -201,7 +213,14 @@ public final class TokenizationRequest {
 
     public interface SourceStage {
         /**
-         * <p>Object that contains information about the payment method to tokenize.</p>
+         * <p>Polymorphic object that contains the payment method to tokenize.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>singleUseToken</code> - Single-use token details</li>
+         * </ul>
          */
         _FinalStage source(@NotNull TokenizationRequestSource source);
     }
@@ -245,7 +264,12 @@ public final class TokenizationRequest {
         _FinalStage ipAddress(IpAddress ipAddress);
 
         /**
-         * <p>Object that contains information for an authentication check on the customer's payment details using the 3-D Secure protocol.</p>
+         * <p>Polymorphic object that contains authentication information from 3-D Secure.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>gatewayThreeDSecure</code> - Use our gateway to run a 3-D Secure check.</li>
+         * <li><code>thirdPartyThreeDSecure</code> - Use a third party to run a 3-D Secure check.</li>
+         * </ul>
          */
         _FinalStage threeDSecure(Optional<TokenizationRequestThreeDSecure> threeDSecure);
 
@@ -310,8 +334,22 @@ public final class TokenizationRequest {
         }
 
         /**
-         * <p>Object that contains information about the payment method to tokenize.</p>
-         * <p>Object that contains information about the payment method to tokenize.</p>
+         * <p>Polymorphic object that contains the payment method to tokenize.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>singleUseToken</code> - Single-use token details</li>
+         * </ul>
+         * <p>Polymorphic object that contains the payment method to tokenize.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>singleUseToken</code> - Single-use token details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -342,7 +380,12 @@ public final class TokenizationRequest {
         }
 
         /**
-         * <p>Object that contains information for an authentication check on the customer's payment details using the 3-D Secure protocol.</p>
+         * <p>Polymorphic object that contains authentication information from 3-D Secure.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>gatewayThreeDSecure</code> - Use our gateway to run a 3-D Secure check.</li>
+         * <li><code>thirdPartyThreeDSecure</code> - Use a third party to run a 3-D Secure check.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -352,7 +395,12 @@ public final class TokenizationRequest {
         }
 
         /**
-         * <p>Object that contains information for an authentication check on the customer's payment details using the 3-D Secure protocol.</p>
+         * <p>Polymorphic object that contains authentication information from 3-D Secure.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>gatewayThreeDSecure</code> - Use our gateway to run a 3-D Secure check.</li>
+         * <li><code>thirdPartyThreeDSecure</code> - Use a third party to run a 3-D Secure check.</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "threeDSecure", nulls = Nulls.SKIP)

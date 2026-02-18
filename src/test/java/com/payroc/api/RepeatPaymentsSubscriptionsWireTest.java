@@ -57,11 +57,10 @@ public class RepeatPaymentsSubscriptionsWireTest {
 
     @Test
     public void testCreate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"subscriptionId\":\"SubRef7654\",\"processingTerminalId\":\"1234001\",\"paymentPlan\":{\"paymentPlanId\":\"PlanRef8765\",\"name\":\"Monthly Premium Club subscription\",\"link\":{\"rel\":\"self\",\"method\":\"GET\",\"href\":\"https://api.payroc.com/v1/processing-terminals/1234001/payment-plans/PlanRef8765\"}},\"secureToken\":{\"secureTokenId\":\"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\"customerName\":\"Sarah Hazel Hopper\",\"token\":\"296753123456\",\"status\":\"notValidated\",\"link\":{\"rel\":\"self\",\"method\":\"GET\",\"href\":\"https://api.payroc.com/v1/processing-terminals/1234001/secure-tokens/MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\"}},\"name\":\"Premium Club\",\"description\":\"Premium Club subscription\",\"currency\":\"USD\",\"setupOrder\":{\"orderId\":\"OrderRef6543\",\"amount\":4999,\"description\":\"Initial setup fee for Premium Club subscription\",\"breakdown\":{\"subtotal\":4347,\"convenienceFee\":{\"amount\":25},\"surcharge\":{\"bypass\":false,\"amount\":217,\"percentage\":5},\"taxes\":[{\"name\":\"Sales Tax\",\"rate\":5,\"amount\":190}]}},\"recurringOrder\":{\"amount\":4999,\"description\":\"Premium Club subscription\",\"breakdown\":{\"subtotal\":4347,\"convenienceFee\":{\"amount\":25},\"surcharge\":{\"bypass\":false,\"amount\":217,\"percentage\":5},\"taxes\":[{\"name\":\"Sales Tax\",\"rate\":5,\"amount\":190}]}},\"currentState\":{\"status\":\"active\",\"nextDueDate\":\"2024-08-02\",\"paidInvoices\":0,\"outstandingInvoices\":3},\"startDate\":\"2024-07-02\",\"endDate\":\"2025-07-01\",\"length\":12,\"type\":\"automatic\",\"frequency\":\"monthly\",\"pauseCollectionFor\":0,\"customFields\":[{\"name\":\"yourCustomField\",\"value\":\"abc123\"}]}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/RepeatPaymentsSubscriptionsWireTest_testCreate_response.json")));
         Subscription response = client.repeatPayments()
                 .subscriptions()
                 .create(
@@ -172,97 +171,8 @@ public class RepeatPaymentsSubscriptionsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"subscriptionId\": \"SubRef7654\",\n"
-                + "  \"processingTerminalId\": \"1234001\",\n"
-                + "  \"paymentPlan\": {\n"
-                + "    \"paymentPlanId\": \"PlanRef8765\",\n"
-                + "    \"name\": \"Monthly Premium Club subscription\",\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"self\",\n"
-                + "      \"method\": \"GET\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/processing-terminals/1234001/payment-plans/PlanRef8765\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"secureToken\": {\n"
-                + "    \"secureTokenId\": \"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\n"
-                + "    \"customerName\": \"Sarah Hazel Hopper\",\n"
-                + "    \"token\": \"296753123456\",\n"
-                + "    \"status\": \"notValidated\",\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"self\",\n"
-                + "      \"method\": \"GET\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/processing-terminals/1234001/secure-tokens/MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"name\": \"Premium Club\",\n"
-                + "  \"description\": \"Premium Club subscription\",\n"
-                + "  \"currency\": \"USD\",\n"
-                + "  \"setupOrder\": {\n"
-                + "    \"orderId\": \"OrderRef6543\",\n"
-                + "    \"amount\": 4999,\n"
-                + "    \"description\": \"Initial setup fee for Premium Club subscription\",\n"
-                + "    \"breakdown\": {\n"
-                + "      \"subtotal\": 4347,\n"
-                + "      \"convenienceFee\": {\n"
-                + "        \"amount\": 25\n"
-                + "      },\n"
-                + "      \"surcharge\": {\n"
-                + "        \"bypass\": false,\n"
-                + "        \"amount\": 217,\n"
-                + "        \"percentage\": 5\n"
-                + "      },\n"
-                + "      \"taxes\": [\n"
-                + "        {\n"
-                + "          \"name\": \"Sales Tax\",\n"
-                + "          \"rate\": 5,\n"
-                + "          \"amount\": 190\n"
-                + "        }\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"recurringOrder\": {\n"
-                + "    \"amount\": 4999,\n"
-                + "    \"description\": \"Premium Club subscription\",\n"
-                + "    \"breakdown\": {\n"
-                + "      \"subtotal\": 4347,\n"
-                + "      \"convenienceFee\": {\n"
-                + "        \"amount\": 25\n"
-                + "      },\n"
-                + "      \"surcharge\": {\n"
-                + "        \"bypass\": false,\n"
-                + "        \"amount\": 217,\n"
-                + "        \"percentage\": 5\n"
-                + "      },\n"
-                + "      \"taxes\": [\n"
-                + "        {\n"
-                + "          \"name\": \"Sales Tax\",\n"
-                + "          \"rate\": 5,\n"
-                + "          \"amount\": 190\n"
-                + "        }\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"currentState\": {\n"
-                + "    \"status\": \"active\",\n"
-                + "    \"nextDueDate\": \"2024-08-02\",\n"
-                + "    \"paidInvoices\": 0,\n"
-                + "    \"outstandingInvoices\": 3\n"
-                + "  },\n"
-                + "  \"startDate\": \"2024-07-02\",\n"
-                + "  \"endDate\": \"2025-07-01\",\n"
-                + "  \"length\": 12,\n"
-                + "  \"type\": \"automatic\",\n"
-                + "  \"frequency\": \"monthly\",\n"
-                + "  \"pauseCollectionFor\": 0,\n"
-                + "  \"customFields\": [\n"
-                + "    {\n"
-                + "      \"name\": \"yourCustomField\",\n"
-                + "      \"value\": \"abc123\"\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedResponseBody =
+                TestResources.loadResource("/wire-tests/RepeatPaymentsSubscriptionsWireTest_testCreate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -296,11 +206,10 @@ public class RepeatPaymentsSubscriptionsWireTest {
 
     @Test
     public void testRetrieve() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"subscriptionId\":\"SubRef7654\",\"processingTerminalId\":\"1234001\",\"paymentPlan\":{\"paymentPlanId\":\"PlanRef8765\",\"name\":\"Monthly Premium Club subscription\",\"link\":{\"rel\":\"self\",\"method\":\"GET\",\"href\":\"https://api.payroc.com/v1/processing-terminals/1234001/payment-plans/PlanRef8765\"}},\"secureToken\":{\"secureTokenId\":\"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\"customerName\":\"Sarah Hazel Hopper\",\"token\":\"296753123456\",\"status\":\"notValidated\",\"link\":{\"rel\":\"self\",\"method\":\"GET\",\"href\":\"https://api.payroc.com/v1/processing-terminals/1234001/secure-tokens/MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\"}},\"name\":\"Premium Club\",\"description\":\"Premium Club subscription\",\"currency\":\"USD\",\"setupOrder\":{\"orderId\":\"OrderRef6543\",\"amount\":4999,\"description\":\"Initial setup fee for Premium Club subscription\",\"breakdown\":{\"subtotal\":4347,\"convenienceFee\":{\"amount\":25},\"surcharge\":{\"bypass\":false,\"amount\":217,\"percentage\":5},\"taxes\":[{\"name\":\"Sales Tax\",\"rate\":5,\"amount\":190}]}},\"recurringOrder\":{\"amount\":4999,\"description\":\"Premium Club subscription\",\"breakdown\":{\"subtotal\":4347,\"convenienceFee\":{\"amount\":25},\"surcharge\":{\"bypass\":false,\"amount\":217,\"percentage\":5},\"taxes\":[{\"name\":\"Sales Tax\",\"rate\":5,\"amount\":190}]}},\"currentState\":{\"status\":\"active\",\"nextDueDate\":\"2024-08-02\",\"paidInvoices\":0,\"outstandingInvoices\":3},\"startDate\":\"2024-07-02\",\"endDate\":\"2025-07-01\",\"length\":12,\"type\":\"automatic\",\"frequency\":\"monthly\",\"pauseCollectionFor\":0,\"customFields\":[{\"name\":\"yourCustomField\",\"value\":\"abc123\"}]}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/RepeatPaymentsSubscriptionsWireTest_testRetrieve_response.json")));
         Subscription response = client.repeatPayments()
                 .subscriptions()
                 .retrieve(
@@ -314,97 +223,8 @@ public class RepeatPaymentsSubscriptionsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"subscriptionId\": \"SubRef7654\",\n"
-                + "  \"processingTerminalId\": \"1234001\",\n"
-                + "  \"paymentPlan\": {\n"
-                + "    \"paymentPlanId\": \"PlanRef8765\",\n"
-                + "    \"name\": \"Monthly Premium Club subscription\",\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"self\",\n"
-                + "      \"method\": \"GET\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/processing-terminals/1234001/payment-plans/PlanRef8765\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"secureToken\": {\n"
-                + "    \"secureTokenId\": \"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\n"
-                + "    \"customerName\": \"Sarah Hazel Hopper\",\n"
-                + "    \"token\": \"296753123456\",\n"
-                + "    \"status\": \"notValidated\",\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"self\",\n"
-                + "      \"method\": \"GET\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/processing-terminals/1234001/secure-tokens/MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"name\": \"Premium Club\",\n"
-                + "  \"description\": \"Premium Club subscription\",\n"
-                + "  \"currency\": \"USD\",\n"
-                + "  \"setupOrder\": {\n"
-                + "    \"orderId\": \"OrderRef6543\",\n"
-                + "    \"amount\": 4999,\n"
-                + "    \"description\": \"Initial setup fee for Premium Club subscription\",\n"
-                + "    \"breakdown\": {\n"
-                + "      \"subtotal\": 4347,\n"
-                + "      \"convenienceFee\": {\n"
-                + "        \"amount\": 25\n"
-                + "      },\n"
-                + "      \"surcharge\": {\n"
-                + "        \"bypass\": false,\n"
-                + "        \"amount\": 217,\n"
-                + "        \"percentage\": 5\n"
-                + "      },\n"
-                + "      \"taxes\": [\n"
-                + "        {\n"
-                + "          \"name\": \"Sales Tax\",\n"
-                + "          \"rate\": 5,\n"
-                + "          \"amount\": 190\n"
-                + "        }\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"recurringOrder\": {\n"
-                + "    \"amount\": 4999,\n"
-                + "    \"description\": \"Premium Club subscription\",\n"
-                + "    \"breakdown\": {\n"
-                + "      \"subtotal\": 4347,\n"
-                + "      \"convenienceFee\": {\n"
-                + "        \"amount\": 25\n"
-                + "      },\n"
-                + "      \"surcharge\": {\n"
-                + "        \"bypass\": false,\n"
-                + "        \"amount\": 217,\n"
-                + "        \"percentage\": 5\n"
-                + "      },\n"
-                + "      \"taxes\": [\n"
-                + "        {\n"
-                + "          \"name\": \"Sales Tax\",\n"
-                + "          \"rate\": 5,\n"
-                + "          \"amount\": 190\n"
-                + "        }\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"currentState\": {\n"
-                + "    \"status\": \"active\",\n"
-                + "    \"nextDueDate\": \"2024-08-02\",\n"
-                + "    \"paidInvoices\": 0,\n"
-                + "    \"outstandingInvoices\": 3\n"
-                + "  },\n"
-                + "  \"startDate\": \"2024-07-02\",\n"
-                + "  \"endDate\": \"2025-07-01\",\n"
-                + "  \"length\": 12,\n"
-                + "  \"type\": \"automatic\",\n"
-                + "  \"frequency\": \"monthly\",\n"
-                + "  \"pauseCollectionFor\": 0,\n"
-                + "  \"customFields\": [\n"
-                + "    {\n"
-                + "      \"name\": \"yourCustomField\",\n"
-                + "      \"value\": \"abc123\"\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedResponseBody = TestResources.loadResource(
+                "/wire-tests/RepeatPaymentsSubscriptionsWireTest_testRetrieve_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -438,11 +258,10 @@ public class RepeatPaymentsSubscriptionsWireTest {
 
     @Test
     public void testPartiallyUpdate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"subscriptionId\":\"SubRef7654\",\"processingTerminalId\":\"1234001\",\"paymentPlan\":{\"paymentPlanId\":\"PlanRef8765\",\"name\":\"Monthly Premium Club subscription\",\"link\":{\"rel\":\"self\",\"method\":\"GET\",\"href\":\"https://api.payroc.com/v1/processing-terminals/1234001/payment-plans/PlanRef8765\"}},\"secureToken\":{\"secureTokenId\":\"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\"customerName\":\"Sarah Hazel Hopper\",\"token\":\"296753123456\",\"status\":\"notValidated\",\"link\":{\"rel\":\"self\",\"method\":\"GET\",\"href\":\"https://api.payroc.com/v1/processing-terminals/1234001/secure-tokens/MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\"}},\"name\":\"Premium Club\",\"description\":\"Premium Club subscription\",\"currency\":\"USD\",\"setupOrder\":{\"orderId\":\"OrderRef6543\",\"amount\":4999,\"description\":\"Initial setup fee for Premium Club subscription\",\"breakdown\":{\"subtotal\":4347,\"convenienceFee\":{\"amount\":25},\"surcharge\":{\"bypass\":false,\"amount\":217,\"percentage\":5},\"taxes\":[{\"name\":\"Sales Tax\",\"rate\":5,\"amount\":190}]}},\"recurringOrder\":{\"amount\":4999,\"description\":\"Premium Club subscription\",\"breakdown\":{\"subtotal\":4347,\"convenienceFee\":{\"amount\":25},\"surcharge\":{\"bypass\":false,\"amount\":217,\"percentage\":5},\"taxes\":[{\"name\":\"Sales Tax\",\"rate\":5,\"amount\":190}]}},\"currentState\":{\"status\":\"active\",\"nextDueDate\":\"2024-08-02\",\"paidInvoices\":0,\"outstandingInvoices\":3},\"startDate\":\"2024-07-02\",\"endDate\":\"2025-07-01\",\"length\":12,\"type\":\"automatic\",\"frequency\":\"monthly\",\"pauseCollectionFor\":0,\"customFields\":[{\"name\":\"yourCustomField\",\"value\":\"abc123\"}]}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/RepeatPaymentsSubscriptionsWireTest_testPartiallyUpdate_response.json")));
         Subscription response = client.repeatPayments()
                 .subscriptions()
                 .partiallyUpdate(
@@ -517,97 +336,8 @@ public class RepeatPaymentsSubscriptionsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"subscriptionId\": \"SubRef7654\",\n"
-                + "  \"processingTerminalId\": \"1234001\",\n"
-                + "  \"paymentPlan\": {\n"
-                + "    \"paymentPlanId\": \"PlanRef8765\",\n"
-                + "    \"name\": \"Monthly Premium Club subscription\",\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"self\",\n"
-                + "      \"method\": \"GET\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/processing-terminals/1234001/payment-plans/PlanRef8765\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"secureToken\": {\n"
-                + "    \"secureTokenId\": \"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\n"
-                + "    \"customerName\": \"Sarah Hazel Hopper\",\n"
-                + "    \"token\": \"296753123456\",\n"
-                + "    \"status\": \"notValidated\",\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"self\",\n"
-                + "      \"method\": \"GET\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/processing-terminals/1234001/secure-tokens/MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"name\": \"Premium Club\",\n"
-                + "  \"description\": \"Premium Club subscription\",\n"
-                + "  \"currency\": \"USD\",\n"
-                + "  \"setupOrder\": {\n"
-                + "    \"orderId\": \"OrderRef6543\",\n"
-                + "    \"amount\": 4999,\n"
-                + "    \"description\": \"Initial setup fee for Premium Club subscription\",\n"
-                + "    \"breakdown\": {\n"
-                + "      \"subtotal\": 4347,\n"
-                + "      \"convenienceFee\": {\n"
-                + "        \"amount\": 25\n"
-                + "      },\n"
-                + "      \"surcharge\": {\n"
-                + "        \"bypass\": false,\n"
-                + "        \"amount\": 217,\n"
-                + "        \"percentage\": 5\n"
-                + "      },\n"
-                + "      \"taxes\": [\n"
-                + "        {\n"
-                + "          \"name\": \"Sales Tax\",\n"
-                + "          \"rate\": 5,\n"
-                + "          \"amount\": 190\n"
-                + "        }\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"recurringOrder\": {\n"
-                + "    \"amount\": 4999,\n"
-                + "    \"description\": \"Premium Club subscription\",\n"
-                + "    \"breakdown\": {\n"
-                + "      \"subtotal\": 4347,\n"
-                + "      \"convenienceFee\": {\n"
-                + "        \"amount\": 25\n"
-                + "      },\n"
-                + "      \"surcharge\": {\n"
-                + "        \"bypass\": false,\n"
-                + "        \"amount\": 217,\n"
-                + "        \"percentage\": 5\n"
-                + "      },\n"
-                + "      \"taxes\": [\n"
-                + "        {\n"
-                + "          \"name\": \"Sales Tax\",\n"
-                + "          \"rate\": 5,\n"
-                + "          \"amount\": 190\n"
-                + "        }\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"currentState\": {\n"
-                + "    \"status\": \"active\",\n"
-                + "    \"nextDueDate\": \"2024-08-02\",\n"
-                + "    \"paidInvoices\": 0,\n"
-                + "    \"outstandingInvoices\": 3\n"
-                + "  },\n"
-                + "  \"startDate\": \"2024-07-02\",\n"
-                + "  \"endDate\": \"2025-07-01\",\n"
-                + "  \"length\": 12,\n"
-                + "  \"type\": \"automatic\",\n"
-                + "  \"frequency\": \"monthly\",\n"
-                + "  \"pauseCollectionFor\": 0,\n"
-                + "  \"customFields\": [\n"
-                + "    {\n"
-                + "      \"name\": \"yourCustomField\",\n"
-                + "      \"value\": \"abc123\"\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedResponseBody = TestResources.loadResource(
+                "/wire-tests/RepeatPaymentsSubscriptionsWireTest_testPartiallyUpdate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -641,11 +371,10 @@ public class RepeatPaymentsSubscriptionsWireTest {
 
     @Test
     public void testDeactivate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"subscriptionId\":\"SubRef7654\",\"processingTerminalId\":\"1234001\",\"paymentPlan\":{\"paymentPlanId\":\"PlanRef8765\",\"name\":\"Monthly Premium Club subscription\",\"link\":{\"rel\":\"self\",\"method\":\"GET\",\"href\":\"https://api.payroc.com/v1/processing-terminals/1234001/payment-plans/PlanRef8765\"}},\"secureToken\":{\"secureTokenId\":\"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\"customerName\":\"Sarah Hazel Hopper\",\"token\":\"296753123456\",\"status\":\"notValidated\",\"link\":{\"rel\":\"self\",\"method\":\"GET\",\"href\":\"https://api.payroc.com/v1/processing-terminals/1234001/secure-tokens/MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\"}},\"name\":\"Premium Club\",\"description\":\"Monthly Premium Club subscription\",\"currency\":\"USD\",\"setupOrder\":{\"orderId\":\"OrderRef6543\",\"amount\":4999,\"description\":\"Initial setup fee for Premium Club subscription\",\"breakdown\":{\"subtotal\":4347,\"convenienceFee\":{\"amount\":25},\"surcharge\":{\"bypass\":false,\"amount\":217,\"percentage\":5},\"taxes\":[{\"name\":\"Sales Tax\",\"rate\":5,\"amount\":190}]}},\"recurringOrder\":{\"amount\":4999,\"description\":\"Monthly Premium Club subscription\",\"breakdown\":{\"subtotal\":4347,\"convenienceFee\":{\"amount\":25},\"surcharge\":{\"bypass\":false,\"amount\":217,\"percentage\":5},\"taxes\":[{\"name\":\"Sales Tax\",\"rate\":5,\"amount\":190}]}},\"currentState\":{\"status\":\"cancelled\",\"nextDueDate\":\"2024-08-02\",\"paidInvoices\":0,\"outstandingInvoices\":3},\"startDate\":\"2024-07-02\",\"endDate\":\"2025-07-01\",\"length\":12,\"type\":\"automatic\",\"frequency\":\"monthly\",\"pauseCollectionFor\":0,\"customFields\":[{\"name\":\"yourCustomField\",\"value\":\"abc123\"}]}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/RepeatPaymentsSubscriptionsWireTest_testDeactivate_response.json")));
         Subscription response = client.repeatPayments()
                 .subscriptions()
                 .deactivate(
@@ -659,97 +388,8 @@ public class RepeatPaymentsSubscriptionsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"subscriptionId\": \"SubRef7654\",\n"
-                + "  \"processingTerminalId\": \"1234001\",\n"
-                + "  \"paymentPlan\": {\n"
-                + "    \"paymentPlanId\": \"PlanRef8765\",\n"
-                + "    \"name\": \"Monthly Premium Club subscription\",\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"self\",\n"
-                + "      \"method\": \"GET\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/processing-terminals/1234001/payment-plans/PlanRef8765\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"secureToken\": {\n"
-                + "    \"secureTokenId\": \"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\n"
-                + "    \"customerName\": \"Sarah Hazel Hopper\",\n"
-                + "    \"token\": \"296753123456\",\n"
-                + "    \"status\": \"notValidated\",\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"self\",\n"
-                + "      \"method\": \"GET\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/processing-terminals/1234001/secure-tokens/MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"name\": \"Premium Club\",\n"
-                + "  \"description\": \"Monthly Premium Club subscription\",\n"
-                + "  \"currency\": \"USD\",\n"
-                + "  \"setupOrder\": {\n"
-                + "    \"orderId\": \"OrderRef6543\",\n"
-                + "    \"amount\": 4999,\n"
-                + "    \"description\": \"Initial setup fee for Premium Club subscription\",\n"
-                + "    \"breakdown\": {\n"
-                + "      \"subtotal\": 4347,\n"
-                + "      \"convenienceFee\": {\n"
-                + "        \"amount\": 25\n"
-                + "      },\n"
-                + "      \"surcharge\": {\n"
-                + "        \"bypass\": false,\n"
-                + "        \"amount\": 217,\n"
-                + "        \"percentage\": 5\n"
-                + "      },\n"
-                + "      \"taxes\": [\n"
-                + "        {\n"
-                + "          \"name\": \"Sales Tax\",\n"
-                + "          \"rate\": 5,\n"
-                + "          \"amount\": 190\n"
-                + "        }\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"recurringOrder\": {\n"
-                + "    \"amount\": 4999,\n"
-                + "    \"description\": \"Monthly Premium Club subscription\",\n"
-                + "    \"breakdown\": {\n"
-                + "      \"subtotal\": 4347,\n"
-                + "      \"convenienceFee\": {\n"
-                + "        \"amount\": 25\n"
-                + "      },\n"
-                + "      \"surcharge\": {\n"
-                + "        \"bypass\": false,\n"
-                + "        \"amount\": 217,\n"
-                + "        \"percentage\": 5\n"
-                + "      },\n"
-                + "      \"taxes\": [\n"
-                + "        {\n"
-                + "          \"name\": \"Sales Tax\",\n"
-                + "          \"rate\": 5,\n"
-                + "          \"amount\": 190\n"
-                + "        }\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"currentState\": {\n"
-                + "    \"status\": \"cancelled\",\n"
-                + "    \"nextDueDate\": \"2024-08-02\",\n"
-                + "    \"paidInvoices\": 0,\n"
-                + "    \"outstandingInvoices\": 3\n"
-                + "  },\n"
-                + "  \"startDate\": \"2024-07-02\",\n"
-                + "  \"endDate\": \"2025-07-01\",\n"
-                + "  \"length\": 12,\n"
-                + "  \"type\": \"automatic\",\n"
-                + "  \"frequency\": \"monthly\",\n"
-                + "  \"pauseCollectionFor\": 0,\n"
-                + "  \"customFields\": [\n"
-                + "    {\n"
-                + "      \"name\": \"yourCustomField\",\n"
-                + "      \"value\": \"abc123\"\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedResponseBody = TestResources.loadResource(
+                "/wire-tests/RepeatPaymentsSubscriptionsWireTest_testDeactivate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(
@@ -783,11 +423,10 @@ public class RepeatPaymentsSubscriptionsWireTest {
 
     @Test
     public void testReactivate() throws Exception {
-        server.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody(
-                                "{\"subscriptionId\":\"SubRef7654\",\"processingTerminalId\":\"1234001\",\"paymentPlan\":{\"paymentPlanId\":\"PlanRef8765\",\"name\":\"Monthly Premium Club subscription\",\"link\":{\"rel\":\"self\",\"method\":\"GET\",\"href\":\"https://api.payroc.com/v1/processing-terminals/1234001/payment-plans/PlanRef8765\"}},\"secureToken\":{\"secureTokenId\":\"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\"customerName\":\"Sarah Hazel Hopper\",\"token\":\"296753123456\",\"status\":\"notValidated\",\"link\":{\"rel\":\"self\",\"method\":\"GET\",\"href\":\"https://api.payroc.com/v1/processing-terminals/1234001/secure-tokens/MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\"}},\"name\":\"Premium Club\",\"description\":\"Premium Club subscription\",\"currency\":\"USD\",\"setupOrder\":{\"orderId\":\"OrderRef6543\",\"amount\":4999,\"description\":\"Initial setup fee for Premium Club subscription\",\"breakdown\":{\"subtotal\":4347,\"convenienceFee\":{\"amount\":25},\"surcharge\":{\"bypass\":false,\"amount\":217,\"percentage\":5},\"taxes\":[{\"name\":\"Sales Tax\",\"rate\":5,\"amount\":190}]}},\"recurringOrder\":{\"amount\":4999,\"description\":\"Premium Club subscription\",\"breakdown\":{\"subtotal\":4347,\"convenienceFee\":{\"amount\":25},\"surcharge\":{\"bypass\":false,\"amount\":217,\"percentage\":5},\"taxes\":[{\"name\":\"Sales Tax\",\"rate\":5,\"amount\":190}]}},\"currentState\":{\"status\":\"active\",\"nextDueDate\":\"2024-08-02\",\"paidInvoices\":0,\"outstandingInvoices\":3},\"startDate\":\"2024-07-02\",\"endDate\":\"2025-07-01\",\"length\":12,\"type\":\"automatic\",\"frequency\":\"monthly\",\"pauseCollectionFor\":0,\"customFields\":[{\"name\":\"yourCustomField\",\"value\":\"abc123\"}]}"));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(TestResources.loadResource(
+                        "/wire-tests/RepeatPaymentsSubscriptionsWireTest_testReactivate_response.json")));
         Subscription response = client.repeatPayments()
                 .subscriptions()
                 .reactivate(
@@ -801,97 +440,8 @@ public class RepeatPaymentsSubscriptionsWireTest {
         // Validate response body
         Assertions.assertNotNull(response, "Response should not be null");
         String actualResponseJson = objectMapper.writeValueAsString(response);
-        String expectedResponseBody = ""
-                + "{\n"
-                + "  \"subscriptionId\": \"SubRef7654\",\n"
-                + "  \"processingTerminalId\": \"1234001\",\n"
-                + "  \"paymentPlan\": {\n"
-                + "    \"paymentPlanId\": \"PlanRef8765\",\n"
-                + "    \"name\": \"Monthly Premium Club subscription\",\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"self\",\n"
-                + "      \"method\": \"GET\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/processing-terminals/1234001/payment-plans/PlanRef8765\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"secureToken\": {\n"
-                + "    \"secureTokenId\": \"MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\",\n"
-                + "    \"customerName\": \"Sarah Hazel Hopper\",\n"
-                + "    \"token\": \"296753123456\",\n"
-                + "    \"status\": \"notValidated\",\n"
-                + "    \"link\": {\n"
-                + "      \"rel\": \"self\",\n"
-                + "      \"method\": \"GET\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/processing-terminals/1234001/secure-tokens/MREF_abc1de23-f4a5-6789-bcd0-12e345678901fa\"\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"name\": \"Premium Club\",\n"
-                + "  \"description\": \"Premium Club subscription\",\n"
-                + "  \"currency\": \"USD\",\n"
-                + "  \"setupOrder\": {\n"
-                + "    \"orderId\": \"OrderRef6543\",\n"
-                + "    \"amount\": 4999,\n"
-                + "    \"description\": \"Initial setup fee for Premium Club subscription\",\n"
-                + "    \"breakdown\": {\n"
-                + "      \"subtotal\": 4347,\n"
-                + "      \"convenienceFee\": {\n"
-                + "        \"amount\": 25\n"
-                + "      },\n"
-                + "      \"surcharge\": {\n"
-                + "        \"bypass\": false,\n"
-                + "        \"amount\": 217,\n"
-                + "        \"percentage\": 5\n"
-                + "      },\n"
-                + "      \"taxes\": [\n"
-                + "        {\n"
-                + "          \"name\": \"Sales Tax\",\n"
-                + "          \"rate\": 5,\n"
-                + "          \"amount\": 190\n"
-                + "        }\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"recurringOrder\": {\n"
-                + "    \"amount\": 4999,\n"
-                + "    \"description\": \"Premium Club subscription\",\n"
-                + "    \"breakdown\": {\n"
-                + "      \"subtotal\": 4347,\n"
-                + "      \"convenienceFee\": {\n"
-                + "        \"amount\": 25\n"
-                + "      },\n"
-                + "      \"surcharge\": {\n"
-                + "        \"bypass\": false,\n"
-                + "        \"amount\": 217,\n"
-                + "        \"percentage\": 5\n"
-                + "      },\n"
-                + "      \"taxes\": [\n"
-                + "        {\n"
-                + "          \"name\": \"Sales Tax\",\n"
-                + "          \"rate\": 5,\n"
-                + "          \"amount\": 190\n"
-                + "        }\n"
-                + "      ]\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"currentState\": {\n"
-                + "    \"status\": \"active\",\n"
-                + "    \"nextDueDate\": \"2024-08-02\",\n"
-                + "    \"paidInvoices\": 0,\n"
-                + "    \"outstandingInvoices\": 3\n"
-                + "  },\n"
-                + "  \"startDate\": \"2024-07-02\",\n"
-                + "  \"endDate\": \"2025-07-01\",\n"
-                + "  \"length\": 12,\n"
-                + "  \"type\": \"automatic\",\n"
-                + "  \"frequency\": \"monthly\",\n"
-                + "  \"pauseCollectionFor\": 0,\n"
-                + "  \"customFields\": [\n"
-                + "    {\n"
-                + "      \"name\": \"yourCustomField\",\n"
-                + "      \"value\": \"abc123\"\n"
-                + "    }\n"
-                + "  ]\n"
-                + "}";
+        String expectedResponseBody = TestResources.loadResource(
+                "/wire-tests/RepeatPaymentsSubscriptionsWireTest_testReactivate_response.json");
         JsonNode actualResponseNode = objectMapper.readTree(actualResponseJson);
         JsonNode expectedResponseNode = objectMapper.readTree(expectedResponseBody);
         Assertions.assertTrue(

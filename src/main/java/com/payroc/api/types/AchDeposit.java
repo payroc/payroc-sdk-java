@@ -32,21 +32,21 @@ public final class AchDeposit {
 
     private final Optional<Integer> transactions;
 
-    private final Optional<Integer> sales;
+    private final Optional<Long> sales;
 
-    private final Optional<Integer> returns;
+    private final Optional<Long> returns;
 
-    private final Optional<Integer> dailyFees;
+    private final Optional<Long> dailyFees;
 
-    private final Optional<Integer> heldSales;
+    private final Optional<Long> heldSales;
 
-    private final Optional<Integer> achAdjustment;
+    private final Optional<Long> achAdjustment;
 
-    private final Optional<Integer> holdback;
+    private final Optional<Long> holdback;
 
-    private final Optional<Integer> reserveRelease;
+    private final Optional<Long> reserveRelease;
 
-    private final Optional<Integer> netAmount;
+    private final Optional<Long> netAmount;
 
     private final Optional<MerchantSummary> merchant;
 
@@ -60,14 +60,14 @@ public final class AchDeposit {
             Optional<LocalDate> achDate,
             Optional<LocalDate> paymentDate,
             Optional<Integer> transactions,
-            Optional<Integer> sales,
-            Optional<Integer> returns,
-            Optional<Integer> dailyFees,
-            Optional<Integer> heldSales,
-            Optional<Integer> achAdjustment,
-            Optional<Integer> holdback,
-            Optional<Integer> reserveRelease,
-            Optional<Integer> netAmount,
+            Optional<Long> sales,
+            Optional<Long> returns,
+            Optional<Long> dailyFees,
+            Optional<Long> heldSales,
+            Optional<Long> achAdjustment,
+            Optional<Long> holdback,
+            Optional<Long> reserveRelease,
+            Optional<Long> netAmount,
             Optional<MerchantSummary> merchant,
             Optional<List<Link>> links,
             Map<String, Object> additionalProperties) {
@@ -133,7 +133,7 @@ public final class AchDeposit {
      * @return Amount of sales in the ACH deposit. We return the value in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("sales")
-    public Optional<Integer> getSales() {
+    public Optional<Long> getSales() {
         return sales;
     }
 
@@ -141,7 +141,7 @@ public final class AchDeposit {
      * @return Amount of returns in the ACH deposit. We return the value in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("returns")
-    public Optional<Integer> getReturns() {
+    public Optional<Long> getReturns() {
         return returns;
     }
 
@@ -149,7 +149,7 @@ public final class AchDeposit {
      * @return Amount of fees that were applied to the transactions in the ACH deposit. We return the value in the currency's lowest denomination, for example cents.
      */
     @JsonProperty("dailyFees")
-    public Optional<Integer> getDailyFees() {
+    public Optional<Long> getDailyFees() {
         return dailyFees;
     }
 
@@ -157,7 +157,7 @@ public final class AchDeposit {
      * @return Amount of funds that we held if the merchant was in full suspense. We return the value in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("heldSales")
-    public Optional<Integer> getHeldSales() {
+    public Optional<Long> getHeldSales() {
         return heldSales;
     }
 
@@ -165,7 +165,7 @@ public final class AchDeposit {
      * @return Amount of adjustments that we made to the ACH deposit. We return the value in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("achAdjustment")
-    public Optional<Integer> getAchAdjustment() {
+    public Optional<Long> getAchAdjustment() {
         return achAdjustment;
     }
 
@@ -173,7 +173,7 @@ public final class AchDeposit {
      * @return Amount of funds that we held as reserve from the ACH deposit. We return the value in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("holdback")
-    public Optional<Integer> getHoldback() {
+    public Optional<Long> getHoldback() {
         return holdback;
     }
 
@@ -181,7 +181,7 @@ public final class AchDeposit {
      * @return Amount of funds that we released from holdback. We return the value in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("reserveRelease")
-    public Optional<Integer> getReserveRelease() {
+    public Optional<Long> getReserveRelease() {
         return reserveRelease;
     }
 
@@ -189,7 +189,7 @@ public final class AchDeposit {
      * @return Total amount that we paid the merchant after fees and adjustments. We return the value in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("netAmount")
-    public Optional<Integer> getNetAmount() {
+    public Optional<Long> getNetAmount() {
         return netAmount;
     }
 
@@ -273,21 +273,21 @@ public final class AchDeposit {
 
         private Optional<Integer> transactions = Optional.empty();
 
-        private Optional<Integer> sales = Optional.empty();
+        private Optional<Long> sales = Optional.empty();
 
-        private Optional<Integer> returns = Optional.empty();
+        private Optional<Long> returns = Optional.empty();
 
-        private Optional<Integer> dailyFees = Optional.empty();
+        private Optional<Long> dailyFees = Optional.empty();
 
-        private Optional<Integer> heldSales = Optional.empty();
+        private Optional<Long> heldSales = Optional.empty();
 
-        private Optional<Integer> achAdjustment = Optional.empty();
+        private Optional<Long> achAdjustment = Optional.empty();
 
-        private Optional<Integer> holdback = Optional.empty();
+        private Optional<Long> holdback = Optional.empty();
 
-        private Optional<Integer> reserveRelease = Optional.empty();
+        private Optional<Long> reserveRelease = Optional.empty();
 
-        private Optional<Integer> netAmount = Optional.empty();
+        private Optional<Long> netAmount = Optional.empty();
 
         private Optional<MerchantSummary> merchant = Optional.empty();
 
@@ -391,12 +391,12 @@ public final class AchDeposit {
          * <p>Amount of sales in the ACH deposit. We return the value in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "sales", nulls = Nulls.SKIP)
-        public Builder sales(Optional<Integer> sales) {
+        public Builder sales(Optional<Long> sales) {
             this.sales = sales;
             return this;
         }
 
-        public Builder sales(Integer sales) {
+        public Builder sales(Long sales) {
             this.sales = Optional.ofNullable(sales);
             return this;
         }
@@ -405,12 +405,12 @@ public final class AchDeposit {
          * <p>Amount of returns in the ACH deposit. We return the value in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "returns", nulls = Nulls.SKIP)
-        public Builder returns(Optional<Integer> returns) {
+        public Builder returns(Optional<Long> returns) {
             this.returns = returns;
             return this;
         }
 
-        public Builder returns(Integer returns) {
+        public Builder returns(Long returns) {
             this.returns = Optional.ofNullable(returns);
             return this;
         }
@@ -419,12 +419,12 @@ public final class AchDeposit {
          * <p>Amount of fees that were applied to the transactions in the ACH deposit. We return the value in the currency's lowest denomination, for example cents.</p>
          */
         @JsonSetter(value = "dailyFees", nulls = Nulls.SKIP)
-        public Builder dailyFees(Optional<Integer> dailyFees) {
+        public Builder dailyFees(Optional<Long> dailyFees) {
             this.dailyFees = dailyFees;
             return this;
         }
 
-        public Builder dailyFees(Integer dailyFees) {
+        public Builder dailyFees(Long dailyFees) {
             this.dailyFees = Optional.ofNullable(dailyFees);
             return this;
         }
@@ -433,12 +433,12 @@ public final class AchDeposit {
          * <p>Amount of funds that we held if the merchant was in full suspense. We return the value in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "heldSales", nulls = Nulls.SKIP)
-        public Builder heldSales(Optional<Integer> heldSales) {
+        public Builder heldSales(Optional<Long> heldSales) {
             this.heldSales = heldSales;
             return this;
         }
 
-        public Builder heldSales(Integer heldSales) {
+        public Builder heldSales(Long heldSales) {
             this.heldSales = Optional.ofNullable(heldSales);
             return this;
         }
@@ -447,12 +447,12 @@ public final class AchDeposit {
          * <p>Amount of adjustments that we made to the ACH deposit. We return the value in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "achAdjustment", nulls = Nulls.SKIP)
-        public Builder achAdjustment(Optional<Integer> achAdjustment) {
+        public Builder achAdjustment(Optional<Long> achAdjustment) {
             this.achAdjustment = achAdjustment;
             return this;
         }
 
-        public Builder achAdjustment(Integer achAdjustment) {
+        public Builder achAdjustment(Long achAdjustment) {
             this.achAdjustment = Optional.ofNullable(achAdjustment);
             return this;
         }
@@ -461,12 +461,12 @@ public final class AchDeposit {
          * <p>Amount of funds that we held as reserve from the ACH deposit. We return the value in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "holdback", nulls = Nulls.SKIP)
-        public Builder holdback(Optional<Integer> holdback) {
+        public Builder holdback(Optional<Long> holdback) {
             this.holdback = holdback;
             return this;
         }
 
-        public Builder holdback(Integer holdback) {
+        public Builder holdback(Long holdback) {
             this.holdback = Optional.ofNullable(holdback);
             return this;
         }
@@ -475,12 +475,12 @@ public final class AchDeposit {
          * <p>Amount of funds that we released from holdback. We return the value in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "reserveRelease", nulls = Nulls.SKIP)
-        public Builder reserveRelease(Optional<Integer> reserveRelease) {
+        public Builder reserveRelease(Optional<Long> reserveRelease) {
             this.reserveRelease = reserveRelease;
             return this;
         }
 
-        public Builder reserveRelease(Integer reserveRelease) {
+        public Builder reserveRelease(Long reserveRelease) {
             this.reserveRelease = Optional.ofNullable(reserveRelease);
             return this;
         }
@@ -489,12 +489,12 @@ public final class AchDeposit {
          * <p>Total amount that we paid the merchant after fees and adjustments. We return the value in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "netAmount", nulls = Nulls.SKIP)
-        public Builder netAmount(Optional<Integer> netAmount) {
+        public Builder netAmount(Optional<Long> netAmount) {
             this.netAmount = netAmount;
             return this;
         }
 
-        public Builder netAmount(Integer netAmount) {
+        public Builder netAmount(Long netAmount) {
             this.netAmount = Optional.ofNullable(netAmount);
             return this;
         }

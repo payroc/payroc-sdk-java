@@ -68,6 +68,16 @@ public class AsyncSignatureInstructionsClient {
      * <p>Our gateway returns the status of the instruction. If the payment device completed the instruction, the response also includes a link to retrieve the signature.</p>
      */
     public CompletableFuture<SignatureInstruction> retrieve(
+            String signatureInstructionId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(signatureInstructionId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to retrieve information about a signature instruction.
+     * <p>To retrieve a signature instruction, you need its signatureInstructionId. Our gateway returned the signatureInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/signature-instructions/submit">Submit Signature Instruction</a> method.</p>
+     * <p>Our gateway returns the status of the instruction. If the payment device completed the instruction, the response also includes a link to retrieve the signature.</p>
+     */
+    public CompletableFuture<SignatureInstruction> retrieve(
             String signatureInstructionId, RetrieveSignatureInstructionsRequest request) {
         return this.rawClient.retrieve(signatureInstructionId, request).thenApply(response -> response.body());
     }
@@ -92,6 +102,14 @@ public class AsyncSignatureInstructionsClient {
      */
     public CompletableFuture<Void> delete(String signatureInstructionId) {
         return this.rawClient.delete(signatureInstructionId).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to cancel a signature instruction.
+     * <p>To cancel a signature instruction, you need its signatureInstructionId. Our gateway returned the signatureInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/signature-instructions/submit">Submit signature instruction</a> method.</p>
+     */
+    public CompletableFuture<Void> delete(String signatureInstructionId, RequestOptions requestOptions) {
+        return this.rawClient.delete(signatureInstructionId, requestOptions).thenApply(response -> response.body());
     }
 
     /**

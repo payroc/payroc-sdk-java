@@ -8,11 +8,15 @@ src/test/java/com/payroc/api/integration/
 src/test/resources/testdata/
 src/test/java/com/payroc/api/core/SentryIntegrationTest.java
 src/test/java/com/payroc/api/core/SentryInterceptorTest.java
-scripts
+pipelines/
+scripts/
 LICENSE
 CONTRIBUTING.md
 README.md
 .gitignore
+.github/CODEOWNERS
+.previewignore
+SECURITY.md
 
 # Custom pagination implementation
 src/main/java/com/payroc/api/core/pagination/Page.java

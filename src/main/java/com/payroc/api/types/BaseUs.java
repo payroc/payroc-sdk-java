@@ -121,7 +121,12 @@ public final class BaseUs {
     }
 
     /**
-     * @return Object that contains information about the Platinum Security fee.
+     * @return Polymorphic object that contains billing details for Platinum Security.
+     * <p>The value of the billingFrequency field determines which variant you should use:</p>
+     * <ul>
+     * <li><code>monthly</code> - We collect the fee for Platinum Security each month.</li>
+     * <li><code>annual</code> - We collect the fee for Platinum Security each year.</li>
+     * </ul>
      */
     @JsonProperty("platinumSecurity")
     public Optional<BaseUsPlatinumSecurity> getPlatinumSecurity() {
@@ -300,7 +305,12 @@ public final class BaseUs {
         _FinalStage merchantAdvantage(Integer merchantAdvantage);
 
         /**
-         * <p>Object that contains information about the Platinum Security fee.</p>
+         * <p>Polymorphic object that contains billing details for Platinum Security.</p>
+         * <p>The value of the billingFrequency field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>monthly</code> - We collect the fee for Platinum Security each month.</li>
+         * <li><code>annual</code> - We collect the fee for Platinum Security each year.</li>
+         * </ul>
          */
         _FinalStage platinumSecurity(Optional<BaseUsPlatinumSecurity> platinumSecurity);
 
@@ -516,7 +526,12 @@ public final class BaseUs {
         }
 
         /**
-         * <p>Object that contains information about the Platinum Security fee.</p>
+         * <p>Polymorphic object that contains billing details for Platinum Security.</p>
+         * <p>The value of the billingFrequency field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>monthly</code> - We collect the fee for Platinum Security each month.</li>
+         * <li><code>annual</code> - We collect the fee for Platinum Security each year.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -526,7 +541,12 @@ public final class BaseUs {
         }
 
         /**
-         * <p>Object that contains information about the Platinum Security fee.</p>
+         * <p>Polymorphic object that contains billing details for Platinum Security.</p>
+         * <p>The value of the billingFrequency field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>monthly</code> - We collect the fee for Platinum Security each month.</li>
+         * <li><code>annual</code> - We collect the fee for Platinum Security each year.</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "platinumSecurity", nulls = Nulls.SKIP)

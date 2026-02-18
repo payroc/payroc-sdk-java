@@ -24,9 +24,9 @@ public final class MerchantBalance {
 
     private final Optional<Integer> funds;
 
-    private final Optional<Double> pending;
+    private final Optional<Integer> pending;
 
-    private final Optional<Double> available;
+    private final Optional<Integer> available;
 
     private final Optional<String> currency;
 
@@ -35,8 +35,8 @@ public final class MerchantBalance {
     private MerchantBalance(
             Optional<String> merchantId,
             Optional<Integer> funds,
-            Optional<Double> pending,
-            Optional<Double> available,
+            Optional<Integer> pending,
+            Optional<Integer> available,
             Optional<String> currency,
             Map<String, Object> additionalProperties) {
         this.merchantId = merchantId;
@@ -67,7 +67,7 @@ public final class MerchantBalance {
      * @return Amount of the funding balance that we have not yet sent to funding accounts. The value is in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("pending")
-    public Optional<Double> getPending() {
+    public Optional<Integer> getPending() {
         return pending;
     }
 
@@ -75,7 +75,7 @@ public final class MerchantBalance {
      * @return Amount of the funding balance that you can use in funding instructions. The value is in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("available")
-    public Optional<Double> getAvailable() {
+    public Optional<Integer> getAvailable() {
         return available;
     }
 
@@ -126,9 +126,9 @@ public final class MerchantBalance {
 
         private Optional<Integer> funds = Optional.empty();
 
-        private Optional<Double> pending = Optional.empty();
+        private Optional<Integer> pending = Optional.empty();
 
-        private Optional<Double> available = Optional.empty();
+        private Optional<Integer> available = Optional.empty();
 
         private Optional<String> currency = Optional.empty();
 
@@ -178,12 +178,12 @@ public final class MerchantBalance {
          * <p>Amount of the funding balance that we have not yet sent to funding accounts. The value is in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "pending", nulls = Nulls.SKIP)
-        public Builder pending(Optional<Double> pending) {
+        public Builder pending(Optional<Integer> pending) {
             this.pending = pending;
             return this;
         }
 
-        public Builder pending(Double pending) {
+        public Builder pending(Integer pending) {
             this.pending = Optional.ofNullable(pending);
             return this;
         }
@@ -192,12 +192,12 @@ public final class MerchantBalance {
          * <p>Amount of the funding balance that you can use in funding instructions. The value is in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "available", nulls = Nulls.SKIP)
-        public Builder available(Optional<Double> available) {
+        public Builder available(Optional<Integer> available) {
             this.available = available;
             return this;
         }
 
-        public Builder available(Double available) {
+        public Builder available(Integer available) {
             this.available = Optional.ofNullable(available);
             return this;
         }

@@ -116,6 +116,11 @@ public class RawSettlementClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "merchantId", request.getMerchantId().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -188,6 +193,19 @@ public class RawSettlementClient {
      * <li>Merchant information, including the merchant ID (MID) and the processing account that the batch is associated with.</li>
      * </ul>
      */
+    public PayrocApiHttpResponse<Batch> retrieveBatch(int batchId, RequestOptions requestOptions) {
+        return retrieveBatch(batchId, RetrieveBatchSettlementRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a batch.
+     * <p><strong>Note:</strong> To retrieve a batch, you need its batchId. If you don't have the batchId, use our <a href="https://docs.payroc.com/api/schema/reporting/settlement/list-batches">List Batches</a> method to search for the batch.</p>
+     * <p>Our gateway returns the following information about the batch:</p>
+     * <ul>
+     * <li>Transaction information, including the number of transactions and total value of sales.</li>
+     * <li>Merchant information, including the merchant ID (MID) and the processing account that the batch is associated with.</li>
+     * </ul>
+     */
     public PayrocApiHttpResponse<Batch> retrieveBatch(int batchId, RetrieveBatchSettlementRequest request) {
         return retrieveBatch(batchId, request, null);
     }
@@ -203,13 +221,17 @@ public class RawSettlementClient {
      */
     public PayrocApiHttpResponse<Batch> retrieveBatch(
             int batchId, RetrieveBatchSettlementRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("batches")
-                .addPathSegment(Integer.toString(batchId))
-                .build();
+                .addPathSegment(Integer.toString(batchId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -295,6 +317,26 @@ public class RawSettlementClient {
      * <li>Processor that settled the transaction and the ACH deposit containing the transaction.</li>
      * </ul>
      */
+    public PayrocApiHttpResponse<PayrocPager<Transaction>> listTransactions(RequestOptions requestOptions) {
+        return listTransactions(
+                ListReportingSettlementTransactionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a paginated list of your merchants’ transactions.
+     * <p><strong>Note:</strong> If you want to view the details of a specific transaction and you have its transactionId, use our <a href="https://docs.payroc.com/api/schema/reporting/settlement/retrieve-transaction">Retrieve Transaction</a> method.</p>
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for transactions for a specific merchant.</p>
+     * <blockquote>
+     * <p><strong>Important:</strong> You must provide a value for either the date query parameter or the batchId query parameter.</p>
+     * </blockquote>
+     * <p>Our gateway returns the following information about each transaction in the list:</p>
+     * <ul>
+     * <li>Merchant and processing account that ran the transaction.</li>
+     * <li>Transaction type, date, amount, and the payment method that the customer used.</li>
+     * <li>Batch that contains the transaction, and authorization details for the transaction.</li>
+     * <li>Processor that settled the transaction and the ACH deposit containing the transaction.</li>
+     * </ul>
+     */
     public PayrocApiHttpResponse<PayrocPager<Transaction>> listTransactions(
             ListReportingSettlementTransactionsRequest request) {
         return listTransactions(request, null);
@@ -347,6 +389,11 @@ public class RawSettlementClient {
         if (request.getTransactionType().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "transactionType", request.getTransactionType().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -425,6 +472,22 @@ public class RawSettlementClient {
      * <li>Processor that settled the transaction and the ACH deposit containing the transaction.</li>
      * </ul>
      */
+    public PayrocApiHttpResponse<Transaction> retrieveTransaction(int transactionId, RequestOptions requestOptions) {
+        return retrieveTransaction(
+                transactionId, RetrieveTransactionSettlementRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a transaction.
+     * <p><strong>Note:</strong> To retrieve a transaction, you need its transactionId. If you don't have the transactionId, use our <a href="https://docs.payroc.com/api/schema/reporting/settlement/list-transactions">List Transactions</a> method to search for the transaction.</p>
+     * <p>Our gateway returns the following information about the transaction:</p>
+     * <ul>
+     * <li>Merchant and processing account that ran the transaction.</li>
+     * <li>Transaction type, date, amount, and the payment method that the customer used.</li>
+     * <li>Batch that contains the transaction, and authorization details for the transaction.</li>
+     * <li>Processor that settled the transaction and the ACH deposit containing the transaction.</li>
+     * </ul>
+     */
     public PayrocApiHttpResponse<Transaction> retrieveTransaction(
             int transactionId, RetrieveTransactionSettlementRequest request) {
         return retrieveTransaction(transactionId, request, null);
@@ -443,13 +506,17 @@ public class RawSettlementClient {
      */
     public PayrocApiHttpResponse<Transaction> retrieveTransaction(
             int transactionId, RetrieveTransactionSettlementRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("transactions")
-                .addPathSegment(Integer.toString(transactionId))
-                .build();
+                .addPathSegment(Integer.toString(transactionId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -533,6 +600,25 @@ public class RawSettlementClient {
      * <li>Details about the customer's card, the transaction, and the batch.</li>
      * </ul>
      */
+    public PayrocApiHttpResponse<PayrocPager<Authorization>> listAuthorizations(RequestOptions requestOptions) {
+        return listAuthorizations(
+                ListReportingSettlementAuthorizationsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of authorizations.
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for authorizations linked to a specific merchant.</p>
+     * <blockquote>
+     * <p><strong>Important:</strong> You must provide a value for either the date query parameter or the batchId query parameter.</p>
+     * </blockquote>
+     * <p>Our gateway returns the following information about each authorization in the list:</p>
+     * <ul>
+     * <li>Authorization response from the issuing bank.</li>
+     * <li>Amount that the issuing bank authorized.</li>
+     * <li>Merchant that ran the authorization.</li>
+     * <li>Details about the customer's card, the transaction, and the batch.</li>
+     * </ul>
+     */
     public PayrocApiHttpResponse<PayrocPager<Authorization>> listAuthorizations(
             ListReportingSettlementAuthorizationsRequest request) {
         return listAuthorizations(request, null);
@@ -580,6 +666,11 @@ public class RawSettlementClient {
         if (request.getMerchantId().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "merchantId", request.getMerchantId().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -660,6 +751,25 @@ public class RawSettlementClient {
      * </ul>
      */
     public PayrocApiHttpResponse<Authorization> retrieveAuthorization(
+            int authorizationId, RequestOptions requestOptions) {
+        return retrieveAuthorization(
+                authorizationId,
+                RetrieveAuthorizationSettlementRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about an authorization.
+     * <p><strong>Note:</strong> To retrieve an authorization, you need its authorizationId. If you don't have the authorizationId, use our <a href="https://docs.payroc.com/api/schema/reporting/settlement/list-authorizations">List Authorizations</a> method to search for the authorization.</p>
+     * <p>Our gateway returns the following information about the authorization:</p>
+     * <ul>
+     * <li>Authorization response from the issuing bank.</li>
+     * <li>Amount that the issuing bank authorized.</li>
+     * <li>Merchant that ran the authorization.</li>
+     * <li>Details about the customer's card, the transaction, and the batch.</li>
+     * </ul>
+     */
+    public PayrocApiHttpResponse<Authorization> retrieveAuthorization(
             int authorizationId, RetrieveAuthorizationSettlementRequest request) {
         return retrieveAuthorization(authorizationId, request, null);
     }
@@ -677,13 +787,17 @@ public class RawSettlementClient {
      */
     public PayrocApiHttpResponse<Authorization> retrieveAuthorization(
             int authorizationId, RetrieveAuthorizationSettlementRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("authorizations")
-                .addPathSegment(Integer.toString(authorizationId))
-                .build();
+                .addPathSegment(Integer.toString(authorizationId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -784,6 +898,11 @@ public class RawSettlementClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "merchantId", request.getMerchantId().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -850,6 +969,17 @@ public class RawSettlementClient {
      * <p>Our gateway returns a list that contains each status change, the date it was changed, and its updated status.</p>
      */
     public PayrocApiHttpResponse<List<DisputeStatus>> listDisputesStatuses(
+            int disputeId, RequestOptions requestOptions) {
+        return listDisputesStatuses(
+                disputeId, ListDisputesStatusesSettlementRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return the status history of a dispute.
+     * <p>To view the status history of a dispute, you need its disputeId. If you don't have the disputeId, use our <a href="https://docs.payroc.com/api/schema/reporting/settlement/list-disputes">List Disputes</a> method to search for the dispute.</p>
+     * <p>Our gateway returns a list that contains each status change, the date it was changed, and its updated status.</p>
+     */
+    public PayrocApiHttpResponse<List<DisputeStatus>> listDisputesStatuses(
             int disputeId, ListDisputesStatusesSettlementRequest request) {
         return listDisputesStatuses(disputeId, request, null);
     }
@@ -861,14 +991,18 @@ public class RawSettlementClient {
      */
     public PayrocApiHttpResponse<List<DisputeStatus>> listDisputesStatuses(
             int disputeId, ListDisputesStatusesSettlementRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("disputes")
                 .addPathSegment(Integer.toString(disputeId))
-                .addPathSegments("statuses")
-                .build();
+                .addPathSegments("statuses");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -976,6 +1110,11 @@ public class RawSettlementClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "merchantId", request.getMerchantId().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -1051,6 +1190,21 @@ public class RawSettlementClient {
      * <li>Breakdown of sales, returns, and fees.</li>
      * </ul>
      */
+    public PayrocApiHttpResponse<AchDeposit> retrieveAchDeposit(int achDepositId, RequestOptions requestOptions) {
+        return retrieveAchDeposit(
+                achDepositId, RetrieveAchDepositSettlementRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about an ACH deposit that we paid to a merchant.
+     * <p><strong>Note:</strong> To retrieve an ACH deposit, you need its achDepositId. If you don't have the achDepositId, use our <a href="https://docs.payroc.com/api/schema/reporting/settlement/list-ach-deposits">List ACH Deposits</a> method to search for the ACH deposit.</p>
+     * <p>Our gateway returns the following information about the ACH deposit:</p>
+     * <ul>
+     * <li>Merchant that we sent the ACH deposit to.</li>
+     * <li>Total amount that we paid the merchant.</li>
+     * <li>Breakdown of sales, returns, and fees.</li>
+     * </ul>
+     */
     public PayrocApiHttpResponse<AchDeposit> retrieveAchDeposit(
             int achDepositId, RetrieveAchDepositSettlementRequest request) {
         return retrieveAchDeposit(achDepositId, request, null);
@@ -1068,13 +1222,17 @@ public class RawSettlementClient {
      */
     public PayrocApiHttpResponse<AchDeposit> retrieveAchDeposit(
             int achDepositId, RetrieveAchDepositSettlementRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("ach-deposits")
-                .addPathSegment(Integer.toString(achDepositId))
-                .build();
+                .addPathSegment(Integer.toString(achDepositId));
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -1142,6 +1300,17 @@ public class RawSettlementClient {
      * <p><strong>Important:</strong> You must provide a value for either the 'date' query parameter or the 'achDepositId' query parameter.</p>
      * </blockquote>
      */
+    public PayrocApiHttpResponse<PayrocPager<AchDepositFee>> listAchDepositFees(RequestOptions requestOptions) {
+        return listAchDepositFees(
+                ListReportingSettlementAchDepositFeesRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieve a list of ACH deposit fees.
+     * <blockquote>
+     * <p><strong>Important:</strong> You must provide a value for either the 'date' query parameter or the 'achDepositId' query parameter.</p>
+     * </blockquote>
+     */
     public PayrocApiHttpResponse<PayrocPager<AchDepositFee>> listAchDepositFees(
             ListReportingSettlementAchDepositFeesRequest request) {
         return listAchDepositFees(request, null);
@@ -1181,6 +1350,11 @@ public class RawSettlementClient {
         if (request.getMerchantId().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "merchantId", request.getMerchantId().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())

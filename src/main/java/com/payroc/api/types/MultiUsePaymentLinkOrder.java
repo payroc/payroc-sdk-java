@@ -45,7 +45,12 @@ public final class MultiUsePaymentLinkOrder {
     }
 
     /**
-     * @return Indicates whether the merchant or the customer enters the amount for the transaction.
+     * @return Polymorphic object that indicates who enters the amount for the payment link.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>prompt</code> - Customer enters the amount.</li>
+     * <li><code>preset</code> - Merchant sets the amount.</li>
+     * </ul>
      */
     @JsonProperty("charge")
     public MultiUsePaymentLinkOrderCharge getCharge() {
@@ -83,7 +88,12 @@ public final class MultiUsePaymentLinkOrder {
 
     public interface ChargeStage {
         /**
-         * <p>Indicates whether the merchant or the customer enters the amount for the transaction.</p>
+         * <p>Polymorphic object that indicates who enters the amount for the payment link.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>prompt</code> - Customer enters the amount.</li>
+         * <li><code>preset</code> - Merchant sets the amount.</li>
+         * </ul>
          */
         _FinalStage charge(@NotNull MultiUsePaymentLinkOrderCharge charge);
 
@@ -120,8 +130,18 @@ public final class MultiUsePaymentLinkOrder {
         }
 
         /**
-         * <p>Indicates whether the merchant or the customer enters the amount for the transaction.</p>
-         * <p>Indicates whether the merchant or the customer enters the amount for the transaction.</p>
+         * <p>Polymorphic object that indicates who enters the amount for the payment link.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>prompt</code> - Customer enters the amount.</li>
+         * <li><code>preset</code> - Merchant sets the amount.</li>
+         * </ul>
+         * <p>Polymorphic object that indicates who enters the amount for the payment link.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>prompt</code> - Customer enters the amount.</li>
+         * <li><code>preset</code> - Merchant sets the amount.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

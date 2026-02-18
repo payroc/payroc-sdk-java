@@ -1,6 +1,6 @@
 # Reference
 ## Payment links
-<details><summary><code>client.paymentLinks.list(processingTerminalId) -> PayrocPager&lt;PaymentLinkPaginatedList&gt;</code></summary>
+<details><summary><code>client.paymentLinks.list(processingTerminalId) -> PayrocPager&amp;lt;PaymentLinkPaginatedList&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -554,7 +554,7 @@ In your request, you need to indicate whether the merchant is using Hosted Field
 
 In the response, our gateway returns the session token and the time that it expires. You need the session token when you configure the JavaScript for Hosted Fields.  
 
-For more information about adding Hosted Fields to a webpage, go to [Hosted Fields](https://docs.payroc.com/guides/integrate/hosted-fields). 
+For more information about adding Hosted Fields to a webpage, go to [Hosted Fields](https://docs.payroc.com/guides/take-payments/hosted-fields). 
 </dd>
 </dl>
 </dd>
@@ -666,7 +666,7 @@ Use this method to start an Apple Pay session for your merchant.
 
 In the response, we return the startSessionObject that you send to Apple when you retrieve the cardholder's encrypted payment details.  
 
-**Note:** For more information about how to integrate with Apple Pay, go to [Apple Pay](https://docs.payroc.com/guides/integrate/apple-pay).
+**Note:** For more information about how to integrate with Apple Pay, go to [Apple Pay](https://docs.payroc.com/guides/take-payments/apple-pay).
 </dd>
 </dl>
 </dd>
@@ -720,6 +720,155 @@ client.applePaySessions().create(
 <dd>
 
 **appleValidationUrl:** `String` — Validation URL from the Apple Pay JS API.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Attachments
+<details><summary><code>client.attachments.uploadToProcessingAccount(processingAccountId, request) -> Attachment</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+> Before you upload an attachment, make sure that you follow local privacy regulations and get the merchant's consent to process their information.  
+
+**Note:** You need the ID of the processing account before you can upload an attachment. If you don't know the processingAccountId, go to the [Retrieve a Merchant Platform](https://docs.payroc.com/api/schema/boarding/merchant-platforms/retrieve) method.  
+
+The attachment must be an uncompressed file under 30MB in one of the following formats:
+- .bmp, csv, .doc, .docx, .gif, .htm, .html, .jpg, .jpeg, .msg, .pdf, .png, .ppt, .pptx, .tif, .tiff, .txt, .xls, .xlsx  
+
+In the request, include the attachment that you want to upload and the following information about the attachment:
+- **type** - Type of attachment that you want to upload.
+- **description** - Short description of the attachment.  
+
+In the response, our gateway returns information about the attachment including its upload status and an attachmentId that you can use to [Retrieve the details of the Attachment](https://docs.payroc.com/api/schema/attachments/get-attachment).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attachments().uploadToProcessingAccount(
+    "38765",
+    UploadAttachment
+        .builder()
+        .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9324")
+        .attachment(
+            UploadToProcessingAccountAttachmentsRequestAttachment
+                .builder()
+                .type(UploadToProcessingAccountAttachmentsRequestAttachmentType.BANKING_EVIDENCE)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**processingAccountId:** `String` — Unique identifier that we assigned to the processing account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` — Unique identifier that you generate for each request. You must use the [UUID v4 format](https://www.rfc-editor.org/rfc/rfc4122) for the identifier. For more information about the idempotency key, go to [Idempotency](https://docs.payroc.com/api/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.attachments.getAttachment(attachmentId) -> Attachment</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this method to retrieve the details of an attachment.  
+
+To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the method that you used to upload the attachment.  
+
+Our gateway returns information about the attachment, including its upload status and the entity that the attachment is linked to. Our gateway doesn't return the file that you uploaded.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.attachments().getAttachment(
+    "12876",
+    GetAttachmentRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**attachmentId:** `String` — Unique identifier of the attachment
     
 </dd>
 </dl>
@@ -792,7 +941,7 @@ client.auth().retrieveToken(
 </details>
 
 ## BankTransferPayments Payments
-<details><summary><code>client.bankTransferPayments.payments.list() -> PayrocPager&lt;BankTransferPaymentPaginatedList&gt;</code></summary>
+<details><summary><code>client.bankTransferPayments.payments.list() -> PayrocPager&amp;lt;BankTransferPaymentPaginatedList&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -1167,7 +1316,15 @@ client.bankTransferPayments().payments().create(
 <dl>
 <dd>
 
-**paymentMethod:** `BankTransferPaymentRequestPaymentMethod` — Object that contains information about the customer's payment details.
+**paymentMethod:** `BankTransferPaymentRequestPaymentMethod` 
+
+Polymorphic object that contains payment detail information.  
+
+The value of the type parameter determines which variant you should use:  
+-	`ach` - Automated Clearing House (ACH) details
+-	`pad` - Pre-authorized debit (PAD) details
+-	`secureToken` - Secure token details
+-	`singleUseToken` - Single-use token details
     
 </dd>
 </dl>
@@ -1342,7 +1499,13 @@ client.bankTransferPayments().payments().represent(
 <dl>
 <dd>
 
-**paymentMethod:** `Optional<RepresentmentPaymentMethod>` — Object that contains information about the customer's payment details.
+**paymentMethod:** `Optional<RepresentmentPaymentMethod>` 
+
+Polymorphic object that contains the customer's updated payment details.  
+
+The value of the type parameter determines which variant you should use:  
+-	`ach` - Automated Clearing House (ACH) details
+-	`secureToken` - Secure token details
     
 </dd>
 </dl>
@@ -1525,7 +1688,7 @@ client.bankTransferPayments().refunds().refund(
 </dl>
 </details>
 
-<details><summary><code>client.bankTransferPayments.refunds.list() -> PayrocPager&lt;BankTransferRefundPaginatedList&gt;</code></summary>
+<details><summary><code>client.bankTransferPayments.refunds.list() -> PayrocPager&amp;lt;BankTransferRefundPaginatedList&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -1846,7 +2009,13 @@ client.bankTransferPayments().refunds().create(
 <dl>
 <dd>
 
-**refundMethod:** `BankTransferUnreferencedRefundRefundMethod` — Object that contains information about how the merchant refunds the customer.
+**refundMethod:** `BankTransferUnreferencedRefundRefundMethod` 
+
+Polymorphic object that contains payment details for the refund.  
+
+The value of the type parameter determines which variant you should use:  
+-	`ach` - Automated Clearing House (ACH) details
+-	`secureToken` - Secure token details
     
 </dd>
 </dl>
@@ -2274,7 +2443,7 @@ client.boarding().owners().delete(
 </details>
 
 ## Boarding PricingIntents
-<details><summary><code>client.boarding.pricingIntents.list() -> PayrocPager&lt;PaginatedPricingIntent&gt;</code></summary>
+<details><summary><code>client.boarding.pricingIntents.list() -> PayrocPager&amp;lt;PaginatedPricingIntent&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -2952,7 +3121,7 @@ client.boarding().pricingIntents().partiallyUpdate(
 </details>
 
 ## Boarding MerchantPlatforms
-<details><summary><code>client.boarding.merchantPlatforms.list() -> PayrocPager&lt;PaginatedMerchants&gt;</code></summary>
+<details><summary><code>client.boarding.merchantPlatforms.list() -> PayrocPager&amp;lt;PaginatedMerchants&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -3060,7 +3229,7 @@ You can’t send the after parameter in the same request as the before parameter
 
 Use this method to board a merchant with Payroc.  
 
-**Note**: This method is part of our Boarding solution. To help you understand how this method works with other Boarding methods, go to [Board a Merchant](https://docs.payroc.com/guides/integrate/boarding).  
+**Note**: This method is part of our Boarding solution. To help you understand how this method works with other Boarding methods, go to [Board a Merchant](https://docs.payroc.com/guides/board-merchants/boarding).  
 
 In the request, include the following information:  
 - Legal information, including its legal name and address.  
@@ -3523,7 +3692,7 @@ client.boarding().merchantPlatforms().retrieve(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.merchantPlatforms.listProcessingAccounts(merchantPlatformId) -> PayrocPager&lt;PaginatedProcessingAccounts&gt;</code></summary>
+<details><summary><code>client.boarding.merchantPlatforms.listProcessingAccounts(merchantPlatformId) -> PayrocPager&amp;lt;PaginatedProcessingAccounts&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -4074,7 +4243,7 @@ client.boarding().processingAccounts().retrieve(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.processingAccounts.listProcessingAccountFundingAccounts(processingAccountId) -> List&lt;FundingAccount&gt;</code></summary>
+<details><summary><code>client.boarding.processingAccounts.listProcessingAccountFundingAccounts(processingAccountId) -> List&amp;lt;FundingAccount&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -4086,7 +4255,15 @@ client.boarding().processingAccounts().retrieve(
 <dl>
 <dd>
 
-Retrieve a list of funding accounts associated with a processing account.
+Use this method to return a list of funding accounts linked to a processing acccount.  
+
+To retrieve a list of funding accounts for a processing account, you need the processingAccountId. Our gateway returned the processingAccountId in the response of the [Create Merchant Platform](https://docs.payroc.com/api/schema/boarding/merchant-platforms/create) method or the [Create Proccessing Account](https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account) method.  
+
+Our gateway returns information about the following for each funding account in the list:  
+- Account information, including the name on the account and payment methods.  
+- Status, including whether we have approved or rejected the account.  
+
+For each funding account, we also return its fundingAccountId, which you can use to perform follow-on actions.  
 </dd>
 </dl>
 </dd>
@@ -4308,7 +4485,7 @@ client.boarding().processingAccounts().getProcessingAccountPricingAgreement(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.processingAccounts.listOwners(processingAccountId) -> PayrocPager&lt;PaginatedOwners&gt;</code></summary>
+<details><summary><code>client.boarding.processingAccounts.listOwners(processingAccountId) -> PayrocPager&amp;lt;PaginatedOwners&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -4503,7 +4680,7 @@ client.boarding().processingAccounts().createReminder(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.processingAccounts.listTerminalOrders(processingAccountId) -> List&lt;TerminalOrder&gt;</code></summary>
+<details><summary><code>client.boarding.processingAccounts.listTerminalOrders(processingAccountId) -> List&amp;lt;TerminalOrder&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -4624,7 +4801,7 @@ In the request, specify the gateway settings, device settings, and application s
 
 In the response, our gateway returns information about the terminal order including its status and terminalOrderId that you can use to [retrieve the terminal order](https://docs.payroc.com/api/schema/boarding/terminal-orders/retrieve).  
 
-**Note**: You can subscribe to the terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to [Events Subscriptions](https://docs.payroc.com/guides/integrate/event-subscriptions).  
+**Note**: You can subscribe to the terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to [Events Subscriptions](https://docs.payroc.com/guides/board-merchants/event-subscriptions).  
 </dd>
 </dl>
 </dd>
@@ -4650,7 +4827,7 @@ client.boarding().processingAccounts().createTerminalOrder(
                     .builder()
                     .type(OrderItemType.SOLUTION)
                     .solutionTemplateId("Roc Services_DX8000")
-                    .solutionQuantity(1f)
+                    .solutionQuantity(1)
                     .deviceCondition(OrderItemDeviceCondition.NEW)
                     .solutionSetup(
                         OrderItemSolutionSetup
@@ -4683,7 +4860,7 @@ client.boarding().processingAccounts().createTerminalOrder(
                             .deviceSettings(
                                 OrderItemSolutionSetupDeviceSettings
                                     .builder()
-                                    .numberOfMobileUsers(2f)
+                                    .numberOfMobileUsers(2)
                                     .communicationType(OrderItemSolutionSetupDeviceSettingsCommunicationType.WIFI)
                                     .build()
                             )
@@ -4811,7 +4988,7 @@ client.boarding().processingAccounts().createTerminalOrder(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.processingAccounts.listProcessingTerminals(processingAccountId) -> PayrocPager&lt;PaginatedProcessingTerminals&gt;</code></summary>
+<details><summary><code>client.boarding.processingAccounts.listProcessingTerminals(processingAccountId) -> PayrocPager&amp;lt;PaginatedProcessingTerminals&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -5316,7 +5493,7 @@ Our gateway returns the following information about the terminal order:
 - Training provider  
 - Shipping information  
 
-**Note**: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to [Events Subscriptions](https://docs.payroc.com/guides/integrate/event-subscriptions).  
+**Note**: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to [Events Subscriptions](https://docs.payroc.com/guides/board-merchants/event-subscriptions).  
 </dd>
 </dl>
 </dd>
@@ -5364,7 +5541,7 @@ client.boarding().terminalOrders().retrieve(
 </details>
 
 ## CardPayments Payments
-<details><summary><code>client.cardPayments.payments.list() -> PayrocPager&lt;PaymentPaginatedListForRead&gt;</code></summary>
+<details><summary><code>client.cardPayments.payments.list() -> PayrocPager&amp;lt;PaymentPaginatedListForRead&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -5619,18 +5796,18 @@ In the response, our gateway returns information about the card payment and a pa
 **Payment methods** 
 
 - **Cards** - Credit, debit, and EBT
-- **Digital wallets** - [Apple Pay®](https://docs.payroc.com/guides/integrate/apple-pay) and [Google Pay®](https://docs.payroc.com/guides/integrate/google-pay) 
+- **Digital wallets** - [Apple Pay®](https://docs.payroc.com/guides/take-payments/apple-pay) and [Google Pay®](https://docs.payroc.com/guides/take-payments/google-pay) 
 - **Tokens** - Secure tokens and single-use tokens
 
 **Features** 
 
 Our Create Payment method also supports the following features: 
 
-- [Repeat payments](https://docs.payroc.com/guides/integrate/repeat-payments/use-your-own-software) - Run multiple payments as part of a payment schedule that you manage with your own software. 
+- [Repeat payments](https://docs.payroc.com/guides/take-payments/repeat-payments/use-your-own-software) - Run multiple payments as part of a payment schedule that you manage with your own software. 
 - **Offline sales** - Run a sale or a pre-authorization if the terminal loses its connection to our gateway. 
-- [Tokenization](https://docs.payroc.com/guides/integrate/save-payment-details) - Save card details to use in future transactions. 
-- [3-D Secure](https://docs.payroc.com/guides/integrate/3-d-secure) - Verify the identity of the cardholder. 
-- [Custom fields](https://docs.payroc.com/guides/integrate/add-custom-fields) - Add your own data to a payment. 
+- [Tokenization](https://docs.payroc.com/guides/take-payments/save-payment-details) - Save card details to use in future transactions. 
+- [3-D Secure](https://docs.payroc.com/guides/take-payments/3-d-secure) - Verify the identity of the cardholder. 
+- [Custom fields](https://docs.payroc.com/guides/take-payments/add-custom-fields) - Add your own data to a payment. 
 - **Tips** - Add tips to the card payment.  
 - **Taxes** - Add local taxes to the card payment. 
 - **Surcharging** - Add a surcharge to the card payment. 
@@ -5807,7 +5984,15 @@ client.cardPayments().payments().create(
 <dl>
 <dd>
 
-**paymentMethod:** `PaymentRequestPaymentMethod` — Object that contains information about the customer's payment details.
+**paymentMethod:** `PaymentRequestPaymentMethod` 
+
+Polymorphic object that contains payment details.  
+
+The value of the type parameter determines which variant you should use:  
+-	`card` - Payment card details
+-	`secureToken` - Secure token details
+-	`digitalWallet` - Digital wallet details
+-	`singleUseToken` - Single-use token details
     
 </dd>
 </dl>
@@ -5815,7 +6000,13 @@ client.cardPayments().payments().create(
 <dl>
 <dd>
 
-**threeDSecure:** `Optional<PaymentRequestThreeDSecure>` — Object that contains information for an authentication check on the customer's payment details using the 3-D Secure protocol.
+**threeDSecure:** `Optional<PaymentRequestThreeDSecure>` 
+
+Polymorphic object that contains authentication information from 3-D Secure.  
+
+The value of the serviceProvider parameter determines which variant you should use:  
+-	`gateway` - Use our gateway to run a 3-D Secure check.
+-	`thirdParty` - Use a third party to run a 3-D Secure check.
     
 </dd>
 </dl>
@@ -6048,7 +6239,15 @@ client.cardPayments().payments().adjust(
 <dl>
 <dd>
 
-**adjustments:** `List<PaymentAdjustmentAdjustmentsItem>` — Array of objects that contain information about the adjustments to the payment.
+**adjustments:** `List<PaymentAdjustmentAdjustmentsItem>` 
+
+Array of polymorphic objects which contain information about adjustments to a payment.  
+
+The value of the type parameter determines which variant you should use:
+-	`order` - Tip information.
+-	`status` - Status of the transaction.
+-	`customer` - Customer's contact information and shipping address.
+-	`signature` - Customer's signature.
     
 </dd>
 </dl>
@@ -6119,7 +6318,7 @@ client.cardPayments().payments().capture(
                         Arrays.asList(
                             LineItemRequest
                                 .builder()
-                                .unitPrice(4000.0)
+                                .unitPrice(4000L)
                                 .quantity(1.0)
                                 .build()
                         )
@@ -6398,7 +6597,7 @@ client.cardPayments().refunds().createReferencedRefund(
 </dl>
 </details>
 
-<details><summary><code>client.cardPayments.refunds.list() -> PayrocPager&lt;RefundPaginatedList&gt;</code></summary>
+<details><summary><code>client.cardPayments.refunds.list() -> PayrocPager&amp;lt;RefundPaginatedList&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -6757,7 +6956,13 @@ client.cardPayments().refunds().createUnreferencedRefund(
 <dl>
 <dd>
 
-**refundMethod:** `UnreferencedRefundRefundMethod` — Object that contains information about how the merchant refunds the customer.
+**refundMethod:** `UnreferencedRefundRefundMethod` 
+
+Polymorphic object that contains information about the payment method that the merchant uses to refund the customer.  
+
+The value of the type parameter determines which variant you should use:
+-	`card` - Payment card details
+-	`secureToken` - Secure token details
     
 </dd>
 </dl>
@@ -6944,7 +7149,13 @@ client.cardPayments().refunds().adjust(
 <dl>
 <dd>
 
-**adjustments:** `List<RefundAdjustmentAdjustmentsItem>` — Array of objects that contain information about the adjustments to the refund.
+**adjustments:** `List<RefundAdjustmentAdjustmentsItem>` 
+
+Array of polymorphic objects that contain information about adjustments to the refund.  
+
+The value of the type parameter determines which variant you should use:  
+-	`status` - Status of the transaction.
+-	`customer` - Customer's contact information and shipping address.
     
 </dd>
 </dl>
@@ -7031,7 +7242,7 @@ client.cardPayments().refunds().reverseRefund(
 </details>
 
 ## Funding FundingRecipients
-<details><summary><code>client.funding.fundingRecipients.list() -> PayrocPager&lt;PaginatedFundRecipients&gt;</code></summary>
+<details><summary><code>client.funding.fundingRecipients.list() -> PayrocPager&amp;lt;PaginatedFundRecipients&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -7167,8 +7378,8 @@ client.funding().fundingRecipients().create(
         .builder()
         .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9324")
         .recipientType(CreateFundingRecipientRecipientType.PRIVATE_CORPORATION)
-        .taxId("123456789")
-        .doingBusinessAs("doingBusinessAs")
+        .taxId("12-3456789")
+        .doingBusinessAs("Pizza Doe")
         .address(
             Address
                 .builder()
@@ -7177,6 +7388,8 @@ client.funding().fundingRecipients().create(
                 .state("Illinois")
                 .country("US")
                 .postalCode("60056")
+                .address2("Example Address Line 2")
+                .address3("Example Address Line 3")
                 .build()
         )
         .contactMethods(
@@ -7185,6 +7398,12 @@ client.funding().fundingRecipients().create(
                     ContactMethodEmail
                         .builder()
                         .value("jane.doe@example.com")
+                        .build()
+                ),
+                ContactMethod.phone(
+                    ContactMethodPhone
+                        .builder()
+                        .value("2025550164")
                         .build()
                 )
             )
@@ -7210,14 +7429,18 @@ client.funding().fundingRecipients().create(
                         OwnerRelationship
                             .builder()
                             .isControlProng(true)
+                            .equityPercentage(48.5f)
+                            .title("CFO")
+                            .isAuthorizedSignatory(false)
                             .build()
                     )
+                    .middleName("Helen")
                     .identifiers(
                         Arrays.asList(
                             Identifier
                                 .builder()
                                 .type(IdentifierType.NATIONAL_ID)
-                                .value("xxxxx4320")
+                                .value("000-00-4320")
                                 .build()
                         )
                     )
@@ -7227,6 +7450,12 @@ client.funding().fundingRecipients().create(
                                 ContactMethodEmail
                                     .builder()
                                     .value("jane.doe@example.com")
+                                    .build()
+                            ),
+                            ContactMethod.phone(
+                                ContactMethodPhone
+                                    .builder()
+                                    .value("2025550164")
                                     .build()
                             )
                         )
@@ -7252,6 +7481,11 @@ client.funding().fundingRecipients().create(
                     )
                     .build()
             )
+        )
+        .metadata(
+            new HashMap<String, String>() {{
+                put("yourCustomField", "abc123");
+            }}
         )
         .build()
 );
@@ -7309,7 +7543,7 @@ client.funding().fundingRecipients().create(
 <dl>
 <dd>
 
-**address:** `Address` — Address of the funding recipient.
+**address:** `Address` — Polymorphic object that contains address information for a funding recipient.
     
 </dd>
 </dl>
@@ -7317,7 +7551,17 @@ client.funding().fundingRecipients().create(
 <dl>
 <dd>
 
-**contactMethods:** `List<ContactMethod>` — Array of contactMethod objects that you can use to add contact methods for the funding recipient. You must provide at least an email address.
+**contactMethods:** `List<ContactMethod>` 
+
+Array of polymorphic objects, which contain contact information.  
+
+**Note:** You must provide an email address.
+
+The value of the type parameter determines which variant you should use:  
+-	`email` - Email address 
+-	`phone` - Phone number
+-	`mobile` - Mobile number
+-	`fax` - Fax number
     
 </dd>
 </dl>
@@ -7466,16 +7710,18 @@ client.funding().fundingRecipients().update(
             FundingRecipient
                 .builder()
                 .recipientType(FundingRecipientRecipientType.PRIVATE_CORPORATION)
-                .taxId("123456789")
-                .doingBusinessAs("doingBusinessAs")
+                .taxId("12-3456789")
+                .doingBusinessAs("Doe Hot Dogs")
                 .address(
                     Address
                         .builder()
-                        .address1("1 Example Ave.")
+                        .address1("2 Example Ave.")
                         .city("Chicago")
                         .state("Illinois")
                         .country("US")
                         .postalCode("60056")
+                        .address2("Example Address Line 2")
+                        .address3("Example Address Line 3")
                         .build()
                 )
                 .contactMethods(
@@ -7484,6 +7730,54 @@ client.funding().fundingRecipients().update(
                             ContactMethodEmail
                                 .builder()
                                 .value("jane.doe@example.com")
+                                .build()
+                        ),
+                        ContactMethod.phone(
+                            ContactMethodPhone
+                                .builder()
+                                .value("2025550164")
+                                .build()
+                        )
+                    )
+                )
+                .metadata(
+                    new HashMap<String, String>() {{
+                        put("responsiblePerson", "Jane Doe");
+                    }}
+                )
+                .owners(
+                    Optional.of(
+                        Arrays.asList(
+                            FundingRecipientOwnersItem
+                                .builder()
+                                .ownerId(12346)
+                                .link(
+                                    FundingRecipientOwnersItemLink
+                                        .builder()
+                                        .rel("owner")
+                                        .href("https://api.payroc.com/v1/owners/12346")
+                                        .method("get")
+                                        .build()
+                                )
+                                .build()
+                        )
+                    )
+                )
+                .fundingAccounts(
+                    Optional.of(
+                        Arrays.asList(
+                            FundingRecipientFundingAccountsItem
+                                .builder()
+                                .fundingAccountId(124)
+                                .status(FundingRecipientFundingAccountsItemStatus.APPROVED)
+                                .link(
+                                    FundingRecipientFundingAccountsItemLink
+                                        .builder()
+                                        .rel("fundingAccount")
+                                        .href("https://api.payroc.com/v1/funding-accounts/124")
+                                        .method("get")
+                                        .build()
+                                )
                                 .build()
                         )
                     )
@@ -7589,7 +7883,7 @@ client.funding().fundingRecipients().delete(
 </dl>
 </details>
 
-<details><summary><code>client.funding.fundingRecipients.listAccounts(recipientId) -> List&lt;FundingAccount&gt;</code></summary>
+<details><summary><code>client.funding.fundingRecipients.listAccounts(recipientId) -> List&amp;lt;FundingAccount&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -7705,9 +7999,9 @@ client.funding().fundingRecipients().createAccount(
         .body(
             FundingAccount
                 .builder()
-                .type(FundingAccountType.CHECKING)
+                .type(FundingAccountType.SAVINGS)
                 .use(FundingAccountUse.CREDIT)
-                .nameOnAccount("Jane Doe")
+                .nameOnAccount("Fred Nerk")
                 .paymentMethods(
                     Arrays.asList(
                         PaymentMethodsItem.ach(
@@ -7716,6 +8010,11 @@ client.funding().fundingRecipients().createAccount(
                                 .build()
                         )
                     )
+                )
+                .metadata(
+                    new HashMap<String, String>() {{
+                        put("responsiblePerson", "Jane Doe");
+                    }}
                 )
                 .build()
         )
@@ -7763,7 +8062,7 @@ client.funding().fundingRecipients().createAccount(
 </dl>
 </details>
 
-<details><summary><code>client.funding.fundingRecipients.listOwners(recipientId) -> List&lt;Owner&gt;</code></summary>
+<details><summary><code>client.funding.fundingRecipients.listOwners(recipientId) -> List&amp;lt;Owner&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -7880,13 +8179,13 @@ client.funding().fundingRecipients().createOwner(
         .body(
             Owner
                 .builder()
-                .firstName("Jane")
-                .lastName("Doe")
-                .dateOfBirth(LocalDate.parse("1964-03-22"))
+                .firstName("Fred")
+                .lastName("Nerk")
+                .dateOfBirth(LocalDate.parse("1980-01-19"))
                 .address(
                     Address
                         .builder()
-                        .address1("1 Example Ave.")
+                        .address1("2 Example Ave.")
                         .city("Chicago")
                         .state("Illinois")
                         .country("US")
@@ -7896,15 +8195,19 @@ client.funding().fundingRecipients().createOwner(
                 .relationship(
                     OwnerRelationship
                         .builder()
-                        .isControlProng(true)
+                        .isControlProng(false)
+                        .equityPercentage(51.5f)
+                        .title("CEO")
+                        .isAuthorizedSignatory(true)
                         .build()
                 )
+                .middleName("Jim")
                 .identifiers(
                     Arrays.asList(
                         Identifier
                             .builder()
                             .type(IdentifierType.NATIONAL_ID)
-                            .value("xxxxx4320")
+                            .value("000-00-9876")
                             .build()
                     )
                 )
@@ -7914,6 +8217,12 @@ client.funding().fundingRecipients().createOwner(
                             ContactMethodEmail
                                 .builder()
                                 .value("jane.doe@example.com")
+                                .build()
+                        ),
+                        ContactMethod.phone(
+                            ContactMethodPhone
+                                .builder()
+                                .value("2025550164")
                                 .build()
                         )
                     )
@@ -7965,7 +8274,7 @@ client.funding().fundingRecipients().createOwner(
 </details>
 
 ## Funding FundingAccounts
-<details><summary><code>client.funding.fundingAccounts.list() -> PayrocPager&lt;ListFundingAccounts&gt;</code></summary>
+<details><summary><code>client.funding.fundingAccounts.list() -> PayrocPager&amp;lt;ListFundingAccounts&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -8172,9 +8481,9 @@ client.funding().fundingAccounts().update(
         .body(
             FundingAccount
                 .builder()
-                .type(FundingAccountType.CHECKING)
+                .type(FundingAccountType.SAVINGS)
                 .use(FundingAccountUse.CREDIT)
-                .nameOnAccount("Jane Doe")
+                .nameOnAccount("Fred Nerk")
                 .paymentMethods(
                     Arrays.asList(
                         PaymentMethodsItem.ach(
@@ -8183,6 +8492,11 @@ client.funding().fundingAccounts().update(
                                 .build()
                         )
                     )
+                )
+                .metadata(
+                    new HashMap<String, String>() {{
+                        put("responsiblePerson", "Jane Doe");
+                    }}
                 )
                 .build()
         )
@@ -8288,7 +8602,7 @@ client.funding().fundingAccounts().delete(
 </details>
 
 ## Funding FundingInstructions
-<details><summary><code>client.funding.fundingInstructions.list() -> PayrocPager&lt;ListFundingInstructionsResponse&gt;</code></summary>
+<details><summary><code>client.funding.fundingInstructions.list() -> PayrocPager&amp;lt;ListFundingInstructionsResponse&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -8444,6 +8758,42 @@ client.funding().fundingInstructions().create(
         .body(
             Instruction
                 .builder()
+                .merchants(
+                    Optional.of(
+                        Arrays.asList(
+                            InstructionMerchantsItem
+                                .builder()
+                                .merchantId("4525644354")
+                                .recipients(
+                                    Arrays.asList(
+                                        InstructionMerchantsItemRecipientsItem
+                                            .builder()
+                                            .fundingAccountId(123)
+                                            .paymentMethod(InstructionMerchantsItemRecipientsItemPaymentMethod.ACH)
+                                            .amount(
+                                                InstructionMerchantsItemRecipientsItemAmount
+                                                    .builder()
+                                                    .value(120000)
+                                                    .currency(InstructionMerchantsItemRecipientsItemAmountCurrency.USD)
+                                                    .build()
+                                            )
+                                            .metadata(
+                                                new HashMap<String, String>() {{
+                                                    put("yourCustomField", "abc123");
+                                                }}
+                                            )
+                                            .build()
+                                    )
+                                )
+                                .build()
+                        )
+                    )
+                )
+                .metadata(
+                    new HashMap<String, String>() {{
+                        put("yourCustomField", "abc123");
+                    }}
+                )
                 .build()
         )
         .build()
@@ -8594,6 +8944,42 @@ client.funding().fundingInstructions().update(
         .body(
             Instruction
                 .builder()
+                .merchants(
+                    Optional.of(
+                        Arrays.asList(
+                            InstructionMerchantsItem
+                                .builder()
+                                .merchantId("9876543219")
+                                .recipients(
+                                    Arrays.asList(
+                                        InstructionMerchantsItemRecipientsItem
+                                            .builder()
+                                            .fundingAccountId(124)
+                                            .paymentMethod(InstructionMerchantsItemRecipientsItemPaymentMethod.ACH)
+                                            .amount(
+                                                InstructionMerchantsItemRecipientsItemAmount
+                                                    .builder()
+                                                    .value(69950)
+                                                    .currency(InstructionMerchantsItemRecipientsItemAmountCurrency.USD)
+                                                    .build()
+                                            )
+                                            .metadata(
+                                                new HashMap<String, String>() {{
+                                                    put("supplier", "IT Support Services");
+                                                }}
+                                            )
+                                            .build()
+                                    )
+                                )
+                                .build()
+                        )
+                    )
+                )
+                .metadata(
+                    new HashMap<String, String>() {{
+                        put("instructionCreatedBy", "Jane Doe");
+                    }}
+                )
                 .build()
         )
         .build()
@@ -8799,7 +9185,7 @@ You can’t send the after parameter in the same request as the before parameter
 </dl>
 </details>
 
-<details><summary><code>client.funding.fundingActivity.list() -> PayrocPager&lt;ListFundingActivityResponse&gt;</code></summary>
+<details><summary><code>client.funding.fundingActivity.list() -> PayrocPager&amp;lt;ListFundingActivityResponse&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -8919,7 +9305,7 @@ You can’t send the after parameter in the same request as the before parameter
 </details>
 
 ## Notifications EventSubscriptions
-<details><summary><code>client.notifications.eventSubscriptions.list() -> PayrocPager&lt;PaginatedEventSubscriptions&gt;</code></summary>
+<details><summary><code>client.notifications.eventSubscriptions.list() -> PayrocPager&amp;lt;PaginatedEventSubscriptions&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -9112,7 +9498,7 @@ Use this method to retrieve the details of an event subscription.
 
 In your request, include the subscriptionId that we sent to you when we created the event subscription.  
   
-**Note:** If you don't know the subscriptionId of the event subscription, go to [List event subscriptions](#listEventSubscriptions).
+**Note:** If you don't know the subscriptionId of the event subscription, go to [List event subscriptions](https://docs.payroc.com/api/schema/notifications/event-subscriptions/list).
 </dd>
 </dl>
 </dd>
@@ -9542,7 +9928,7 @@ client.paymentFeatures().cards().verifyCard(
 <dl>
 <dd>
 
-**card:** `CardVerificationRequestCard` — Object that contains information about the card.
+**card:** `CardVerificationRequestCard` — Polymorphic object that contains payment details.
     
 </dd>
 </dl>
@@ -9659,7 +10045,13 @@ client.paymentFeatures().cards().viewEbtBalance(
 <dl>
 <dd>
 
-**card:** `BalanceInquiryCard` — Object that contains information about the card.
+**card:** `BalanceInquiryCard` 
+
+Polymorphic object that contains payment details.  
+
+The value of the type parameter determines which variant you should use:  
+-	`card` - Payment card details
+-	`singleUseToken` - Single-use token details
     
 </dd>
 </dl>
@@ -9770,7 +10162,15 @@ client.paymentFeatures().cards().lookupBin(
 <dl>
 <dd>
 
-**card:** `BinLookupCard` — Object that contains information about the card.
+**card:** `BinLookupCard` 
+
+Polymorphic object that contains payment details.  
+
+The value of the type parameter determines which variant you should use:  
+-	`card` - Payment card details
+-	`cardBin` - Bank identification number (BIN) of the payment card
+-	`secureToken` - Secure token details
+-	`digitalWallet` - Digital wallet details
     
 </dd>
 </dl>
@@ -9910,7 +10310,14 @@ client.paymentFeatures().cards().retrieveFxRates(
 <dl>
 <dd>
 
-**paymentMethod:** `FxRateInquiryPaymentMethod` — Object that contains information about the customer's payment details.
+**paymentMethod:** `FxRateInquiryPaymentMethod` 
+
+Polymorphic object that contains payment details.  
+
+The value of the type parameter determines which variant you should use:  
+-	`card` - Payment card details
+-	`secureToken` - Secure token details
+-	`digitalWallet` - Digital wallet details
     
 </dd>
 </dl>
@@ -10005,7 +10412,13 @@ client.paymentFeatures().bank().verify(
 <dl>
 <dd>
 
-**bankAccount:** `BankAccountVerificationRequestBankAccount` — Object that contains information about the bank account.
+**bankAccount:** `BankAccountVerificationRequestBankAccount` 
+
+Polymorphic object that contains bank account information.  
+
+The value of the type field determines which variant you should use:  
+-	`ach` - Automated Clearing House (ACH) details
+-	`pad` - Pre-authorized debit (PAD) details
     
 </dd>
 </dl>
@@ -10018,7 +10431,7 @@ client.paymentFeatures().bank().verify(
 </details>
 
 ## PaymentLinks SharingEvents
-<details><summary><code>client.paymentLinks.sharingEvents.list(paymentLinkId) -> PayrocPager&lt;SharingEventPaginatedList&gt;</code></summary>
+<details><summary><code>client.paymentLinks.sharingEvents.list(paymentLinkId) -> PayrocPager&amp;lt;SharingEventPaginatedList&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -10229,7 +10642,7 @@ client.paymentLinks().sharingEvents().share(
 <dl>
 <dd>
 
-**request:** `PaymentLinkEmailShareEvent` 
+**request:** `PaymentLinkEmailShareEvent` — Polymorphic object that contains information about how to share a payment link.
     
 </dd>
 </dl>
@@ -11079,7 +11492,7 @@ client.payrocCloud().signatures().retrieve(
 </details>
 
 ## RepeatPayments PaymentPlans
-<details><summary><code>client.repeatPayments.paymentPlans.list(processingTerminalId) -> PayrocPager&lt;PaymentPlanPaginatedList&gt;</code></summary>
+<details><summary><code>client.repeatPayments.paymentPlans.list(processingTerminalId) -> PayrocPager&amp;lt;PaymentPlanPaginatedList&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -11198,7 +11611,7 @@ You can’t send the after parameter in the same request as the before parameter
 
 Use this method to create a payment schedule that you can assign customers to.  
 
-**Note:** This method is part of our Repeat Payments feature. To help you understand how this method works with our Subscriptions endpoints, go to [Repeat Payments](https://docs.payroc.com/guides/integrate/repeat-payments).  
+**Note:** This method is part of our Repeat Payments feature. To help you understand how this method works with our Subscriptions endpoints, go to [Repeat Payments](https://docs.payroc.com/guides/take-payments/repeat-payments).  
 
 When you create a payment plan you need to provide a unique paymentPlanId that you use to run follow-on actions:  
 
@@ -11619,7 +12032,7 @@ client.repeatPayments().paymentPlans().partiallyUpdate(
 </details>
 
 ## RepeatPayments Subscriptions
-<details><summary><code>client.repeatPayments.subscriptions.list(processingTerminalId) -> PayrocPager&lt;SubscriptionPaginatedList&gt;</code></summary>
+<details><summary><code>client.repeatPayments.subscriptions.list(processingTerminalId) -> PayrocPager&amp;lt;SubscriptionPaginatedList&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -11810,7 +12223,7 @@ You can’t send the after parameter in the same request as the before parameter
 
 Use this method to assign a customer to a payment plan.  
 
-**Note:** This method is part of our Repeat Payments feature. To help you understand how this method works with our Payment plans endpoints, go to [Repeat Payments](https://docs.payroc.com/guides/integrate/repeat-payments).  
+**Note:** This method is part of our Repeat Payments feature. To help you understand how this method works with our Payment plans endpoints, go to [Repeat Payments](https://docs.payroc.com/guides/take-payments/repeat-payments).  
 
 When you create a subscription you need to provide a unique subscriptionId that you use to run follow-on actions:  
 
@@ -11942,7 +12355,7 @@ client.repeatPayments().subscriptions().create(
 <dl>
 <dd>
 
-**paymentMethod:** `SubscriptionRequestPaymentMethod` — Object that contains information about the customer's payment details.
+**paymentMethod:** `SubscriptionRequestPaymentMethod` — Polymorphic object that contains information about the secure token.
     
 </dd>
 </dl>
@@ -12525,7 +12938,7 @@ client.repeatPayments().subscriptions().pay(
 </details>
 
 ## Reporting Settlement
-<details><summary><code>client.reporting.settlement.listBatches() -> PayrocPager&lt;ListBatchesSettlementResponse&gt;</code></summary>
+<details><summary><code>client.reporting.settlement.listBatches() -> PayrocPager&amp;lt;ListBatchesSettlementResponse&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -12704,7 +13117,7 @@ client.reporting().settlement().retrieveBatch(
 </dl>
 </details>
 
-<details><summary><code>client.reporting.settlement.listTransactions() -> PayrocPager&lt;ListTransactionsSettlementResponse&gt;</code></summary>
+<details><summary><code>client.reporting.settlement.listTransactions() -> PayrocPager&amp;lt;ListTransactionsSettlementResponse&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -12914,7 +13327,7 @@ client.reporting().settlement().retrieveTransaction(
 </dl>
 </details>
 
-<details><summary><code>client.reporting.settlement.listAuthorizations() -> PayrocPager&lt;ListAuthorizationsSettlementResponse&gt;</code></summary>
+<details><summary><code>client.reporting.settlement.listAuthorizations() -> PayrocPager&amp;lt;ListAuthorizationsSettlementResponse&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -13111,7 +13524,7 @@ client.reporting().settlement().retrieveAuthorization(
 </dl>
 </details>
 
-<details><summary><code>client.reporting.settlement.listDisputes() -> PayrocPager&lt;ListDisputesSettlementResponse&gt;</code></summary>
+<details><summary><code>client.reporting.settlement.listDisputes() -> PayrocPager&amp;lt;ListDisputesSettlementResponse&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -13222,7 +13635,7 @@ You can’t send the after parameter in the same request as the before parameter
 </dl>
 </details>
 
-<details><summary><code>client.reporting.settlement.listDisputesStatuses(disputeId) -> List&lt;DisputeStatus&gt;</code></summary>
+<details><summary><code>client.reporting.settlement.listDisputesStatuses(disputeId) -> List&amp;lt;DisputeStatus&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -13285,7 +13698,7 @@ client.reporting().settlement().listDisputesStatuses(
 </dl>
 </details>
 
-<details><summary><code>client.reporting.settlement.listAchDeposits() -> PayrocPager&lt;ListAchDepositsSettlementResponse&gt;</code></summary>
+<details><summary><code>client.reporting.settlement.listAchDeposits() -> PayrocPager&amp;lt;ListAchDepositsSettlementResponse&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -13466,7 +13879,7 @@ client.reporting().settlement().retrieveAchDeposit(
 </dl>
 </details>
 
-<details><summary><code>client.reporting.settlement.listAchDepositFees() -> PayrocPager&lt;ListAchDepositFeesSettlementResponse&gt;</code></summary>
+<details><summary><code>client.reporting.settlement.listAchDepositFees() -> PayrocPager&amp;lt;ListAchDepositFeesSettlementResponse&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -13581,7 +13994,7 @@ You can’t send the after parameter in the same request as the before parameter
 </details>
 
 ## Tokenization SecureTokens
-<details><summary><code>client.tokenization.secureTokens.list(processingTerminalId) -> PayrocPager&lt;SecureTokenPaginatedListWithAccountType&gt;</code></summary>
+<details><summary><code>client.tokenization.secureTokens.list(processingTerminalId) -> PayrocPager&amp;lt;SecureTokenPaginatedListWithAccountType&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -13967,7 +14380,15 @@ Indicates how the merchant can use the customer's card details, as agreed by the
 <dl>
 <dd>
 
-**source:** `TokenizationRequestSource` — Object that contains information about the payment method to tokenize.
+**source:** `TokenizationRequestSource` 
+
+Polymorphic object that contains the payment method to tokenize.  
+
+The value of the type parameter determines which variant you should use:  
+-	`ach` - Automated Clearing House (ACH) details
+-	`pad` - Pre-authorized debit (PAD) details
+-	`card` - Payment card details
+-	`singleUseToken` - Single-use token details
     
 </dd>
 </dl>
@@ -13975,7 +14396,13 @@ Indicates how the merchant can use the customer's card details, as agreed by the
 <dl>
 <dd>
 
-**threeDSecure:** `Optional<TokenizationRequestThreeDSecure>` — Object that contains information for an authentication check on the customer's payment details using the 3-D Secure protocol.
+**threeDSecure:** `Optional<TokenizationRequestThreeDSecure>` 
+
+Polymorphic object that contains authentication information from 3-D Secure.  
+
+The value of the type parameter determines which variant you should use:  
+-	`gatewayThreeDSecure` - Use our gateway to run a 3-D Secure check.
+-	`thirdPartyThreeDSecure` - Use a third party to run a 3-D Secure check.
     
 </dd>
 </dl>
@@ -14292,7 +14719,7 @@ client.tokenization().secureTokens().partiallyUpdate(
 
 Use this method to update a secure token if you have a single-use token from Hosted Fields.  
 
-**Note:** If you don't have a single-use token, you can update saved payment details with our [Update Secure Token](https://docs.payroc.com/api/resources#updateSecureToken) method. For more information about our two options to update a secure token, go to [Update saved payment details](https://docs.payroc.com/guides/integrate/update-saved-payment-details).  
+**Note:** If you don't have a single-use token, you can update saved payment details with our [Update Secure Token](https://docs.payroc.com/api/resources#updateSecureToken) method. For more information about our two options to update a secure token, go to [Update saved payment details](https://docs.payroc.com/guides/take-payments/update-saved-payment-details).  
 </dd>
 </dl>
 </dd>
@@ -14484,7 +14911,14 @@ client.tokenization().singleUseTokens().create(
 <dl>
 <dd>
 
-**source:** `SingleUseTokenRequestSource` — Object that contains information about the payment method to tokenize.
+**source:** `SingleUseTokenRequestSource` 
+
+Polymorphic object that contains the payment method to tokenize.  
+
+The value of the type parameter determines which variant you should use:  
+-	`ach` - Automated Clearing House (ACH) details
+-	`pad` - Pre-authorized debit (PAD) details
+-	`card` - Payment card details
     
 </dd>
 </dl>

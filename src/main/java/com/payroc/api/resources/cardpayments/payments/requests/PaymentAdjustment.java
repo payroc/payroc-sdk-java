@@ -61,7 +61,14 @@ public final class PaymentAdjustment {
     }
 
     /**
-     * @return Array of objects that contain information about the adjustments to the payment.
+     * @return Array of polymorphic objects which contain information about adjustments to a payment.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>order</code> - Tip information.</li>
+     * <li><code>status</code> - Status of the transaction.</li>
+     * <li><code>customer</code> - Customer's contact information and shipping address.</li>
+     * <li><code>signature</code> - Customer's signature.</li>
+     * </ul>
      */
     @JsonProperty("adjustments")
     public List<PaymentAdjustmentAdjustmentsItem> getAdjustments() {
@@ -119,7 +126,14 @@ public final class PaymentAdjustment {
         _FinalStage operator(String operator);
 
         /**
-         * <p>Array of objects that contain information about the adjustments to the payment.</p>
+         * <p>Array of polymorphic objects which contain information about adjustments to a payment.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>order</code> - Tip information.</li>
+         * <li><code>status</code> - Status of the transaction.</li>
+         * <li><code>customer</code> - Customer's contact information and shipping address.</li>
+         * <li><code>signature</code> - Customer's signature.</li>
+         * </ul>
          */
         _FinalStage adjustments(List<PaymentAdjustmentAdjustmentsItem> adjustments);
 
@@ -161,7 +175,14 @@ public final class PaymentAdjustment {
         }
 
         /**
-         * <p>Array of objects that contain information about the adjustments to the payment.</p>
+         * <p>Array of polymorphic objects which contain information about adjustments to a payment.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>order</code> - Tip information.</li>
+         * <li><code>status</code> - Status of the transaction.</li>
+         * <li><code>customer</code> - Customer's contact information and shipping address.</li>
+         * <li><code>signature</code> - Customer's signature.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -173,7 +194,14 @@ public final class PaymentAdjustment {
         }
 
         /**
-         * <p>Array of objects that contain information about the adjustments to the payment.</p>
+         * <p>Array of polymorphic objects which contain information about adjustments to a payment.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>order</code> - Tip information.</li>
+         * <li><code>status</code> - Status of the transaction.</li>
+         * <li><code>customer</code> - Customer's contact information and shipping address.</li>
+         * <li><code>signature</code> - Customer's signature.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -183,7 +211,14 @@ public final class PaymentAdjustment {
         }
 
         /**
-         * <p>Array of objects that contain information about the adjustments to the payment.</p>
+         * <p>Array of polymorphic objects which contain information about adjustments to a payment.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>order</code> - Tip information.</li>
+         * <li><code>status</code> - Status of the transaction.</li>
+         * <li><code>customer</code> - Customer's contact information and shipping address.</li>
+         * <li><code>signature</code> - Customer's signature.</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "adjustments", nulls = Nulls.SKIP)

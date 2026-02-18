@@ -6,6 +6,7 @@ package com.payroc.api;
 import com.payroc.api.core.ClientOptions;
 import com.payroc.api.core.Suppliers;
 import com.payroc.api.resources.applepaysessions.AsyncApplePaySessionsClient;
+import com.payroc.api.resources.attachments.AsyncAttachmentsClient;
 import com.payroc.api.resources.auth.AsyncAuthClient;
 import com.payroc.api.resources.banktransferpayments.AsyncBankTransferPaymentsClient;
 import com.payroc.api.resources.boarding.AsyncBoardingClient;
@@ -29,6 +30,8 @@ public class AsyncPayrocApiClient {
     protected final Supplier<AsyncHostedFieldsClient> hostedFieldsClient;
 
     protected final Supplier<AsyncApplePaySessionsClient> applePaySessionsClient;
+
+    protected final Supplier<AsyncAttachmentsClient> attachmentsClient;
 
     protected final Supplier<AsyncAuthClient> authClient;
 
@@ -57,6 +60,7 @@ public class AsyncPayrocApiClient {
         this.paymentLinksClient = Suppliers.memoize(() -> new AsyncPaymentLinksClient(clientOptions));
         this.hostedFieldsClient = Suppliers.memoize(() -> new AsyncHostedFieldsClient(clientOptions));
         this.applePaySessionsClient = Suppliers.memoize(() -> new AsyncApplePaySessionsClient(clientOptions));
+        this.attachmentsClient = Suppliers.memoize(() -> new AsyncAttachmentsClient(clientOptions));
         this.authClient = Suppliers.memoize(() -> new AsyncAuthClient(clientOptions));
         this.fundingClient = Suppliers.memoize(() -> new AsyncFundingClient(clientOptions));
         this.bankTransferPaymentsClient = Suppliers.memoize(() -> new AsyncBankTransferPaymentsClient(clientOptions));
@@ -80,6 +84,10 @@ public class AsyncPayrocApiClient {
 
     public AsyncApplePaySessionsClient applePaySessions() {
         return this.applePaySessionsClient.get();
+    }
+
+    public AsyncAttachmentsClient attachments() {
+        return this.attachmentsClient.get();
     }
 
     public AsyncAuthClient auth() {

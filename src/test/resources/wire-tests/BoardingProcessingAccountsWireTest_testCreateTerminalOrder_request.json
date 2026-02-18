@@ -1,0 +1,67 @@
+{
+  "trainingProvider": "payroc",
+  "shipping": {
+    "preferences": {
+      "method": "nextDay",
+      "saturdayDelivery": true
+    },
+    "address": {
+      "recipientName": "Recipient Name",
+      "businessName": "Company Ltd",
+      "addressLine1": "1 Example Ave.",
+      "addressLine2": "Example Address Line 2",
+      "city": "Chicago",
+      "state": "Illinois",
+      "postalCode": "60056",
+      "email": "example@mail.com",
+      "phone": "2025550164"
+    }
+  },
+  "orderItems": [
+    {
+      "type": "solution",
+      "solutionTemplateId": "Roc Services_DX8000",
+      "solutionQuantity": 1,
+      "deviceCondition": "new",
+      "solutionSetup": {
+        "timezone": "America/Chicago",
+        "industryTemplateId": "Retail",
+        "gatewaySettings": {
+          "merchantPortfolioId": "Company Ltd",
+          "merchantTemplateId": "Company Ltd Merchant Template",
+          "userTemplateId": "Company Ltd User Template",
+          "terminalTemplateId": "Company Ltd Terminal Template"
+        },
+        "applicationSettings": {
+          "clerkPrompt": false,
+          "security": {
+            "refundPassword": true,
+            "keyedSalePassword": false,
+            "reversalPassword": true
+          }
+        },
+        "deviceSettings": {
+          "numberOfMobileUsers": 2,
+          "communicationType": "wifi"
+        },
+        "batchClosure": {
+          "batchCloseType": "automatic"
+        },
+        "receiptNotifications": {
+          "emailReceipt": true,
+          "smsReceipt": false
+        },
+        "taxes": [
+          {
+            "taxRate": 6,
+            "taxLabel": "Sales Tax"
+          }
+        ],
+        "tips": {
+          "enabled": false
+        },
+        "tokenization": true
+      }
+    }
+  ]
+}

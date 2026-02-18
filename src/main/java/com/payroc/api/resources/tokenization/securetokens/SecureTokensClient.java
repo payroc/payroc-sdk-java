@@ -60,6 +60,22 @@ public class SecureTokensClient {
      * </ul>
      * <p>For each secure token, we also return the secureTokenId, which you can use to perform follow-on actions.</p>
      */
+    public PayrocPager<SecureTokenWithAccountType> list(String processingTerminalId, RequestOptions requestOptions) {
+        return this.rawClient.list(processingTerminalId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of secure tokens.
+     * <p><strong>Note:</strong> If you want to view the details of a specific secure token and you have its secureTokenId, use our <a href="https://docs.payroc.com/api/schema/tokenization/secure-tokens/retrieve">Retrieve Secure Token</a> method.</p>
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for secure tokens by customer or by the first four digits of a card number.</p>
+     * <p>Our gateway returns information about the following for each secure token in the list:</p>
+     * <ul>
+     * <li>Payment details that the secure token represents.</li>
+     * <li>Customer details, including shipping and billing addresses.</li>
+     * <li>Secure token that you can use to carry out transactions.</li>
+     * </ul>
+     * <p>For each secure token, we also return the secureTokenId, which you can use to perform follow-on actions.</p>
+     */
     public PayrocPager<SecureTokenWithAccountType> list(String processingTerminalId, ListSecureTokensRequest request) {
         return this.rawClient.list(processingTerminalId, request).body();
     }
@@ -144,6 +160,24 @@ public class SecureTokensClient {
      * </ul>
      */
     public SecureTokenWithAccountType retrieve(
+            String processingTerminalId, String secureTokenId, RequestOptions requestOptions) {
+        return this.rawClient
+                .retrieve(processingTerminalId, secureTokenId, requestOptions)
+                .body();
+    }
+
+    /**
+     * Use this method to retrieve information about a secure token.
+     * <p>To retrieve a secure token, you need its secureTokenID, which you sent in the request of the <a href="https://docs.payroc.com/api/schema/tokenization/secure-tokens/create">Create Secure Token</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the secureTokenId, use our <a href="https://docs.payroc.com/api/schema/tokenization/secure-tokens/list">List Secure Tokens</a> method to search for the secure token.</p>
+     * <p>Our gateway returns the following information about the secure token:</p>
+     * <ul>
+     * <li>Payment details that the secure token represents.</li>
+     * <li>Customer details, including shipping and billing addresses.</li>
+     * <li>Secure token that you can use to carry out transactions.</li>
+     * </ul>
+     */
+    public SecureTokenWithAccountType retrieve(
             String processingTerminalId, String secureTokenId, RetrieveSecureTokensRequest request) {
         return this.rawClient
                 .retrieve(processingTerminalId, secureTokenId, request)
@@ -179,6 +213,18 @@ public class SecureTokensClient {
      */
     public void delete(String processingTerminalId, String secureTokenId) {
         this.rawClient.delete(processingTerminalId, secureTokenId).body();
+    }
+
+    /**
+     * Use this method to delete a secure token and its related payment details from our vault.
+     * <p>To delete a secure token, you need its secureTokenId, which you sent in the request of the <a href="https://docs.payroc.com/api/schema/tokenization/secure-tokens/create">Create Secure Token</a> method.</p>
+     * <p><strong>Note:</strong> If you don’t have the secureTokenId, use our <a href="https://docs.payroc.com/api/schema/tokenization/secure-tokens/list">List Secure Tokens</a> method to search for the secure token.</p>
+     * <p>When you delete a secure token, you can’t recover it, and you can’t reuse its identifier for a new token.</p>
+     */
+    public void delete(String processingTerminalId, String secureTokenId, RequestOptions requestOptions) {
+        this.rawClient
+                .delete(processingTerminalId, secureTokenId, requestOptions)
+                .body();
     }
 
     /**
@@ -296,7 +342,7 @@ public class SecureTokensClient {
 
     /**
      * Use this method to update a secure token if you have a single-use token from Hosted Fields.
-     * <p><strong>Note:</strong> If you don't have a single-use token, you can update saved payment details with our <a href="https://docs.payroc.com/api/resources#updateSecureToken">Update Secure Token</a> method. For more information about our two options to update a secure token, go to <a href="https://docs.payroc.com/guides/integrate/update-saved-payment-details">Update saved payment details</a>.</p>
+     * <p><strong>Note:</strong> If you don't have a single-use token, you can update saved payment details with our <a href="https://docs.payroc.com/api/resources#updateSecureToken">Update Secure Token</a> method. For more information about our two options to update a secure token, go to <a href="https://docs.payroc.com/guides/take-payments/update-saved-payment-details">Update saved payment details</a>.</p>
      */
     public SecureToken updateAccount(
             String processingTerminalId, String secureTokenId, UpdateAccountSecureTokensRequest request) {
@@ -307,7 +353,7 @@ public class SecureTokensClient {
 
     /**
      * Use this method to update a secure token if you have a single-use token from Hosted Fields.
-     * <p><strong>Note:</strong> If you don't have a single-use token, you can update saved payment details with our <a href="https://docs.payroc.com/api/resources#updateSecureToken">Update Secure Token</a> method. For more information about our two options to update a secure token, go to <a href="https://docs.payroc.com/guides/integrate/update-saved-payment-details">Update saved payment details</a>.</p>
+     * <p><strong>Note:</strong> If you don't have a single-use token, you can update saved payment details with our <a href="https://docs.payroc.com/api/resources#updateSecureToken">Update Secure Token</a> method. For more information about our two options to update a secure token, go to <a href="https://docs.payroc.com/guides/take-payments/update-saved-payment-details">Update saved payment details</a>.</p>
      */
     public SecureToken updateAccount(
             String processingTerminalId,

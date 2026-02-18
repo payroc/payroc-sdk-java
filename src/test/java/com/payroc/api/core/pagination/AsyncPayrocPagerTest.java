@@ -45,8 +45,8 @@ public class AsyncPayrocPagerTest {
     @Test
     void testCreateAsyncPagerWithNoLinks() throws Exception {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -69,8 +69,8 @@ public class AsyncPayrocPagerTest {
         Link nextLink = Link.builder().rel("next").method("GET").href(nextUrl).build();
 
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(1.0)
+                .limit(10)
+                .count(1)
                 .hasMore(true)
                 .data(Collections.emptyList())
                 .links(Collections.singletonList(nextLink))
@@ -95,8 +95,8 @@ public class AsyncPayrocPagerTest {
                 Link.builder().rel("previous").method("GET").href(prevUrl).build();
 
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(1.0)
+                .limit(10)
+                .count(1)
                 .hasMore(true)
                 .data(Collections.emptyList())
                 .links(Arrays.asList(prevLink, nextLink))
@@ -114,8 +114,8 @@ public class AsyncPayrocPagerTest {
     @Test
     void testNextPageAsyncThrowsWhenNoNextPage() throws Exception {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -134,8 +134,8 @@ public class AsyncPayrocPagerTest {
     @Test
     void testPreviousPageAsyncThrowsWhenNoPreviousPage() throws Exception {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -163,8 +163,8 @@ public class AsyncPayrocPagerTest {
         Link nextLink = Link.builder().rel("next").method("GET").href(nextUrl).build();
 
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(1.0)
+                .limit(10)
+                .count(1)
                 .hasMore(true)
                 .data(Collections.emptyList())
                 .links(Collections.singletonList(nextLink))
@@ -184,8 +184,8 @@ public class AsyncPayrocPagerTest {
     @Test
     void testGetAllItemsAsyncWithSinglePage() throws Exception {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -204,8 +204,8 @@ public class AsyncPayrocPagerTest {
     @Test
     void testForEachPageAsyncWithSinglePage() throws Exception {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -229,8 +229,8 @@ public class AsyncPayrocPagerTest {
     @Test
     void testForEachItemAsyncWithEmptyPage() throws Exception {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -250,8 +250,8 @@ public class AsyncPayrocPagerTest {
     @Test
     void testGetCurrentPage() throws Exception {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -281,8 +281,8 @@ public class AsyncPayrocPagerTest {
     @Test
     void testBlockingNextPageThrowsWhenNoNextPage() throws Exception {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())
@@ -298,8 +298,8 @@ public class AsyncPayrocPagerTest {
     @Test
     void testBlockingPreviousPageThrowsWhenNoPreviousPage() throws Exception {
         PaymentPaginatedListForRead response = PaymentPaginatedListForRead.builder()
-                .limit(10.0)
-                .count(0.0)
+                .limit(10)
+                .count(0)
                 .hasMore(false)
                 .data(Collections.emptyList())
                 .links(Collections.emptyList())

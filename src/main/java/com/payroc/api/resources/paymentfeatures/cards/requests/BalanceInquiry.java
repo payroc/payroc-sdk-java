@@ -78,7 +78,12 @@ public final class BalanceInquiry {
     }
 
     /**
-     * @return Object that contains information about the card.
+     * @return Polymorphic object that contains payment details.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>card</code> - Payment card details</li>
+     * <li><code>singleUseToken</code> - Single-use token details</li>
+     * </ul>
      */
     @JsonProperty("card")
     public BalanceInquiryCard getCard() {
@@ -133,7 +138,12 @@ public final class BalanceInquiry {
 
     public interface CardStage {
         /**
-         * <p>Object that contains information about the card.</p>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>singleUseToken</code> - Single-use token details</li>
+         * </ul>
          */
         _FinalStage card(@NotNull BalanceInquiryCard card);
     }
@@ -201,8 +211,18 @@ public final class BalanceInquiry {
         }
 
         /**
-         * <p>Object that contains information about the card.</p>
-         * <p>Object that contains information about the card.</p>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>singleUseToken</code> - Single-use token details</li>
+         * </ul>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>singleUseToken</code> - Single-use token details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

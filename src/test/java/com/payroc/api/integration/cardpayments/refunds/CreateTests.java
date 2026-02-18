@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test;
  */
 @Tag("integration")
 @Tag("CardPayments.Refunds")
+@Tag("Smoke")
 public class CreateTests {
 
     /**

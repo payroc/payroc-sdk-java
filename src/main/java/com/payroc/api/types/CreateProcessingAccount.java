@@ -172,13 +172,24 @@ public final class CreateProcessingAccount {
         return timezone;
     }
 
+    /**
+     * @return Polymorphic object that contains address information for the processing account.
+     */
     @JsonProperty("address")
     public Address getAddress() {
         return address;
     }
 
     /**
-     * @return Array of contactMethod objects. One contact method must be an email address.
+     * @return Array of polymorphic objects, which contain contact information.
+     * <p><strong>Note:</strong> You must provide an email address.</p>
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>email</code> - Email address</li>
+     * <li><code>phone</code> - Phone number</li>
+     * <li><code>mobile</code> - Mobile number</li>
+     * <li><code>fax</code> - Fax number.</li>
+     * </ul>
      */
     @JsonProperty("contactMethods")
     public List<ContactMethod> getContactMethods() {
@@ -325,6 +336,9 @@ public final class CreateProcessingAccount {
     }
 
     public interface AddressStage {
+        /**
+         * <p>Polymorphic object that contains address information for the processing account.</p>
+         */
         ProcessingStage address(@NotNull Address address);
     }
 
@@ -375,7 +389,15 @@ public final class CreateProcessingAccount {
         _FinalStage website(String website);
 
         /**
-         * <p>Array of contactMethod objects. One contact method must be an email address.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> You must provide an email address.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number.</li>
+         * </ul>
          */
         _FinalStage contactMethods(List<ContactMethod> contactMethods);
 
@@ -541,6 +563,11 @@ public final class CreateProcessingAccount {
             return this;
         }
 
+        /**
+         * <p>Polymorphic object that contains address information for the processing account.</p>
+         * <p>Polymorphic object that contains address information for the processing account.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("address")
         public ProcessingStage address(@NotNull Address address) {
@@ -617,7 +644,15 @@ public final class CreateProcessingAccount {
         }
 
         /**
-         * <p>Array of contactMethod objects. One contact method must be an email address.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> You must provide an email address.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -629,7 +664,15 @@ public final class CreateProcessingAccount {
         }
 
         /**
-         * <p>Array of contactMethod objects. One contact method must be an email address.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> You must provide an email address.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -639,7 +682,15 @@ public final class CreateProcessingAccount {
         }
 
         /**
-         * <p>Array of contactMethod objects. One contact method must be an email address.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p><strong>Note:</strong> You must provide an email address.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number.</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "contactMethods", nulls = Nulls.SKIP)

@@ -31,7 +31,7 @@ public final class ActivityRecord {
 
     private final String description;
 
-    private final double amount;
+    private final long amount;
 
     private final ActivityRecordType type;
 
@@ -45,7 +45,7 @@ public final class ActivityRecord {
             String merchant,
             Optional<String> recipient,
             String description,
-            double amount,
+            long amount,
             ActivityRecordType type,
             String currency,
             Map<String, Object> additionalProperties) {
@@ -105,7 +105,7 @@ public final class ActivityRecord {
      * @return Total amount that we removed or added to the merchant's funding balance. The value is in the currency’s lowest denomination, for example, cents.
      */
     @JsonProperty("amount")
-    public double getAmount() {
+    public long getAmount() {
         return amount;
     }
 
@@ -207,7 +207,7 @@ public final class ActivityRecord {
         /**
          * <p>Total amount that we removed or added to the merchant's funding balance. The value is in the currency’s lowest denomination, for example, cents.</p>
          */
-        TypeStage amount(double amount);
+        TypeStage amount(long amount);
     }
 
     public interface TypeStage {
@@ -258,7 +258,7 @@ public final class ActivityRecord {
 
         private String description;
 
-        private double amount;
+        private long amount;
 
         private ActivityRecordType type;
 
@@ -339,7 +339,7 @@ public final class ActivityRecord {
          */
         @java.lang.Override
         @JsonSetter("amount")
-        public TypeStage amount(double amount) {
+        public TypeStage amount(long amount) {
             this.amount = amount;
             return this;
         }

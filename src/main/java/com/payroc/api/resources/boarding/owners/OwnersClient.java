@@ -53,6 +53,21 @@ public class OwnersClient {
      * <li>Relationship to the business, including whether they are a control prong or authorized signatory, and their equity stake in the business.</li>
      * </ul>
      */
+    public Owner retrieve(int ownerId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(ownerId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to retrieve details about an owner of a processing account or an owner associated with a funding recipient.
+     * <p>To retrieve an owner, you need their ownerId. Our gateway returned the ownerId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method or the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create-owner">Create Funding Recipient Owner</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the ownerId, use the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/retrieve">Retrieve Processing Account</a> method if you are searching for a processing account owner, or use the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list-owners">List Funding Recipient Owners</a> method if you are searching for a funding recipient owner.</p>
+     * <p>Our gateway returns the following information about an owner:</p>
+     * <ul>
+     * <li>Name, date of birth, and address.</li>
+     * <li>Contact details, including their email address.</li>
+     * <li>Relationship to the business, including whether they are a control prong or authorized signatory, and their equity stake in the business.</li>
+     * </ul>
+     */
     public Owner retrieve(int ownerId, RetrieveOwnersRequest request) {
         return this.rawClient.retrieve(ownerId, request).body();
     }
@@ -120,6 +135,18 @@ public class OwnersClient {
      */
     public void delete(int ownerId) {
         this.rawClient.delete(ownerId).body();
+    }
+
+    /**
+     * <blockquote>
+     * <strong>Important:</strong> You can't delete an owner of a processing account.
+     * </blockquote>
+     * <p>Use this method to delete an owner associated with a funding recipient. You can delete an owner only if the funding recipient has more than one owner.</p>
+     * <p>To delete an owner, you need their ownerId. Our gateway returned the ownerId in the response of the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create">Create Funding Recipient</a> method and the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/create-owner">Create Funding Recipient Owner</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the ownerId, use the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list-owners">List Funding Recipient Owners</a> method, the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/retrieve">Retrieve Funding Recipient</a> method, or the <a href="https://docs.payroc.com/api/schema/funding/funding-recipients/list">List Funding Recipients</a> method to search for the funding recipient owner.</p>
+     */
+    public void delete(int ownerId, RequestOptions requestOptions) {
+        this.rawClient.delete(ownerId, requestOptions).body();
     }
 
     /**

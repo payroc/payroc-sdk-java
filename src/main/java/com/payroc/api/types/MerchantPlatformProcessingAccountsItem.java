@@ -78,7 +78,7 @@ public final class MerchantPlatformProcessingAccountsItem {
      * <li><code>cancelled</code> - Merchant withdrew the application for the processing account.</li>
      * <li><code>failed</code> - An error occurred while we were setting up the processing account.</li>
      * </ul>
-     * <p><strong>Note</strong>: You can subscribe to our processingAccount.status.changed event to get notifications when we change the status of a processing account. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Event Subscriptions</a>.</p>
+     * <p><strong>Note</strong>: You can subscribe to our processingAccount.status.changed event to get notifications when we change the status of a processing account. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Event Subscriptions</a>.</p>
      */
     @JsonProperty("status")
     public Optional<MerchantPlatformProcessingAccountsItemStatus> getStatus() {
@@ -165,7 +165,7 @@ public final class MerchantPlatformProcessingAccountsItem {
          * <li><code>cancelled</code> - Merchant withdrew the application for the processing account.</li>
          * <li><code>failed</code> - An error occurred while we were setting up the processing account.</li>
          * </ul>
-         * <p><strong>Note</strong>: You can subscribe to our processingAccount.status.changed event to get notifications when we change the status of a processing account. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Event Subscriptions</a>.</p>
+         * <p><strong>Note</strong>: You can subscribe to our processingAccount.status.changed event to get notifications when we change the status of a processing account. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Event Subscriptions</a>.</p>
          */
         _FinalStage status(Optional<MerchantPlatformProcessingAccountsItemStatus> status);
 
@@ -269,7 +269,7 @@ public final class MerchantPlatformProcessingAccountsItem {
          * <li><code>cancelled</code> - Merchant withdrew the application for the processing account.</li>
          * <li><code>failed</code> - An error occurred while we were setting up the processing account.</li>
          * </ul>
-         * <p><strong>Note</strong>: You can subscribe to our processingAccount.status.changed event to get notifications when we change the status of a processing account. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Event Subscriptions</a>.</p>
+         * <p><strong>Note</strong>: You can subscribe to our processingAccount.status.changed event to get notifications when we change the status of a processing account. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Event Subscriptions</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -292,7 +292,7 @@ public final class MerchantPlatformProcessingAccountsItem {
          * <li><code>cancelled</code> - Merchant withdrew the application for the processing account.</li>
          * <li><code>failed</code> - An error occurred while we were setting up the processing account.</li>
          * </ul>
-         * <p><strong>Note</strong>: You can subscribe to our processingAccount.status.changed event to get notifications when we change the status of a processing account. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Event Subscriptions</a>.</p>
+         * <p><strong>Note</strong>: You can subscribe to our processingAccount.status.changed event to get notifications when we change the status of a processing account. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Event Subscriptions</a>.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)

@@ -36,7 +36,7 @@ public class TerminalOrdersClient {
      * <li>Training provider</li>
      * <li>Shipping information</li>
      * </ul>
-     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Events Subscriptions</a>.</p>
+     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Events Subscriptions</a>.</p>
      */
     public TerminalOrder retrieve(String terminalOrderId) {
         return this.rawClient.retrieve(terminalOrderId).body();
@@ -53,7 +53,24 @@ public class TerminalOrdersClient {
      * <li>Training provider</li>
      * <li>Shipping information</li>
      * </ul>
-     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Events Subscriptions</a>.</p>
+     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Events Subscriptions</a>.</p>
+     */
+    public TerminalOrder retrieve(String terminalOrderId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(terminalOrderId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to retrieve information about a terminal order.
+     * <p>To retrieve a terminal order, you need it's terminalOrderId. Our gateway returned the terminalOrderId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/create-terminal-order">Create Terminal Order</a> method.</p>
+     * <p><strong>Note</strong>: If you don't have the terminalOrderId, use our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/list-terminal-orders">List Terminal Orders</a> method to search for the terminal order.</p>
+     * <p>Our gateway returns the following information about the terminal order:</p>
+     * <ul>
+     * <li>Status of the order</li>
+     * <li>Items in the order</li>
+     * <li>Training provider</li>
+     * <li>Shipping information</li>
+     * </ul>
+     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Events Subscriptions</a>.</p>
      */
     public TerminalOrder retrieve(String terminalOrderId, RetrieveTerminalOrdersRequest request) {
         return this.rawClient.retrieve(terminalOrderId, request).body();
@@ -70,7 +87,7 @@ public class TerminalOrdersClient {
      * <li>Training provider</li>
      * <li>Shipping information</li>
      * </ul>
-     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/integrate/event-subscriptions">Events Subscriptions</a>.</p>
+     * <p><strong>Note</strong>: You can subscribe to our terminalOrder.status.changed event to get notifications when we update the status of a terminal order. For more information about how to subscribe to events, go to <a href="https://docs.payroc.com/guides/board-merchants/event-subscriptions">Events Subscriptions</a>.</p>
      */
     public TerminalOrder retrieve(
             String terminalOrderId, RetrieveTerminalOrdersRequest request, RequestOptions requestOptions) {

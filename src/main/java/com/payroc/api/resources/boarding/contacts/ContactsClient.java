@@ -51,6 +51,20 @@ public class ContactsClient {
      * <li>Role within the business, for example, if they are a manager.</li>
      * </ul>
      */
+    public Contact retrieve(int contactId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(contactId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to retrieve details about a contact.
+     * <p>To retrieve a contact, you need its contactId. Our gateway returned the contactId in the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the contactId, use the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/list-contacts">List Contacts</a> method to search for the contact.</p>
+     * <p>Our gateway returns the following information about a contact:</p>
+     * <ul>
+     * <li>Name and contact method, including their phone number or mobile number.</li>
+     * <li>Role within the business, for example, if they are a manager.</li>
+     * </ul>
+     */
     public Contact retrieve(int contactId, RetrieveContactsRequest request) {
         return this.rawClient.retrieve(contactId, request).body();
     }
@@ -108,6 +122,15 @@ public class ContactsClient {
      */
     public void delete(int contactId) {
         this.rawClient.delete(contactId).body();
+    }
+
+    /**
+     * Use this method to delete a contact associated with a processing account.
+     * <p>To delete a contact, you need their contactId. Our gateway returned the contactId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/merchant-platforms/create-processing-account">Create Processing Account</a> method.</p>
+     * <p><strong>Note:</strong> If you don’t have the contactId, use our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/retrieve">Retrieve Processing Account</a> method or our <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/list-contacts">List Contacts</a> method to search for the contact.</p>
+     */
+    public void delete(int contactId, RequestOptions requestOptions) {
+        this.rawClient.delete(contactId, requestOptions).body();
     }
 
     /**

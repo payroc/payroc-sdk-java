@@ -108,7 +108,14 @@ public final class RetrievedCustomer {
     }
 
     /**
-     * @return Customer's contact information.
+     * @return Array of polymorphic objects, which contain contact information.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>email</code> - Email address</li>
+     * <li><code>phone</code> - Phone number</li>
+     * <li><code>mobile</code> - Mobile number</li>
+     * <li><code>fax</code> - Fax number</li>
+     * </ul>
      */
     @JsonProperty("contactMethods")
     public Optional<List<ContactMethod>> getContactMethods() {
@@ -285,7 +292,14 @@ public final class RetrievedCustomer {
         }
 
         /**
-         * <p>Customer's contact information.</p>
+         * <p>Array of polymorphic objects, which contain contact information.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>email</code> - Email address</li>
+         * <li><code>phone</code> - Phone number</li>
+         * <li><code>mobile</code> - Mobile number</li>
+         * <li><code>fax</code> - Fax number</li>
+         * </ul>
          */
         @JsonSetter(value = "contactMethods", nulls = Nulls.SKIP)
         public Builder contactMethods(Optional<List<ContactMethod>> contactMethods) {

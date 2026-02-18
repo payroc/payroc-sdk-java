@@ -69,6 +69,15 @@ public class AsyncRefundInstructionsClient {
      * <p>To retrieve a refund instruction, you need its refundInstructionId. Our gateway returned the refundInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/refund-instructions/submit">Submit Refund Instruction</a> method.</p>
      * <p>Our gateway returns the status of the refund instruction. If the payment device completed the refund instruction, the response also includes a link to the refund.</p>
      */
+    public CompletableFuture<RefundInstruction> retrieve(String refundInstructionId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(refundInstructionId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to retrieve information about a refund instruction.
+     * <p>To retrieve a refund instruction, you need its refundInstructionId. Our gateway returned the refundInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/refund-instructions/submit">Submit Refund Instruction</a> method.</p>
+     * <p>Our gateway returns the status of the refund instruction. If the payment device completed the refund instruction, the response also includes a link to the refund.</p>
+     */
     public CompletableFuture<RefundInstruction> retrieve(
             String refundInstructionId, RetrieveRefundInstructionsRequest request) {
         return this.rawClient.retrieve(refundInstructionId, request).thenApply(response -> response.body());
@@ -93,6 +102,15 @@ public class AsyncRefundInstructionsClient {
      */
     public CompletableFuture<Void> delete(String refundInstructionId) {
         return this.rawClient.delete(refundInstructionId).thenApply(response -> response.body());
+    }
+
+    /**
+     * Use this method to cancel a refund instruction.
+     * <p>You can cancel a refund instruction only if its status is <code>inProgress</code>. To retrieve the status of a refund instruction, use our <a href="https://docs.payroc.com/api/schema/payroc-cloud/refund-instructions/retrieve">Retrieve Refund Instruction</a> method.</p>
+     * <p>To cancel a refund instruction, you need its refundInstructionId. Our gateway returned the refundInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/refund-instructions/submit">Submit Refund Instruction</a> method.</p>
+     */
+    public CompletableFuture<Void> delete(String refundInstructionId, RequestOptions requestOptions) {
+        return this.rawClient.delete(refundInstructionId, requestOptions).thenApply(response -> response.body());
     }
 
     /**

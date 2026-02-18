@@ -143,7 +143,14 @@ public final class PaymentRequest {
     }
 
     /**
-     * @return Object that contains information about the customer's payment details.
+     * @return Polymorphic object that contains payment details.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>card</code> - Payment card details</li>
+     * <li><code>secureToken</code> - Secure token details</li>
+     * <li><code>digitalWallet</code> - Digital wallet details</li>
+     * <li><code>singleUseToken</code> - Single-use token details</li>
+     * </ul>
      */
     @JsonProperty("paymentMethod")
     public PaymentRequestPaymentMethod getPaymentMethod() {
@@ -151,7 +158,12 @@ public final class PaymentRequest {
     }
 
     /**
-     * @return Object that contains information for an authentication check on the customer's payment details using the 3-D Secure protocol.
+     * @return Polymorphic object that contains authentication information from 3-D Secure.
+     * <p>The value of the serviceProvider parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>gateway</code> - Use our gateway to run a 3-D Secure check.</li>
+     * <li><code>thirdParty</code> - Use a third party to run a 3-D Secure check.</li>
+     * </ul>
      */
     @JsonProperty("threeDSecure")
     public Optional<PaymentRequestThreeDSecure> getThreeDSecure() {
@@ -283,7 +295,14 @@ public final class PaymentRequest {
 
     public interface PaymentMethodStage {
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * <li><code>digitalWallet</code> - Digital wallet details</li>
+         * <li><code>singleUseToken</code> - Single-use token details</li>
+         * </ul>
          */
         _FinalStage paymentMethod(@NotNull PaymentRequestPaymentMethod paymentMethod);
     }
@@ -307,7 +326,12 @@ public final class PaymentRequest {
         _FinalStage ipAddress(IpAddress ipAddress);
 
         /**
-         * <p>Object that contains information for an authentication check on the customer's payment details using the 3-D Secure protocol.</p>
+         * <p>Polymorphic object that contains authentication information from 3-D Secure.</p>
+         * <p>The value of the serviceProvider parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>gateway</code> - Use our gateway to run a 3-D Secure check.</li>
+         * <li><code>thirdParty</code> - Use a third party to run a 3-D Secure check.</li>
+         * </ul>
          */
         _FinalStage threeDSecure(Optional<PaymentRequestThreeDSecure> threeDSecure);
 
@@ -453,8 +477,22 @@ public final class PaymentRequest {
         }
 
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * <li><code>digitalWallet</code> - Digital wallet details</li>
+         * <li><code>singleUseToken</code> - Single-use token details</li>
+         * </ul>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * <li><code>digitalWallet</code> - Digital wallet details</li>
+         * <li><code>singleUseToken</code> - Single-use token details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -563,7 +601,12 @@ public final class PaymentRequest {
         }
 
         /**
-         * <p>Object that contains information for an authentication check on the customer's payment details using the 3-D Secure protocol.</p>
+         * <p>Polymorphic object that contains authentication information from 3-D Secure.</p>
+         * <p>The value of the serviceProvider parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>gateway</code> - Use our gateway to run a 3-D Secure check.</li>
+         * <li><code>thirdParty</code> - Use a third party to run a 3-D Secure check.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -573,7 +616,12 @@ public final class PaymentRequest {
         }
 
         /**
-         * <p>Object that contains information for an authentication check on the customer's payment details using the 3-D Secure protocol.</p>
+         * <p>Polymorphic object that contains authentication information from 3-D Secure.</p>
+         * <p>The value of the serviceProvider parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>gateway</code> - Use our gateway to run a 3-D Secure check.</li>
+         * <li><code>thirdParty</code> - Use a third party to run a 3-D Secure check.</li>
+         * </ul>
          */
         @java.lang.Override
         @JsonSetter(value = "threeDSecure", nulls = Nulls.SKIP)

@@ -113,6 +113,22 @@ public class RefundsClient {
      * </ul>
      * <p>For referenced refunds, our gateway also returns details about the payment that the refund is linked to.</p>
      */
+    public PayrocPager<RetrievedRefund> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of refunds.
+     * <p><strong>Note:</strong> If you want to view the details of a specific refund and you have its refundId, use our <a href="https://docs.payroc.com/api/schema/card-payments/refunds/retrieve">Retrieve Refund</a> method.</p>
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for refunds for a customer, a tender type, or a date range.
+     * Our gateway returns the following information about each refund in the list:</p>
+     * <ul>
+     * <li>Order details, including the refund amount and when we processed the refund.</li>
+     * <li>Payment card details, including the masked card number, expiry date, and payment method.</li>
+     * <li>Cardholder details, including their contact information and shipping address.</li>
+     * </ul>
+     * <p>For referenced refunds, our gateway also returns details about the payment that the refund is linked to.</p>
+     */
     public PayrocPager<RetrievedRefund> list(ListRefundsRequest request) {
         return this.rawClient.list(request).body();
     }
@@ -177,6 +193,22 @@ public class RefundsClient {
      */
     public RetrievedRefund retrieve(String refundId) {
         return this.rawClient.retrieve(refundId).body();
+    }
+
+    /**
+     * Use this method to retrieve information about a refund.
+     * <p>To retrieve a refund, you need its refundId. Our gateway returned the refundId in the response of the <a href="https://docs.payroc.com/api/schema/card-payments/refunds/create-referenced-refund">Refund Payment</a> method or the <a href="https://docs.payroc.com/api/schema/card-payments/refunds/create-unreferenced-refund">Create Refund</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the refundId, use our <a href="https://docs.payroc.com/api/schema/card-payments/refunds/list">List Refunds</a> method to search for the refund.</p>
+     * <p>Our gateway returns the following information about the refund:</p>
+     * <ul>
+     * <li>Order details, including the refund amount and when we processed the refund.</li>
+     * <li>Payment card details, including the masked card number, expiry date, and payment method.</li>
+     * <li>Cardholder details, including their contact information and shipping address.</li>
+     * </ul>
+     * <p>If the refund is a referenced refund, our gateway also returns details about the payment that the refund is linked to.</p>
+     */
+    public RetrievedRefund retrieve(String refundId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(refundId, requestOptions).body();
     }
 
     /**

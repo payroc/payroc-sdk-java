@@ -84,6 +84,23 @@ public class RawSecureTokensClient {
      * <p>For each secure token, we also return the secureTokenId, which you can use to perform follow-on actions.</p>
      */
     public PayrocApiHttpResponse<PayrocPager<SecureTokenWithAccountType>> list(
+            String processingTerminalId, RequestOptions requestOptions) {
+        return list(processingTerminalId, ListSecureTokensRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Use this method to return a <a href="https://docs.payroc.com/api/pagination">paginated</a> list of secure tokens.
+     * <p><strong>Note:</strong> If you want to view the details of a specific secure token and you have its secureTokenId, use our <a href="https://docs.payroc.com/api/schema/tokenization/secure-tokens/retrieve">Retrieve Secure Token</a> method.</p>
+     * <p>Use query parameters to filter the list of results that we return, for example, to search for secure tokens by customer or by the first four digits of a card number.</p>
+     * <p>Our gateway returns information about the following for each secure token in the list:</p>
+     * <ul>
+     * <li>Payment details that the secure token represents.</li>
+     * <li>Customer details, including shipping and billing addresses.</li>
+     * <li>Secure token that you can use to carry out transactions.</li>
+     * </ul>
+     * <p>For each secure token, we also return the secureTokenId, which you can use to perform follow-on actions.</p>
+     */
+    public PayrocApiHttpResponse<PayrocPager<SecureTokenWithAccountType>> list(
             String processingTerminalId, ListSecureTokensRequest request) {
         return list(processingTerminalId, request, null);
     }
@@ -146,6 +163,11 @@ public class RawSecureTokensClient {
         if (request.getLimit().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "limit", request.getLimit().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -227,12 +249,16 @@ public class RawSecureTokensClient {
      */
     public PayrocApiHttpResponse<SecureToken> create(
             String processingTerminalId, TokenizationRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
-                .addPathSegments("secure-tokens")
-                .build();
+                .addPathSegments("secure-tokens");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -241,7 +267,7 @@ public class RawSecureTokensClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -329,6 +355,26 @@ public class RawSecureTokensClient {
      * </ul>
      */
     public PayrocApiHttpResponse<SecureTokenWithAccountType> retrieve(
+            String processingTerminalId, String secureTokenId, RequestOptions requestOptions) {
+        return retrieve(
+                processingTerminalId,
+                secureTokenId,
+                RetrieveSecureTokensRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to retrieve information about a secure token.
+     * <p>To retrieve a secure token, you need its secureTokenID, which you sent in the request of the <a href="https://docs.payroc.com/api/schema/tokenization/secure-tokens/create">Create Secure Token</a> method.</p>
+     * <p><strong>Note:</strong> If you don't have the secureTokenId, use our <a href="https://docs.payroc.com/api/schema/tokenization/secure-tokens/list">List Secure Tokens</a> method to search for the secure token.</p>
+     * <p>Our gateway returns the following information about the secure token:</p>
+     * <ul>
+     * <li>Payment details that the secure token represents.</li>
+     * <li>Customer details, including shipping and billing addresses.</li>
+     * <li>Secure token that you can use to carry out transactions.</li>
+     * </ul>
+     */
+    public PayrocApiHttpResponse<SecureTokenWithAccountType> retrieve(
             String processingTerminalId, String secureTokenId, RetrieveSecureTokensRequest request) {
         return retrieve(processingTerminalId, secureTokenId, request, null);
     }
@@ -349,15 +395,19 @@ public class RawSecureTokensClient {
             String secureTokenId,
             RetrieveSecureTokensRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
                 .addPathSegments("secure-tokens")
-                .addPathSegment(secureTokenId)
-                .build();
+                .addPathSegment(secureTokenId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -429,6 +479,21 @@ public class RawSecureTokensClient {
      * <p>When you delete a secure token, you can’t recover it, and you can’t reuse its identifier for a new token.</p>
      */
     public PayrocApiHttpResponse<Void> delete(
+            String processingTerminalId, String secureTokenId, RequestOptions requestOptions) {
+        return delete(
+                processingTerminalId,
+                secureTokenId,
+                DeleteSecureTokensRequest.builder().build(),
+                requestOptions);
+    }
+
+    /**
+     * Use this method to delete a secure token and its related payment details from our vault.
+     * <p>To delete a secure token, you need its secureTokenId, which you sent in the request of the <a href="https://docs.payroc.com/api/schema/tokenization/secure-tokens/create">Create Secure Token</a> method.</p>
+     * <p><strong>Note:</strong> If you don’t have the secureTokenId, use our <a href="https://docs.payroc.com/api/schema/tokenization/secure-tokens/list">List Secure Tokens</a> method to search for the secure token.</p>
+     * <p>When you delete a secure token, you can’t recover it, and you can’t reuse its identifier for a new token.</p>
+     */
+    public PayrocApiHttpResponse<Void> delete(
             String processingTerminalId, String secureTokenId, DeleteSecureTokensRequest request) {
         return delete(processingTerminalId, secureTokenId, request, null);
     }
@@ -444,15 +509,19 @@ public class RawSecureTokensClient {
             String secureTokenId,
             DeleteSecureTokensRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
                 .addPathSegments("secure-tokens")
-                .addPathSegment(secureTokenId)
-                .build();
+                .addPathSegment(secureTokenId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -578,13 +647,17 @@ public class RawSecureTokensClient {
             String secureTokenId,
             PartiallyUpdateSecureTokensRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
                 .addPathSegments("secure-tokens")
-                .addPathSegment(secureTokenId)
-                .build();
+                .addPathSegment(secureTokenId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -593,7 +666,7 @@ public class RawSecureTokensClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PATCH", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -656,7 +729,7 @@ public class RawSecureTokensClient {
 
     /**
      * Use this method to update a secure token if you have a single-use token from Hosted Fields.
-     * <p><strong>Note:</strong> If you don't have a single-use token, you can update saved payment details with our <a href="https://docs.payroc.com/api/resources#updateSecureToken">Update Secure Token</a> method. For more information about our two options to update a secure token, go to <a href="https://docs.payroc.com/guides/integrate/update-saved-payment-details">Update saved payment details</a>.</p>
+     * <p><strong>Note:</strong> If you don't have a single-use token, you can update saved payment details with our <a href="https://docs.payroc.com/api/resources#updateSecureToken">Update Secure Token</a> method. For more information about our two options to update a secure token, go to <a href="https://docs.payroc.com/guides/take-payments/update-saved-payment-details">Update saved payment details</a>.</p>
      */
     public PayrocApiHttpResponse<SecureToken> updateAccount(
             String processingTerminalId, String secureTokenId, UpdateAccountSecureTokensRequest request) {
@@ -665,21 +738,25 @@ public class RawSecureTokensClient {
 
     /**
      * Use this method to update a secure token if you have a single-use token from Hosted Fields.
-     * <p><strong>Note:</strong> If you don't have a single-use token, you can update saved payment details with our <a href="https://docs.payroc.com/api/resources#updateSecureToken">Update Secure Token</a> method. For more information about our two options to update a secure token, go to <a href="https://docs.payroc.com/guides/integrate/update-saved-payment-details">Update saved payment details</a>.</p>
+     * <p><strong>Note:</strong> If you don't have a single-use token, you can update saved payment details with our <a href="https://docs.payroc.com/api/resources#updateSecureToken">Update Secure Token</a> method. For more information about our two options to update a secure token, go to <a href="https://docs.payroc.com/guides/take-payments/update-saved-payment-details">Update saved payment details</a>.</p>
      */
     public PayrocApiHttpResponse<SecureToken> updateAccount(
             String processingTerminalId,
             String secureTokenId,
             UpdateAccountSecureTokensRequest request,
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
                 .addPathSegments("processing-terminals")
                 .addPathSegment(processingTerminalId)
                 .addPathSegments("secure-tokens")
                 .addPathSegment(secureTokenId)
-                .addPathSegments("update-account")
-                .build();
+                .addPathSegments("update-account");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -688,7 +765,7 @@ public class RawSecureTokensClient {
             throw new RuntimeException(e);
         }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

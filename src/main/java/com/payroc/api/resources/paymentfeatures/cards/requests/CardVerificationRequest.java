@@ -81,7 +81,7 @@ public final class CardVerificationRequest {
     }
 
     /**
-     * @return Object that contains information about the card.
+     * @return Polymorphic object that contains payment details.
      */
     @JsonProperty("card")
     public CardVerificationRequestCard getCard() {
@@ -139,7 +139,7 @@ public final class CardVerificationRequest {
 
     public interface CardStage {
         /**
-         * <p>Object that contains information about the card.</p>
+         * <p>Polymorphic object that contains payment details.</p>
          */
         _FinalStage card(@NotNull CardVerificationRequestCard card);
     }
@@ -212,8 +212,8 @@ public final class CardVerificationRequest {
         }
 
         /**
-         * <p>Object that contains information about the card.</p>
-         * <p>Object that contains information about the card.</p>
+         * <p>Polymorphic object that contains payment details.</p>
+         * <p>Polymorphic object that contains payment details.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

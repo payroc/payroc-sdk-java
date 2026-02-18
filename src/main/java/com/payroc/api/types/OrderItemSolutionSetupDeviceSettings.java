@@ -20,14 +20,14 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = OrderItemSolutionSetupDeviceSettings.Builder.class)
 public final class OrderItemSolutionSetupDeviceSettings {
-    private final Optional<Float> numberOfMobileUsers;
+    private final Optional<Integer> numberOfMobileUsers;
 
     private final Optional<OrderItemSolutionSetupDeviceSettingsCommunicationType> communicationType;
 
     private final Map<String, Object> additionalProperties;
 
     private OrderItemSolutionSetupDeviceSettings(
-            Optional<Float> numberOfMobileUsers,
+            Optional<Integer> numberOfMobileUsers,
             Optional<OrderItemSolutionSetupDeviceSettingsCommunicationType> communicationType,
             Map<String, Object> additionalProperties) {
         this.numberOfMobileUsers = numberOfMobileUsers;
@@ -39,7 +39,7 @@ public final class OrderItemSolutionSetupDeviceSettings {
      * @return Number of users that we need to set up for mobile solutions.
      */
     @JsonProperty("numberOfMobileUsers")
-    public Optional<Float> getNumberOfMobileUsers() {
+    public Optional<Integer> getNumberOfMobileUsers() {
         return numberOfMobileUsers;
     }
 
@@ -84,7 +84,7 @@ public final class OrderItemSolutionSetupDeviceSettings {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<Float> numberOfMobileUsers = Optional.empty();
+        private Optional<Integer> numberOfMobileUsers = Optional.empty();
 
         private Optional<OrderItemSolutionSetupDeviceSettingsCommunicationType> communicationType = Optional.empty();
 
@@ -103,12 +103,12 @@ public final class OrderItemSolutionSetupDeviceSettings {
          * <p>Number of users that we need to set up for mobile solutions.</p>
          */
         @JsonSetter(value = "numberOfMobileUsers", nulls = Nulls.SKIP)
-        public Builder numberOfMobileUsers(Optional<Float> numberOfMobileUsers) {
+        public Builder numberOfMobileUsers(Optional<Integer> numberOfMobileUsers) {
             this.numberOfMobileUsers = numberOfMobileUsers;
             return this;
         }
 
-        public Builder numberOfMobileUsers(Float numberOfMobileUsers) {
+        public Builder numberOfMobileUsers(Integer numberOfMobileUsers) {
             this.numberOfMobileUsers = Optional.ofNullable(numberOfMobileUsers);
             return this;
         }

@@ -30,7 +30,7 @@ public class AsyncHostedFieldsClient {
      * Use this method to create a Hosted Fields session token. You need to generate a new session token each time you load Hosted Fields on a webpage.
      * <p>In your request, you need to indicate whether the merchant is using Hosted Fields to run a sale, save payment details, or update saved payment details.</p>
      * <p>In the response, our gateway returns the session token and the time that it expires. You need the session token when you configure the JavaScript for Hosted Fields.</p>
-     * <p>For more information about adding Hosted Fields to a webpage, go to <a href="https://docs.payroc.com/guides/integrate/hosted-fields">Hosted Fields</a>.</p>
+     * <p>For more information about adding Hosted Fields to a webpage, go to <a href="https://docs.payroc.com/guides/take-payments/hosted-fields">Hosted Fields</a>.</p>
      */
     public CompletableFuture<HostedFieldsCreateSessionResponse> create(
             String processingTerminalId, HostedFieldsCreateSessionRequest request) {
@@ -41,7 +41,7 @@ public class AsyncHostedFieldsClient {
      * Use this method to create a Hosted Fields session token. You need to generate a new session token each time you load Hosted Fields on a webpage.
      * <p>In your request, you need to indicate whether the merchant is using Hosted Fields to run a sale, save payment details, or update saved payment details.</p>
      * <p>In the response, our gateway returns the session token and the time that it expires. You need the session token when you configure the JavaScript for Hosted Fields.</p>
-     * <p>For more information about adding Hosted Fields to a webpage, go to <a href="https://docs.payroc.com/guides/integrate/hosted-fields">Hosted Fields</a>.</p>
+     * <p>For more information about adding Hosted Fields to a webpage, go to <a href="https://docs.payroc.com/guides/take-payments/hosted-fields">Hosted Fields</a>.</p>
      */
     public CompletableFuture<HostedFieldsCreateSessionResponse> create(
             String processingTerminalId, HostedFieldsCreateSessionRequest request, RequestOptions requestOptions) {

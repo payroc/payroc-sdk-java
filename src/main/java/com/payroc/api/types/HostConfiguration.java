@@ -57,7 +57,7 @@ public final class HostConfiguration {
     }
 
     /**
-     * @return Object that contains the host processor configuration.
+     * @return Polymorphic object that contains the host processor configuration.
      */
     @JsonProperty("configuration")
     public HostConfigurationConfiguration getConfiguration() {
@@ -106,7 +106,7 @@ public final class HostConfiguration {
 
     public interface ConfigurationStage {
         /**
-         * <p>Object that contains the host processor configuration.</p>
+         * <p>Polymorphic object that contains the host processor configuration.</p>
          */
         _FinalStage configuration(@NotNull HostConfigurationConfiguration configuration);
     }
@@ -157,8 +157,8 @@ public final class HostConfiguration {
         }
 
         /**
-         * <p>Object that contains the host processor configuration.</p>
-         * <p>Object that contains the host processor configuration.</p>
+         * <p>Polymorphic object that contains the host processor configuration.</p>
+         * <p>Polymorphic object that contains the host processor configuration.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

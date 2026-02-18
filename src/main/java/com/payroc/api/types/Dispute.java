@@ -37,9 +37,9 @@ public final class Dispute {
 
     private final Optional<String> referenceNumber;
 
-    private final Optional<Integer> disputeAmount;
+    private final Optional<Long> disputeAmount;
 
-    private final Optional<Integer> feeAmount;
+    private final Optional<Long> feeAmount;
 
     private final Optional<Boolean> firstDispute;
 
@@ -64,8 +64,8 @@ public final class Dispute {
             Optional<LocalDate> receivedDate,
             Optional<String> description,
             Optional<String> referenceNumber,
-            Optional<Integer> disputeAmount,
-            Optional<Integer> feeAmount,
+            Optional<Long> disputeAmount,
+            Optional<Long> feeAmount,
             Optional<Boolean> firstDispute,
             Optional<String> authorizationCode,
             Optional<String> currency,
@@ -160,7 +160,7 @@ public final class Dispute {
      * @return Dispute amount. We return the value in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("disputeAmount")
-    public Optional<Integer> getDisputeAmount() {
+    public Optional<Long> getDisputeAmount() {
         return disputeAmount;
     }
 
@@ -168,7 +168,7 @@ public final class Dispute {
      * @return Value of the fees for the dispute. We return the value in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("feeAmount")
-    public Optional<Integer> getFeeAmount() {
+    public Optional<Long> getFeeAmount() {
         return feeAmount;
     }
 
@@ -289,9 +289,9 @@ public final class Dispute {
 
         private Optional<String> referenceNumber = Optional.empty();
 
-        private Optional<Integer> disputeAmount = Optional.empty();
+        private Optional<Long> disputeAmount = Optional.empty();
 
-        private Optional<Integer> feeAmount = Optional.empty();
+        private Optional<Long> feeAmount = Optional.empty();
 
         private Optional<Boolean> firstDispute = Optional.empty();
 
@@ -446,12 +446,12 @@ public final class Dispute {
          * <p>Dispute amount. We return the value in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "disputeAmount", nulls = Nulls.SKIP)
-        public Builder disputeAmount(Optional<Integer> disputeAmount) {
+        public Builder disputeAmount(Optional<Long> disputeAmount) {
             this.disputeAmount = disputeAmount;
             return this;
         }
 
-        public Builder disputeAmount(Integer disputeAmount) {
+        public Builder disputeAmount(Long disputeAmount) {
             this.disputeAmount = Optional.ofNullable(disputeAmount);
             return this;
         }
@@ -460,12 +460,12 @@ public final class Dispute {
          * <p>Value of the fees for the dispute. We return the value in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "feeAmount", nulls = Nulls.SKIP)
-        public Builder feeAmount(Optional<Integer> feeAmount) {
+        public Builder feeAmount(Optional<Long> feeAmount) {
             this.feeAmount = feeAmount;
             return this;
         }
 
-        public Builder feeAmount(Integer feeAmount) {
+        public Builder feeAmount(Long feeAmount) {
             this.feeAmount = Optional.ofNullable(feeAmount);
             return this;
         }

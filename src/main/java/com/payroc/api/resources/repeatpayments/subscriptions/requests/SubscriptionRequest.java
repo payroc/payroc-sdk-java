@@ -112,7 +112,7 @@ public final class SubscriptionRequest {
     }
 
     /**
-     * @return Object that contains information about the customer's payment details.
+     * @return Polymorphic object that contains information about the secure token.
      */
     @JsonProperty("paymentMethod")
     public SubscriptionRequestPaymentMethod getPaymentMethod() {
@@ -274,7 +274,7 @@ public final class SubscriptionRequest {
 
     public interface PaymentMethodStage {
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains information about the secure token.</p>
          */
         StartDateStage paymentMethod(@NotNull SubscriptionRequestPaymentMethod paymentMethod);
     }
@@ -443,8 +443,8 @@ public final class SubscriptionRequest {
         }
 
         /**
-         * <p>Object that contains information about the customer's payment details.</p>
-         * <p>Object that contains information about the customer's payment details.</p>
+         * <p>Polymorphic object that contains information about the secure token.</p>
+         * <p>Polymorphic object that contains information about the secure token.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

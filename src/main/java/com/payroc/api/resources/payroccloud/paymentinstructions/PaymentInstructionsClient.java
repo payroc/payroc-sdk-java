@@ -68,6 +68,15 @@ public class PaymentInstructionsClient {
      * <p>To retrieve a payment instruction, you need its paymentInstructionId. Our gateway returned the paymentInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/submit">Submit Payment Instruction</a> method.</p>
      * <p>Our gateway returns the status of the payment instruction. If the payment device completed the payment instruction, the response also includes a link to the payment.</p>
      */
+    public PaymentInstruction retrieve(String paymentInstructionId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(paymentInstructionId, requestOptions).body();
+    }
+
+    /**
+     * Use this method to retrieve information about a payment instruction.
+     * <p>To retrieve a payment instruction, you need its paymentInstructionId. Our gateway returned the paymentInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/submit">Submit Payment Instruction</a> method.</p>
+     * <p>Our gateway returns the status of the payment instruction. If the payment device completed the payment instruction, the response also includes a link to the payment.</p>
+     */
     public PaymentInstruction retrieve(String paymentInstructionId, RetrievePaymentInstructionsRequest request) {
         return this.rawClient.retrieve(paymentInstructionId, request).body();
     }
@@ -91,6 +100,15 @@ public class PaymentInstructionsClient {
      */
     public void delete(String paymentInstructionId) {
         this.rawClient.delete(paymentInstructionId).body();
+    }
+
+    /**
+     * Use this method to cancel a payment instruction.
+     * <p>You can cancel a payment instruction only if its status is <code>inProgress</code>. To retrieve the status of a payment instruction, use our <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/retrieve">Retrieve Payment Instruction</a> method.</p>
+     * <p>To cancel a payment instruction, you need its paymentInstructionId. Our gateway returned the paymentInstructionId in the response of the <a href="https://docs.payroc.com/api/schema/payroc-cloud/payment-instructions/submit">Submit Payment Instruction</a> method.</p>
+     */
+    public void delete(String paymentInstructionId, RequestOptions requestOptions) {
+        this.rawClient.delete(paymentInstructionId, requestOptions).body();
     }
 
     /**

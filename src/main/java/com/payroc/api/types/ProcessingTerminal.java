@@ -110,7 +110,7 @@ public final class ProcessingTerminal {
     }
 
     /**
-     * @return Object that contains the gateway settings for the solution.
+     * @return Polymorphic object that contains the gateway settings for the solution.
      */
     @JsonProperty("gateway")
     public Optional<PayrocGateway> getGateway() {
@@ -118,7 +118,12 @@ public final class ProcessingTerminal {
     }
 
     /**
-     * @return Object that contains information about when and how the terminal closes the batch.
+     * @return Polymorphic object that contains information about when and how the terminal closes the batch.
+     * <p>The value of the batchCloseType field determines which variant you should use:</p>
+     * <ul>
+     * <li><code>automatic</code> - Terminal automatically closes the batch at a specific time each day.</li>
+     * <li><code>manual</code> - Merchant uses the terminal to manually close the batch.</li>
+     * </ul>
      */
     @JsonProperty("batchClosure")
     public ProcessingTerminalBatchClosure getBatchClosure() {
@@ -250,7 +255,12 @@ public final class ProcessingTerminal {
 
     public interface BatchClosureStage {
         /**
-         * <p>Object that contains information about when and how the terminal closes the batch.</p>
+         * <p>Polymorphic object that contains information about when and how the terminal closes the batch.</p>
+         * <p>The value of the batchCloseType field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>automatic</code> - Terminal automatically closes the batch at a specific time each day.</li>
+         * <li><code>manual</code> - Merchant uses the terminal to manually close the batch.</li>
+         * </ul>
          */
         ApplicationSettingsStage batchClosure(@NotNull ProcessingTerminalBatchClosure batchClosure);
     }
@@ -280,7 +290,7 @@ public final class ProcessingTerminal {
         _FinalStage program(String program);
 
         /**
-         * <p>Object that contains the gateway settings for the solution.</p>
+         * <p>Polymorphic object that contains the gateway settings for the solution.</p>
          */
         _FinalStage gateway(Optional<PayrocGateway> gateway);
 
@@ -408,8 +418,18 @@ public final class ProcessingTerminal {
         }
 
         /**
-         * <p>Object that contains information about when and how the terminal closes the batch.</p>
-         * <p>Object that contains information about when and how the terminal closes the batch.</p>
+         * <p>Polymorphic object that contains information about when and how the terminal closes the batch.</p>
+         * <p>The value of the batchCloseType field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>automatic</code> - Terminal automatically closes the batch at a specific time each day.</li>
+         * <li><code>manual</code> - Merchant uses the terminal to manually close the batch.</li>
+         * </ul>
+         * <p>Polymorphic object that contains information about when and how the terminal closes the batch.</p>
+         * <p>The value of the batchCloseType field determines which variant you should use:</p>
+         * <ul>
+         * <li><code>automatic</code> - Terminal automatically closes the batch at a specific time each day.</li>
+         * <li><code>manual</code> - Merchant uses the terminal to manually close the batch.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -525,7 +545,7 @@ public final class ProcessingTerminal {
         }
 
         /**
-         * <p>Object that contains the gateway settings for the solution.</p>
+         * <p>Polymorphic object that contains the gateway settings for the solution.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -535,7 +555,7 @@ public final class ProcessingTerminal {
         }
 
         /**
-         * <p>Object that contains the gateway settings for the solution.</p>
+         * <p>Polymorphic object that contains the gateway settings for the solution.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "gateway", nulls = Nulls.SKIP)

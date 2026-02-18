@@ -120,7 +120,12 @@ public final class UnreferencedRefund {
     }
 
     /**
-     * @return Object that contains information about how the merchant refunds the customer.
+     * @return Polymorphic object that contains information about the payment method that the merchant uses to refund the customer.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>card</code> - Payment card details</li>
+     * <li><code>secureToken</code> - Secure token details</li>
+     * </ul>
      */
     @JsonProperty("refundMethod")
     public UnreferencedRefundRefundMethod getRefundMethod() {
@@ -210,7 +215,12 @@ public final class UnreferencedRefund {
 
     public interface RefundMethodStage {
         /**
-         * <p>Object that contains information about how the merchant refunds the customer.</p>
+         * <p>Polymorphic object that contains information about the payment method that the merchant uses to refund the customer.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * </ul>
          */
         _FinalStage refundMethod(@NotNull UnreferencedRefundRefundMethod refundMethod);
     }
@@ -330,8 +340,18 @@ public final class UnreferencedRefund {
         }
 
         /**
-         * <p>Object that contains information about how the merchant refunds the customer.</p>
-         * <p>Object that contains information about how the merchant refunds the customer.</p>
+         * <p>Polymorphic object that contains information about the payment method that the merchant uses to refund the customer.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * </ul>
+         * <p>Polymorphic object that contains information about the payment method that the merchant uses to refund the customer.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>card</code> - Payment card details</li>
+         * <li><code>secureToken</code> - Secure token details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -72,7 +72,13 @@ public final class SingleUseTokenRequest {
     }
 
     /**
-     * @return Object that contains information about the payment method to tokenize.
+     * @return Polymorphic object that contains the payment method to tokenize.
+     * <p>The value of the type parameter determines which variant you should use:</p>
+     * <ul>
+     * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+     * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+     * <li><code>card</code> - Payment card details</li>
+     * </ul>
      */
     @JsonProperty("source")
     public SingleUseTokenRequestSource getSource() {
@@ -129,7 +135,13 @@ public final class SingleUseTokenRequest {
 
     public interface SourceStage {
         /**
-         * <p>Object that contains information about the payment method to tokenize.</p>
+         * <p>Polymorphic object that contains the payment method to tokenize.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>card</code> - Payment card details</li>
+         * </ul>
          */
         _FinalStage source(@NotNull SingleUseTokenRequestSource source);
     }
@@ -193,8 +205,20 @@ public final class SingleUseTokenRequest {
         }
 
         /**
-         * <p>Object that contains information about the payment method to tokenize.</p>
-         * <p>Object that contains information about the payment method to tokenize.</p>
+         * <p>Polymorphic object that contains the payment method to tokenize.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>card</code> - Payment card details</li>
+         * </ul>
+         * <p>Polymorphic object that contains the payment method to tokenize.</p>
+         * <p>The value of the type parameter determines which variant you should use:</p>
+         * <ul>
+         * <li><code>ach</code> - Automated Clearing House (ACH) details</li>
+         * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
+         * <li><code>card</code> - Payment card details</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

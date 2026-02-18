@@ -29,7 +29,7 @@ public final class TransactionSummary {
 
     private final Optional<TransactionSummaryEntryMethod> entryMethod;
 
-    private final Optional<Integer> amount;
+    private final Optional<Long> amount;
 
     private final Optional<Link> link;
 
@@ -40,7 +40,7 @@ public final class TransactionSummary {
             Optional<TransactionSummaryType> type,
             Optional<LocalDate> date,
             Optional<TransactionSummaryEntryMethod> entryMethod,
-            Optional<Integer> amount,
+            Optional<Long> amount,
             Optional<Link> link,
             Map<String, Object> additionalProperties) {
         this.transactionId = transactionId;
@@ -88,7 +88,7 @@ public final class TransactionSummary {
      * @return Total amount of the transaction. The value is in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("amount")
-    public Optional<Integer> getAmount() {
+    public Optional<Long> getAmount() {
         return amount;
     }
 
@@ -141,7 +141,7 @@ public final class TransactionSummary {
 
         private Optional<TransactionSummaryEntryMethod> entryMethod = Optional.empty();
 
-        private Optional<Integer> amount = Optional.empty();
+        private Optional<Long> amount = Optional.empty();
 
         private Optional<Link> link = Optional.empty();
 
@@ -220,12 +220,12 @@ public final class TransactionSummary {
          * <p>Total amount of the transaction. The value is in the currency's lowest denomination, for example, cents.</p>
          */
         @JsonSetter(value = "amount", nulls = Nulls.SKIP)
-        public Builder amount(Optional<Integer> amount) {
+        public Builder amount(Optional<Long> amount) {
             this.amount = amount;
             return this;
         }
 
-        public Builder amount(Integer amount) {
+        public Builder amount(Long amount) {
             this.amount = Optional.ofNullable(amount);
             return this;
         }

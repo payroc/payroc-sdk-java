@@ -47,7 +47,7 @@ java {
 
 group = 'com.payroc'
 
-version = '0.0.3700'
+version = '0.0.3764'
 
 jar {
     dependsOn(":generatePomFileForMavenPublication")
@@ -74,7 +74,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.payroc'
             artifactId = 'payroc'
-            version = '0.0.3700'
+            version = '0.0.3764'
             from components.java
             pom {
                 licenses {

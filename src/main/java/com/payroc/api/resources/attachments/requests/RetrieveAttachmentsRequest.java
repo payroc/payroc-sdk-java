@@ -13,18 +13,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = GetAttachmentRequest.Builder.class)
-public final class GetAttachmentRequest {
+@JsonDeserialize(builder = RetrieveAttachmentsRequest.Builder.class)
+public final class RetrieveAttachmentsRequest {
     private final Map<String, Object> additionalProperties;
 
-    private GetAttachmentRequest(Map<String, Object> additionalProperties) {
+    private RetrieveAttachmentsRequest(Map<String, Object> additionalProperties) {
         this.additionalProperties = additionalProperties;
     }
 
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof GetAttachmentRequest;
+        return other instanceof RetrieveAttachmentsRequest;
     }
 
     @JsonAnyGetter
@@ -48,12 +48,12 @@ public final class GetAttachmentRequest {
 
         private Builder() {}
 
-        public Builder from(GetAttachmentRequest other) {
+        public Builder from(RetrieveAttachmentsRequest other) {
             return this;
         }
 
-        public GetAttachmentRequest build() {
-            return new GetAttachmentRequest(additionalProperties);
+        public RetrieveAttachmentsRequest build() {
+            return new RetrieveAttachmentsRequest(additionalProperties);
         }
     }
 }

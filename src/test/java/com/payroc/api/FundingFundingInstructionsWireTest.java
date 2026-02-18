@@ -225,7 +225,7 @@ public class FundingFundingInstructionsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"instructionId\":64643131,\"createdDate\":\"2024-07-02T15:30:00Z\",\"lastModifiedDate\":\"2024-07-02T15:30:00Z\",\"status\":\"accepted\",\"merchants\":[{\"merchantId\":\"4525644354\",\"recipients\":[{\"fundingAccountId\":123,\"paymentMethod\":\"ACH\",\"amount\":{\"value\":120000},\"metadata\":{\"yourCustomField\":\"abc123\"}}],\"link\":{\"rel\":\"merchant\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/processing-accounts/4525644354\"}}],\"metadata\":{\"yourCustomField\":\"abc123\"}}"));
+                                "{\"instructionId\":64643131,\"createdDate\":\"2024-07-02T15:30:00Z\",\"lastModifiedDate\":\"2024-07-02T15:30:00Z\",\"status\":\"accepted\",\"merchants\":[{\"merchantId\":\"4525644354\",\"recipients\":[{\"fundingAccountId\":123,\"paymentMethod\":\"ACH\",\"amount\":{\"value\":120000},\"metadata\":{\"yourCustomField\":\"abc123\"},\"link\":{\"rel\":\"fundingAccount\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/funding-accounts/123\"}}],\"link\":{\"rel\":\"merchant\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/processing-accounts/4525644354\"}}],\"metadata\":{\"yourCustomField\":\"abc123\"}}"));
         Instruction response = client.funding()
                 .fundingInstructions()
                 .retrieve(1, RetrieveFundingInstructionsRequest.builder().build());
@@ -254,6 +254,11 @@ public class FundingFundingInstructionsWireTest {
                 + "          },\n"
                 + "          \"metadata\": {\n"
                 + "            \"yourCustomField\": \"abc123\"\n"
+                + "          },\n"
+                + "          \"link\": {\n"
+                + "            \"rel\": \"fundingAccount\",\n"
+                + "            \"method\": \"get\",\n"
+                + "            \"href\": \"https://api.payroc.com/v1/funding-accounts/123\"\n"
                 + "          }\n"
                 + "        }\n"
                 + "      ],\n"

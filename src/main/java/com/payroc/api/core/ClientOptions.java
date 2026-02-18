@@ -37,7 +37,7 @@ public final class ClientOptions {
             {
                 put("X-Fern-Language", "JAVA");
                 put("X-Fern-SDK-Name", "com.payroc.fern:api-sdk");
-                put("X-Fern-SDK-Version", "0.0.3700");
+                put("X-Fern-SDK-Version", "0.0.3764");
             }
         });
         this.headerSuppliers = headerSuppliers;

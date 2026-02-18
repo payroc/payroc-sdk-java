@@ -1,7 +1,7 @@
 {
-  "cliVersion": "3.78.0",
+  "cliVersion": "3.79.2",
   "generatorName": "fernapi/fern-java-sdk",
-  "generatorVersion": "3.35.2",
+  "generatorVersion": "3.36.3",
   "generatorConfig": {
     "packageName": "com.payroc",
     "clientClassName": "PayrocClient",
@@ -16,5 +16,5 @@
       "api io.sentry:sentry:7.22.0"
     ]
   },
-  "sdkVersion": "0.0.3700"
+  "sdkVersion": "0.0.3764"
 }

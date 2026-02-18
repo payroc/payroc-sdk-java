@@ -5,7 +5,7 @@ package com.payroc.api.resources.attachments;
 
 import com.payroc.api.core.ClientOptions;
 import com.payroc.api.core.RequestOptions;
-import com.payroc.api.resources.attachments.requests.GetAttachmentRequest;
+import com.payroc.api.resources.attachments.requests.RetrieveAttachmentsRequest;
 import com.payroc.api.resources.attachments.requests.UploadAttachment;
 import com.payroc.api.resources.attachments.types.Attachment;
 import java.io.File;
@@ -44,7 +44,7 @@ public class AsyncAttachmentsClient {
      * <li><strong>type</strong> - Type of attachment that you want to upload.</li>
      * <li><strong>description</strong> - Short description of the attachment.</li>
      * </ul>
-     * <p>In the response, our gateway returns information about the attachment including its upload status and an attachmentId that you can use to <a href="https://docs.payroc.com/api/schema/attachments/get-attachment">Retrieve the details of the Attachment</a>.</p>
+     * <p>In the response, our gateway returns information about the attachment including its upload status and an attachmentId that you can use to <a href="https://docs.payroc.com/api/schema/attachments/retrieve">Retrieve the details of the Attachment</a>.</p>
      */
     public CompletableFuture<Attachment> uploadToProcessingAccount(
             String processingAccountId, File file, UploadAttachment request) {
@@ -67,7 +67,7 @@ public class AsyncAttachmentsClient {
      * <li><strong>type</strong> - Type of attachment that you want to upload.</li>
      * <li><strong>description</strong> - Short description of the attachment.</li>
      * </ul>
-     * <p>In the response, our gateway returns information about the attachment including its upload status and an attachmentId that you can use to <a href="https://docs.payroc.com/api/schema/attachments/get-attachment">Retrieve the details of the Attachment</a>.</p>
+     * <p>In the response, our gateway returns information about the attachment including its upload status and an attachmentId that you can use to <a href="https://docs.payroc.com/api/schema/attachments/retrieve">Retrieve the details of the Attachment</a>.</p>
      */
     public CompletableFuture<Attachment> uploadToProcessingAccount(
             String processingAccountId, File file, UploadAttachment request, RequestOptions requestOptions) {
@@ -113,8 +113,8 @@ public class AsyncAttachmentsClient {
      * <p>To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the method that you used to upload the attachment.</p>
      * <p>Our gateway returns information about the attachment, including its upload status and the entity that the attachment is linked to. Our gateway doesn't return the file that you uploaded.</p>
      */
-    public CompletableFuture<Attachment> getAttachment(String attachmentId) {
-        return this.rawClient.getAttachment(attachmentId).thenApply(response -> response.body());
+    public CompletableFuture<Attachment> retrieve(String attachmentId) {
+        return this.rawClient.retrieve(attachmentId).thenApply(response -> response.body());
     }
 
     /**
@@ -122,8 +122,8 @@ public class AsyncAttachmentsClient {
      * <p>To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the method that you used to upload the attachment.</p>
      * <p>Our gateway returns information about the attachment, including its upload status and the entity that the attachment is linked to. Our gateway doesn't return the file that you uploaded.</p>
      */
-    public CompletableFuture<Attachment> getAttachment(String attachmentId, RequestOptions requestOptions) {
-        return this.rawClient.getAttachment(attachmentId, requestOptions).thenApply(response -> response.body());
+    public CompletableFuture<Attachment> retrieve(String attachmentId, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(attachmentId, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -131,8 +131,8 @@ public class AsyncAttachmentsClient {
      * <p>To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the method that you used to upload the attachment.</p>
      * <p>Our gateway returns information about the attachment, including its upload status and the entity that the attachment is linked to. Our gateway doesn't return the file that you uploaded.</p>
      */
-    public CompletableFuture<Attachment> getAttachment(String attachmentId, GetAttachmentRequest request) {
-        return this.rawClient.getAttachment(attachmentId, request).thenApply(response -> response.body());
+    public CompletableFuture<Attachment> retrieve(String attachmentId, RetrieveAttachmentsRequest request) {
+        return this.rawClient.retrieve(attachmentId, request).thenApply(response -> response.body());
     }
 
     /**
@@ -140,10 +140,8 @@ public class AsyncAttachmentsClient {
      * <p>To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the method that you used to upload the attachment.</p>
      * <p>Our gateway returns information about the attachment, including its upload status and the entity that the attachment is linked to. Our gateway doesn't return the file that you uploaded.</p>
      */
-    public CompletableFuture<Attachment> getAttachment(
-            String attachmentId, GetAttachmentRequest request, RequestOptions requestOptions) {
-        return this.rawClient
-                .getAttachment(attachmentId, request, requestOptions)
-                .thenApply(response -> response.body());
+    public CompletableFuture<Attachment> retrieve(
+            String attachmentId, RetrieveAttachmentsRequest request, RequestOptions requestOptions) {
+        return this.rawClient.retrieve(attachmentId, request, requestOptions).thenApply(response -> response.body());
     }
 }

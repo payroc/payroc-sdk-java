@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.payroc.api.core.Environment;
 import com.payroc.api.core.ObjectMappers;
-import com.payroc.api.resources.attachments.requests.GetAttachmentRequest;
+import com.payroc.api.resources.attachments.requests.RetrieveAttachmentsRequest;
 import com.payroc.api.resources.attachments.types.Attachment;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -37,14 +37,14 @@ public class AttachmentsWireTest {
     }
 
     @Test
-    public void testGetAttachment() throws Exception {
+    public void testRetrieve() throws Exception {
         server.enqueue(
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
                                 "{\"attachmentId\":\"15387\",\"type\":\"personalIdentification\",\"uploadStatus\":\"accepted\",\"fileName\":\"oliviaDoePassport.pdf\",\"contentType\":\"application/pdf\",\"description\":\"Passport for Olivia Doe\",\"entity\":{\"type\":\"processingAccount\",\"id\":\"2585\"},\"createdDate\":\"2025-09-18T10:19:18Z\",\"lastModifiedDate\":\"2025-09-18T10:19:18Z\",\"metadata\":{\"passportId\":\"123456789\"}}"));
         Attachment response = client.attachments()
-                .getAttachment("12876", GetAttachmentRequest.builder().build());
+                .retrieve("12876", RetrieveAttachmentsRequest.builder().build());
         RecordedRequest request = server.takeRequest();
         Assertions.assertNotNull(request);
         Assertions.assertEquals("GET", request.getMethod());

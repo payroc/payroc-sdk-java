@@ -106,6 +106,10 @@ public final class PaymentPlanSummary {
     public interface _FinalStage {
         PaymentPlanSummary build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage link(Optional<Link> link);
 
         _FinalStage link(Link link);
@@ -172,6 +176,18 @@ public final class PaymentPlanSummary {
         @java.lang.Override
         public PaymentPlanSummary build() {
             return new PaymentPlanSummary(paymentPlanId, name, link, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

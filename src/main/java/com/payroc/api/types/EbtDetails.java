@@ -103,6 +103,10 @@ public final class EbtDetails implements IEbtDetails {
     public interface _FinalStage {
         EbtDetails build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates whether the customer wants to withdraw cash.</p>
          * <p><strong>Note:</strong> Cash withdrawals are available only from EBT Cash accounts.</p>
@@ -175,6 +179,18 @@ public final class EbtDetails implements IEbtDetails {
         @java.lang.Override
         public EbtDetails build() {
             return new EbtDetails(benefitCategory, withdrawal, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -108,6 +108,10 @@ public final class CardPayload {
     public interface _FinalStage {
         CardPayload build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates the customer’s account type.</p>
          * <p><strong>Note:</strong> Send a value for accountType only for bank account details.</p>
@@ -186,6 +190,18 @@ public final class CardPayload {
         @java.lang.Override
         public CardPayload build() {
             return new CardPayload(accountType, cardDetails, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

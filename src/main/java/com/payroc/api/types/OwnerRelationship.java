@@ -119,6 +119,10 @@ public final class OwnerRelationship {
     public interface _FinalStage {
         OwnerRelationship build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Percentage equity stake that the owner holds in the business.</p>
          */
@@ -241,6 +245,18 @@ public final class OwnerRelationship {
         public OwnerRelationship build() {
             return new OwnerRelationship(
                     equityPercentage, title, isControlProng, isAuthorizedSignatory, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

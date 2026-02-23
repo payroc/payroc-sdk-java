@@ -97,5 +97,15 @@ public final class PaymentMethodAch {
         public PaymentMethodAch build() {
             return new PaymentMethodAch(value, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

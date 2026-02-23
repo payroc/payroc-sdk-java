@@ -134,6 +134,10 @@ public final class Tiered6Fees {
     public interface _FinalStage {
         Tiered6Fees build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Polymorphic object that contains fees for American Express transactions.</p>
          * <p>The value of the type field determines which variant you should use:</p>
@@ -277,6 +281,18 @@ public final class Tiered6Fees {
                     electronicBenefitsTransfer,
                     specialityCards,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

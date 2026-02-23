@@ -51,7 +51,7 @@ public class ReportingSettlementWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"batchId\":123,\"date\":\"2024-07-02\",\"createdDate\":\"2024-07-02\",\"lastModifiedDate\":\"2024-07-02\",\"saleAmount\":1000000,\"heldAmount\":1000000,\"returnAmount\":1000000,\"transactionCount\":1000000,\"currency\":\"currency\",\"merchant\":{\"merchantId\":\"4525644354\",\"doingBusinessAs\":\"Pizza Doe\",\"processingAccountId\":38765,\"link\":{\"rel\":\"processingAccount\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/processing-accounts/38765\"}},\"links\":[{\"rel\":\"transactions\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/transactions?batchId=123\"},{\"rel\":\"authorizations\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/authorizations?batchId=123\"}]}"));
+                                "{\"batchId\":65,\"date\":\"2024-07-02\",\"createdDate\":\"2024-07-02\",\"lastModifiedDate\":\"2024-07-02\",\"saleAmount\":100,\"heldAmount\":0,\"returnAmount\":0,\"transactionCount\":10,\"currency\":\"USD\",\"merchant\":{\"merchantId\":\"4525644354\",\"doingBusinessAs\":\"Pizza Doe\",\"processingAccountId\":38765,\"link\":{\"rel\":\"processingAccount\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/processing-accounts/38765\"}},\"links\":[{\"rel\":\"transactions\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/transactions?batchId=65\"},{\"rel\":\"authorizations\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/authorizations?batchId=65\"}]}"));
         Batch response = client.reporting()
                 .settlement()
                 .retrieveBatch(1, RetrieveBatchSettlementRequest.builder().build());
@@ -64,15 +64,15 @@ public class ReportingSettlementWireTest {
         String actualResponseJson = objectMapper.writeValueAsString(response);
         String expectedResponseBody = ""
                 + "{\n"
-                + "  \"batchId\": 123,\n"
+                + "  \"batchId\": 65,\n"
                 + "  \"date\": \"2024-07-02\",\n"
                 + "  \"createdDate\": \"2024-07-02\",\n"
                 + "  \"lastModifiedDate\": \"2024-07-02\",\n"
-                + "  \"saleAmount\": 1000000,\n"
-                + "  \"heldAmount\": 1000000,\n"
-                + "  \"returnAmount\": 1000000,\n"
-                + "  \"transactionCount\": 1000000,\n"
-                + "  \"currency\": \"currency\",\n"
+                + "  \"saleAmount\": 100,\n"
+                + "  \"heldAmount\": 0,\n"
+                + "  \"returnAmount\": 0,\n"
+                + "  \"transactionCount\": 10,\n"
+                + "  \"currency\": \"USD\",\n"
                 + "  \"merchant\": {\n"
                 + "    \"merchantId\": \"4525644354\",\n"
                 + "    \"doingBusinessAs\": \"Pizza Doe\",\n"
@@ -87,12 +87,12 @@ public class ReportingSettlementWireTest {
                 + "    {\n"
                 + "      \"rel\": \"transactions\",\n"
                 + "      \"method\": \"get\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/transactions?batchId=123\"\n"
+                + "      \"href\": \"https://api.payroc.com/v1/transactions?batchId=65\"\n"
                 + "    },\n"
                 + "    {\n"
                 + "      \"rel\": \"authorizations\",\n"
                 + "      \"method\": \"get\",\n"
-                + "      \"href\": \"https://api.payroc.com/v1/authorizations?batchId=123\"\n"
+                + "      \"href\": \"https://api.payroc.com/v1/authorizations?batchId=65\"\n"
                 + "    }\n"
                 + "  ]\n"
                 + "}";
@@ -337,7 +337,7 @@ public class ReportingSettlementWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"achDepositId\":99,\"associationDate\":\"2024-07-02\",\"achDate\":\"2024-07-02\",\"paymentDate\":\"2024-07-02\",\"transactions\":20,\"sales\":5000,\"returns\":100,\"dailyFees\":100,\"heldSales\":100,\"achAdjustment\":100,\"holdback\":100,\"reserveRelease\":100,\"netAmount\":5000,\"merchant\":{\"merchantId\":\"4525644354\",\"doingBusinessAs\":\"Pizza Doe\",\"processingAccountId\":38765,\"link\":{\"rel\":\"processingAccount\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/processing-accounts/38765\"}},\"links\":[{\"rel\":\"achDepositFees\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/ach-deposit-fees?achDepositId=99&merchantId=4525644354\"}]}"));
+                                "{\"achDepositId\":99,\"associationDate\":\"2024-07-02\",\"achDate\":\"2024-07-02\",\"paymentDate\":\"2024-07-02\",\"transactions\":10,\"sales\":50000,\"returns\":10000,\"dailyFees\":1000,\"heldSales\":1000,\"achAdjustment\":1000,\"holdback\":1000,\"reserveRelease\":500,\"netAmount\":36500,\"merchant\":{\"merchantId\":\"4525644354\",\"doingBusinessAs\":\"Pizza Doe\",\"processingAccountId\":38765,\"link\":{\"rel\":\"processingAccount\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/processing-accounts/38765\"}},\"links\":[{\"rel\":\"achDepositFees\",\"method\":\"get\",\"href\":\"https://api.payroc.com/v1/ach-deposit-fees?achDepositId=99&merchantId=4525644354\"}]}"));
         AchDeposit response = client.reporting()
                 .settlement()
                 .retrieveAchDeposit(
@@ -355,15 +355,15 @@ public class ReportingSettlementWireTest {
                 + "  \"associationDate\": \"2024-07-02\",\n"
                 + "  \"achDate\": \"2024-07-02\",\n"
                 + "  \"paymentDate\": \"2024-07-02\",\n"
-                + "  \"transactions\": 20,\n"
-                + "  \"sales\": 5000,\n"
-                + "  \"returns\": 100,\n"
-                + "  \"dailyFees\": 100,\n"
-                + "  \"heldSales\": 100,\n"
-                + "  \"achAdjustment\": 100,\n"
-                + "  \"holdback\": 100,\n"
-                + "  \"reserveRelease\": 100,\n"
-                + "  \"netAmount\": 5000,\n"
+                + "  \"transactions\": 10,\n"
+                + "  \"sales\": 50000,\n"
+                + "  \"returns\": 10000,\n"
+                + "  \"dailyFees\": 1000,\n"
+                + "  \"heldSales\": 1000,\n"
+                + "  \"achAdjustment\": 1000,\n"
+                + "  \"holdback\": 1000,\n"
+                + "  \"reserveRelease\": 500,\n"
+                + "  \"netAmount\": 36500,\n"
                 + "  \"merchant\": {\n"
                 + "    \"merchantId\": \"4525644354\",\n"
                 + "    \"doingBusinessAs\": \"Pizza Doe\",\n"

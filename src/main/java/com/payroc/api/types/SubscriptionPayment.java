@@ -163,6 +163,10 @@ public final class SubscriptionPayment {
     public interface _FinalStage {
         SubscriptionPayment build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Array of customField objects.</p>
          */
@@ -283,6 +287,18 @@ public final class SubscriptionPayment {
                     currentState,
                     customFields,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

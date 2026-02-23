@@ -228,6 +228,10 @@ public final class TokenizationRequest {
     public interface _FinalStage {
         TokenizationRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Unique identifier that the merchant created for the secure token that represents the customer's payment details.
          * If the merchant doesn't create a secureTokenId, the gateway generates one and returns it in the response.</p>
@@ -520,6 +524,18 @@ public final class TokenizationRequest {
                     threeDSecure,
                     customFields,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

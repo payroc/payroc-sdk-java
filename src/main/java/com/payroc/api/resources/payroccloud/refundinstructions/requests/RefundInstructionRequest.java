@@ -170,6 +170,10 @@ public final class RefundInstructionRequest {
     public interface _FinalStage {
         RefundInstructionRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Operator who initiated the request.</p>
          */
@@ -325,6 +329,18 @@ public final class RefundInstructionRequest {
                     ipAddress,
                     customizationOptions,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -260,6 +260,10 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
     public interface _FinalStage {
         PricingIntent50 build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Unique identifier of the pricing intent.</p>
          */
@@ -579,6 +583,18 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
                     gateway,
                     services,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

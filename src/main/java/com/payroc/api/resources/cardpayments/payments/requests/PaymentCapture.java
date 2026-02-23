@@ -133,6 +133,10 @@ public final class PaymentCapture {
     public interface _FinalStage {
         PaymentCapture build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Unique identifier that our gateway assigned to the terminal.</p>
          */
@@ -277,6 +281,18 @@ public final class PaymentCapture {
         public PaymentCapture build() {
             return new PaymentCapture(
                     idempotencyKey, processingTerminalId, operator, amount, breakdown, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

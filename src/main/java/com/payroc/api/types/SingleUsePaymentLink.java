@@ -242,6 +242,10 @@ public final class SingleUsePaymentLink {
     public interface _FinalStage {
         SingleUsePaymentLink build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Unique identifier that we assigned to the payment link.</p>
          */
@@ -558,6 +562,18 @@ public final class SingleUsePaymentLink {
                     expiresOn,
                     credentialOnFile,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

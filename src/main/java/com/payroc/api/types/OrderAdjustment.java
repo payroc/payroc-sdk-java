@@ -87,6 +87,10 @@ public final class OrderAdjustment {
     public interface _FinalStage {
         OrderAdjustment build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage breakdown(Optional<BreakdownAdjustment> breakdown);
 
         _FinalStage breakdown(BreakdownAdjustment breakdown);
@@ -138,6 +142,18 @@ public final class OrderAdjustment {
         @java.lang.Override
         public OrderAdjustment build() {
             return new OrderAdjustment(amount, breakdown, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

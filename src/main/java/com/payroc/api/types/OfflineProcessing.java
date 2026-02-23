@@ -108,6 +108,10 @@ public final class OfflineProcessing {
     public interface _FinalStage {
         OfflineProcessing build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Approval code for the transaction from the processor.</p>
          */
@@ -199,6 +203,18 @@ public final class OfflineProcessing {
         @java.lang.Override
         public OfflineProcessing build() {
             return new OfflineProcessing(operation, approvalCode, dateTime, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

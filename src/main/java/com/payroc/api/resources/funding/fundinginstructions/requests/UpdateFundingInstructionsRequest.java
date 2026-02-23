@@ -71,6 +71,10 @@ public final class UpdateFundingInstructionsRequest {
 
     public interface _FinalStage {
         UpdateFundingInstructionsRequest build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -98,6 +102,18 @@ public final class UpdateFundingInstructionsRequest {
         @java.lang.Override
         public UpdateFundingInstructionsRequest build() {
             return new UpdateFundingInstructionsRequest(body, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -119,6 +119,10 @@ public final class TipProcessingEnabled {
     public interface _FinalStage {
         TipProcessingEnabled build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates if the terminal prompts for tips.</p>
          */
@@ -240,6 +244,18 @@ public final class TipProcessingEnabled {
         @java.lang.Override
         public TipProcessingEnabled build() {
             return new TipProcessingEnabled(enabled, tipPrompt, tipAdjust, suggestedTips, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

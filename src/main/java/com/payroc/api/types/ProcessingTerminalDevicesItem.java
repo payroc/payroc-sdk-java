@@ -131,6 +131,10 @@ public final class ProcessingTerminalDevicesItem {
     public interface _FinalStage {
         ProcessingTerminalDevicesItem build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage communicationType(Optional<CommunicationType> communicationType);
 
         _FinalStage communicationType(CommunicationType communicationType);
@@ -213,6 +217,18 @@ public final class ProcessingTerminalDevicesItem {
         public ProcessingTerminalDevicesItem build() {
             return new ProcessingTerminalDevicesItem(
                     manufacturer, model, serialNumber, communicationType, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

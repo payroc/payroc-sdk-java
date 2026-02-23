@@ -126,6 +126,10 @@ public final class CreateMerchantAccount {
     public interface _FinalStage {
         CreateMerchantAccount build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Array of processingAccounts objects.</p>
          */
@@ -244,6 +248,18 @@ public final class CreateMerchantAccount {
         public CreateMerchantAccount build() {
             return new CreateMerchantAccount(
                     idempotencyKey, business, processingAccounts, metadata, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

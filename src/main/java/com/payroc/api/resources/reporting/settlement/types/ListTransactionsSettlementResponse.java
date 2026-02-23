@@ -241,5 +241,15 @@ public final class ListTransactionsSettlementResponse implements IPaginatedList 
         public ListTransactionsSettlementResponse build() {
             return new ListTransactionsSettlementResponse(limit, count, hasMore, links, data, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

@@ -222,6 +222,10 @@ public final class SecureTokenWithAccountType {
     public interface _FinalStage {
         SecureTokenWithAccountType build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Polymorphic object that contains the payment method that we tokenized.</p>
          * <p>The value of the type parameter determines which variant you should use:</p>
@@ -464,6 +468,18 @@ public final class SecureTokenWithAccountType {
                     status,
                     customFields,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

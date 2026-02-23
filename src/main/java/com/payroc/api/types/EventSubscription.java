@@ -160,6 +160,10 @@ public final class EventSubscription {
     public interface _FinalStage {
         EventSubscription build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Unique identifier that we assigned to the event subscription.</p>
          */
@@ -399,6 +403,18 @@ public final class EventSubscription {
         public EventSubscription build() {
             return new EventSubscription(
                     id, enabled, status, eventTypes, notifications, metadata, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

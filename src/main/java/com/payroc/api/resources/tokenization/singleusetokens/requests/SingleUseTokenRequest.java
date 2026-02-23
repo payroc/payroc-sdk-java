@@ -149,6 +149,10 @@ public final class SingleUseTokenRequest {
     public interface _FinalStage {
         SingleUseTokenRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Operator who initiated the request.</p>
          */
@@ -251,6 +255,18 @@ public final class SingleUseTokenRequest {
         @java.lang.Override
         public SingleUseTokenRequest build() {
             return new SingleUseTokenRequest(idempotencyKey, channel, operator, source, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

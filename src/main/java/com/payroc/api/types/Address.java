@@ -195,6 +195,10 @@ public final class Address implements IAddress {
     public interface _FinalStage {
         Address build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Address line 2.</p>
          */
@@ -347,6 +351,18 @@ public final class Address implements IAddress {
         @java.lang.Override
         public Address build() {
             return new Address(address1, address2, address3, city, state, country, postalCode, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

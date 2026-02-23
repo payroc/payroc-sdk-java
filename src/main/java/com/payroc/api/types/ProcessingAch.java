@@ -181,6 +181,10 @@ public final class ProcessingAch {
     public interface _FinalStage {
         ProcessingAch build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>North American Industry Classification System (NAICS) code.</p>
          */
@@ -371,6 +375,18 @@ public final class ProcessingAch {
                     transactionTypes,
                     transactionTypesOther,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

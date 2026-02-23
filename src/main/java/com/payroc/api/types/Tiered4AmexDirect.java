@@ -75,6 +75,10 @@ public final class Tiered4AmexDirect {
 
     public interface _FinalStage {
         Tiered4AmexDirect build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -107,6 +111,18 @@ public final class Tiered4AmexDirect {
         @java.lang.Override
         public Tiered4AmexDirect build() {
             return new Tiered4AmexDirect(transaction, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

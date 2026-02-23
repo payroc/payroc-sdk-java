@@ -175,6 +175,10 @@ public final class FourHundredNine {
     public interface _FinalStage {
         FourHundredNine build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Resource path to the existing resource</p>
          */
@@ -321,6 +325,18 @@ public final class FourHundredNine {
         @java.lang.Override
         public FourHundredNine build() {
             return new FourHundredNine(type, title, status, detail, instance, errors, link, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -159,6 +159,10 @@ public final class PadSourceWithAccountType implements IPadSource {
     public interface _FinalStage {
         PadSourceWithAccountType build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates the customer's account type.</p>
          */
@@ -267,6 +271,18 @@ public final class PadSourceWithAccountType implements IPadSource {
         public PadSourceWithAccountType build() {
             return new PadSourceWithAccountType(
                     nameOnAccount, accountNumber, transitNumber, institutionNumber, accountType, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

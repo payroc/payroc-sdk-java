@@ -191,5 +191,15 @@ public final class ProcessingCardAcceptance {
             return new ProcessingCardAcceptance(
                     debitOnly, hsaFsa, cardsAccepted, specialityCards, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

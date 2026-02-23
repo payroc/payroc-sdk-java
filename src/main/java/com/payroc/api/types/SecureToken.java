@@ -235,6 +235,10 @@ public final class SecureToken {
     public interface _FinalStage {
         SecureToken build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates how the merchant can use the customer's card details, as agreed by the customer:</p>
          * <ul>
@@ -461,6 +465,18 @@ public final class SecureToken {
                     status,
                     customFields,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

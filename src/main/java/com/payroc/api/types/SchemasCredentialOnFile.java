@@ -204,5 +204,15 @@ public final class SchemasCredentialOnFile {
             return new SchemasCredentialOnFile(
                     externalVault, tokenize, secureTokenId, mitAgreement, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

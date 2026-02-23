@@ -129,5 +129,15 @@ public final class ListEventSubscriptionsRequest {
         public ListEventSubscriptionsRequest build() {
             return new ListEventSubscriptionsRequest(status, event, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

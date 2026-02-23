@@ -103,6 +103,10 @@ public final class BankAccountVerificationResult {
 
     public interface _FinalStage {
         BankAccountVerificationResult build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -159,6 +163,18 @@ public final class BankAccountVerificationResult {
         @java.lang.Override
         public BankAccountVerificationResult build() {
             return new BankAccountVerificationResult(processingTerminalId, verified, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

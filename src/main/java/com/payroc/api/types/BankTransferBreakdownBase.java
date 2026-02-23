@@ -91,6 +91,10 @@ public final class BankTransferBreakdownBase implements IBankTransferBreakdownBa
     public interface _FinalStage {
         BankTransferBreakdownBase build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Object that contains tip information for the transaction.</p>
          */
@@ -152,6 +156,18 @@ public final class BankTransferBreakdownBase implements IBankTransferBreakdownBa
         @java.lang.Override
         public BankTransferBreakdownBase build() {
             return new BankTransferBreakdownBase(subtotal, tip, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

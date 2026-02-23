@@ -154,6 +154,10 @@ public final class EncryptionCapableDevice implements IDevice {
     public interface _FinalStage {
         EncryptionCapableDevice build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates if the device is attended or unattended.</p>
          */
@@ -311,6 +315,18 @@ public final class EncryptionCapableDevice implements IDevice {
         public EncryptionCapableDevice build() {
             return new EncryptionCapableDevice(
                     model, category, serialNumber, firmwareVersion, config, dataKsn, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

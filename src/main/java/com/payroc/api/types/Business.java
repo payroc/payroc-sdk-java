@@ -176,6 +176,10 @@ public final class Business {
     public interface _FinalStage {
         Business build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Two-digit code for the country that the business operates in. The format follows the <a href="https://www.iso.org/iso-3166-country-codes.html">ISO-3166</a> standard.</p>
          */
@@ -394,6 +398,18 @@ public final class Business {
         public Business build() {
             return new Business(
                     name, taxId, organizationType, countryOfOperation, addresses, contactMethods, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -245,6 +245,10 @@ public final class DccOffer {
     public interface _FinalStage {
         DccOffer build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates if the cardholder accepted DCC offer.</p>
          */
@@ -549,6 +553,18 @@ public final class DccOffer {
                     provider,
                     source,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

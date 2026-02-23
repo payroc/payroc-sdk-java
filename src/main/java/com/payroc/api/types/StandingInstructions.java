@@ -124,6 +124,10 @@ public final class StandingInstructions {
     public interface _FinalStage {
         StandingInstructions build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Object that contains information about the initial payment for the payment instruction.</p>
          */
@@ -210,6 +214,18 @@ public final class StandingInstructions {
         @java.lang.Override
         public StandingInstructions build() {
             return new StandingInstructions(sequence, processingModel, referenceDataOfFirstTxn, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

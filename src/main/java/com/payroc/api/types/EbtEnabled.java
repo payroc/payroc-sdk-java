@@ -112,6 +112,10 @@ public final class EbtEnabled {
     public interface _FinalStage {
         EbtEnabled build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Food and Nutritional Service (FNS) number that the government assigns to the merchant to allow them to accept Supplemental Nutrition Assistance Program (SNAP) transactions.</p>
          */
@@ -188,6 +192,18 @@ public final class EbtEnabled {
         @java.lang.Override
         public EbtEnabled build() {
             return new EbtEnabled(enabled, ebtType, fnsNumber, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -226,5 +226,15 @@ public final class SubscriptionPaginatedList implements IPaginatedList {
         public SubscriptionPaginatedList build() {
             return new SubscriptionPaginatedList(limit, count, hasMore, links, data, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

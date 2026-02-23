@@ -440,7 +440,7 @@ public class PaymentFeaturesCardsWireTest {
                 new MockResponse()
                         .setResponseCode(200)
                         .setBody(
-                                "{\"processingTerminalId\":\"1234001\",\"operator\":\"Jane\",\"baseAmount\":10000,\"baseCurrency\":\"EUR\",\"inquiryResult\":{\"dccOffered\":true,\"causeOfRejection\":\"Service unavailable\"},\"dccOffer\":{\"accepted\":true,\"offerReference\":\"DCC123456789\",\"fxAmount\":16125,\"fxCurrency\":\"JPY\",\"fxCurrencyCode\":\"392\",\"fxCurrencyExponent\":0,\"fxRate\":161.2542,\"markup\":3,\"markupText\":\"3.5% mark-up applied.\",\"provider\":\"FEXCO\",\"source\":\"REUTERS WHOLESALE INTERBANK\"},\"cardInfo\":{\"type\":\"MASTERCARD\",\"cardNumber\":\"453985******7062\",\"country\":\"country\",\"currency\":\"AED\",\"debit\":true,\"surcharging\":{\"allowed\":true,\"amount\":87,\"percentage\":3,\"disclosure\":\"A 3% surcharge is applied to cover processing fees.\"}}}"));
+                                "{\"processingTerminalId\":\"1234001\",\"operator\":\"Jane\",\"baseAmount\":10000,\"baseCurrency\":\"EUR\",\"inquiryResult\":{\"dccOffered\":true,\"causeOfRejection\":\"Service unavailable\"},\"dccOffer\":{\"accepted\":true,\"offerReference\":\"3396977e-40b9-4b26-8a3f-c25bc1280ee2\",\"fxAmount\":16125,\"fxCurrency\":\"JPY\",\"fxCurrencyCode\":\"392\",\"fxCurrencyExponent\":0,\"fxRate\":161.2542,\"markup\":3,\"markupText\":\"3.5% mark-up applied.\",\"provider\":\"FEXCO\",\"source\":\"REUTERS WHOLESALE INTERBANK\"},\"cardInfo\":{\"type\":\"MASTERCARD\",\"cardNumber\":\"453985******7062\",\"country\":\"country\",\"currency\":\"AED\",\"debit\":true,\"surcharging\":{\"allowed\":true,\"amount\":87,\"percentage\":3,\"disclosure\":\"A 3% surcharge is applied to cover processing fees.\"}}}"));
         FxRate response = client.paymentFeatures()
                 .cards()
                 .retrieveFxRates(FxRateInquiry.builder()
@@ -525,7 +525,7 @@ public class PaymentFeaturesCardsWireTest {
                 + "  },\n"
                 + "  \"dccOffer\": {\n"
                 + "    \"accepted\": true,\n"
-                + "    \"offerReference\": \"DCC123456789\",\n"
+                + "    \"offerReference\": \"3396977e-40b9-4b26-8a3f-c25bc1280ee2\",\n"
                 + "    \"fxAmount\": 16125,\n"
                 + "    \"fxCurrency\": \"JPY\",\n"
                 + "    \"fxCurrencyCode\": \"392\",\n"

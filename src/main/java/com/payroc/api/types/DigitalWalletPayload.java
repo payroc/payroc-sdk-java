@@ -136,6 +136,10 @@ public final class DigitalWalletPayload {
     public interface _FinalStage {
         DigitalWalletPayload build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates the customer’s account type.</p>
          * <p><strong>Note:</strong> Send a value for accountType only for bank account details.</p>
@@ -254,6 +258,18 @@ public final class DigitalWalletPayload {
         public DigitalWalletPayload build() {
             return new DigitalWalletPayload(
                     accountType, serviceProvider, cardholderName, encryptedData, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

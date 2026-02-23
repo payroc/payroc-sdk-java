@@ -152,6 +152,10 @@ public final class FiveHundred {
     public interface _FinalStage {
         FiveHundred build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage errors(Optional<List<FiveHundredErrorsItem>> errors);
 
         _FinalStage errors(List<FiveHundredErrorsItem> errors);
@@ -248,6 +252,18 @@ public final class FiveHundred {
         @java.lang.Override
         public FiveHundred build() {
             return new FiveHundred(type, title, status, detail, errors, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

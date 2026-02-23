@@ -361,6 +361,10 @@ public final class CreateProcessingAccount {
     public interface _FinalStage {
         CreateProcessingAccount build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Unique identifier of the processing account.</p>
          */
@@ -810,6 +814,18 @@ public final class CreateProcessingAccount {
                     contacts,
                     metadata,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

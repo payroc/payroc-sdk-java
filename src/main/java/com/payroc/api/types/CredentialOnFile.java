@@ -140,5 +140,15 @@ public final class CredentialOnFile {
         public CredentialOnFile build() {
             return new CredentialOnFile(tokenize, mitAgreement, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

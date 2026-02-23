@@ -245,5 +245,15 @@ public final class AchDepositFee {
             return new AchDepositFee(
                     associationDate, adjustmentDate, description, amount, merchant, achDeposit, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

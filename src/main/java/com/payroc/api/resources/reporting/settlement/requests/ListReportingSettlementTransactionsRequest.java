@@ -292,5 +292,15 @@ public final class ListReportingSettlementTransactionsRequest {
             return new ListReportingSettlementTransactionsRequest(
                     before, after, limit, date, batchId, merchantId, transactionType, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

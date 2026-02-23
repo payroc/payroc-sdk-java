@@ -142,6 +142,10 @@ public final class SingleUseTokenPayload {
     public interface _FinalStage {
         SingleUseTokenPayload build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates the customer’s account type.</p>
          * <p><strong>Note:</strong> Send a value for accountType only if the single-use token represents bank account details.</p>
@@ -319,6 +323,18 @@ public final class SingleUseTokenPayload {
         @java.lang.Override
         public SingleUseTokenPayload build() {
             return new SingleUseTokenPayload(accountType, token, pinDetails, ebtDetails, secCode, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

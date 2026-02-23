@@ -290,6 +290,10 @@ public final class SubscriptionRequest {
     public interface _FinalStage {
         SubscriptionRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Name of the subscription.
          * This value replaces the name inherited from the payment plan.</p>
@@ -649,6 +653,18 @@ public final class SubscriptionRequest {
                     pauseCollectionFor,
                     customFields,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

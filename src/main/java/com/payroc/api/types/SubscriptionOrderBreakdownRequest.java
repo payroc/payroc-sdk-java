@@ -104,6 +104,10 @@ public final class SubscriptionOrderBreakdownRequest implements ISubscriptionOrd
     public interface _FinalStage {
         SubscriptionOrderBreakdownRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage convenienceFee(Optional<ConvenienceFee> convenienceFee);
 
         _FinalStage convenienceFee(ConvenienceFee convenienceFee);
@@ -185,6 +189,18 @@ public final class SubscriptionOrderBreakdownRequest implements ISubscriptionOrd
         @java.lang.Override
         public SubscriptionOrderBreakdownRequest build() {
             return new SubscriptionOrderBreakdownRequest(subtotal, convenienceFee, taxes, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

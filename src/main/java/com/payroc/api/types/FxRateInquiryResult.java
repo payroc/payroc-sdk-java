@@ -90,6 +90,10 @@ public final class FxRateInquiryResult {
     public interface _FinalStage {
         FxRateInquiryResult build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Explains why the DCC service did not offer a currency conversion rate to the customer.</p>
          */
@@ -151,6 +155,18 @@ public final class FxRateInquiryResult {
         @java.lang.Override
         public FxRateInquiryResult build() {
             return new FxRateInquiryResult(dccOffered, causeOfRejection, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

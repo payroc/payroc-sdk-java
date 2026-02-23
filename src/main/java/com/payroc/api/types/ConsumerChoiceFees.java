@@ -135,6 +135,10 @@ public final class ConsumerChoiceFees {
     public interface _FinalStage {
         ConsumerChoiceFees build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage pinDebit(Optional<PinDebit> pinDebit);
 
         _FinalStage pinDebit(PinDebit pinDebit);
@@ -247,6 +251,18 @@ public final class ConsumerChoiceFees {
                     electronicBenefitsTransfer,
                     specialityCards,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

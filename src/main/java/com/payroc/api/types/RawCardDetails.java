@@ -122,6 +122,10 @@ public final class RawCardDetails {
     public interface _FinalStage {
         RawCardDetails build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>If an offline transaction is not approved using the initial entry method, reprocess the transaction using a downgraded entry method.
          * For example, an Integrated Circuit Card (ICC) transaction can be downgraded to a swiped transaction or to a keyed transaction.</p>
@@ -226,6 +230,18 @@ public final class RawCardDetails {
         @java.lang.Override
         public RawCardDetails build() {
             return new RawCardDetails(downgradeTo, device, rawData, cardholderSignature, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

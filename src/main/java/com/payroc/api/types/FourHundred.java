@@ -152,6 +152,10 @@ public final class FourHundred {
     public interface _FinalStage {
         FourHundred build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage errors(Optional<List<FourHundredErrorsItem>> errors);
 
         _FinalStage errors(List<FourHundredErrorsItem> errors);
@@ -248,6 +252,18 @@ public final class FourHundred {
         @java.lang.Override
         public FourHundred build() {
             return new FourHundred(type, title, status, detail, errors, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

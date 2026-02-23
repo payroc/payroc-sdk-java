@@ -164,5 +164,15 @@ public final class DisputeStatus implements IDisputeStatus {
         public DisputeStatus build() {
             return new DisputeStatus(disputeStatusId, status, statusDate, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

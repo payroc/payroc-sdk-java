@@ -108,6 +108,10 @@ public final class DualPricing {
     public interface _FinalStage {
         DualPricing build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Object that contains information about the choice rate.
          * <strong>Note:</strong> For requests, if the value for <strong>offered</strong> is <code>true</code>, you must send this object in the request.</p>
@@ -205,6 +209,18 @@ public final class DualPricing {
         @java.lang.Override
         public DualPricing build() {
             return new DualPricing(offered, choiceRate, alternativeTender, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

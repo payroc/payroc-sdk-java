@@ -125,6 +125,10 @@ public final class FlatRateFees {
     public interface _FinalStage {
         FlatRateFees build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Polymorphic object that contains fees for American Express transactions.</p>
          */
@@ -247,6 +251,18 @@ public final class FlatRateFees {
         public FlatRateFees build() {
             return new FlatRateFees(
                     standardCards, amex, pinDebit, electronicBenefitsTransfer, specialityCards, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

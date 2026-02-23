@@ -189,6 +189,10 @@ public final class FxRateInquiry {
     public interface _FinalStage {
         FxRateInquiry build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Operator who ran the transaction.</p>
          */
@@ -331,6 +335,18 @@ public final class FxRateInquiry {
                     baseCurrency,
                     paymentMethod,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -93,6 +93,10 @@ public final class ProcessingMonthlyAmounts {
 
     public interface _FinalStage {
         ProcessingMonthlyAmounts build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -140,6 +144,18 @@ public final class ProcessingMonthlyAmounts {
         @java.lang.Override
         public ProcessingMonthlyAmounts build() {
             return new ProcessingMonthlyAmounts(average, highest, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

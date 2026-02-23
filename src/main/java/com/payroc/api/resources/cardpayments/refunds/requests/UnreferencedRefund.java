@@ -228,6 +228,10 @@ public final class UnreferencedRefund {
     public interface _FinalStage {
         UnreferencedRefund build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Operator who initiated the request.</p>
          */
@@ -440,6 +444,18 @@ public final class UnreferencedRefund {
                     refundMethod,
                     customFields,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

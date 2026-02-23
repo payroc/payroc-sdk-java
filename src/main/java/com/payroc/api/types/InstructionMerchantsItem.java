@@ -107,6 +107,10 @@ public final class InstructionMerchantsItem {
     public interface _FinalStage {
         InstructionMerchantsItem build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Array of recipients objects. Each object contains information about the funding account and the amount of funds we send to the funding account.</p>
          */
@@ -215,6 +219,18 @@ public final class InstructionMerchantsItem {
         @java.lang.Override
         public InstructionMerchantsItem build() {
             return new InstructionMerchantsItem(merchantId, recipients, link, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

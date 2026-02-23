@@ -156,6 +156,10 @@ public final class RewardPayFees {
     public interface _FinalStage {
         RewardPayFees build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Percentage of the total transaction amount that the processor charges the cardholder.</p>
          */
@@ -319,6 +323,18 @@ public final class RewardPayFees {
                     tips,
                     specialityCards,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

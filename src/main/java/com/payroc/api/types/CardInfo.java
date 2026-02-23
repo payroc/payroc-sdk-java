@@ -147,6 +147,10 @@ public final class CardInfo {
     public interface _FinalStage {
         CardInfo build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Country of the issuing bank. The value for the country follows the <a href="https://www.iso.org/iso-3166-country-codes.html">ISO-3166-1</a> standard.</p>
          */
@@ -293,6 +297,18 @@ public final class CardInfo {
         @java.lang.Override
         public CardInfo build() {
             return new CardInfo(type, cardNumber, country, currency, debit, surcharging, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

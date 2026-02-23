@@ -158,6 +158,10 @@ public final class PadPayload {
     public interface _FinalStage {
         PadPayload build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates the customer’s account type.
          * <strong>Note:</strong> For bank account details, send a value for accountType.</p>
@@ -271,6 +275,18 @@ public final class PadPayload {
         public PadPayload build() {
             return new PadPayload(
                     accountType, nameOnAccount, accountNumber, transitNumber, institutionNumber, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

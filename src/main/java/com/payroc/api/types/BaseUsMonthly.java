@@ -97,5 +97,15 @@ public final class BaseUsMonthly {
         public BaseUsMonthly build() {
             return new BaseUsMonthly(amount, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

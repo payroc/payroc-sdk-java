@@ -173,6 +173,10 @@ public final class TsysTerminal {
     public interface _FinalStage {
         TsysTerminal build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Authenticates the terminal's identity with the host processor.</p>
          */
@@ -377,6 +381,18 @@ public final class TsysTerminal {
                     internetAllowed,
                     cardPresentAllowed,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

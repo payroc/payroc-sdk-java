@@ -75,6 +75,10 @@ public final class EbtDisabled {
 
     public interface _FinalStage {
         EbtDisabled build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -107,6 +111,18 @@ public final class EbtDisabled {
         @java.lang.Override
         public EbtDisabled build() {
             return new EbtDisabled(enabled, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

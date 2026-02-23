@@ -240,5 +240,15 @@ public final class ListAchDepositsSettlementResponse implements IPaginatedList {
         public ListAchDepositsSettlementResponse build() {
             return new ListAchDepositsSettlementResponse(limit, count, hasMore, links, data, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

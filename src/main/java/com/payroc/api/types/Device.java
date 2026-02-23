@@ -140,6 +140,10 @@ public final class Device implements IDevice {
     public interface _FinalStage {
         Device build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates if the device is attended or unattended.</p>
          */
@@ -266,6 +270,18 @@ public final class Device implements IDevice {
         @java.lang.Override
         public Device build() {
             return new Device(model, category, serialNumber, firmwareVersion, config, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

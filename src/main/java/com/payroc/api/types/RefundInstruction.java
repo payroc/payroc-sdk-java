@@ -199,5 +199,15 @@ public final class RefundInstruction implements IDeviceInstruction {
         public RefundInstruction build() {
             return new RefundInstruction(status, errorMessage, link, refundInstructionId, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

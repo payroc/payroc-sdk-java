@@ -76,6 +76,10 @@ public final class PaymentPlanOrderBreakdownBase implements IPaymentPlanOrderBre
 
     public interface _FinalStage {
         PaymentPlanOrderBreakdownBase build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -108,6 +112,18 @@ public final class PaymentPlanOrderBreakdownBase implements IPaymentPlanOrderBre
         @java.lang.Override
         public PaymentPlanOrderBreakdownBase build() {
             return new PaymentPlanOrderBreakdownBase(subtotal, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

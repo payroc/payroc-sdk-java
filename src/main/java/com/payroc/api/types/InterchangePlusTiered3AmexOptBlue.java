@@ -118,6 +118,10 @@ public final class InterchangePlusTiered3AmexOptBlue {
 
     public interface _FinalStage {
         InterchangePlusTiered3AmexOptBlue build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -180,6 +184,18 @@ public final class InterchangePlusTiered3AmexOptBlue {
         @java.lang.Override
         public InterchangePlusTiered3AmexOptBlue build() {
             return new InterchangePlusTiered3AmexOptBlue(qualifiedRate, midQualRate, nonQualRate, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

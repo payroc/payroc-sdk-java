@@ -134,6 +134,10 @@ public final class FourHundredFifteen {
 
     public interface _FinalStage {
         FourHundredFifteen build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -211,6 +215,18 @@ public final class FourHundredFifteen {
         @java.lang.Override
         public FourHundredFifteen build() {
             return new FourHundredFifteen(type, title, status, detail, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

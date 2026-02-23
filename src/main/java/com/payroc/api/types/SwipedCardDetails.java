@@ -160,6 +160,10 @@ public final class SwipedCardDetails {
     public interface _FinalStage {
         SwipedCardDetails build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>If an offline transaction is not approved using the initial entry method, reprocess the transaction using a downgraded entry method.
          * For example, a swiped transaction can be downgraded to a keyed transaction.</p>
@@ -351,6 +355,18 @@ public final class SwipedCardDetails {
                     pinDetails,
                     ebtDetails,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

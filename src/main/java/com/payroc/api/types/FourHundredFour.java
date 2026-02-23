@@ -154,6 +154,10 @@ public final class FourHundredFour {
     public interface _FinalStage {
         FourHundredFour build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Resource that was not found</p>
          */
@@ -260,6 +264,18 @@ public final class FourHundredFour {
         @java.lang.Override
         public FourHundredFour build() {
             return new FourHundredFour(type, title, status, detail, resource, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

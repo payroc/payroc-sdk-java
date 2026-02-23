@@ -152,6 +152,10 @@ public final class PricingAgreementUs50 implements IPricingAgreementUs50 {
     public interface _FinalStage {
         PricingAgreementUs50 build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Object that contains information about U.S. processor fees.</p>
          */
@@ -278,6 +282,18 @@ public final class PricingAgreementUs50 implements IPricingAgreementUs50 {
         @java.lang.Override
         public PricingAgreementUs50 build() {
             return new PricingAgreementUs50(country, version, base, processor, gateway, services, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

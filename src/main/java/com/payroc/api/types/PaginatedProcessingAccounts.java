@@ -226,5 +226,15 @@ public final class PaginatedProcessingAccounts implements IPaginatedList {
         public PaginatedProcessingAccounts build() {
             return new PaginatedProcessingAccounts(limit, count, hasMore, links, data, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

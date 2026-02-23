@@ -171,6 +171,10 @@ public final class InstructionMerchantsItemRecipientsItem {
     public interface _FinalStage {
         InstructionMerchantsItemRecipientsItem build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Status of the individual payment instruction. Our gateway returns one of the following values:</p>
          * <ul>
@@ -350,6 +354,18 @@ public final class InstructionMerchantsItemRecipientsItem {
         public InstructionMerchantsItemRecipientsItem build() {
             return new InstructionMerchantsItemRecipientsItem(
                     fundingAccountId, paymentMethod, amount, status, metadata, link, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -209,6 +209,10 @@ public final class ProcessingTerminalFeatures {
     public interface _FinalStage {
         ProcessingTerminalFeatures build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Polymorphic object that indicates if the terminal accepts tips.</p>
          * <p>The value of the enabled field determines which variant you should use:</p>
@@ -454,6 +458,18 @@ public final class ProcessingTerminalFeatures {
                     preAuthorizations,
                     offlinePayments,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

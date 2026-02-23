@@ -152,6 +152,10 @@ public final class Breakdown implements IBreakdown, IBreakdownBase {
     public interface _FinalStage {
         Breakdown build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>List of taxes.</p>
          */
@@ -333,6 +337,18 @@ public final class Breakdown implements IBreakdown, IBreakdownBase {
         @java.lang.Override
         public Breakdown build() {
             return new Breakdown(taxes, subtotal, cashbackAmount, tip, surcharge, dualPricing, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

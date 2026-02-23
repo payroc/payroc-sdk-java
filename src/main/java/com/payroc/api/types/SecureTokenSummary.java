@@ -163,6 +163,10 @@ public final class SecureTokenSummary {
     public interface _FinalStage {
         SecureTokenSummary build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage link(Optional<Link> link);
 
         _FinalStage link(Link link);
@@ -272,6 +276,18 @@ public final class SecureTokenSummary {
         @java.lang.Override
         public SecureTokenSummary build() {
             return new SecureTokenSummary(secureTokenId, customerName, token, status, link, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

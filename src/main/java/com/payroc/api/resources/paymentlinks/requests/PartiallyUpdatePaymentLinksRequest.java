@@ -92,6 +92,10 @@ public final class PartiallyUpdatePaymentLinksRequest {
     public interface _FinalStage {
         PartiallyUpdatePaymentLinksRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage body(List<PatchDocument> body);
 
         _FinalStage addBody(PatchDocument body);
@@ -155,6 +159,18 @@ public final class PartiallyUpdatePaymentLinksRequest {
         @java.lang.Override
         public PartiallyUpdatePaymentLinksRequest build() {
             return new PartiallyUpdatePaymentLinksRequest(idempotencyKey, body, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

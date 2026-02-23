@@ -143,6 +143,10 @@ public final class ListFundingInstructionsRequest {
     public interface _FinalStage {
         ListFundingInstructionsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Return the previous page of results before the value that you specify.</p>
          * <p>You can’t send the before parameter in the same request as the after parameter.</p>
@@ -285,6 +289,18 @@ public final class ListFundingInstructionsRequest {
         @java.lang.Override
         public ListFundingInstructionsRequest build() {
             return new ListFundingInstructionsRequest(before, after, limit, dateFrom, dateTo, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

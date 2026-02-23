@@ -137,6 +137,10 @@ public final class BreakdownBase implements IBreakdownBase {
     public interface _FinalStage {
         BreakdownBase build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Amount of cashback for the transaction.</p>
          */
@@ -288,6 +292,18 @@ public final class BreakdownBase implements IBreakdownBase {
         @java.lang.Override
         public BreakdownBase build() {
             return new BreakdownBase(subtotal, cashbackAmount, tip, surcharge, dualPricing, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -143,6 +143,10 @@ public final class KeyedCardDetails {
     public interface _FinalStage {
         KeyedCardDetails build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Cardholder’s name.</p>
          */
@@ -297,6 +301,18 @@ public final class KeyedCardDetails {
         public KeyedCardDetails build() {
             return new KeyedCardDetails(
                     keyedData, cardholderName, cardholderSignature, pinDetails, ebtDetails, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

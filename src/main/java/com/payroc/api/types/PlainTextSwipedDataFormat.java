@@ -121,6 +121,10 @@ public final class PlainTextSwipedDataFormat {
     public interface _FinalStage {
         PlainTextSwipedDataFormat build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates that this is a fallback transaction. For example, if there was a technical issue with the chip on the customer's card and the merchant then swiped the card.</p>
          */
@@ -222,6 +226,18 @@ public final class PlainTextSwipedDataFormat {
         @java.lang.Override
         public PlainTextSwipedDataFormat build() {
             return new PlainTextSwipedDataFormat(device, trackData, fallback, fallbackReason, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

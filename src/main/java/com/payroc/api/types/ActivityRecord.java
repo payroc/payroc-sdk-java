@@ -231,6 +231,10 @@ public final class ActivityRecord {
     public interface _FinalStage {
         ActivityRecord build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Name of the account holder who owns the funding account that received funds.</p>
          * <p><strong>Note:</strong> We return a value for recipient only if the value for type is <code>debit</code>.</p>
@@ -402,6 +406,18 @@ public final class ActivityRecord {
         public ActivityRecord build() {
             return new ActivityRecord(
                     id, date, merchant, recipient, description, amount, type, currency, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

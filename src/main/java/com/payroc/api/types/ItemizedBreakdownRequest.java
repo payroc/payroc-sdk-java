@@ -216,6 +216,10 @@ public final class ItemizedBreakdownRequest implements IBreakdownRequest, IBreak
     public interface _FinalStage {
         ItemizedBreakdownRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Array of polymorphic tax objects, which contain information about a tax.</p>
          * <p>The value of the type parameter determines which variant you should use:</p>
@@ -533,6 +537,18 @@ public final class ItemizedBreakdownRequest implements IBreakdownRequest, IBreak
                     convenienceFee,
                     items,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

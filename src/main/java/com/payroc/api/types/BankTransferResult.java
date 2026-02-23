@@ -190,6 +190,10 @@ public final class BankTransferResult {
     public interface _FinalStage {
         BankTransferResult build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Amount of the transaction.
          * <strong>Note:</strong> The amount is negative for a refund.</p>
@@ -370,6 +374,18 @@ public final class BankTransferResult {
                     responseMessage,
                     processorResponseCode,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

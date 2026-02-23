@@ -88,6 +88,10 @@ public final class PresetPaymentLinkCharge {
 
     public interface _FinalStage {
         PresetPaymentLinkCharge build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -130,6 +134,18 @@ public final class PresetPaymentLinkCharge {
         @java.lang.Override
         public PresetPaymentLinkCharge build() {
             return new PresetPaymentLinkCharge(amount, currency, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

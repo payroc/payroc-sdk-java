@@ -78,6 +78,10 @@ public final class ApplePayResponseSession {
 
     public interface _FinalStage {
         ApplePayResponseSession build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -113,6 +117,18 @@ public final class ApplePayResponseSession {
         @java.lang.Override
         public ApplePayResponseSession build() {
             return new ApplePayResponseSession(startSessionResponse, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -137,6 +137,10 @@ public final class AchSourceWithAccountType implements IAchSource {
     public interface _FinalStage {
         AchSourceWithAccountType build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates the customer's account type.</p>
          */
@@ -230,6 +234,18 @@ public final class AchSourceWithAccountType implements IAchSource {
         public AchSourceWithAccountType build() {
             return new AchSourceWithAccountType(
                     nameOnAccount, accountNumber, routingNumber, accountType, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

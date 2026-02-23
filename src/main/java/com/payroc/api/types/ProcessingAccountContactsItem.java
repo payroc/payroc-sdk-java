@@ -189,5 +189,15 @@ public final class ProcessingAccountContactsItem {
         public ProcessingAccountContactsItem build() {
             return new ProcessingAccountContactsItem(contactId, firstName, lastName, link, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

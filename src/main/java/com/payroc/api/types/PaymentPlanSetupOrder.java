@@ -155,5 +155,15 @@ public final class PaymentPlanSetupOrder implements IPaymentPlanSetupOrderBase {
         public PaymentPlanSetupOrder build() {
             return new PaymentPlanSetupOrder(amount, description, breakdown, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

@@ -131,6 +131,10 @@ public final class PlainTextKeyedDataFormat {
     public interface _FinalStage {
         PlainTextKeyedDataFormat build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage device(Optional<Device> device);
 
         _FinalStage device(Device device);
@@ -275,6 +279,18 @@ public final class PlainTextKeyedDataFormat {
         @java.lang.Override
         public PlainTextKeyedDataFormat build() {
             return new PlainTextKeyedDataFormat(device, cardNumber, expiryDate, cvv, issueNumber, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

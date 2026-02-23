@@ -111,6 +111,10 @@ public final class RewardPayChoiceFeesDebit {
     public interface _FinalStage {
         RewardPayChoiceFeesDebit build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates if debit transactions should be charged at interchange plus or flat rate pricing.</p>
          */
@@ -187,6 +191,18 @@ public final class RewardPayChoiceFeesDebit {
         @java.lang.Override
         public RewardPayChoiceFeesDebit build() {
             return new RewardPayChoiceFeesDebit(option, volume, transaction, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

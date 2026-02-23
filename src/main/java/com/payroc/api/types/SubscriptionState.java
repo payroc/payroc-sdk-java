@@ -142,6 +142,10 @@ public final class SubscriptionState {
     public interface _FinalStage {
         SubscriptionState build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Date that the merchant collects the next payment.</p>
          */
@@ -266,6 +270,18 @@ public final class SubscriptionState {
         @java.lang.Override
         public SubscriptionState build() {
             return new SubscriptionState(status, nextDueDate, paidInvoices, outstandingInvoices, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

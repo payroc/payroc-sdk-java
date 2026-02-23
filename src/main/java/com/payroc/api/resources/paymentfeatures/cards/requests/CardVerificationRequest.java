@@ -147,6 +147,10 @@ public final class CardVerificationRequest {
     public interface _FinalStage {
         CardVerificationRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Operator who requested to verify the card.</p>
          */
@@ -260,6 +264,18 @@ public final class CardVerificationRequest {
         public CardVerificationRequest build() {
             return new CardVerificationRequest(
                     idempotencyKey, processingTerminalId, operator, customer, card, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

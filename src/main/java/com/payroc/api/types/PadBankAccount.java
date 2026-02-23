@@ -152,6 +152,10 @@ public final class PadBankAccount {
     public interface _FinalStage {
         PadBankAccount build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage secureToken(Optional<SecureTokenSummary> secureToken);
 
         _FinalStage secureToken(SecureTokenSummary secureToken);
@@ -250,6 +254,18 @@ public final class PadBankAccount {
         public PadBankAccount build() {
             return new PadBankAccount(
                     nameOnAccount, accountNumber, transitNumber, institutionNumber, secureToken, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

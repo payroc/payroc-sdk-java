@@ -120,6 +120,10 @@ public final class Surcharging {
     public interface _FinalStage {
         Surcharging build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Surcharge amount to add to the transaction.
          * <strong>Note:</strong> Our gateway returns the surcharge amount only if you include a transaction amount in the request.</p>
@@ -244,6 +248,18 @@ public final class Surcharging {
         @java.lang.Override
         public Surcharging build() {
             return new Surcharging(allowed, amount, percentage, disclosure, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

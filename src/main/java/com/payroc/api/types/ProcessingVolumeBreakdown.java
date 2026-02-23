@@ -114,6 +114,10 @@ public final class ProcessingVolumeBreakdown {
 
     public interface _FinalStage {
         ProcessingVolumeBreakdown build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -176,6 +180,18 @@ public final class ProcessingVolumeBreakdown {
         @java.lang.Override
         public ProcessingVolumeBreakdown build() {
             return new ProcessingVolumeBreakdown(cardPresent, mailOrTelephone, ecommerce, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

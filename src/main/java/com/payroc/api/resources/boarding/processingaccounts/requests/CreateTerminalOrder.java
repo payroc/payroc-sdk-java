@@ -123,6 +123,10 @@ public final class CreateTerminalOrder {
     public interface _FinalStage {
         CreateTerminalOrder build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage trainingProvider(Optional<TrainingProvider> trainingProvider);
 
         _FinalStage trainingProvider(TrainingProvider trainingProvider);
@@ -251,6 +255,18 @@ public final class CreateTerminalOrder {
         public CreateTerminalOrder build() {
             return new CreateTerminalOrder(
                     idempotencyKey, trainingProvider, shipping, orderItems, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

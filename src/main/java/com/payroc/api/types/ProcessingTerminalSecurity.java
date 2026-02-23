@@ -133,6 +133,10 @@ public final class ProcessingTerminalSecurity {
     public interface _FinalStage {
         ProcessingTerminalSecurity build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates the level of AVS details that the terminal should prompt for.</p>
          */
@@ -224,6 +228,18 @@ public final class ProcessingTerminalSecurity {
         @java.lang.Override
         public ProcessingTerminalSecurity build() {
             return new ProcessingTerminalSecurity(tokenization, avsPrompt, avsLevel, cvvPrompt, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

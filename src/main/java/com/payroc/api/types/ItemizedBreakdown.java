@@ -211,6 +211,10 @@ public final class ItemizedBreakdown implements IBreakdown, IBreakdownBase {
     public interface _FinalStage {
         ItemizedBreakdown build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>List of taxes.</p>
          */
@@ -513,6 +517,18 @@ public final class ItemizedBreakdown implements IBreakdown, IBreakdownBase {
                     convenienceFee,
                     items,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -108,6 +108,10 @@ public final class RetrievedTax {
     public interface _FinalStage {
         RetrievedTax build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Amount of tax that was applied to the transaction. The value is in the currency's lowest denomination, for example, cents.</p>
          */
@@ -184,6 +188,18 @@ public final class RetrievedTax {
         @java.lang.Override
         public RetrievedTax build() {
             return new RetrievedTax(name, rate, amount, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

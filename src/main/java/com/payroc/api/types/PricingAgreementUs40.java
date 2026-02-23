@@ -138,6 +138,10 @@ public final class PricingAgreementUs40 {
     public interface _FinalStage {
         PricingAgreementUs40 build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Object that contains information about U.S. processor fees.</p>
          */
@@ -244,6 +248,18 @@ public final class PricingAgreementUs40 {
         @java.lang.Override
         public PricingAgreementUs40 build() {
             return new PricingAgreementUs40(country, version, base, processor, gateway, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

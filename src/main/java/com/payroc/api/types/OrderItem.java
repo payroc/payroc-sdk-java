@@ -199,6 +199,10 @@ public final class OrderItem implements IOrderItem {
     public interface _FinalStage {
         OrderItem build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Quantity of the solution.</p>
          */
@@ -392,6 +396,18 @@ public final class OrderItem implements IOrderItem {
         public OrderItem build() {
             return new OrderItem(
                     type, solutionTemplateId, solutionQuantity, deviceCondition, solutionSetup, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

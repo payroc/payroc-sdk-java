@@ -143,6 +143,10 @@ public final class Balance {
     public interface _FinalStage {
         Balance build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Operator who requested the balance inquiry.</p>
          */
@@ -300,6 +304,18 @@ public final class Balance {
         public Balance build() {
             return new Balance(
                     processingTerminalId, operator, card, responseCode, responseMessage, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

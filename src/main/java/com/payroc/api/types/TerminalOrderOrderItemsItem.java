@@ -219,6 +219,10 @@ public final class TerminalOrderOrderItemsItem implements IOrderItem, ILinks {
     public interface _FinalStage {
         TerminalOrderOrderItemsItem build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Quantity of the solution.</p>
          */
@@ -448,6 +452,18 @@ public final class TerminalOrderOrderItemsItem implements IOrderItem, ILinks {
                     solutionSetup,
                     links,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

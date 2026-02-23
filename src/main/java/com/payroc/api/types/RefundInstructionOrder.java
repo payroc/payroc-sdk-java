@@ -147,6 +147,10 @@ public final class RefundInstructionOrder implements IOrder {
     public interface _FinalStage {
         RefundInstructionOrder build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Date and time that the processor processed the transaction. Our gateway returns this value in the <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> format.</p>
          */
@@ -263,6 +267,18 @@ public final class RefundInstructionOrder implements IOrder {
         @java.lang.Override
         public RefundInstructionOrder build() {
             return new RefundInstructionOrder(orderId, dateTime, description, amount, currency, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

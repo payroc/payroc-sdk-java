@@ -232,6 +232,10 @@ public final class BankTransferPayment {
     public interface _FinalStage {
         BankTransferPayment build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage customer(Optional<BankTransferCustomer> customer);
 
         _FinalStage customer(BankTransferCustomer customer);
@@ -481,6 +485,18 @@ public final class BankTransferPayment {
                     transactionResult,
                     customFields,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

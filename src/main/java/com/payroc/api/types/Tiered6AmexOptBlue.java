@@ -118,6 +118,10 @@ public final class Tiered6AmexOptBlue {
 
     public interface _FinalStage {
         Tiered6AmexOptBlue build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -180,6 +184,18 @@ public final class Tiered6AmexOptBlue {
         @java.lang.Override
         public Tiered6AmexOptBlue build() {
             return new Tiered6AmexOptBlue(qualifiedRate, midQualRate, nonQualRate, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

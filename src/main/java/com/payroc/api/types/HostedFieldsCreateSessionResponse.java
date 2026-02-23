@@ -119,6 +119,10 @@ public final class HostedFieldsCreateSessionResponse {
     public interface _FinalStage {
         HostedFieldsCreateSessionResponse build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Date and time that the token expires. We return this value in the <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> format.</p>
          */
@@ -200,6 +204,18 @@ public final class HostedFieldsCreateSessionResponse {
         @java.lang.Override
         public HostedFieldsCreateSessionResponse build() {
             return new HostedFieldsCreateSessionResponse(processingTerminalId, token, expiresAt, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

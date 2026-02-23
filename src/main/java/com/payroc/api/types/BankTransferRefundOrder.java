@@ -214,5 +214,15 @@ public final class BankTransferRefundOrder {
         public BankTransferRefundOrder build() {
             return new BankTransferRefundOrder(orderId, dateTime, description, amount, currency, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

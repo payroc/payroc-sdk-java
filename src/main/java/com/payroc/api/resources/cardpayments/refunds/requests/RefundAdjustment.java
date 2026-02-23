@@ -116,6 +116,10 @@ public final class RefundAdjustment {
     public interface _FinalStage {
         RefundAdjustment build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Operator who requested the adjustment to the refund.</p>
          */
@@ -243,6 +247,18 @@ public final class RefundAdjustment {
         @java.lang.Override
         public RefundAdjustment build() {
             return new RefundAdjustment(idempotencyKey, operator, adjustments, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -157,5 +157,15 @@ public final class InstructionMerchantsItemLink {
         public InstructionMerchantsItemLink build() {
             return new InstructionMerchantsItemLink(rel, method, href, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

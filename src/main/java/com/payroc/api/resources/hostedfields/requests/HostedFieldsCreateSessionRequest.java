@@ -147,6 +147,10 @@ public final class HostedFieldsCreateSessionRequest {
     public interface _FinalStage {
         HostedFieldsCreateSessionRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Unique identifier that represents a customer's payment details.</p>
          * <p>If a merchant wants to update a customer's payment details that are linked to a secure token, include the secureTokenId in your request.</p>
@@ -251,6 +255,18 @@ public final class HostedFieldsCreateSessionRequest {
         public HostedFieldsCreateSessionRequest build() {
             return new HostedFieldsCreateSessionRequest(
                     idempotencyKey, libVersion, scenario, secureTokenId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

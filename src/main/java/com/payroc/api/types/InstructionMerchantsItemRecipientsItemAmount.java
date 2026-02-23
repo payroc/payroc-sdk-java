@@ -93,6 +93,10 @@ public final class InstructionMerchantsItemRecipientsItemAmount {
     public interface _FinalStage {
         InstructionMerchantsItemRecipientsItemAmount build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Currency of the value parameter.</p>
          */
@@ -154,6 +158,18 @@ public final class InstructionMerchantsItemRecipientsItemAmount {
         @java.lang.Override
         public InstructionMerchantsItemRecipientsItemAmount build() {
             return new InstructionMerchantsItemRecipientsItemAmount(value, currency, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

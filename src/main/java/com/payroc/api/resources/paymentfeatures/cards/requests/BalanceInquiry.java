@@ -151,6 +151,10 @@ public final class BalanceInquiry {
     public interface _FinalStage {
         BalanceInquiry build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Operator who requested the balance inquiry.</p>
          */
@@ -268,6 +272,18 @@ public final class BalanceInquiry {
         @java.lang.Override
         public BalanceInquiry build() {
             return new BalanceInquiry(processingTerminalId, operator, currency, customer, card, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

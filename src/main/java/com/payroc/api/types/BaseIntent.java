@@ -157,6 +157,10 @@ public final class BaseIntent implements IBaseIntent {
     public interface _FinalStage {
         BaseIntent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Unique identifier of the pricing intent.</p>
          */
@@ -353,6 +357,18 @@ public final class BaseIntent implements IBaseIntent {
         @java.lang.Override
         public BaseIntent build() {
             return new BaseIntent(id, createdDate, lastUpdatedDate, status, key, metadata, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

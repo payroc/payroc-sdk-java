@@ -161,6 +161,10 @@ public final class SingleUseToken {
     public interface _FinalStage {
         SingleUseToken build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Unique identifier that we assigned to the terminal.</p>
          */
@@ -358,6 +362,18 @@ public final class SingleUseToken {
         public SingleUseToken build() {
             return new SingleUseToken(
                     processingTerminalId, operator, paymentMethod, token, expiresAt, source, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

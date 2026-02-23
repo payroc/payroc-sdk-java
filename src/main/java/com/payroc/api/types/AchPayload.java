@@ -156,6 +156,10 @@ public final class AchPayload {
     public interface _FinalStage {
         AchPayload build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates the customer’s account type.</p>
          * <p><strong>Note:</strong> For bank account details, send a value for accountType.</p>
@@ -302,6 +306,18 @@ public final class AchPayload {
         public AchPayload build() {
             return new AchPayload(
                     accountType, secCode, nameOnAccount, accountNumber, routingNumber, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

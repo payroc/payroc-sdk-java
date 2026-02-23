@@ -105,6 +105,10 @@ public final class ProcessingTerminalFeaturesPaymentLinks {
     public interface _FinalStage {
         ProcessingTerminalFeaturesPaymentLinks build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>URL of the logo image that the merchant wants to display in their payment link email.</p>
          */
@@ -196,6 +200,18 @@ public final class ProcessingTerminalFeaturesPaymentLinks {
         @java.lang.Override
         public ProcessingTerminalFeaturesPaymentLinks build() {
             return new ProcessingTerminalFeaturesPaymentLinks(enabled, logoUrl, footerNotes, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

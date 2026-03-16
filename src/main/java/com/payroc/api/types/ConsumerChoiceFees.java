@@ -30,6 +30,8 @@ public final class ConsumerChoiceFees {
 
     private final Optional<SpecialityCards> specialityCards;
 
+    private final Optional<Double> merchantChargePercentage;
+
     private final Map<String, Object> additionalProperties;
 
     private ConsumerChoiceFees(
@@ -38,12 +40,14 @@ public final class ConsumerChoiceFees {
             Optional<PinDebit> pinDebit,
             Optional<ElectronicBenefitsTransfer> electronicBenefitsTransfer,
             Optional<SpecialityCards> specialityCards,
+            Optional<Double> merchantChargePercentage,
             Map<String, Object> additionalProperties) {
         this.monthlySubscription = monthlySubscription;
         this.volume = volume;
         this.pinDebit = pinDebit;
         this.electronicBenefitsTransfer = electronicBenefitsTransfer;
         this.specialityCards = specialityCards;
+        this.merchantChargePercentage = merchantChargePercentage;
         this.additionalProperties = additionalProperties;
     }
 
@@ -78,6 +82,14 @@ public final class ConsumerChoiceFees {
         return specialityCards;
     }
 
+    /**
+     * @return Percentage of the total transaction amount that the processor charges the merchant.
+     */
+    @JsonProperty("merchantChargePercentage")
+    public Optional<Double> getMerchantChargePercentage() {
+        return merchantChargePercentage;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -94,7 +106,8 @@ public final class ConsumerChoiceFees {
                 && volume == other.volume
                 && pinDebit.equals(other.pinDebit)
                 && electronicBenefitsTransfer.equals(other.electronicBenefitsTransfer)
-                && specialityCards.equals(other.specialityCards);
+                && specialityCards.equals(other.specialityCards)
+                && merchantChargePercentage.equals(other.merchantChargePercentage);
     }
 
     @java.lang.Override
@@ -104,7 +117,8 @@ public final class ConsumerChoiceFees {
                 this.volume,
                 this.pinDebit,
                 this.electronicBenefitsTransfer,
-                this.specialityCards);
+                this.specialityCards,
+                this.merchantChargePercentage);
     }
 
     @java.lang.Override
@@ -150,6 +164,13 @@ public final class ConsumerChoiceFees {
         _FinalStage specialityCards(Optional<SpecialityCards> specialityCards);
 
         _FinalStage specialityCards(SpecialityCards specialityCards);
+
+        /**
+         * <p>Percentage of the total transaction amount that the processor charges the merchant.</p>
+         */
+        _FinalStage merchantChargePercentage(Optional<Double> merchantChargePercentage);
+
+        _FinalStage merchantChargePercentage(Double merchantChargePercentage);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -157,6 +178,8 @@ public final class ConsumerChoiceFees {
         private int monthlySubscription;
 
         private double volume;
+
+        private Optional<Double> merchantChargePercentage = Optional.empty();
 
         private Optional<SpecialityCards> specialityCards = Optional.empty();
 
@@ -176,6 +199,7 @@ public final class ConsumerChoiceFees {
             pinDebit(other.getPinDebit());
             electronicBenefitsTransfer(other.getElectronicBenefitsTransfer());
             specialityCards(other.getSpecialityCards());
+            merchantChargePercentage(other.getMerchantChargePercentage());
             return this;
         }
 
@@ -200,6 +224,26 @@ public final class ConsumerChoiceFees {
         @JsonSetter("volume")
         public _FinalStage volume(double volume) {
             this.volume = volume;
+            return this;
+        }
+
+        /**
+         * <p>Percentage of the total transaction amount that the processor charges the merchant.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage merchantChargePercentage(Double merchantChargePercentage) {
+            this.merchantChargePercentage = Optional.ofNullable(merchantChargePercentage);
+            return this;
+        }
+
+        /**
+         * <p>Percentage of the total transaction amount that the processor charges the merchant.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "merchantChargePercentage", nulls = Nulls.SKIP)
+        public _FinalStage merchantChargePercentage(Optional<Double> merchantChargePercentage) {
+            this.merchantChargePercentage = merchantChargePercentage;
             return this;
         }
 
@@ -250,6 +294,7 @@ public final class ConsumerChoiceFees {
                     pinDebit,
                     electronicBenefitsTransfer,
                     specialityCards,
+                    merchantChargePercentage,
                     additionalProperties);
         }
 

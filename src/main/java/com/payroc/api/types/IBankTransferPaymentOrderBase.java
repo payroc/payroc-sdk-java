@@ -7,13 +7,13 @@ import java.time.OffsetDateTime;
 import java.util.Optional;
 
 public interface IBankTransferPaymentOrderBase {
-    Optional<String> getOrderId();
+    String getOrderId();
 
     Optional<OffsetDateTime> getDateTime();
 
     Optional<String> getDescription();
 
-    Optional<Long> getAmount();
+    long getAmount();
 
-    Optional<Currency> getCurrency();
+    Currency getCurrency();
 }

@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = SignatureInstruction.Builder.class)
@@ -26,7 +27,7 @@ public final class SignatureInstruction implements IDeviceInstruction {
 
     private final Optional<Link> link;
 
-    private final Optional<String> signatureInstructionId;
+    private final String signatureInstructionId;
 
     private final Map<String, Object> additionalProperties;
 
@@ -34,7 +35,7 @@ public final class SignatureInstruction implements IDeviceInstruction {
             Optional<DeviceInstructionStatus> status,
             Optional<String> errorMessage,
             Optional<Link> link,
-            Optional<String> signatureInstructionId,
+            String signatureInstructionId,
             Map<String, Object> additionalProperties) {
         this.status = status;
         this.errorMessage = errorMessage;
@@ -77,7 +78,7 @@ public final class SignatureInstruction implements IDeviceInstruction {
      * @return Unique identifier that our gateway assigned to the instruction.
      */
     @JsonProperty("signatureInstructionId")
-    public Optional<String> getSignatureInstructionId() {
+    public String getSignatureInstructionId() {
         return signatureInstructionId;
     }
 
@@ -109,30 +110,137 @@ public final class SignatureInstruction implements IDeviceInstruction {
         return ObjectMappers.stringify(this);
     }
 
-    public static Builder builder() {
+    public static SignatureInstructionIdStage builder() {
         return new Builder();
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder {
-        private Optional<DeviceInstructionStatus> status = Optional.empty();
+    public interface SignatureInstructionIdStage {
+        /**
+         * <p>Unique identifier that our gateway assigned to the instruction.</p>
+         */
+        _FinalStage signatureInstructionId(@NotNull String signatureInstructionId);
 
-        private Optional<String> errorMessage = Optional.empty();
+        Builder from(SignatureInstruction other);
+    }
+
+    public interface _FinalStage {
+        SignatureInstruction build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>Indicates the current status of the instruction.</p>
+         * <ul>
+         * <li><code>canceled</code> – The instruction was canceled before it was completed.</li>
+         * <li><code>completed</code> – The instruction has completed. Use the link object to check the resource.</li>
+         * <li><code>failure</code> – The instruction failed. Check the errorMessage field for more information.</li>
+         * <li><code>inProgress</code> – The instruction is currently in progress.</li>
+         * </ul>
+         */
+        _FinalStage status(Optional<DeviceInstructionStatus> status);
+
+        _FinalStage status(DeviceInstructionStatus status);
+
+        /**
+         * <p>Description of the error that caused the instruction to fail.</p>
+         * <p><strong>Note:</strong> We return this field only if the status is <code>failure</code>.</p>
+         */
+        _FinalStage errorMessage(Optional<String> errorMessage);
+
+        _FinalStage errorMessage(String errorMessage);
+
+        _FinalStage link(Optional<Link> link);
+
+        _FinalStage link(Link link);
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static final class Builder implements SignatureInstructionIdStage, _FinalStage {
+        private String signatureInstructionId;
 
         private Optional<Link> link = Optional.empty();
 
-        private Optional<String> signatureInstructionId = Optional.empty();
+        private Optional<String> errorMessage = Optional.empty();
+
+        private Optional<DeviceInstructionStatus> status = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
+        @java.lang.Override
         public Builder from(SignatureInstruction other) {
             status(other.getStatus());
             errorMessage(other.getErrorMessage());
             link(other.getLink());
             signatureInstructionId(other.getSignatureInstructionId());
+            return this;
+        }
+
+        /**
+         * <p>Unique identifier that our gateway assigned to the instruction.</p>
+         * <p>Unique identifier that our gateway assigned to the instruction.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("signatureInstructionId")
+        public _FinalStage signatureInstructionId(@NotNull String signatureInstructionId) {
+            this.signatureInstructionId =
+                    Objects.requireNonNull(signatureInstructionId, "signatureInstructionId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage link(Link link) {
+            this.link = Optional.ofNullable(link);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "link", nulls = Nulls.SKIP)
+        public _FinalStage link(Optional<Link> link) {
+            this.link = link;
+            return this;
+        }
+
+        /**
+         * <p>Description of the error that caused the instruction to fail.</p>
+         * <p><strong>Note:</strong> We return this field only if the status is <code>failure</code>.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage errorMessage(String errorMessage) {
+            this.errorMessage = Optional.ofNullable(errorMessage);
+            return this;
+        }
+
+        /**
+         * <p>Description of the error that caused the instruction to fail.</p>
+         * <p><strong>Note:</strong> We return this field only if the status is <code>failure</code>.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "errorMessage", nulls = Nulls.SKIP)
+        public _FinalStage errorMessage(Optional<String> errorMessage) {
+            this.errorMessage = errorMessage;
+            return this;
+        }
+
+        /**
+         * <p>Indicates the current status of the instruction.</p>
+         * <ul>
+         * <li><code>canceled</code> – The instruction was canceled before it was completed.</li>
+         * <li><code>completed</code> – The instruction has completed. Use the link object to check the resource.</li>
+         * <li><code>failure</code> – The instruction failed. Check the errorMessage field for more information.</li>
+         * <li><code>inProgress</code> – The instruction is currently in progress.</li>
+         * </ul>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage status(DeviceInstructionStatus status) {
+            this.status = Optional.ofNullable(status);
             return this;
         }
 
@@ -145,66 +253,25 @@ public final class SignatureInstruction implements IDeviceInstruction {
          * <li><code>inProgress</code> – The instruction is currently in progress.</li>
          * </ul>
          */
+        @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
-        public Builder status(Optional<DeviceInstructionStatus> status) {
+        public _FinalStage status(Optional<DeviceInstructionStatus> status) {
             this.status = status;
             return this;
         }
 
-        public Builder status(DeviceInstructionStatus status) {
-            this.status = Optional.ofNullable(status);
-            return this;
-        }
-
-        /**
-         * <p>Description of the error that caused the instruction to fail.</p>
-         * <p><strong>Note:</strong> We return this field only if the status is <code>failure</code>.</p>
-         */
-        @JsonSetter(value = "errorMessage", nulls = Nulls.SKIP)
-        public Builder errorMessage(Optional<String> errorMessage) {
-            this.errorMessage = errorMessage;
-            return this;
-        }
-
-        public Builder errorMessage(String errorMessage) {
-            this.errorMessage = Optional.ofNullable(errorMessage);
-            return this;
-        }
-
-        @JsonSetter(value = "link", nulls = Nulls.SKIP)
-        public Builder link(Optional<Link> link) {
-            this.link = link;
-            return this;
-        }
-
-        public Builder link(Link link) {
-            this.link = Optional.ofNullable(link);
-            return this;
-        }
-
-        /**
-         * <p>Unique identifier that our gateway assigned to the instruction.</p>
-         */
-        @JsonSetter(value = "signatureInstructionId", nulls = Nulls.SKIP)
-        public Builder signatureInstructionId(Optional<String> signatureInstructionId) {
-            this.signatureInstructionId = signatureInstructionId;
-            return this;
-        }
-
-        public Builder signatureInstructionId(String signatureInstructionId) {
-            this.signatureInstructionId = Optional.ofNullable(signatureInstructionId);
-            return this;
-        }
-
+        @java.lang.Override
         public SignatureInstruction build() {
             return new SignatureInstruction(status, errorMessage, link, signatureInstructionId, additionalProperties);
         }
 
+        @java.lang.Override
         public Builder additionalProperty(String key, Object value) {
             this.additionalProperties.put(key, value);
             return this;
         }
 
+        @java.lang.Override
         public Builder additionalProperties(Map<String, Object> additionalProperties) {
             this.additionalProperties.putAll(additionalProperties);
             return this;

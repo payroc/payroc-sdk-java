@@ -31,7 +31,7 @@ public final class EncryptionCapableDevice implements IDevice {
 
     private final Optional<DeviceConfig> config;
 
-    private final Optional<String> dataKsn;
+    private final String dataKsn;
 
     private final Map<String, Object> additionalProperties;
 
@@ -41,7 +41,7 @@ public final class EncryptionCapableDevice implements IDevice {
             String serialNumber,
             Optional<String> firmwareVersion,
             Optional<DeviceConfig> config,
-            Optional<String> dataKsn,
+            String dataKsn,
             Map<String, Object> additionalProperties) {
         this.model = model;
         this.category = category;
@@ -96,7 +96,7 @@ public final class EncryptionCapableDevice implements IDevice {
      * @return Key serial number.
      */
     @JsonProperty("dataKsn")
-    public Optional<String> getDataKsn() {
+    public String getDataKsn() {
         return dataKsn;
     }
 
@@ -148,7 +148,14 @@ public final class EncryptionCapableDevice implements IDevice {
         /**
          * <p>Serial number of the physical device.</p>
          */
-        _FinalStage serialNumber(@NotNull String serialNumber);
+        DataKsnStage serialNumber(@NotNull String serialNumber);
+    }
+
+    public interface DataKsnStage {
+        /**
+         * <p>Key serial number.</p>
+         */
+        _FinalStage dataKsn(@NotNull String dataKsn);
     }
 
     public interface _FinalStage {
@@ -175,22 +182,15 @@ public final class EncryptionCapableDevice implements IDevice {
         _FinalStage config(Optional<DeviceConfig> config);
 
         _FinalStage config(DeviceConfig config);
-
-        /**
-         * <p>Key serial number.</p>
-         */
-        _FinalStage dataKsn(Optional<String> dataKsn);
-
-        _FinalStage dataKsn(String dataKsn);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements ModelStage, SerialNumberStage, _FinalStage {
+    public static final class Builder implements ModelStage, SerialNumberStage, DataKsnStage, _FinalStage {
         private DeviceModel model;
 
         private String serialNumber;
 
-        private Optional<String> dataKsn = Optional.empty();
+        private String dataKsn;
 
         private Optional<DeviceConfig> config = Optional.empty();
 
@@ -233,28 +233,20 @@ public final class EncryptionCapableDevice implements IDevice {
          */
         @java.lang.Override
         @JsonSetter("serialNumber")
-        public _FinalStage serialNumber(@NotNull String serialNumber) {
+        public DataKsnStage serialNumber(@NotNull String serialNumber) {
             this.serialNumber = Objects.requireNonNull(serialNumber, "serialNumber must not be null");
             return this;
         }
 
         /**
          * <p>Key serial number.</p>
+         * <p>Key serial number.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage dataKsn(String dataKsn) {
-            this.dataKsn = Optional.ofNullable(dataKsn);
-            return this;
-        }
-
-        /**
-         * <p>Key serial number.</p>
-         */
-        @java.lang.Override
-        @JsonSetter(value = "dataKsn", nulls = Nulls.SKIP)
-        public _FinalStage dataKsn(Optional<String> dataKsn) {
-            this.dataKsn = dataKsn;
+        @JsonSetter("dataKsn")
+        public _FinalStage dataKsn(@NotNull String dataKsn) {
+            this.dataKsn = Objects.requireNonNull(dataKsn, "dataKsn must not be null");
             return this;
         }
 

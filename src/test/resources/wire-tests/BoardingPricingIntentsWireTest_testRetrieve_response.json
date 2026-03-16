@@ -1,6 +1,6 @@
 {
   "country": "US",
-  "version": "5.0",
+  "version": "5.2",
   "base": {
     "addressVerification": 5,
     "annualFee": {
@@ -37,10 +37,6 @@
           "additionalDiscount": 1.25,
           "transaction": 1,
           "monthlyAccess": 1
-        },
-        "enhancedInterchange": {
-          "enrollment": 1,
-          "creditToMerchant": 1.25
         }
       },
       "planType": "interchangePlus"
@@ -64,7 +60,9 @@
       "monthly": 1000,
       "setup": 25000,
       "perTransaction": 0,
-      "perDeviceMonthly": 0
+      "perDeviceMonthly": 0,
+      "3dSecurePerTransaction": 1,
+      "tapToPayPerTransaction": 1
     }
   },
   "services": [

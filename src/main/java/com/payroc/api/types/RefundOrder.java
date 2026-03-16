@@ -17,30 +17,31 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = RefundOrder.Builder.class)
 public final class RefundOrder {
-    private final Optional<String> orderId;
+    private final String orderId;
 
     private final Optional<OffsetDateTime> dateTime;
 
-    private final Optional<String> description;
+    private final String description;
 
-    private final Optional<Long> amount;
+    private final long amount;
 
-    private final Optional<Currency> currency;
+    private final Currency currency;
 
     private final Optional<DccOffer> dccOffer;
 
     private final Map<String, Object> additionalProperties;
 
     private RefundOrder(
-            Optional<String> orderId,
+            String orderId,
             Optional<OffsetDateTime> dateTime,
-            Optional<String> description,
-            Optional<Long> amount,
-            Optional<Currency> currency,
+            String description,
+            long amount,
+            Currency currency,
             Optional<DccOffer> dccOffer,
             Map<String, Object> additionalProperties) {
         this.orderId = orderId;
@@ -56,7 +57,7 @@ public final class RefundOrder {
      * @return A unique identifier assigned by the merchant.
      */
     @JsonProperty("orderId")
-    public Optional<String> getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
@@ -72,7 +73,7 @@ public final class RefundOrder {
      * @return Description of the transaction.
      */
     @JsonProperty("description")
-    public Optional<String> getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -80,12 +81,12 @@ public final class RefundOrder {
      * @return Amount of the refund. The value is in the currency's lowest denomination, for example, cents.
      */
     @JsonProperty("amount")
-    public Optional<Long> getAmount() {
+    public long getAmount() {
         return amount;
     }
 
     @JsonProperty("currency")
-    public Optional<Currency> getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
@@ -109,7 +110,7 @@ public final class RefundOrder {
         return orderId.equals(other.orderId)
                 && dateTime.equals(other.dateTime)
                 && description.equals(other.description)
-                && amount.equals(other.amount)
+                && amount == other.amount
                 && currency.equals(other.currency)
                 && dccOffer.equals(other.dccOffer);
     }
@@ -124,29 +125,77 @@ public final class RefundOrder {
         return ObjectMappers.stringify(this);
     }
 
-    public static Builder builder() {
+    public static OrderIdStage builder() {
         return new Builder();
     }
 
+    public interface OrderIdStage {
+        /**
+         * <p>A unique identifier assigned by the merchant.</p>
+         */
+        DescriptionStage orderId(@NotNull String orderId);
+
+        Builder from(RefundOrder other);
+    }
+
+    public interface DescriptionStage {
+        /**
+         * <p>Description of the transaction.</p>
+         */
+        AmountStage description(@NotNull String description);
+    }
+
+    public interface AmountStage {
+        /**
+         * <p>Amount of the refund. The value is in the currency's lowest denomination, for example, cents.</p>
+         */
+        CurrencyStage amount(long amount);
+    }
+
+    public interface CurrencyStage {
+        _FinalStage currency(@NotNull Currency currency);
+    }
+
+    public interface _FinalStage {
+        RefundOrder build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>Date and time that our gateway processed the refund. The value follows the <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> standard.</p>
+         */
+        _FinalStage dateTime(Optional<OffsetDateTime> dateTime);
+
+        _FinalStage dateTime(OffsetDateTime dateTime);
+
+        _FinalStage dccOffer(Optional<DccOffer> dccOffer);
+
+        _FinalStage dccOffer(DccOffer dccOffer);
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder {
-        private Optional<String> orderId = Optional.empty();
+    public static final class Builder
+            implements OrderIdStage, DescriptionStage, AmountStage, CurrencyStage, _FinalStage {
+        private String orderId;
 
-        private Optional<OffsetDateTime> dateTime = Optional.empty();
+        private String description;
 
-        private Optional<String> description = Optional.empty();
+        private long amount;
 
-        private Optional<Long> amount = Optional.empty();
-
-        private Optional<Currency> currency = Optional.empty();
+        private Currency currency;
 
         private Optional<DccOffer> dccOffer = Optional.empty();
+
+        private Optional<OffsetDateTime> dateTime = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
+        @java.lang.Override
         public Builder from(RefundOrder other) {
             orderId(other.getOrderId());
             dateTime(other.getDateTime());
@@ -159,91 +208,92 @@ public final class RefundOrder {
 
         /**
          * <p>A unique identifier assigned by the merchant.</p>
+         * <p>A unique identifier assigned by the merchant.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @JsonSetter(value = "orderId", nulls = Nulls.SKIP)
-        public Builder orderId(Optional<String> orderId) {
-            this.orderId = orderId;
+        @java.lang.Override
+        @JsonSetter("orderId")
+        public DescriptionStage orderId(@NotNull String orderId) {
+            this.orderId = Objects.requireNonNull(orderId, "orderId must not be null");
             return this;
         }
 
-        public Builder orderId(String orderId) {
-            this.orderId = Optional.ofNullable(orderId);
+        /**
+         * <p>Description of the transaction.</p>
+         * <p>Description of the transaction.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("description")
+        public AmountStage description(@NotNull String description) {
+            this.description = Objects.requireNonNull(description, "description must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Amount of the refund. The value is in the currency's lowest denomination, for example, cents.</p>
+         * <p>Amount of the refund. The value is in the currency's lowest denomination, for example, cents.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("amount")
+        public CurrencyStage amount(long amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter("currency")
+        public _FinalStage currency(@NotNull Currency currency) {
+            this.currency = Objects.requireNonNull(currency, "currency must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage dccOffer(DccOffer dccOffer) {
+            this.dccOffer = Optional.ofNullable(dccOffer);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "dccOffer", nulls = Nulls.SKIP)
+        public _FinalStage dccOffer(Optional<DccOffer> dccOffer) {
+            this.dccOffer = dccOffer;
+            return this;
+        }
+
+        /**
+         * <p>Date and time that our gateway processed the refund. The value follows the <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> standard.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage dateTime(OffsetDateTime dateTime) {
+            this.dateTime = Optional.ofNullable(dateTime);
             return this;
         }
 
         /**
          * <p>Date and time that our gateway processed the refund. The value follows the <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> standard.</p>
          */
+        @java.lang.Override
         @JsonSetter(value = "dateTime", nulls = Nulls.SKIP)
-        public Builder dateTime(Optional<OffsetDateTime> dateTime) {
+        public _FinalStage dateTime(Optional<OffsetDateTime> dateTime) {
             this.dateTime = dateTime;
             return this;
         }
 
-        public Builder dateTime(OffsetDateTime dateTime) {
-            this.dateTime = Optional.ofNullable(dateTime);
-            return this;
-        }
-
-        /**
-         * <p>Description of the transaction.</p>
-         */
-        @JsonSetter(value = "description", nulls = Nulls.SKIP)
-        public Builder description(Optional<String> description) {
-            this.description = description;
-            return this;
-        }
-
-        public Builder description(String description) {
-            this.description = Optional.ofNullable(description);
-            return this;
-        }
-
-        /**
-         * <p>Amount of the refund. The value is in the currency's lowest denomination, for example, cents.</p>
-         */
-        @JsonSetter(value = "amount", nulls = Nulls.SKIP)
-        public Builder amount(Optional<Long> amount) {
-            this.amount = amount;
-            return this;
-        }
-
-        public Builder amount(Long amount) {
-            this.amount = Optional.ofNullable(amount);
-            return this;
-        }
-
-        @JsonSetter(value = "currency", nulls = Nulls.SKIP)
-        public Builder currency(Optional<Currency> currency) {
-            this.currency = currency;
-            return this;
-        }
-
-        public Builder currency(Currency currency) {
-            this.currency = Optional.ofNullable(currency);
-            return this;
-        }
-
-        @JsonSetter(value = "dccOffer", nulls = Nulls.SKIP)
-        public Builder dccOffer(Optional<DccOffer> dccOffer) {
-            this.dccOffer = dccOffer;
-            return this;
-        }
-
-        public Builder dccOffer(DccOffer dccOffer) {
-            this.dccOffer = Optional.ofNullable(dccOffer);
-            return this;
-        }
-
+        @java.lang.Override
         public RefundOrder build() {
             return new RefundOrder(orderId, dateTime, description, amount, currency, dccOffer, additionalProperties);
         }
 
+        @java.lang.Override
         public Builder additionalProperty(String key, Object value) {
             this.additionalProperties.put(key, value);
             return this;
         }
 
+        @java.lang.Override
         public Builder additionalProperties(Map<String, Object> additionalProperties) {
             this.additionalProperties.putAll(additionalProperties);
             return this;

@@ -27,7 +27,7 @@ public final class BankTransferResult {
 
     private final Optional<Long> authorizedAmount;
 
-    private final Currency currency;
+    private final Optional<Currency> currency;
 
     private final String responseCode;
 
@@ -41,7 +41,7 @@ public final class BankTransferResult {
             BankTransferResultType type,
             BankTransferResultStatus status,
             Optional<Long> authorizedAmount,
-            Currency currency,
+            Optional<Currency> currency,
             String responseCode,
             Optional<String> responseMessage,
             Optional<String> processorResponseCode,
@@ -82,7 +82,7 @@ public final class BankTransferResult {
     }
 
     @JsonProperty("currency")
-    public Currency getCurrency() {
+    public Optional<Currency> getCurrency() {
         return currency;
     }
 
@@ -169,11 +169,7 @@ public final class BankTransferResult {
         /**
          * <p>Status of the transaction.</p>
          */
-        CurrencyStage status(@NotNull BankTransferResultStatus status);
-    }
-
-    public interface CurrencyStage {
-        ResponseCodeStage currency(@NotNull Currency currency);
+        ResponseCodeStage status(@NotNull BankTransferResultStatus status);
     }
 
     public interface ResponseCodeStage {
@@ -202,6 +198,10 @@ public final class BankTransferResult {
 
         _FinalStage authorizedAmount(Long authorizedAmount);
 
+        _FinalStage currency(Optional<Currency> currency);
+
+        _FinalStage currency(Currency currency);
+
         /**
          * <p>Description of the response from the processor.</p>
          */
@@ -218,18 +218,18 @@ public final class BankTransferResult {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements TypeStage, StatusStage, CurrencyStage, ResponseCodeStage, _FinalStage {
+    public static final class Builder implements TypeStage, StatusStage, ResponseCodeStage, _FinalStage {
         private BankTransferResultType type;
 
         private BankTransferResultStatus status;
-
-        private Currency currency;
 
         private String responseCode;
 
         private Optional<String> processorResponseCode = Optional.empty();
 
         private Optional<String> responseMessage = Optional.empty();
+
+        private Optional<Currency> currency = Optional.empty();
 
         private Optional<Long> authorizedAmount = Optional.empty();
 
@@ -269,15 +269,8 @@ public final class BankTransferResult {
          */
         @java.lang.Override
         @JsonSetter("status")
-        public CurrencyStage status(@NotNull BankTransferResultStatus status) {
+        public ResponseCodeStage status(@NotNull BankTransferResultStatus status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter("currency")
-        public ResponseCodeStage currency(@NotNull Currency currency) {
-            this.currency = Objects.requireNonNull(currency, "currency must not be null");
             return this;
         }
 
@@ -338,6 +331,19 @@ public final class BankTransferResult {
         @JsonSetter(value = "responseMessage", nulls = Nulls.SKIP)
         public _FinalStage responseMessage(Optional<String> responseMessage) {
             this.responseMessage = responseMessage;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage currency(Currency currency) {
+            this.currency = Optional.ofNullable(currency);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "currency", nulls = Nulls.SKIP)
+        public _FinalStage currency(Optional<Currency> currency) {
+            this.currency = currency;
             return this;
         }
 

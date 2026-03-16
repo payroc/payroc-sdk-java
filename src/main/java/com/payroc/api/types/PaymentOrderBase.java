@@ -17,19 +17,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = PaymentOrderBase.Builder.class)
 public final class PaymentOrderBase implements IPaymentOrderBase {
-    private final Optional<String> orderId;
+    private final String orderId;
 
     private final Optional<OffsetDateTime> dateTime;
 
     private final Optional<String> description;
 
-    private final Optional<Long> amount;
+    private final long amount;
 
-    private final Optional<Currency> currency;
+    private final Currency currency;
 
     private final Optional<DccOffer> dccOffer;
 
@@ -38,11 +39,11 @@ public final class PaymentOrderBase implements IPaymentOrderBase {
     private final Map<String, Object> additionalProperties;
 
     private PaymentOrderBase(
-            Optional<String> orderId,
+            String orderId,
             Optional<OffsetDateTime> dateTime,
             Optional<String> description,
-            Optional<Long> amount,
-            Optional<Currency> currency,
+            long amount,
+            Currency currency,
             Optional<DccOffer> dccOffer,
             Optional<StandingInstructions> standingInstructions,
             Map<String, Object> additionalProperties) {
@@ -61,7 +62,7 @@ public final class PaymentOrderBase implements IPaymentOrderBase {
      */
     @JsonProperty("orderId")
     @java.lang.Override
-    public Optional<String> getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
@@ -88,13 +89,13 @@ public final class PaymentOrderBase implements IPaymentOrderBase {
      */
     @JsonProperty("amount")
     @java.lang.Override
-    public Optional<Long> getAmount() {
+    public long getAmount() {
         return amount;
     }
 
     @JsonProperty("currency")
     @java.lang.Override
-    public Optional<Currency> getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
@@ -125,7 +126,7 @@ public final class PaymentOrderBase implements IPaymentOrderBase {
         return orderId.equals(other.orderId)
                 && dateTime.equals(other.dateTime)
                 && description.equals(other.description)
-                && amount.equals(other.amount)
+                && amount == other.amount
                 && currency.equals(other.currency)
                 && dccOffer.equals(other.dccOffer)
                 && standingInstructions.equals(other.standingInstructions);
@@ -148,31 +149,82 @@ public final class PaymentOrderBase implements IPaymentOrderBase {
         return ObjectMappers.stringify(this);
     }
 
-    public static Builder builder() {
+    public static OrderIdStage builder() {
         return new Builder();
     }
 
+    public interface OrderIdStage {
+        /**
+         * <p>A unique identifier assigned by the merchant.</p>
+         */
+        AmountStage orderId(@NotNull String orderId);
+
+        Builder from(PaymentOrderBase other);
+    }
+
+    public interface AmountStage {
+        /**
+         * <p>Total amount of the transaction. The value is in the currency’s lowest denomination, for example, cents.</p>
+         */
+        CurrencyStage amount(long amount);
+    }
+
+    public interface CurrencyStage {
+        _FinalStage currency(@NotNull Currency currency);
+    }
+
+    public interface _FinalStage {
+        PaymentOrderBase build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>Date and time that the processor processed the transaction. Our gateway returns this value in the ISO 8601 format.</p>
+         */
+        _FinalStage dateTime(Optional<OffsetDateTime> dateTime);
+
+        _FinalStage dateTime(OffsetDateTime dateTime);
+
+        /**
+         * <p>Description of the transaction.</p>
+         */
+        _FinalStage description(Optional<String> description);
+
+        _FinalStage description(String description);
+
+        _FinalStage dccOffer(Optional<DccOffer> dccOffer);
+
+        _FinalStage dccOffer(DccOffer dccOffer);
+
+        _FinalStage standingInstructions(Optional<StandingInstructions> standingInstructions);
+
+        _FinalStage standingInstructions(StandingInstructions standingInstructions);
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder {
-        private Optional<String> orderId = Optional.empty();
+    public static final class Builder implements OrderIdStage, AmountStage, CurrencyStage, _FinalStage {
+        private String orderId;
 
-        private Optional<OffsetDateTime> dateTime = Optional.empty();
+        private long amount;
 
-        private Optional<String> description = Optional.empty();
+        private Currency currency;
 
-        private Optional<Long> amount = Optional.empty();
-
-        private Optional<Currency> currency = Optional.empty();
+        private Optional<StandingInstructions> standingInstructions = Optional.empty();
 
         private Optional<DccOffer> dccOffer = Optional.empty();
 
-        private Optional<StandingInstructions> standingInstructions = Optional.empty();
+        private Optional<String> description = Optional.empty();
+
+        private Optional<OffsetDateTime> dateTime = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
+        @java.lang.Override
         public Builder from(PaymentOrderBase other) {
             orderId(other.getOrderId());
             dateTime(other.getDateTime());
@@ -186,93 +238,102 @@ public final class PaymentOrderBase implements IPaymentOrderBase {
 
         /**
          * <p>A unique identifier assigned by the merchant.</p>
+         * <p>A unique identifier assigned by the merchant.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @JsonSetter(value = "orderId", nulls = Nulls.SKIP)
-        public Builder orderId(Optional<String> orderId) {
-            this.orderId = orderId;
-            return this;
-        }
-
-        public Builder orderId(String orderId) {
-            this.orderId = Optional.ofNullable(orderId);
+        @java.lang.Override
+        @JsonSetter("orderId")
+        public AmountStage orderId(@NotNull String orderId) {
+            this.orderId = Objects.requireNonNull(orderId, "orderId must not be null");
             return this;
         }
 
         /**
-         * <p>Date and time that the processor processed the transaction. Our gateway returns this value in the ISO 8601 format.</p>
+         * <p>Total amount of the transaction. The value is in the currency’s lowest denomination, for example, cents.</p>
+         * <p>Total amount of the transaction. The value is in the currency’s lowest denomination, for example, cents.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @JsonSetter(value = "dateTime", nulls = Nulls.SKIP)
-        public Builder dateTime(Optional<OffsetDateTime> dateTime) {
-            this.dateTime = dateTime;
+        @java.lang.Override
+        @JsonSetter("amount")
+        public CurrencyStage amount(long amount) {
+            this.amount = amount;
             return this;
         }
 
-        public Builder dateTime(OffsetDateTime dateTime) {
-            this.dateTime = Optional.ofNullable(dateTime);
+        @java.lang.Override
+        @JsonSetter("currency")
+        public _FinalStage currency(@NotNull Currency currency) {
+            this.currency = Objects.requireNonNull(currency, "currency must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage standingInstructions(StandingInstructions standingInstructions) {
+            this.standingInstructions = Optional.ofNullable(standingInstructions);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "standingInstructions", nulls = Nulls.SKIP)
+        public _FinalStage standingInstructions(Optional<StandingInstructions> standingInstructions) {
+            this.standingInstructions = standingInstructions;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage dccOffer(DccOffer dccOffer) {
+            this.dccOffer = Optional.ofNullable(dccOffer);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "dccOffer", nulls = Nulls.SKIP)
+        public _FinalStage dccOffer(Optional<DccOffer> dccOffer) {
+            this.dccOffer = dccOffer;
+            return this;
+        }
+
+        /**
+         * <p>Description of the transaction.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage description(String description) {
+            this.description = Optional.ofNullable(description);
             return this;
         }
 
         /**
          * <p>Description of the transaction.</p>
          */
+        @java.lang.Override
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
-        public Builder description(Optional<String> description) {
+        public _FinalStage description(Optional<String> description) {
             this.description = description;
             return this;
         }
 
-        public Builder description(String description) {
-            this.description = Optional.ofNullable(description);
+        /**
+         * <p>Date and time that the processor processed the transaction. Our gateway returns this value in the ISO 8601 format.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage dateTime(OffsetDateTime dateTime) {
+            this.dateTime = Optional.ofNullable(dateTime);
             return this;
         }
 
         /**
-         * <p>Total amount of the transaction. The value is in the currency’s lowest denomination, for example, cents.</p>
+         * <p>Date and time that the processor processed the transaction. Our gateway returns this value in the ISO 8601 format.</p>
          */
-        @JsonSetter(value = "amount", nulls = Nulls.SKIP)
-        public Builder amount(Optional<Long> amount) {
-            this.amount = amount;
+        @java.lang.Override
+        @JsonSetter(value = "dateTime", nulls = Nulls.SKIP)
+        public _FinalStage dateTime(Optional<OffsetDateTime> dateTime) {
+            this.dateTime = dateTime;
             return this;
         }
 
-        public Builder amount(Long amount) {
-            this.amount = Optional.ofNullable(amount);
-            return this;
-        }
-
-        @JsonSetter(value = "currency", nulls = Nulls.SKIP)
-        public Builder currency(Optional<Currency> currency) {
-            this.currency = currency;
-            return this;
-        }
-
-        public Builder currency(Currency currency) {
-            this.currency = Optional.ofNullable(currency);
-            return this;
-        }
-
-        @JsonSetter(value = "dccOffer", nulls = Nulls.SKIP)
-        public Builder dccOffer(Optional<DccOffer> dccOffer) {
-            this.dccOffer = dccOffer;
-            return this;
-        }
-
-        public Builder dccOffer(DccOffer dccOffer) {
-            this.dccOffer = Optional.ofNullable(dccOffer);
-            return this;
-        }
-
-        @JsonSetter(value = "standingInstructions", nulls = Nulls.SKIP)
-        public Builder standingInstructions(Optional<StandingInstructions> standingInstructions) {
-            this.standingInstructions = standingInstructions;
-            return this;
-        }
-
-        public Builder standingInstructions(StandingInstructions standingInstructions) {
-            this.standingInstructions = Optional.ofNullable(standingInstructions);
-            return this;
-        }
-
+        @java.lang.Override
         public PaymentOrderBase build() {
             return new PaymentOrderBase(
                     orderId,
@@ -285,11 +346,13 @@ public final class PaymentOrderBase implements IPaymentOrderBase {
                     additionalProperties);
         }
 
+        @java.lang.Override
         public Builder additionalProperty(String key, Object value) {
             this.additionalProperties.put(key, value);
             return this;
         }
 
+        @java.lang.Override
         public Builder additionalProperties(Map<String, Object> additionalProperties) {
             this.additionalProperties.putAll(additionalProperties);
             return this;

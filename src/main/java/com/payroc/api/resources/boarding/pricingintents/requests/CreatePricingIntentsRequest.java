@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.payroc.api.core.ObjectMappers;
-import com.payroc.api.types.PricingIntent50;
+import com.payroc.api.types.PricingIntent52;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -23,12 +23,12 @@ import org.jetbrains.annotations.NotNull;
 public final class CreatePricingIntentsRequest {
     private final String idempotencyKey;
 
-    private final PricingIntent50 body;
+    private final PricingIntent52 body;
 
     private final Map<String, Object> additionalProperties;
 
     private CreatePricingIntentsRequest(
-            String idempotencyKey, PricingIntent50 body, Map<String, Object> additionalProperties) {
+            String idempotencyKey, PricingIntent52 body, Map<String, Object> additionalProperties) {
         this.idempotencyKey = idempotencyKey;
         this.body = body;
         this.additionalProperties = additionalProperties;
@@ -43,7 +43,7 @@ public final class CreatePricingIntentsRequest {
     }
 
     @JsonProperty("body")
-    public PricingIntent50 getBody() {
+    public PricingIntent52 getBody() {
         return body;
     }
 
@@ -86,7 +86,7 @@ public final class CreatePricingIntentsRequest {
     }
 
     public interface BodyStage {
-        _FinalStage body(@NotNull PricingIntent50 body);
+        _FinalStage body(@NotNull PricingIntent52 body);
     }
 
     public interface _FinalStage {
@@ -101,7 +101,7 @@ public final class CreatePricingIntentsRequest {
     public static final class Builder implements IdempotencyKeyStage, BodyStage, _FinalStage {
         private String idempotencyKey;
 
-        private PricingIntent50 body;
+        private PricingIntent52 body;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -128,7 +128,7 @@ public final class CreatePricingIntentsRequest {
 
         @java.lang.Override
         @JsonSetter("body")
-        public _FinalStage body(@NotNull PricingIntent50 body) {
+        public _FinalStage body(@NotNull PricingIntent52 body) {
             this.body = Objects.requireNonNull(body, "body must not be null");
             return this;
         }

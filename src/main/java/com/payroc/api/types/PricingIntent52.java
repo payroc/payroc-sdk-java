@@ -21,8 +21,8 @@ import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = PricingIntent50.Builder.class)
-public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50 {
+@JsonDeserialize(builder = PricingIntent52.Builder.class)
+public final class PricingIntent52 implements IBaseIntent, IPricingAgreementUs52 {
     private final Optional<String> id;
 
     private final Optional<OffsetDateTime> createdDate;
@@ -35,32 +35,32 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
 
     private final Optional<Map<String, String>> metadata;
 
-    private final PricingAgreementUs50Country country;
+    private final PricingAgreementUs52Country country;
 
-    private final PricingAgreementUs50Version version;
+    private final PricingAgreementUs52Version version;
 
     private final BaseUs base;
 
-    private final Optional<PricingAgreementUs50Processor> processor;
+    private final Optional<PricingAgreementUs52Processor> processor;
 
-    private final Optional<GatewayUs50> gateway;
+    private final Optional<GatewayUs52> gateway;
 
     private final Optional<List<ServiceUs50>> services;
 
     private final Map<String, Object> additionalProperties;
 
-    private PricingIntent50(
+    private PricingIntent52(
             Optional<String> id,
             Optional<OffsetDateTime> createdDate,
             Optional<OffsetDateTime> lastUpdatedDate,
             Optional<BaseIntentStatus> status,
             String key,
             Optional<Map<String, String>> metadata,
-            PricingAgreementUs50Country country,
-            PricingAgreementUs50Version version,
+            PricingAgreementUs52Country country,
+            PricingAgreementUs52Version version,
             BaseUs base,
-            Optional<PricingAgreementUs50Processor> processor,
-            Optional<GatewayUs50> gateway,
+            Optional<PricingAgreementUs52Processor> processor,
+            Optional<GatewayUs52> gateway,
             Optional<List<ServiceUs50>> services,
             Map<String, Object> additionalProperties) {
         this.id = id;
@@ -140,7 +140,7 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
      * @return Two-digit code for the country that the pricing intent applies to. The format follows the <a href="https://www.iso.org/iso-3166-country-codes.html">ISO-3166-1</a> standard.
      */
     @JsonProperty("country")
-    public PricingAgreementUs50Country getCountry() {
+    public PricingAgreementUs52Country getCountry() {
         return country;
     }
 
@@ -148,7 +148,7 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
      * @return Version of the MPA.
      */
     @JsonProperty("version")
-    public PricingAgreementUs50Version getVersion() {
+    public PricingAgreementUs52Version getVersion() {
         return version;
     }
 
@@ -162,13 +162,13 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
      * @return Object that contains information about U.S. processor fees.
      */
     @JsonProperty("processor")
-    public Optional<PricingAgreementUs50Processor> getProcessor() {
+    public Optional<PricingAgreementUs52Processor> getProcessor() {
         return processor;
     }
 
     @JsonProperty("gateway")
     @java.lang.Override
-    public Optional<GatewayUs50> getGateway() {
+    public Optional<GatewayUs52> getGateway() {
         return gateway;
     }
 
@@ -181,7 +181,7 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof PricingIntent50 && equalTo((PricingIntent50) other);
+        return other instanceof PricingIntent52 && equalTo((PricingIntent52) other);
     }
 
     @JsonAnyGetter
@@ -189,7 +189,7 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
         return this.additionalProperties;
     }
 
-    private boolean equalTo(PricingIntent50 other) {
+    private boolean equalTo(PricingIntent52 other) {
         return id.equals(other.id)
                 && createdDate.equals(other.createdDate)
                 && lastUpdatedDate.equals(other.lastUpdatedDate)
@@ -236,21 +236,21 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
          */
         CountryStage key(@NotNull String key);
 
-        Builder from(PricingIntent50 other);
+        Builder from(PricingIntent52 other);
     }
 
     public interface CountryStage {
         /**
          * <p>Two-digit code for the country that the pricing intent applies to. The format follows the <a href="https://www.iso.org/iso-3166-country-codes.html">ISO-3166-1</a> standard.</p>
          */
-        VersionStage country(@NotNull PricingAgreementUs50Country country);
+        VersionStage country(@NotNull PricingAgreementUs52Country country);
     }
 
     public interface VersionStage {
         /**
          * <p>Version of the MPA.</p>
          */
-        BaseStage version(@NotNull PricingAgreementUs50Version version);
+        BaseStage version(@NotNull PricingAgreementUs52Version version);
     }
 
     public interface BaseStage {
@@ -258,7 +258,7 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
     }
 
     public interface _FinalStage {
-        PricingIntent50 build();
+        PricingIntent52 build();
 
         _FinalStage additionalProperty(String key, Object value);
 
@@ -307,13 +307,13 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
         /**
          * <p>Object that contains information about U.S. processor fees.</p>
          */
-        _FinalStage processor(Optional<PricingAgreementUs50Processor> processor);
+        _FinalStage processor(Optional<PricingAgreementUs52Processor> processor);
 
-        _FinalStage processor(PricingAgreementUs50Processor processor);
+        _FinalStage processor(PricingAgreementUs52Processor processor);
 
-        _FinalStage gateway(Optional<GatewayUs50> gateway);
+        _FinalStage gateway(Optional<GatewayUs52> gateway);
 
-        _FinalStage gateway(GatewayUs50 gateway);
+        _FinalStage gateway(GatewayUs52 gateway);
 
         _FinalStage services(Optional<List<ServiceUs50>> services);
 
@@ -324,17 +324,17 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
     public static final class Builder implements KeyStage, CountryStage, VersionStage, BaseStage, _FinalStage {
         private String key;
 
-        private PricingAgreementUs50Country country;
+        private PricingAgreementUs52Country country;
 
-        private PricingAgreementUs50Version version;
+        private PricingAgreementUs52Version version;
 
         private BaseUs base;
 
         private Optional<List<ServiceUs50>> services = Optional.empty();
 
-        private Optional<GatewayUs50> gateway = Optional.empty();
+        private Optional<GatewayUs52> gateway = Optional.empty();
 
-        private Optional<PricingAgreementUs50Processor> processor = Optional.empty();
+        private Optional<PricingAgreementUs52Processor> processor = Optional.empty();
 
         private Optional<Map<String, String>> metadata = Optional.empty();
 
@@ -352,7 +352,7 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
         private Builder() {}
 
         @java.lang.Override
-        public Builder from(PricingIntent50 other) {
+        public Builder from(PricingIntent52 other) {
             id(other.getId());
             createdDate(other.getCreatedDate());
             lastUpdatedDate(other.getLastUpdatedDate());
@@ -387,7 +387,7 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
          */
         @java.lang.Override
         @JsonSetter("country")
-        public VersionStage country(@NotNull PricingAgreementUs50Country country) {
+        public VersionStage country(@NotNull PricingAgreementUs52Country country) {
             this.country = Objects.requireNonNull(country, "country must not be null");
             return this;
         }
@@ -399,7 +399,7 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
          */
         @java.lang.Override
         @JsonSetter("version")
-        public BaseStage version(@NotNull PricingAgreementUs50Version version) {
+        public BaseStage version(@NotNull PricingAgreementUs52Version version) {
             this.version = Objects.requireNonNull(version, "version must not be null");
             return this;
         }
@@ -425,14 +425,14 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
         }
 
         @java.lang.Override
-        public _FinalStage gateway(GatewayUs50 gateway) {
+        public _FinalStage gateway(GatewayUs52 gateway) {
             this.gateway = Optional.ofNullable(gateway);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "gateway", nulls = Nulls.SKIP)
-        public _FinalStage gateway(Optional<GatewayUs50> gateway) {
+        public _FinalStage gateway(Optional<GatewayUs52> gateway) {
             this.gateway = gateway;
             return this;
         }
@@ -442,7 +442,7 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage processor(PricingAgreementUs50Processor processor) {
+        public _FinalStage processor(PricingAgreementUs52Processor processor) {
             this.processor = Optional.ofNullable(processor);
             return this;
         }
@@ -452,7 +452,7 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
          */
         @java.lang.Override
         @JsonSetter(value = "processor", nulls = Nulls.SKIP)
-        public _FinalStage processor(Optional<PricingAgreementUs50Processor> processor) {
+        public _FinalStage processor(Optional<PricingAgreementUs52Processor> processor) {
             this.processor = processor;
             return this;
         }
@@ -568,8 +568,8 @@ public final class PricingIntent50 implements IBaseIntent, IPricingAgreementUs50
         }
 
         @java.lang.Override
-        public PricingIntent50 build() {
-            return new PricingIntent50(
+        public PricingIntent52 build() {
+            return new PricingIntent52(
                     id,
                     createdDate,
                     lastUpdatedDate,

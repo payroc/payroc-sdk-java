@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = RefundInstruction.Builder.class)
@@ -26,7 +27,7 @@ public final class RefundInstruction implements IDeviceInstruction {
 
     private final Optional<Link> link;
 
-    private final Optional<String> refundInstructionId;
+    private final String refundInstructionId;
 
     private final Map<String, Object> additionalProperties;
 
@@ -34,7 +35,7 @@ public final class RefundInstruction implements IDeviceInstruction {
             Optional<DeviceInstructionStatus> status,
             Optional<String> errorMessage,
             Optional<Link> link,
-            Optional<String> refundInstructionId,
+            String refundInstructionId,
             Map<String, Object> additionalProperties) {
         this.status = status;
         this.errorMessage = errorMessage;
@@ -77,7 +78,7 @@ public final class RefundInstruction implements IDeviceInstruction {
      * @return Unique identifier that we assigned to the refund instruction.
      */
     @JsonProperty("refundInstructionId")
-    public Optional<String> getRefundInstructionId() {
+    public String getRefundInstructionId() {
         return refundInstructionId;
     }
 
@@ -109,30 +110,137 @@ public final class RefundInstruction implements IDeviceInstruction {
         return ObjectMappers.stringify(this);
     }
 
-    public static Builder builder() {
+    public static RefundInstructionIdStage builder() {
         return new Builder();
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder {
-        private Optional<DeviceInstructionStatus> status = Optional.empty();
+    public interface RefundInstructionIdStage {
+        /**
+         * <p>Unique identifier that we assigned to the refund instruction.</p>
+         */
+        _FinalStage refundInstructionId(@NotNull String refundInstructionId);
 
-        private Optional<String> errorMessage = Optional.empty();
+        Builder from(RefundInstruction other);
+    }
+
+    public interface _FinalStage {
+        RefundInstruction build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>Indicates the current status of the instruction.</p>
+         * <ul>
+         * <li><code>canceled</code> – The instruction was canceled before it was completed.</li>
+         * <li><code>completed</code> – The instruction has completed. Use the link object to check the resource.</li>
+         * <li><code>failure</code> – The instruction failed. Check the errorMessage field for more information.</li>
+         * <li><code>inProgress</code> – The instruction is currently in progress.</li>
+         * </ul>
+         */
+        _FinalStage status(Optional<DeviceInstructionStatus> status);
+
+        _FinalStage status(DeviceInstructionStatus status);
+
+        /**
+         * <p>Description of the error that caused the instruction to fail.</p>
+         * <p><strong>Note:</strong> We return this field only if the status is <code>failure</code>.</p>
+         */
+        _FinalStage errorMessage(Optional<String> errorMessage);
+
+        _FinalStage errorMessage(String errorMessage);
+
+        _FinalStage link(Optional<Link> link);
+
+        _FinalStage link(Link link);
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static final class Builder implements RefundInstructionIdStage, _FinalStage {
+        private String refundInstructionId;
 
         private Optional<Link> link = Optional.empty();
 
-        private Optional<String> refundInstructionId = Optional.empty();
+        private Optional<String> errorMessage = Optional.empty();
+
+        private Optional<DeviceInstructionStatus> status = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
+        @java.lang.Override
         public Builder from(RefundInstruction other) {
             status(other.getStatus());
             errorMessage(other.getErrorMessage());
             link(other.getLink());
             refundInstructionId(other.getRefundInstructionId());
+            return this;
+        }
+
+        /**
+         * <p>Unique identifier that we assigned to the refund instruction.</p>
+         * <p>Unique identifier that we assigned to the refund instruction.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("refundInstructionId")
+        public _FinalStage refundInstructionId(@NotNull String refundInstructionId) {
+            this.refundInstructionId =
+                    Objects.requireNonNull(refundInstructionId, "refundInstructionId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage link(Link link) {
+            this.link = Optional.ofNullable(link);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "link", nulls = Nulls.SKIP)
+        public _FinalStage link(Optional<Link> link) {
+            this.link = link;
+            return this;
+        }
+
+        /**
+         * <p>Description of the error that caused the instruction to fail.</p>
+         * <p><strong>Note:</strong> We return this field only if the status is <code>failure</code>.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage errorMessage(String errorMessage) {
+            this.errorMessage = Optional.ofNullable(errorMessage);
+            return this;
+        }
+
+        /**
+         * <p>Description of the error that caused the instruction to fail.</p>
+         * <p><strong>Note:</strong> We return this field only if the status is <code>failure</code>.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "errorMessage", nulls = Nulls.SKIP)
+        public _FinalStage errorMessage(Optional<String> errorMessage) {
+            this.errorMessage = errorMessage;
+            return this;
+        }
+
+        /**
+         * <p>Indicates the current status of the instruction.</p>
+         * <ul>
+         * <li><code>canceled</code> – The instruction was canceled before it was completed.</li>
+         * <li><code>completed</code> – The instruction has completed. Use the link object to check the resource.</li>
+         * <li><code>failure</code> – The instruction failed. Check the errorMessage field for more information.</li>
+         * <li><code>inProgress</code> – The instruction is currently in progress.</li>
+         * </ul>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage status(DeviceInstructionStatus status) {
+            this.status = Optional.ofNullable(status);
             return this;
         }
 
@@ -145,66 +253,25 @@ public final class RefundInstruction implements IDeviceInstruction {
          * <li><code>inProgress</code> – The instruction is currently in progress.</li>
          * </ul>
          */
+        @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
-        public Builder status(Optional<DeviceInstructionStatus> status) {
+        public _FinalStage status(Optional<DeviceInstructionStatus> status) {
             this.status = status;
             return this;
         }
 
-        public Builder status(DeviceInstructionStatus status) {
-            this.status = Optional.ofNullable(status);
-            return this;
-        }
-
-        /**
-         * <p>Description of the error that caused the instruction to fail.</p>
-         * <p><strong>Note:</strong> We return this field only if the status is <code>failure</code>.</p>
-         */
-        @JsonSetter(value = "errorMessage", nulls = Nulls.SKIP)
-        public Builder errorMessage(Optional<String> errorMessage) {
-            this.errorMessage = errorMessage;
-            return this;
-        }
-
-        public Builder errorMessage(String errorMessage) {
-            this.errorMessage = Optional.ofNullable(errorMessage);
-            return this;
-        }
-
-        @JsonSetter(value = "link", nulls = Nulls.SKIP)
-        public Builder link(Optional<Link> link) {
-            this.link = link;
-            return this;
-        }
-
-        public Builder link(Link link) {
-            this.link = Optional.ofNullable(link);
-            return this;
-        }
-
-        /**
-         * <p>Unique identifier that we assigned to the refund instruction.</p>
-         */
-        @JsonSetter(value = "refundInstructionId", nulls = Nulls.SKIP)
-        public Builder refundInstructionId(Optional<String> refundInstructionId) {
-            this.refundInstructionId = refundInstructionId;
-            return this;
-        }
-
-        public Builder refundInstructionId(String refundInstructionId) {
-            this.refundInstructionId = Optional.ofNullable(refundInstructionId);
-            return this;
-        }
-
+        @java.lang.Override
         public RefundInstruction build() {
             return new RefundInstruction(status, errorMessage, link, refundInstructionId, additionalProperties);
         }
 
+        @java.lang.Override
         public Builder additionalProperty(String key, Object value) {
             this.additionalProperties.put(key, value);
             return this;
         }
 
+        @java.lang.Override
         public Builder additionalProperties(Map<String, Object> additionalProperties) {
             this.additionalProperties.putAll(additionalProperties);
             return this;

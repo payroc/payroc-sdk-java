@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = PricingAgreementUs50.Builder.class)
-public final class PricingAgreementUs50 implements IPricingAgreementUs50 {
+public final class PricingAgreementUs50 {
     private final PricingAgreementUs50Country country;
 
     private final PricingAgreementUs50Version version;
@@ -70,7 +70,6 @@ public final class PricingAgreementUs50 implements IPricingAgreementUs50 {
     }
 
     @JsonProperty("base")
-    @java.lang.Override
     public BaseUs getBase() {
         return base;
     }
@@ -84,13 +83,11 @@ public final class PricingAgreementUs50 implements IPricingAgreementUs50 {
     }
 
     @JsonProperty("gateway")
-    @java.lang.Override
     public Optional<GatewayUs50> getGateway() {
         return gateway;
     }
 
     @JsonProperty("services")
-    @java.lang.Override
     public Optional<List<ServiceUs50>> getServices() {
         return services;
     }

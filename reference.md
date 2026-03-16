@@ -1185,9 +1185,9 @@ client.bankTransferPayments().payments().create(
             BankTransferPaymentRequestOrder
                 .builder()
                 .orderId("OrderRef6543")
-                .description("Large Pepperoni Pizza")
                 .amount(4999L)
                 .currency(Currency.USD)
+                .description("Large Pepperoni Pizza")
                 .breakdown(
                     BankTransferRequestBreakdown
                         .builder()
@@ -2537,7 +2537,7 @@ You can’t send the after parameter in the same request as the before parameter
 </dl>
 </details>
 
-<details><summary><code>client.boarding.pricingIntents.create(request) -> PricingIntent50</code></summary>
+<details><summary><code>client.boarding.pricingIntents.create(request) -> PricingIntent52</code></summary>
 <dl>
 <dd>
 
@@ -2582,11 +2582,11 @@ client.boarding().pricingIntents().create(
         .builder()
         .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9324")
         .body(
-            PricingIntent50
+            PricingIntent52
                 .builder()
                 .key("Your-Unique-Identifier")
-                .country(PricingAgreementUs50Country.US)
-                .version(PricingAgreementUs50Version.FIVE_0)
+                .country(PricingAgreementUs52Country.US)
+                .version(PricingAgreementUs52Version.FIVE_2)
                 .base(
                     BaseUs
                         .builder()
@@ -2606,7 +2606,7 @@ client.boarding().pricingIntents().create(
                         .merchantAdvantage(10)
                         .platinumSecurity(
                             BaseUsPlatinumSecurity.monthly(
-                                BaseUsMonthly
+                                PlatinumSecurityMonthly
                                     .builder()
                                     .build()
                             )
@@ -2623,14 +2623,14 @@ client.boarding().pricingIntents().create(
                     }}
                 )
                 .processor(
-                    PricingAgreementUs50Processor
+                    PricingAgreementUs52Processor
                         .builder()
                         .card(
-                            PricingAgreementUs50ProcessorCard.interchangePlus(
-                                InterchangePlus
+                            PricingAgreementUs52ProcessorCard.interchangePlus(
+                                InterchangePlusUs52
                                     .builder()
                                     .fees(
-                                        InterchangePlusFees
+                                        InterchangePlusUs52Fees
                                             .builder()
                                             .mastercardVisaDiscover(
                                                 ProcessorFee
@@ -2680,7 +2680,7 @@ client.boarding().pricingIntents().create(
 <dl>
 <dd>
 
-**request:** `PricingIntent50` 
+**request:** `PricingIntent52` 
     
 </dd>
 </dl>
@@ -2692,7 +2692,7 @@ client.boarding().pricingIntents().create(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.pricingIntents.retrieve(pricingIntentId) -> PricingIntent50</code></summary>
+<details><summary><code>client.boarding.pricingIntents.retrieve(pricingIntentId) -> PricingIntent52</code></summary>
 <dl>
 <dd>
 
@@ -2802,11 +2802,11 @@ client.boarding().pricingIntents().update(
     UpdatePricingIntentsRequest
         .builder()
         .body(
-            PricingIntent50
+            PricingIntent52
                 .builder()
                 .key("Your-Unique-Identifier")
-                .country(PricingAgreementUs50Country.US)
-                .version(PricingAgreementUs50Version.FIVE_0)
+                .country(PricingAgreementUs52Country.US)
+                .version(PricingAgreementUs52Version.FIVE_2)
                 .base(
                     BaseUs
                         .builder()
@@ -2826,7 +2826,7 @@ client.boarding().pricingIntents().update(
                         .merchantAdvantage(10)
                         .platinumSecurity(
                             BaseUsPlatinumSecurity.monthly(
-                                BaseUsMonthly
+                                PlatinumSecurityMonthly
                                     .builder()
                                     .build()
                             )
@@ -2843,14 +2843,14 @@ client.boarding().pricingIntents().update(
                     }}
                 )
                 .processor(
-                    PricingAgreementUs50Processor
+                    PricingAgreementUs52Processor
                         .builder()
                         .card(
-                            PricingAgreementUs50ProcessorCard.interchangePlus(
-                                InterchangePlus
+                            PricingAgreementUs52ProcessorCard.interchangePlus(
+                                InterchangePlusUs52
                                     .builder()
                                     .fees(
-                                        InterchangePlusFees
+                                        InterchangePlusUs52Fees
                                             .builder()
                                             .mastercardVisaDiscover(
                                                 ProcessorFee
@@ -2884,10 +2884,10 @@ client.boarding().pricingIntents().update(
                         .build()
                 )
                 .gateway(
-                    GatewayUs50
+                    GatewayUs52
                         .builder()
                         .fees(
-                            GatewayUs50Fees
+                            GatewayUs52Fees
                                 .builder()
                                 .monthly(2000)
                                 .setup(5000)
@@ -2933,7 +2933,7 @@ client.boarding().pricingIntents().update(
 <dl>
 <dd>
 
-**request:** `PricingIntent50` 
+**request:** `PricingIntent52` 
     
 </dd>
 </dl>
@@ -3010,7 +3010,7 @@ client.boarding().pricingIntents().delete(
 </dl>
 </details>
 
-<details><summary><code>client.boarding.pricingIntents.partiallyUpdate(pricingIntentId, request) -> PricingIntent50</code></summary>
+<details><summary><code>client.boarding.pricingIntents.partiallyUpdate(pricingIntentId, request) -> PricingIntent52</code></summary>
 <dl>
 <dd>
 
@@ -5836,9 +5836,9 @@ client.cardPayments().payments().create(
             PaymentOrderRequest
                 .builder()
                 .orderId("OrderRef6543")
-                .description("Large Pepperoni Pizza")
                 .amount(4999L)
                 .currency(Currency.USD)
+                .description("Large Pepperoni Pizza")
                 .build()
         )
         .paymentMethod(
@@ -14929,3 +14929,4 @@ The value of the type parameter determines which variant you should use:
 </dd>
 </dl>
 </details>
+

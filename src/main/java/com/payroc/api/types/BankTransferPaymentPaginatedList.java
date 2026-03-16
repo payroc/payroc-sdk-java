@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.payroc.api.core.ObjectMappers;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public final class BankTransferPaymentPaginatedList implements IPaginatedList {
 
     private final Optional<List<Link>> links;
 
-    private final Optional<List<BankTransferPayment>> data;
+    private final List<BankTransferPayment> data;
 
     private final Map<String, Object> additionalProperties;
 
@@ -38,7 +39,7 @@ public final class BankTransferPaymentPaginatedList implements IPaginatedList {
             Optional<Integer> count,
             Optional<Boolean> hasMore,
             Optional<List<Link>> links,
-            Optional<List<BankTransferPayment>> data,
+            List<BankTransferPayment> data,
             Map<String, Object> additionalProperties) {
         this.limit = limit;
         this.count = count;
@@ -89,7 +90,7 @@ public final class BankTransferPaymentPaginatedList implements IPaginatedList {
      * @return Array of payments.
      */
     @JsonProperty("data")
-    public Optional<List<BankTransferPayment>> getData() {
+    public List<BankTransferPayment> getData() {
         return data;
     }
 
@@ -136,7 +137,7 @@ public final class BankTransferPaymentPaginatedList implements IPaginatedList {
 
         private Optional<List<Link>> links = Optional.empty();
 
-        private Optional<List<BankTransferPayment>> data = Optional.empty();
+        private List<BankTransferPayment> data = new ArrayList<>();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -213,13 +214,23 @@ public final class BankTransferPaymentPaginatedList implements IPaginatedList {
          * <p>Array of payments.</p>
          */
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
-        public Builder data(Optional<List<BankTransferPayment>> data) {
-            this.data = data;
+        public Builder data(List<BankTransferPayment> data) {
+            this.data.clear();
+            if (data != null) {
+                this.data.addAll(data);
+            }
             return this;
         }
 
-        public Builder data(List<BankTransferPayment> data) {
-            this.data = Optional.ofNullable(data);
+        public Builder addData(BankTransferPayment data) {
+            this.data.add(data);
+            return this;
+        }
+
+        public Builder addAllData(List<BankTransferPayment> data) {
+            if (data != null) {
+                this.data.addAll(data);
+            }
             return this;
         }
 

@@ -33,7 +33,7 @@ public final class FxRate {
 
     private final Optional<DccOffer> dccOffer;
 
-    private final CardInfo cardInfo;
+    private final Optional<CardInfo> cardInfo;
 
     private final Map<String, Object> additionalProperties;
 
@@ -44,7 +44,7 @@ public final class FxRate {
             Currency baseCurrency,
             FxRateInquiryResult inquiryResult,
             Optional<DccOffer> dccOffer,
-            CardInfo cardInfo,
+            Optional<CardInfo> cardInfo,
             Map<String, Object> additionalProperties) {
         this.processingTerminalId = processingTerminalId;
         this.operator = operator;
@@ -96,7 +96,7 @@ public final class FxRate {
     }
 
     @JsonProperty("cardInfo")
-    public CardInfo getCardInfo() {
+    public Optional<CardInfo> getCardInfo() {
         return cardInfo;
     }
 
@@ -163,11 +163,7 @@ public final class FxRate {
     }
 
     public interface InquiryResultStage {
-        CardInfoStage inquiryResult(@NotNull FxRateInquiryResult inquiryResult);
-    }
-
-    public interface CardInfoStage {
-        _FinalStage cardInfo(@NotNull CardInfo cardInfo);
+        _FinalStage inquiryResult(@NotNull FxRateInquiryResult inquiryResult);
     }
 
     public interface _FinalStage {
@@ -187,16 +183,15 @@ public final class FxRate {
         _FinalStage dccOffer(Optional<DccOffer> dccOffer);
 
         _FinalStage dccOffer(DccOffer dccOffer);
+
+        _FinalStage cardInfo(Optional<CardInfo> cardInfo);
+
+        _FinalStage cardInfo(CardInfo cardInfo);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder
-            implements ProcessingTerminalIdStage,
-                    BaseAmountStage,
-                    BaseCurrencyStage,
-                    InquiryResultStage,
-                    CardInfoStage,
-                    _FinalStage {
+            implements ProcessingTerminalIdStage, BaseAmountStage, BaseCurrencyStage, InquiryResultStage, _FinalStage {
         private String processingTerminalId;
 
         private long baseAmount;
@@ -205,7 +200,7 @@ public final class FxRate {
 
         private FxRateInquiryResult inquiryResult;
 
-        private CardInfo cardInfo;
+        private Optional<CardInfo> cardInfo = Optional.empty();
 
         private Optional<DccOffer> dccOffer = Optional.empty();
 
@@ -262,15 +257,21 @@ public final class FxRate {
 
         @java.lang.Override
         @JsonSetter("inquiryResult")
-        public CardInfoStage inquiryResult(@NotNull FxRateInquiryResult inquiryResult) {
+        public _FinalStage inquiryResult(@NotNull FxRateInquiryResult inquiryResult) {
             this.inquiryResult = Objects.requireNonNull(inquiryResult, "inquiryResult must not be null");
             return this;
         }
 
         @java.lang.Override
-        @JsonSetter("cardInfo")
-        public _FinalStage cardInfo(@NotNull CardInfo cardInfo) {
-            this.cardInfo = Objects.requireNonNull(cardInfo, "cardInfo must not be null");
+        public _FinalStage cardInfo(CardInfo cardInfo) {
+            this.cardInfo = Optional.ofNullable(cardInfo);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "cardInfo", nulls = Nulls.SKIP)
+        public _FinalStage cardInfo(Optional<CardInfo> cardInfo) {
+            this.cardInfo = cardInfo;
             return this;
         }
 

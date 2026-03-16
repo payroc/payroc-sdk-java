@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.payroc.api.core.ObjectMappers;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public final class PaymentLinkPaginatedList implements IPaginatedList {
 
     private final Optional<List<Link>> links;
 
-    private final Optional<List<PaymentLinkPaginatedListDataItem>> data;
+    private final List<PaymentLinkPaginatedListDataItem> data;
 
     private final Map<String, Object> additionalProperties;
 
@@ -38,7 +39,7 @@ public final class PaymentLinkPaginatedList implements IPaginatedList {
             Optional<Integer> count,
             Optional<Boolean> hasMore,
             Optional<List<Link>> links,
-            Optional<List<PaymentLinkPaginatedListDataItem>> data,
+            List<PaymentLinkPaginatedListDataItem> data,
             Map<String, Object> additionalProperties) {
         this.limit = limit;
         this.count = count;
@@ -94,7 +95,7 @@ public final class PaymentLinkPaginatedList implements IPaginatedList {
      * </ul>
      */
     @JsonProperty("data")
-    public Optional<List<PaymentLinkPaginatedListDataItem>> getData() {
+    public List<PaymentLinkPaginatedListDataItem> getData() {
         return data;
     }
 
@@ -141,7 +142,7 @@ public final class PaymentLinkPaginatedList implements IPaginatedList {
 
         private Optional<List<Link>> links = Optional.empty();
 
-        private Optional<List<PaymentLinkPaginatedListDataItem>> data = Optional.empty();
+        private List<PaymentLinkPaginatedListDataItem> data = new ArrayList<>();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -223,13 +224,23 @@ public final class PaymentLinkPaginatedList implements IPaginatedList {
          * </ul>
          */
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
-        public Builder data(Optional<List<PaymentLinkPaginatedListDataItem>> data) {
-            this.data = data;
+        public Builder data(List<PaymentLinkPaginatedListDataItem> data) {
+            this.data.clear();
+            if (data != null) {
+                this.data.addAll(data);
+            }
             return this;
         }
 
-        public Builder data(List<PaymentLinkPaginatedListDataItem> data) {
-            this.data = Optional.ofNullable(data);
+        public Builder addData(PaymentLinkPaginatedListDataItem data) {
+            this.data.add(data);
+            return this;
+        }
+
+        public Builder addAllData(List<PaymentLinkPaginatedListDataItem> data) {
+            if (data != null) {
+                this.data.addAll(data);
+            }
             return this;
         }
 

@@ -7,29 +7,113 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.payroc.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = PricingAgreement.Builder.class)
 public final class PricingAgreement {
+    private final Optional<PricingAgreementCountry> country;
+
+    private final Optional<PricingAgreementVersion> version;
+
+    private final Optional<BaseUs> base;
+
+    private final Optional<PricingAgreementProcessor> processor;
+
+    private final Optional<GatewayUs52> gateway;
+
+    private final Optional<List<ServiceUs50>> services;
+
     private final Map<String, Object> additionalProperties;
 
-    private PricingAgreement(Map<String, Object> additionalProperties) {
+    private PricingAgreement(
+            Optional<PricingAgreementCountry> country,
+            Optional<PricingAgreementVersion> version,
+            Optional<BaseUs> base,
+            Optional<PricingAgreementProcessor> processor,
+            Optional<GatewayUs52> gateway,
+            Optional<List<ServiceUs50>> services,
+            Map<String, Object> additionalProperties) {
+        this.country = country;
+        this.version = version;
+        this.base = base;
+        this.processor = processor;
+        this.gateway = gateway;
+        this.services = services;
         this.additionalProperties = additionalProperties;
+    }
+
+    /**
+     * @return Two-digit code for the country that the pricing intent applies to. The format follows the <a href="https://www.iso.org/iso-3166-country-codes.html">ISO-3166-1</a> standard.
+     */
+    @JsonProperty("country")
+    public Optional<PricingAgreementCountry> getCountry() {
+        return country;
+    }
+
+    /**
+     * @return Version of the MPA.
+     */
+    @JsonProperty("version")
+    public Optional<PricingAgreementVersion> getVersion() {
+        return version;
+    }
+
+    @JsonProperty("base")
+    public Optional<BaseUs> getBase() {
+        return base;
+    }
+
+    /**
+     * @return Object that contains information about U.S. processor fees.
+     */
+    @JsonProperty("processor")
+    public Optional<PricingAgreementProcessor> getProcessor() {
+        return processor;
+    }
+
+    @JsonProperty("gateway")
+    public Optional<GatewayUs52> getGateway() {
+        return gateway;
+    }
+
+    @JsonProperty("services")
+    public Optional<List<ServiceUs50>> getServices() {
+        return services;
     }
 
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof PricingAgreement;
+        return other instanceof PricingAgreement && equalTo((PricingAgreement) other);
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
+    }
+
+    private boolean equalTo(PricingAgreement other) {
+        return country.equals(other.country)
+                && version.equals(other.version)
+                && base.equals(other.base)
+                && processor.equals(other.processor)
+                && gateway.equals(other.gateway)
+                && services.equals(other.services);
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+        return Objects.hash(this.country, this.version, this.base, this.processor, this.gateway, this.services);
     }
 
     @java.lang.Override
@@ -43,17 +127,110 @@ public final class PricingAgreement {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<PricingAgreementCountry> country = Optional.empty();
+
+        private Optional<PricingAgreementVersion> version = Optional.empty();
+
+        private Optional<BaseUs> base = Optional.empty();
+
+        private Optional<PricingAgreementProcessor> processor = Optional.empty();
+
+        private Optional<GatewayUs52> gateway = Optional.empty();
+
+        private Optional<List<ServiceUs50>> services = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
         public Builder from(PricingAgreement other) {
+            country(other.getCountry());
+            version(other.getVersion());
+            base(other.getBase());
+            processor(other.getProcessor());
+            gateway(other.getGateway());
+            services(other.getServices());
+            return this;
+        }
+
+        /**
+         * <p>Two-digit code for the country that the pricing intent applies to. The format follows the <a href="https://www.iso.org/iso-3166-country-codes.html">ISO-3166-1</a> standard.</p>
+         */
+        @JsonSetter(value = "country", nulls = Nulls.SKIP)
+        public Builder country(Optional<PricingAgreementCountry> country) {
+            this.country = country;
+            return this;
+        }
+
+        public Builder country(PricingAgreementCountry country) {
+            this.country = Optional.ofNullable(country);
+            return this;
+        }
+
+        /**
+         * <p>Version of the MPA.</p>
+         */
+        @JsonSetter(value = "version", nulls = Nulls.SKIP)
+        public Builder version(Optional<PricingAgreementVersion> version) {
+            this.version = version;
+            return this;
+        }
+
+        public Builder version(PricingAgreementVersion version) {
+            this.version = Optional.ofNullable(version);
+            return this;
+        }
+
+        @JsonSetter(value = "base", nulls = Nulls.SKIP)
+        public Builder base(Optional<BaseUs> base) {
+            this.base = base;
+            return this;
+        }
+
+        public Builder base(BaseUs base) {
+            this.base = Optional.ofNullable(base);
+            return this;
+        }
+
+        /**
+         * <p>Object that contains information about U.S. processor fees.</p>
+         */
+        @JsonSetter(value = "processor", nulls = Nulls.SKIP)
+        public Builder processor(Optional<PricingAgreementProcessor> processor) {
+            this.processor = processor;
+            return this;
+        }
+
+        public Builder processor(PricingAgreementProcessor processor) {
+            this.processor = Optional.ofNullable(processor);
+            return this;
+        }
+
+        @JsonSetter(value = "gateway", nulls = Nulls.SKIP)
+        public Builder gateway(Optional<GatewayUs52> gateway) {
+            this.gateway = gateway;
+            return this;
+        }
+
+        public Builder gateway(GatewayUs52 gateway) {
+            this.gateway = Optional.ofNullable(gateway);
+            return this;
+        }
+
+        @JsonSetter(value = "services", nulls = Nulls.SKIP)
+        public Builder services(Optional<List<ServiceUs50>> services) {
+            this.services = services;
+            return this;
+        }
+
+        public Builder services(List<ServiceUs50> services) {
+            this.services = Optional.ofNullable(services);
             return this;
         }
 
         public PricingAgreement build() {
-            return new PricingAgreement(additionalProperties);
+            return new PricingAgreement(country, version, base, processor, gateway, services, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

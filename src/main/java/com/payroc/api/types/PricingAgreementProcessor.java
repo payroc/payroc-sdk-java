@@ -18,29 +18,38 @@ import java.util.Objects;
 import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = BaseUsAnnual.Builder.class)
-public final class BaseUsAnnual {
-    private final Optional<Integer> amount;
+@JsonDeserialize(builder = PricingAgreementProcessor.Builder.class)
+public final class PricingAgreementProcessor {
+    private final Optional<PricingAgreementProcessorCard> card;
+
+    private final Optional<Ach> ach;
 
     private final Map<String, Object> additionalProperties;
 
-    private BaseUsAnnual(Optional<Integer> amount, Map<String, Object> additionalProperties) {
-        this.amount = amount;
+    private PricingAgreementProcessor(
+            Optional<PricingAgreementProcessorCard> card, Optional<Ach> ach, Map<String, Object> additionalProperties) {
+        this.card = card;
+        this.ach = ach;
         this.additionalProperties = additionalProperties;
     }
 
     /**
-     * @return Fee for the Platinum Security, this is returned in the lowest unit of currency. For example, cents.
+     * @return Object that contains information about card fees.
      */
-    @JsonProperty("amount")
-    public Optional<Integer> getAmount() {
-        return amount;
+    @JsonProperty("card")
+    public Optional<PricingAgreementProcessorCard> getCard() {
+        return card;
+    }
+
+    @JsonProperty("ach")
+    public Optional<Ach> getAch() {
+        return ach;
     }
 
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof BaseUsAnnual && equalTo((BaseUsAnnual) other);
+        return other instanceof PricingAgreementProcessor && equalTo((PricingAgreementProcessor) other);
     }
 
     @JsonAnyGetter
@@ -48,13 +57,13 @@ public final class BaseUsAnnual {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(BaseUsAnnual other) {
-        return amount.equals(other.amount);
+    private boolean equalTo(PricingAgreementProcessor other) {
+        return card.equals(other.card) && ach.equals(other.ach);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.amount);
+        return Objects.hash(this.card, this.ach);
     }
 
     @java.lang.Override
@@ -68,34 +77,48 @@ public final class BaseUsAnnual {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<Integer> amount = Optional.empty();
+        private Optional<PricingAgreementProcessorCard> card = Optional.empty();
+
+        private Optional<Ach> ach = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        public Builder from(BaseUsAnnual other) {
-            amount(other.getAmount());
+        public Builder from(PricingAgreementProcessor other) {
+            card(other.getCard());
+            ach(other.getAch());
             return this;
         }
 
         /**
-         * <p>Fee for the Platinum Security, this is returned in the lowest unit of currency. For example, cents.</p>
+         * <p>Object that contains information about card fees.</p>
          */
-        @JsonSetter(value = "amount", nulls = Nulls.SKIP)
-        public Builder amount(Optional<Integer> amount) {
-            this.amount = amount;
+        @JsonSetter(value = "card", nulls = Nulls.SKIP)
+        public Builder card(Optional<PricingAgreementProcessorCard> card) {
+            this.card = card;
             return this;
         }
 
-        public Builder amount(Integer amount) {
-            this.amount = Optional.ofNullable(amount);
+        public Builder card(PricingAgreementProcessorCard card) {
+            this.card = Optional.ofNullable(card);
             return this;
         }
 
-        public BaseUsAnnual build() {
-            return new BaseUsAnnual(amount, additionalProperties);
+        @JsonSetter(value = "ach", nulls = Nulls.SKIP)
+        public Builder ach(Optional<Ach> ach) {
+            this.ach = ach;
+            return this;
+        }
+
+        public Builder ach(Ach ach) {
+            this.ach = Optional.ofNullable(ach);
+            return this;
+        }
+
+        public PricingAgreementProcessor build() {
+            return new PricingAgreementProcessor(card, ach, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

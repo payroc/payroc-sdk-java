@@ -33,7 +33,7 @@ import com.payroc.api.types.FourHundredNine;
 import com.payroc.api.types.FourHundredOne;
 import com.payroc.api.types.FourHundredSix;
 import com.payroc.api.types.PaginatedPricingIntent;
-import com.payroc.api.types.PricingIntent50;
+import com.payroc.api.types.PricingIntent52;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import okhttp3.Call;
@@ -64,7 +64,7 @@ public class AsyncRawPricingIntentsClient {
      * </ul>
      * <p>For each pricing intent, we also return its pricingIntentId which you can use to perform follow-on actions.</p>
      */
-    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PricingIntent50>>>> list() {
+    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PricingIntent52>>>> list() {
         return list(ListPricingIntentsRequest.builder().build());
     }
 
@@ -78,7 +78,7 @@ public class AsyncRawPricingIntentsClient {
      * </ul>
      * <p>For each pricing intent, we also return its pricingIntentId which you can use to perform follow-on actions.</p>
      */
-    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PricingIntent50>>>> list(
+    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PricingIntent52>>>> list(
             RequestOptions requestOptions) {
         return list(ListPricingIntentsRequest.builder().build(), requestOptions);
     }
@@ -93,7 +93,7 @@ public class AsyncRawPricingIntentsClient {
      * </ul>
      * <p>For each pricing intent, we also return its pricingIntentId which you can use to perform follow-on actions.</p>
      */
-    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PricingIntent50>>>> list(
+    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PricingIntent52>>>> list(
             ListPricingIntentsRequest request) {
         return list(request, null);
     }
@@ -108,7 +108,7 @@ public class AsyncRawPricingIntentsClient {
      * </ul>
      * <p>For each pricing intent, we also return its pricingIntentId which you can use to perform follow-on actions.</p>
      */
-    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PricingIntent50>>>> list(
+    public CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PricingIntent52>>>> list(
             ListPricingIntentsRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
@@ -140,7 +140,7 @@ public class AsyncRawPricingIntentsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PricingIntent50>>>> future =
+        CompletableFuture<PayrocApiHttpResponse<CompletableFuture<AsyncPayrocPager<PricingIntent52>>>> future =
                 new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
@@ -215,7 +215,7 @@ public class AsyncRawPricingIntentsClient {
      * <li><a href="https://docs.payroc.com/api/schema/boarding/pricing-intents/partially-update">Partially Update Pricing Intent</a> - Partially update the details of a pricing intent.</li>
      * </ul>
      */
-    public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> create(CreatePricingIntentsRequest request) {
+    public CompletableFuture<PayrocApiHttpResponse<PricingIntent52>> create(CreatePricingIntentsRequest request) {
         return create(request, null);
     }
 
@@ -237,7 +237,7 @@ public class AsyncRawPricingIntentsClient {
      * <li><a href="https://docs.payroc.com/api/schema/boarding/pricing-intents/partially-update">Partially Update Pricing Intent</a> - Partially update the details of a pricing intent.</li>
      * </ul>
      */
-    public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> create(
+    public CompletableFuture<PayrocApiHttpResponse<PricingIntent52>> create(
             CreatePricingIntentsRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
@@ -266,7 +266,7 @@ public class AsyncRawPricingIntentsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> future = new CompletableFuture<>();
+        CompletableFuture<PayrocApiHttpResponse<PricingIntent52>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
@@ -274,7 +274,7 @@ public class AsyncRawPricingIntentsClient {
                     String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
                         future.complete(new PayrocApiHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, PricingIntent50.class),
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, PricingIntent52.class),
                                 response));
                         return;
                     }
@@ -341,7 +341,7 @@ public class AsyncRawPricingIntentsClient {
      * <li>Status of the pricing intent, including whether we approved the pricing intent.</li>
      * </ul>
      */
-    public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> retrieve(String pricingIntentId) {
+    public CompletableFuture<PayrocApiHttpResponse<PricingIntent52>> retrieve(String pricingIntentId) {
         return retrieve(pricingIntentId, RetrievePricingIntentsRequest.builder().build());
     }
 
@@ -355,7 +355,7 @@ public class AsyncRawPricingIntentsClient {
      * <li>Status of the pricing intent, including whether we approved the pricing intent.</li>
      * </ul>
      */
-    public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> retrieve(
+    public CompletableFuture<PayrocApiHttpResponse<PricingIntent52>> retrieve(
             String pricingIntentId, RequestOptions requestOptions) {
         return retrieve(pricingIntentId, RetrievePricingIntentsRequest.builder().build(), requestOptions);
     }
@@ -370,7 +370,7 @@ public class AsyncRawPricingIntentsClient {
      * <li>Status of the pricing intent, including whether we approved the pricing intent.</li>
      * </ul>
      */
-    public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> retrieve(
+    public CompletableFuture<PayrocApiHttpResponse<PricingIntent52>> retrieve(
             String pricingIntentId, RetrievePricingIntentsRequest request) {
         return retrieve(pricingIntentId, request, null);
     }
@@ -385,7 +385,7 @@ public class AsyncRawPricingIntentsClient {
      * <li>Status of the pricing intent, including whether we approved the pricing intent.</li>
      * </ul>
      */
-    public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> retrieve(
+    public CompletableFuture<PayrocApiHttpResponse<PricingIntent52>> retrieve(
             String pricingIntentId, RetrievePricingIntentsRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
@@ -406,7 +406,7 @@ public class AsyncRawPricingIntentsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> future = new CompletableFuture<>();
+        CompletableFuture<PayrocApiHttpResponse<PricingIntent52>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
@@ -414,7 +414,7 @@ public class AsyncRawPricingIntentsClient {
                     String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
                         future.complete(new PayrocApiHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, PricingIntent50.class),
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, PricingIntent52.class),
                                 response));
                         return;
                     }
@@ -717,7 +717,7 @@ public class AsyncRawPricingIntentsClient {
      * <li>Additional services that merchants can sign up for.</li>
      * </ul>
      */
-    public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> partiallyUpdate(
+    public CompletableFuture<PayrocApiHttpResponse<PricingIntent52>> partiallyUpdate(
             String pricingIntentId, PartiallyUpdatePricingIntentsRequest request) {
         return partiallyUpdate(pricingIntentId, request, null);
     }
@@ -734,7 +734,7 @@ public class AsyncRawPricingIntentsClient {
      * <li>Additional services that merchants can sign up for.</li>
      * </ul>
      */
-    public CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> partiallyUpdate(
+    public CompletableFuture<PayrocApiHttpResponse<PricingIntent52>> partiallyUpdate(
             String pricingIntentId, PartiallyUpdatePricingIntentsRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getApiURL())
                 .newBuilder()
@@ -764,7 +764,7 @@ public class AsyncRawPricingIntentsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<PayrocApiHttpResponse<PricingIntent50>> future = new CompletableFuture<>();
+        CompletableFuture<PayrocApiHttpResponse<PricingIntent52>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
@@ -772,7 +772,7 @@ public class AsyncRawPricingIntentsClient {
                     String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
                         future.complete(new PayrocApiHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, PricingIntent50.class),
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, PricingIntent52.class),
                                 response));
                         return;
                     }

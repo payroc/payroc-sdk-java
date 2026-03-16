@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.payroc.api.core.ObjectMappers;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public final class SecureTokenPaginatedListWithAccountType implements IPaginated
 
     private final Optional<List<Link>> links;
 
-    private final Optional<List<SecureTokenWithAccountType>> data;
+    private final List<SecureTokenWithAccountType> data;
 
     private final Map<String, Object> additionalProperties;
 
@@ -38,7 +39,7 @@ public final class SecureTokenPaginatedListWithAccountType implements IPaginated
             Optional<Integer> count,
             Optional<Boolean> hasMore,
             Optional<List<Link>> links,
-            Optional<List<SecureTokenWithAccountType>> data,
+            List<SecureTokenWithAccountType> data,
             Map<String, Object> additionalProperties) {
         this.limit = limit;
         this.count = count;
@@ -89,7 +90,7 @@ public final class SecureTokenPaginatedListWithAccountType implements IPaginated
      * @return Array of saved payment details.
      */
     @JsonProperty("data")
-    public Optional<List<SecureTokenWithAccountType>> getData() {
+    public List<SecureTokenWithAccountType> getData() {
         return data;
     }
 
@@ -137,7 +138,7 @@ public final class SecureTokenPaginatedListWithAccountType implements IPaginated
 
         private Optional<List<Link>> links = Optional.empty();
 
-        private Optional<List<SecureTokenWithAccountType>> data = Optional.empty();
+        private List<SecureTokenWithAccountType> data = new ArrayList<>();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -214,13 +215,23 @@ public final class SecureTokenPaginatedListWithAccountType implements IPaginated
          * <p>Array of saved payment details.</p>
          */
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
-        public Builder data(Optional<List<SecureTokenWithAccountType>> data) {
-            this.data = data;
+        public Builder data(List<SecureTokenWithAccountType> data) {
+            this.data.clear();
+            if (data != null) {
+                this.data.addAll(data);
+            }
             return this;
         }
 
-        public Builder data(List<SecureTokenWithAccountType> data) {
-            this.data = Optional.ofNullable(data);
+        public Builder addData(SecureTokenWithAccountType data) {
+            this.data.add(data);
+            return this;
+        }
+
+        public Builder addAllData(List<SecureTokenWithAccountType> data) {
+            if (data != null) {
+                this.data.addAll(data);
+            }
             return this;
         }
 

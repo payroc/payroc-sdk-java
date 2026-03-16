@@ -12,7 +12,7 @@ import com.payroc.api.resources.boarding.pricingintents.requests.ListPricingInte
 import com.payroc.api.resources.boarding.pricingintents.requests.PartiallyUpdatePricingIntentsRequest;
 import com.payroc.api.resources.boarding.pricingintents.requests.RetrievePricingIntentsRequest;
 import com.payroc.api.resources.boarding.pricingintents.requests.UpdatePricingIntentsRequest;
-import com.payroc.api.types.PricingIntent50;
+import com.payroc.api.types.PricingIntent52;
 
 public class PricingIntentsClient {
     protected final ClientOptions clientOptions;
@@ -41,7 +41,7 @@ public class PricingIntentsClient {
      * </ul>
      * <p>For each pricing intent, we also return its pricingIntentId which you can use to perform follow-on actions.</p>
      */
-    public PayrocPager<PricingIntent50> list() {
+    public PayrocPager<PricingIntent52> list() {
         return this.rawClient.list().body();
     }
 
@@ -55,7 +55,7 @@ public class PricingIntentsClient {
      * </ul>
      * <p>For each pricing intent, we also return its pricingIntentId which you can use to perform follow-on actions.</p>
      */
-    public PayrocPager<PricingIntent50> list(RequestOptions requestOptions) {
+    public PayrocPager<PricingIntent52> list(RequestOptions requestOptions) {
         return this.rawClient.list(requestOptions).body();
     }
 
@@ -69,7 +69,7 @@ public class PricingIntentsClient {
      * </ul>
      * <p>For each pricing intent, we also return its pricingIntentId which you can use to perform follow-on actions.</p>
      */
-    public PayrocPager<PricingIntent50> list(ListPricingIntentsRequest request) {
+    public PayrocPager<PricingIntent52> list(ListPricingIntentsRequest request) {
         return this.rawClient.list(request).body();
     }
 
@@ -83,7 +83,7 @@ public class PricingIntentsClient {
      * </ul>
      * <p>For each pricing intent, we also return its pricingIntentId which you can use to perform follow-on actions.</p>
      */
-    public PayrocPager<PricingIntent50> list(ListPricingIntentsRequest request, RequestOptions requestOptions) {
+    public PayrocPager<PricingIntent52> list(ListPricingIntentsRequest request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
     }
 
@@ -105,7 +105,7 @@ public class PricingIntentsClient {
      * <li><a href="https://docs.payroc.com/api/schema/boarding/pricing-intents/partially-update">Partially Update Pricing Intent</a> - Partially update the details of a pricing intent.</li>
      * </ul>
      */
-    public PricingIntent50 create(CreatePricingIntentsRequest request) {
+    public PricingIntent52 create(CreatePricingIntentsRequest request) {
         return this.rawClient.create(request).body();
     }
 
@@ -127,7 +127,7 @@ public class PricingIntentsClient {
      * <li><a href="https://docs.payroc.com/api/schema/boarding/pricing-intents/partially-update">Partially Update Pricing Intent</a> - Partially update the details of a pricing intent.</li>
      * </ul>
      */
-    public PricingIntent50 create(CreatePricingIntentsRequest request, RequestOptions requestOptions) {
+    public PricingIntent52 create(CreatePricingIntentsRequest request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).body();
     }
 
@@ -141,7 +141,7 @@ public class PricingIntentsClient {
      * <li>Status of the pricing intent, including whether we approved the pricing intent.</li>
      * </ul>
      */
-    public PricingIntent50 retrieve(String pricingIntentId) {
+    public PricingIntent52 retrieve(String pricingIntentId) {
         return this.rawClient.retrieve(pricingIntentId).body();
     }
 
@@ -155,7 +155,7 @@ public class PricingIntentsClient {
      * <li>Status of the pricing intent, including whether we approved the pricing intent.</li>
      * </ul>
      */
-    public PricingIntent50 retrieve(String pricingIntentId, RequestOptions requestOptions) {
+    public PricingIntent52 retrieve(String pricingIntentId, RequestOptions requestOptions) {
         return this.rawClient.retrieve(pricingIntentId, requestOptions).body();
     }
 
@@ -169,7 +169,7 @@ public class PricingIntentsClient {
      * <li>Status of the pricing intent, including whether we approved the pricing intent.</li>
      * </ul>
      */
-    public PricingIntent50 retrieve(String pricingIntentId, RetrievePricingIntentsRequest request) {
+    public PricingIntent52 retrieve(String pricingIntentId, RetrievePricingIntentsRequest request) {
         return this.rawClient.retrieve(pricingIntentId, request).body();
     }
 
@@ -183,7 +183,7 @@ public class PricingIntentsClient {
      * <li>Status of the pricing intent, including whether we approved the pricing intent.</li>
      * </ul>
      */
-    public PricingIntent50 retrieve(
+    public PricingIntent52 retrieve(
             String pricingIntentId, RetrievePricingIntentsRequest request, RequestOptions requestOptions) {
         return this.rawClient.retrieve(pricingIntentId, request, requestOptions).body();
     }
@@ -278,7 +278,7 @@ public class PricingIntentsClient {
      * <li>Additional services that merchants can sign up for.</li>
      * </ul>
      */
-    public PricingIntent50 partiallyUpdate(String pricingIntentId, PartiallyUpdatePricingIntentsRequest request) {
+    public PricingIntent52 partiallyUpdate(String pricingIntentId, PartiallyUpdatePricingIntentsRequest request) {
         return this.rawClient.partiallyUpdate(pricingIntentId, request).body();
     }
 
@@ -294,7 +294,7 @@ public class PricingIntentsClient {
      * <li>Additional services that merchants can sign up for.</li>
      * </ul>
      */
-    public PricingIntent50 partiallyUpdate(
+    public PricingIntent52 partiallyUpdate(
             String pricingIntentId, PartiallyUpdatePricingIntentsRequest request, RequestOptions requestOptions) {
         return this.rawClient
                 .partiallyUpdate(pricingIntentId, request, requestOptions)

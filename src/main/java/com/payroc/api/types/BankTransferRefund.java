@@ -34,7 +34,7 @@ public final class BankTransferRefund {
 
     private final Optional<PaymentSummary> payment;
 
-    private final BankTransferResult transactionResult;
+    private final Optional<BankTransferResult> transactionResult;
 
     private final Optional<List<CustomField>> customFields;
 
@@ -47,7 +47,7 @@ public final class BankTransferRefund {
             Optional<BankTransferCustomer> customer,
             BankTransferRefundBankAccount bankAccount,
             Optional<PaymentSummary> payment,
-            BankTransferResult transactionResult,
+            Optional<BankTransferResult> transactionResult,
             Optional<List<CustomField>> customFields,
             Map<String, Object> additionalProperties) {
         this.refundId = refundId;
@@ -106,7 +106,7 @@ public final class BankTransferRefund {
     }
 
     @JsonProperty("transactionResult")
-    public BankTransferResult getTransactionResult() {
+    public Optional<BankTransferResult> getTransactionResult() {
         return transactionResult;
     }
 
@@ -191,11 +191,7 @@ public final class BankTransferRefund {
          * <li><code>pad</code> - Pre-authorized debit (PAD) details</li>
          * </ul>
          */
-        TransactionResultStage bankAccount(@NotNull BankTransferRefundBankAccount bankAccount);
-    }
-
-    public interface TransactionResultStage {
-        _FinalStage transactionResult(@NotNull BankTransferResult transactionResult);
+        _FinalStage bankAccount(@NotNull BankTransferRefundBankAccount bankAccount);
     }
 
     public interface _FinalStage {
@@ -213,6 +209,10 @@ public final class BankTransferRefund {
 
         _FinalStage payment(PaymentSummary payment);
 
+        _FinalStage transactionResult(Optional<BankTransferResult> transactionResult);
+
+        _FinalStage transactionResult(BankTransferResult transactionResult);
+
         /**
          * <p>Array of customField objects.</p>
          */
@@ -223,12 +223,7 @@ public final class BankTransferRefund {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder
-            implements RefundIdStage,
-                    ProcessingTerminalIdStage,
-                    OrderStage,
-                    BankAccountStage,
-                    TransactionResultStage,
-                    _FinalStage {
+            implements RefundIdStage, ProcessingTerminalIdStage, OrderStage, BankAccountStage, _FinalStage {
         private String refundId;
 
         private String processingTerminalId;
@@ -237,9 +232,9 @@ public final class BankTransferRefund {
 
         private BankTransferRefundBankAccount bankAccount;
 
-        private BankTransferResult transactionResult;
-
         private Optional<List<CustomField>> customFields = Optional.empty();
+
+        private Optional<BankTransferResult> transactionResult = Optional.empty();
 
         private Optional<PaymentSummary> payment = Optional.empty();
 
@@ -312,15 +307,8 @@ public final class BankTransferRefund {
          */
         @java.lang.Override
         @JsonSetter("bankAccount")
-        public TransactionResultStage bankAccount(@NotNull BankTransferRefundBankAccount bankAccount) {
+        public _FinalStage bankAccount(@NotNull BankTransferRefundBankAccount bankAccount) {
             this.bankAccount = Objects.requireNonNull(bankAccount, "bankAccount must not be null");
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter("transactionResult")
-        public _FinalStage transactionResult(@NotNull BankTransferResult transactionResult) {
-            this.transactionResult = Objects.requireNonNull(transactionResult, "transactionResult must not be null");
             return this;
         }
 
@@ -341,6 +329,19 @@ public final class BankTransferRefund {
         @JsonSetter(value = "customFields", nulls = Nulls.SKIP)
         public _FinalStage customFields(Optional<List<CustomField>> customFields) {
             this.customFields = customFields;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage transactionResult(BankTransferResult transactionResult) {
+            this.transactionResult = Optional.ofNullable(transactionResult);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "transactionResult", nulls = Nulls.SKIP)
+        public _FinalStage transactionResult(Optional<BankTransferResult> transactionResult) {
+            this.transactionResult = transactionResult;
             return this;
         }
 

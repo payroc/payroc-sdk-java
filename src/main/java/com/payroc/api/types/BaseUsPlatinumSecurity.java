@@ -26,11 +26,11 @@ public final class BaseUsPlatinumSecurity {
         return value.visit(visitor);
     }
 
-    public static BaseUsPlatinumSecurity monthly(BaseUsMonthly value) {
+    public static BaseUsPlatinumSecurity monthly(PlatinumSecurityMonthly value) {
         return new BaseUsPlatinumSecurity(new MonthlyValue(value));
     }
 
-    public static BaseUsPlatinumSecurity annual(BaseUsAnnual value) {
+    public static BaseUsPlatinumSecurity annual(PlatinumSecurityAnnual value) {
         return new BaseUsPlatinumSecurity(new AnnualValue(value));
     }
 
@@ -46,14 +46,14 @@ public final class BaseUsPlatinumSecurity {
         return value instanceof _UnknownValue;
     }
 
-    public Optional<BaseUsMonthly> getMonthly() {
+    public Optional<PlatinumSecurityMonthly> getMonthly() {
         if (isMonthly()) {
             return Optional.of(((MonthlyValue) value).value);
         }
         return Optional.empty();
     }
 
-    public Optional<BaseUsAnnual> getAnnual() {
+    public Optional<PlatinumSecurityAnnual> getAnnual() {
         if (isAnnual()) {
             return Optional.of(((AnnualValue) value).value);
         }
@@ -67,15 +67,31 @@ public final class BaseUsPlatinumSecurity {
         return Optional.empty();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        return other instanceof BaseUsPlatinumSecurity && value.equals(((BaseUsPlatinumSecurity) other).value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
+
     @JsonValue
     private Value getValue() {
         return this.value;
     }
 
     public interface Visitor<T> {
-        T visitMonthly(BaseUsMonthly monthly);
+        T visitMonthly(PlatinumSecurityMonthly monthly);
 
-        T visitAnnual(BaseUsAnnual annual);
+        T visitAnnual(PlatinumSecurityAnnual annual);
 
         T _visitUnknown(Object unknownType);
     }
@@ -95,12 +111,12 @@ public final class BaseUsPlatinumSecurity {
     @JsonIgnoreProperties("billingFrequency")
     private static final class MonthlyValue implements Value {
         @JsonUnwrapped
-        private BaseUsMonthly value;
+        private PlatinumSecurityMonthly value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
         private MonthlyValue() {}
 
-        private MonthlyValue(BaseUsMonthly value) {
+        private MonthlyValue(PlatinumSecurityMonthly value) {
             this.value = value;
         }
 
@@ -134,12 +150,12 @@ public final class BaseUsPlatinumSecurity {
     @JsonIgnoreProperties("billingFrequency")
     private static final class AnnualValue implements Value {
         @JsonUnwrapped
-        private BaseUsAnnual value;
+        private PlatinumSecurityAnnual value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
         private AnnualValue() {}
 
-        private AnnualValue(BaseUsAnnual value) {
+        private AnnualValue(PlatinumSecurityAnnual value) {
             this.value = value;
         }
 

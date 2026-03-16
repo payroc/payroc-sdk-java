@@ -14,8 +14,8 @@ public class GlobalFixture {
     public static final String TERMINAL_ID_NO_AVS;
 
     static {
-        GENERIC_CLIENT = createClient(getEnv("PAYROC_API_KEY_GENERIC"));
-        PAYMENTS_CLIENT = createClient(getEnv("PAYROC_API_KEY_PAYMENTS"));
+        GENERIC_CLIENT = createClient(getEnvWithFallback("PAYROC_API_KEY_GENERIC", "PAYROC_API_KEY"));
+        PAYMENTS_CLIENT = createClient(getEnvWithFallback("PAYROC_API_KEY_PAYMENTS", "PAYROC_API_KEY"));
         TERMINAL_ID_AVS = getEnv("TERMINAL_ID_AVS");
         TERMINAL_ID_NO_AVS = getEnv("TERMINAL_ID_NO_AVS");
     }
@@ -25,6 +25,18 @@ public class GlobalFixture {
                 .apiKey(apiKey)
                 .environment(Environment.UAT)
                 .build();
+    }
+
+    private static String getEnvWithFallback(String name, String fallbackName) {
+        String value = System.getenv(name);
+        if (value == null || value.isEmpty()) {
+            value = System.getenv(fallbackName);
+        }
+        if (value == null || value.isEmpty()) {
+            throw new IllegalStateException("Environment variable '" + name + "' or '" + fallbackName + "' is not set. "
+                    + "Please set one of them before running integration tests.");
+        }
+        return value;
     }
 
     private static String getEnv(String name) {

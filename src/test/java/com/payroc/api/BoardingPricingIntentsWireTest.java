@@ -14,20 +14,20 @@ import com.payroc.api.types.AchFees;
 import com.payroc.api.types.BaseUs;
 import com.payroc.api.types.BaseUsAnnualFee;
 import com.payroc.api.types.BaseUsAnnualFeeBillInMonth;
-import com.payroc.api.types.BaseUsMonthly;
 import com.payroc.api.types.BaseUsPlatinumSecurity;
-import com.payroc.api.types.GatewayUs50;
-import com.payroc.api.types.GatewayUs50Fees;
+import com.payroc.api.types.GatewayUs52;
+import com.payroc.api.types.GatewayUs52Fees;
 import com.payroc.api.types.HardwareAdvantagePlan;
-import com.payroc.api.types.InterchangePlus;
-import com.payroc.api.types.InterchangePlusFees;
+import com.payroc.api.types.InterchangePlusUs52;
+import com.payroc.api.types.InterchangePlusUs52Fees;
 import com.payroc.api.types.PatchDocument;
 import com.payroc.api.types.PatchRemove;
-import com.payroc.api.types.PricingAgreementUs50Country;
-import com.payroc.api.types.PricingAgreementUs50Processor;
-import com.payroc.api.types.PricingAgreementUs50ProcessorCard;
-import com.payroc.api.types.PricingAgreementUs50Version;
-import com.payroc.api.types.PricingIntent50;
+import com.payroc.api.types.PlatinumSecurityMonthly;
+import com.payroc.api.types.PricingAgreementUs52Country;
+import com.payroc.api.types.PricingAgreementUs52Processor;
+import com.payroc.api.types.PricingAgreementUs52ProcessorCard;
+import com.payroc.api.types.PricingAgreementUs52Version;
+import com.payroc.api.types.PricingIntent52;
 import com.payroc.api.types.ProcessorFee;
 import com.payroc.api.types.ServiceUs50;
 import java.util.Arrays;
@@ -68,14 +68,14 @@ public class BoardingPricingIntentsWireTest {
                 .setResponseCode(200)
                 .setBody(TestResources.loadResource(
                         "/wire-tests/BoardingPricingIntentsWireTest_testCreate_response.json")));
-        PricingIntent50 response = client.boarding()
+        PricingIntent52 response = client.boarding()
                 .pricingIntents()
                 .create(CreatePricingIntentsRequest.builder()
                         .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9324")
-                        .body(PricingIntent50.builder()
+                        .body(PricingIntent52.builder()
                                 .key("Your-Unique-Identifier")
-                                .country(PricingAgreementUs50Country.US)
-                                .version(PricingAgreementUs50Version.FIVE_0)
+                                .country(PricingAgreementUs52Country.US)
+                                .version(PricingAgreementUs52Version.FIVE_2)
                                 .base(BaseUs.builder()
                                         .annualFee(BaseUsAnnualFee.builder()
                                                 .amount(9900)
@@ -88,8 +88,9 @@ public class BoardingPricingIntentsWireTest {
                                         .regulatoryAssistanceProgram(15)
                                         .pciNonCompliance(4995)
                                         .merchantAdvantage(10)
-                                        .platinumSecurity(BaseUsPlatinumSecurity.monthly(
-                                                BaseUsMonthly.builder().build()))
+                                        .platinumSecurity(
+                                                BaseUsPlatinumSecurity.monthly(PlatinumSecurityMonthly.builder()
+                                                        .build()))
                                         .voiceAuthorization(95)
                                         .chargeback(2500)
                                         .retrieval(1500)
@@ -100,10 +101,10 @@ public class BoardingPricingIntentsWireTest {
                                         put("yourCustomField", "abc123");
                                     }
                                 })
-                                .processor(PricingAgreementUs50Processor.builder()
-                                        .card(PricingAgreementUs50ProcessorCard.interchangePlus(
-                                                InterchangePlus.builder()
-                                                        .fees(InterchangePlusFees.builder()
+                                .processor(PricingAgreementUs52Processor.builder()
+                                        .card(PricingAgreementUs52ProcessorCard.interchangePlus(
+                                                InterchangePlusUs52.builder()
+                                                        .fees(InterchangePlusUs52Fees.builder()
                                                                 .mastercardVisaDiscover(ProcessorFee.builder()
                                                                         .build())
                                                                 .build())
@@ -129,7 +130,7 @@ public class BoardingPricingIntentsWireTest {
         String expectedRequestBody = ""
                 + "{\n"
                 + "  \"country\": \"US\",\n"
-                + "  \"version\": \"5.0\",\n"
+                + "  \"version\": \"5.2\",\n"
                 + "  \"base\": {\n"
                 + "    \"addressVerification\": 5,\n"
                 + "    \"annualFee\": {\n"
@@ -238,7 +239,7 @@ public class BoardingPricingIntentsWireTest {
                 .setResponseCode(200)
                 .setBody(TestResources.loadResource(
                         "/wire-tests/BoardingPricingIntentsWireTest_testRetrieve_response.json")));
-        PricingIntent50 response = client.boarding()
+        PricingIntent52 response = client.boarding()
                 .pricingIntents()
                 .retrieve("5", RetrievePricingIntentsRequest.builder().build());
         RecordedRequest request = server.takeRequest();
@@ -289,10 +290,10 @@ public class BoardingPricingIntentsWireTest {
                 .update(
                         "5",
                         UpdatePricingIntentsRequest.builder()
-                                .body(PricingIntent50.builder()
+                                .body(PricingIntent52.builder()
                                         .key("Your-Unique-Identifier")
-                                        .country(PricingAgreementUs50Country.US)
-                                        .version(PricingAgreementUs50Version.FIVE_0)
+                                        .country(PricingAgreementUs52Country.US)
+                                        .version(PricingAgreementUs52Version.FIVE_2)
                                         .base(BaseUs.builder()
                                                 .annualFee(BaseUsAnnualFee.builder()
                                                         .amount(9900)
@@ -305,8 +306,9 @@ public class BoardingPricingIntentsWireTest {
                                                 .regulatoryAssistanceProgram(15)
                                                 .pciNonCompliance(4995)
                                                 .merchantAdvantage(10)
-                                                .platinumSecurity(BaseUsPlatinumSecurity.monthly(
-                                                        BaseUsMonthly.builder().build()))
+                                                .platinumSecurity(
+                                                        BaseUsPlatinumSecurity.monthly(PlatinumSecurityMonthly.builder()
+                                                                .build()))
                                                 .voiceAuthorization(95)
                                                 .chargeback(2500)
                                                 .retrieval(1500)
@@ -317,10 +319,10 @@ public class BoardingPricingIntentsWireTest {
                                                 put("yourCustomField", "abc123");
                                             }
                                         })
-                                        .processor(PricingAgreementUs50Processor.builder()
-                                                .card(PricingAgreementUs50ProcessorCard.interchangePlus(
-                                                        InterchangePlus.builder()
-                                                                .fees(InterchangePlusFees.builder()
+                                        .processor(PricingAgreementUs52Processor.builder()
+                                                .card(PricingAgreementUs52ProcessorCard.interchangePlus(
+                                                        InterchangePlusUs52.builder()
+                                                                .fees(InterchangePlusUs52Fees.builder()
                                                                         .mastercardVisaDiscover(ProcessorFee.builder()
                                                                                 .build())
                                                                         .build())
@@ -339,8 +341,8 @@ public class BoardingPricingIntentsWireTest {
                                                                 .build())
                                                         .build())
                                                 .build())
-                                        .gateway(GatewayUs50.builder()
-                                                .fees(GatewayUs50Fees.builder()
+                                        .gateway(GatewayUs52.builder()
+                                                .fees(GatewayUs52Fees.builder()
                                                         .monthly(2000)
                                                         .setup(5000)
                                                         .perTransaction(2000)
@@ -405,7 +407,7 @@ public class BoardingPricingIntentsWireTest {
                 .setResponseCode(200)
                 .setBody(TestResources.loadResource(
                         "/wire-tests/BoardingPricingIntentsWireTest_testPartiallyUpdate_response.json")));
-        PricingIntent50 response = client.boarding()
+        PricingIntent52 response = client.boarding()
                 .pricingIntents()
                 .partiallyUpdate(
                         "5",

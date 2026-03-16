@@ -29,7 +29,7 @@ public final class PaginatedPricingIntent implements IPaginatedList {
 
     private final Optional<List<Link>> links;
 
-    private final Optional<List<PricingIntent50>> data;
+    private final Optional<List<PricingIntent52>> data;
 
     private final Map<String, Object> additionalProperties;
 
@@ -38,7 +38,7 @@ public final class PaginatedPricingIntent implements IPaginatedList {
             Optional<Integer> count,
             Optional<Boolean> hasMore,
             Optional<List<Link>> links,
-            Optional<List<PricingIntent50>> data,
+            Optional<List<PricingIntent52>> data,
             Map<String, Object> additionalProperties) {
         this.limit = limit;
         this.count = count;
@@ -89,7 +89,7 @@ public final class PaginatedPricingIntent implements IPaginatedList {
      * @return Array of pricing intent objects.
      */
     @JsonProperty("data")
-    public Optional<List<PricingIntent50>> getData() {
+    public Optional<List<PricingIntent52>> getData() {
         return data;
     }
 
@@ -136,7 +136,7 @@ public final class PaginatedPricingIntent implements IPaginatedList {
 
         private Optional<List<Link>> links = Optional.empty();
 
-        private Optional<List<PricingIntent50>> data = Optional.empty();
+        private Optional<List<PricingIntent52>> data = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -213,12 +213,12 @@ public final class PaginatedPricingIntent implements IPaginatedList {
          * <p>Array of pricing intent objects.</p>
          */
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
-        public Builder data(Optional<List<PricingIntent50>> data) {
+        public Builder data(Optional<List<PricingIntent52>> data) {
             this.data = data;
             return this;
         }
 
-        public Builder data(List<PricingIntent50> data) {
+        public Builder data(List<PricingIntent52> data) {
             this.data = Optional.ofNullable(data);
             return this;
         }

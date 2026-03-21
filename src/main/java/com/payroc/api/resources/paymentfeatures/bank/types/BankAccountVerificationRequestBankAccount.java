@@ -110,6 +110,7 @@ public final class BankAccountVerificationRequestBankAccount {
     @JsonIgnoreProperties("type")
     private static final class AchValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private AchPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -149,6 +150,7 @@ public final class BankAccountVerificationRequestBankAccount {
     @JsonIgnoreProperties("type")
     private static final class PadValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private PadPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

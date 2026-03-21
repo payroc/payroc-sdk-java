@@ -109,6 +109,7 @@ public final class RepresentmentPaymentMethod {
     @JsonIgnoreProperties("type")
     private static final class AchValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private AchPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -148,6 +149,7 @@ public final class RepresentmentPaymentMethod {
     @JsonIgnoreProperties("type")
     private static final class SecureTokenValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private SecureTokenPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

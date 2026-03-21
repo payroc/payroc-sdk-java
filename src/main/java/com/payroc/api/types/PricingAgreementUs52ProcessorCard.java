@@ -219,6 +219,7 @@ public final class PricingAgreementUs52ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class InterchangePlusValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private InterchangePlusUs52 value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -258,6 +259,7 @@ public final class PricingAgreementUs52ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class InterchangePlusPlusValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private InterchangePlusPlusUs52 value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -297,6 +299,7 @@ public final class PricingAgreementUs52ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class Tiered3Value implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private Tiered3 value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -336,6 +339,7 @@ public final class PricingAgreementUs52ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class Tiered4Value implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private Tiered4 value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -375,6 +379,7 @@ public final class PricingAgreementUs52ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class Tiered6Value implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private Tiered6 value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -414,6 +419,7 @@ public final class PricingAgreementUs52ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class FlatRateValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private FlatRate value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -453,6 +459,7 @@ public final class PricingAgreementUs52ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class ConsumerChoiceValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private ConsumerChoice value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -492,6 +499,7 @@ public final class PricingAgreementUs52ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class RewardPayChoiceValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private RewardPayChoice value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

@@ -112,6 +112,7 @@ public final class OrderItemSolutionSetupBatchClosure {
     @JsonIgnoreProperties("batchCloseType")
     private static final class AutomaticValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "batchCloseType", allowSetters = true)
         private AutomaticBatchClose value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -151,6 +152,7 @@ public final class OrderItemSolutionSetupBatchClosure {
     @JsonIgnoreProperties("batchCloseType")
     private static final class ManualValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "batchCloseType", allowSetters = true)
         private ManualBatchClose value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

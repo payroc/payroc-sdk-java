@@ -129,6 +129,7 @@ public final class SecureTokenWithAccountTypeSource {
     @JsonIgnoreProperties("type")
     private static final class AchValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private AchSourceWithAccountType value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -168,6 +169,7 @@ public final class SecureTokenWithAccountTypeSource {
     @JsonIgnoreProperties("type")
     private static final class PadValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private PadSourceWithAccountType value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -207,6 +209,7 @@ public final class SecureTokenWithAccountTypeSource {
     @JsonIgnoreProperties("type")
     private static final class CardValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private CardSource value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

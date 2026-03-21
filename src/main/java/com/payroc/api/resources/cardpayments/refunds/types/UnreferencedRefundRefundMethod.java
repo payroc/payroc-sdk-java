@@ -110,6 +110,7 @@ public final class UnreferencedRefundRefundMethod {
     @JsonIgnoreProperties("type")
     private static final class CardValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private CardPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -149,6 +150,7 @@ public final class UnreferencedRefundRefundMethod {
     @JsonIgnoreProperties("type")
     private static final class SecureTokenValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private SecureTokenPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

@@ -109,6 +109,7 @@ public final class CreatePaymentLinksResponse {
     @JsonIgnoreProperties("type")
     private static final class MultiUseValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private MultiUsePaymentLink value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -148,6 +149,7 @@ public final class CreatePaymentLinksResponse {
     @JsonIgnoreProperties("type")
     private static final class SingleUseValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private SingleUsePaymentLink value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

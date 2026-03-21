@@ -91,6 +91,7 @@ public final class HostConfigurationConfiguration {
     @JsonIgnoreProperties("processor")
     private static final class TsysValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "processor", allowSetters = true)
         private Tsys value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

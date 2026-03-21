@@ -90,6 +90,7 @@ public final class FlatRateFeesAmex {
     @JsonIgnoreProperties("type")
     private static final class DirectValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private FlatRateAmexDirect value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

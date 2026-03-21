@@ -112,6 +112,7 @@ public final class ProcessingTerminalBatchClosure {
     @JsonIgnoreProperties("batchCloseType")
     private static final class AutomaticValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "batchCloseType", allowSetters = true)
         private SchemasAutomaticBatchClose value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -151,6 +152,7 @@ public final class ProcessingTerminalBatchClosure {
     @JsonIgnoreProperties("batchCloseType")
     private static final class ManualValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "batchCloseType", allowSetters = true)
         private SchemasManualBatchClose value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

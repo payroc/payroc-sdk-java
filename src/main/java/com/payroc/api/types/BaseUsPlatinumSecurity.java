@@ -111,6 +111,7 @@ public final class BaseUsPlatinumSecurity {
     @JsonIgnoreProperties("billingFrequency")
     private static final class MonthlyValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "billingFrequency", allowSetters = true)
         private PlatinumSecurityMonthly value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -150,6 +151,7 @@ public final class BaseUsPlatinumSecurity {
     @JsonIgnoreProperties("billingFrequency")
     private static final class AnnualValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "billingFrequency", allowSetters = true)
         private PlatinumSecurityAnnual value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

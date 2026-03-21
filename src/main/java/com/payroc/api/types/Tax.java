@@ -107,6 +107,7 @@ public final class Tax {
     @JsonIgnoreProperties("type")
     private static final class AmountValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private TaxAmount value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -146,6 +147,7 @@ public final class Tax {
     @JsonIgnoreProperties("type")
     private static final class RateValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private TaxRate value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

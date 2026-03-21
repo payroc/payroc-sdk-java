@@ -113,6 +113,7 @@ public final class PaymentRequestThreeDSecure {
     @JsonIgnoreProperties("serviceProvider")
     private static final class GatewayValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "serviceProvider", allowSetters = true)
         private GatewayThreeDSecure value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -152,6 +153,7 @@ public final class PaymentRequestThreeDSecure {
     @JsonIgnoreProperties("serviceProvider")
     private static final class ThirdPartyValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "serviceProvider", allowSetters = true)
         private ThirdPartyThreeDSecure value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

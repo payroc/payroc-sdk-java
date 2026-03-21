@@ -182,6 +182,7 @@ public final class PatchDocument {
     @JsonIgnoreProperties("op")
     private static final class AddValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "op", allowSetters = true)
         private PatchAdd value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -221,6 +222,7 @@ public final class PatchDocument {
     @JsonIgnoreProperties("op")
     private static final class RemoveValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "op", allowSetters = true)
         private PatchRemove value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -260,6 +262,7 @@ public final class PatchDocument {
     @JsonIgnoreProperties("op")
     private static final class ReplaceValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "op", allowSetters = true)
         private PatchReplace value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -299,6 +302,7 @@ public final class PatchDocument {
     @JsonIgnoreProperties("op")
     private static final class MoveValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "op", allowSetters = true)
         private PatchMove value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -338,6 +342,7 @@ public final class PatchDocument {
     @JsonIgnoreProperties("op")
     private static final class CopyValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "op", allowSetters = true)
         private PatchCopy value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -377,6 +382,7 @@ public final class PatchDocument {
     @JsonIgnoreProperties("op")
     private static final class TestValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "op", allowSetters = true)
         private PatchTest value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

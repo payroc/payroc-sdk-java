@@ -151,6 +151,7 @@ public final class BankTransferPaymentRequestPaymentMethod {
     @JsonIgnoreProperties("type")
     private static final class AchValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private AchPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -190,6 +191,7 @@ public final class BankTransferPaymentRequestPaymentMethod {
     @JsonIgnoreProperties("type")
     private static final class PadValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private PadPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -229,6 +231,7 @@ public final class BankTransferPaymentRequestPaymentMethod {
     @JsonIgnoreProperties("type")
     private static final class SecureTokenValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private SecureTokenPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -268,6 +271,7 @@ public final class BankTransferPaymentRequestPaymentMethod {
     @JsonIgnoreProperties("type")
     private static final class SingleUseTokenValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private SingleUseTokenPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

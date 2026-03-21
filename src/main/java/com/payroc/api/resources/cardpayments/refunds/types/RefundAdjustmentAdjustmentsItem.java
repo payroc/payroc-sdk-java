@@ -110,6 +110,7 @@ public final class RefundAdjustmentAdjustmentsItem {
     @JsonIgnoreProperties("type")
     private static final class StatusValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private StatusAdjustment value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -149,6 +150,7 @@ public final class RefundAdjustmentAdjustmentsItem {
     @JsonIgnoreProperties("type")
     private static final class CustomerValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private CustomerAdjustment value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

@@ -146,6 +146,7 @@ public final class ContactMethod {
     @JsonIgnoreProperties("type")
     private static final class EmailValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private ContactMethodEmail value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -185,6 +186,7 @@ public final class ContactMethod {
     @JsonIgnoreProperties("type")
     private static final class PhoneValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private ContactMethodPhone value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -224,6 +226,7 @@ public final class ContactMethod {
     @JsonIgnoreProperties("type")
     private static final class MobileValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private ContactMethodMobile value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -263,6 +266,7 @@ public final class ContactMethod {
     @JsonIgnoreProperties("type")
     private static final class FaxValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private ContactMethodFax value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

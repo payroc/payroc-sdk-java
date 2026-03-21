@@ -150,6 +150,7 @@ public final class CardPayloadCardDetails {
     @JsonIgnoreProperties("entryMethod")
     private static final class RawValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "entryMethod", allowSetters = true)
         private RawCardDetails value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -189,6 +190,7 @@ public final class CardPayloadCardDetails {
     @JsonIgnoreProperties("entryMethod")
     private static final class IccValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "entryMethod", allowSetters = true)
         private IccCardDetails value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -228,6 +230,7 @@ public final class CardPayloadCardDetails {
     @JsonIgnoreProperties("entryMethod")
     private static final class KeyedValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "entryMethod", allowSetters = true)
         private KeyedCardDetails value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -267,6 +270,7 @@ public final class CardPayloadCardDetails {
     @JsonIgnoreProperties("entryMethod")
     private static final class SwipedValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "entryMethod", allowSetters = true)
         private SwipedCardDetails value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

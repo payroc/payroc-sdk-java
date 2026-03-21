@@ -108,6 +108,7 @@ public final class MultiUsePaymentLinkOrderCharge {
     @JsonIgnoreProperties("type")
     private static final class PromptValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private PromptPaymentLinkCharge value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -147,6 +148,7 @@ public final class MultiUsePaymentLinkOrderCharge {
     @JsonIgnoreProperties("type")
     private static final class PresetValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private PresetPaymentLinkCharge value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

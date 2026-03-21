@@ -90,6 +90,7 @@ public final class AccountUpdate {
     @JsonIgnoreProperties("type")
     private static final class SingleUseTokenValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private SingleUseTokenAccountUpdate value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

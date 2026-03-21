@@ -92,6 +92,7 @@ public final class SubscriptionRequestPaymentMethod {
     @JsonIgnoreProperties("type")
     private static final class SecureTokenValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private SecureTokenPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

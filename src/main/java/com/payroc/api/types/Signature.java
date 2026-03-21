@@ -110,6 +110,7 @@ public final class Signature {
     @JsonIgnoreProperties("type")
     private static final class RequestedViaDirectLinkValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private SignatureByDirectLink value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -149,6 +150,7 @@ public final class Signature {
     @JsonIgnoreProperties("type")
     private static final class RequestedViaEmailValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private SignatureByEmail value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

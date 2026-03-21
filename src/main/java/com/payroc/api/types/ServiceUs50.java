@@ -90,6 +90,7 @@ public final class ServiceUs50 {
     @JsonIgnoreProperties("name")
     private static final class HardwareAdvantagePlanValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "name", allowSetters = true)
         private HardwareAdvantagePlan value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

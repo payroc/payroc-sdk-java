@@ -237,6 +237,7 @@ public final class PricingAgreementUs40ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class InterchangePlusValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private InterchangePlus value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -276,6 +277,7 @@ public final class PricingAgreementUs40ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class InterchangePlusTiered3Value implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private InterchangePlusTiered3 value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -315,6 +317,7 @@ public final class PricingAgreementUs40ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class Tiered3Value implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private Tiered3 value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -354,6 +357,7 @@ public final class PricingAgreementUs40ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class Tiered4Value implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private Tiered4 value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -393,6 +397,7 @@ public final class PricingAgreementUs40ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class Tiered6Value implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private Tiered6 value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -432,6 +437,7 @@ public final class PricingAgreementUs40ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class FlatRateValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private FlatRate value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -471,6 +477,7 @@ public final class PricingAgreementUs40ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class ConsumerChoiceValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private ConsumerChoice value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -510,6 +517,7 @@ public final class PricingAgreementUs40ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class RewardPayValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private RewardPay value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -549,6 +557,7 @@ public final class PricingAgreementUs40ProcessorCard {
     @JsonIgnoreProperties("planType")
     private static final class RewardPayChoiceValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "planType", allowSetters = true)
         private RewardPayChoice value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

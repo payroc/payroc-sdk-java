@@ -95,6 +95,7 @@ public final class SwipedCardDetailsPinDetails {
     @JsonIgnoreProperties("dataFormat")
     private static final class DukptValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "dataFormat", allowSetters = true)
         private DukptPinDetails value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

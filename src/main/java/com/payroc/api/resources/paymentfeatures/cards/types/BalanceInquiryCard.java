@@ -109,6 +109,7 @@ public final class BalanceInquiryCard {
     @JsonIgnoreProperties("type")
     private static final class CardValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private CardPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -148,6 +149,7 @@ public final class BalanceInquiryCard {
     @JsonIgnoreProperties("type")
     private static final class SingleUseTokenValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private SingleUseTokenPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

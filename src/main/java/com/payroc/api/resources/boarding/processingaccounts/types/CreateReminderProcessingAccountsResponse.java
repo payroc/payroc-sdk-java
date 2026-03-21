@@ -92,6 +92,7 @@ public final class CreateReminderProcessingAccountsResponse {
     @JsonIgnoreProperties("type")
     private static final class PricingAgreementValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private PricingAgreementReminder value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

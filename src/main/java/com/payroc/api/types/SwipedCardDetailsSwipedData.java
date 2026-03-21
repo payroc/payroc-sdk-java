@@ -112,6 +112,7 @@ public final class SwipedCardDetailsSwipedData {
     @JsonIgnoreProperties("dataFormat")
     private static final class EncryptedValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "dataFormat", allowSetters = true)
         private EncryptedSwipedDataFormat value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -151,6 +152,7 @@ public final class SwipedCardDetailsSwipedData {
     @JsonIgnoreProperties("dataFormat")
     private static final class PlainTextValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "dataFormat", allowSetters = true)
         private PlainTextSwipedDataFormat value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

@@ -107,6 +107,7 @@ public final class InterchangePlusFeesAmex {
     @JsonIgnoreProperties("type")
     private static final class OptBlueValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private InterchangePlusAmexOptBlue value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -146,6 +147,7 @@ public final class InterchangePlusFeesAmex {
     @JsonIgnoreProperties("type")
     private static final class DirectValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private InterchangePlusAmexDirect value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

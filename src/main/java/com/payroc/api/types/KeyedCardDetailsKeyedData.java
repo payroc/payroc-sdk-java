@@ -132,6 +132,7 @@ public final class KeyedCardDetailsKeyedData {
     @JsonIgnoreProperties("dataFormat")
     private static final class FullyEncryptedValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "dataFormat", allowSetters = true)
         private FullyEncryptedKeyedDataFormat value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -171,6 +172,7 @@ public final class KeyedCardDetailsKeyedData {
     @JsonIgnoreProperties("dataFormat")
     private static final class PartiallyEncryptedValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "dataFormat", allowSetters = true)
         private PartiallyEncryptedKeyedDataFormat value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -210,6 +212,7 @@ public final class KeyedCardDetailsKeyedData {
     @JsonIgnoreProperties("dataFormat")
     private static final class PlainTextValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "dataFormat", allowSetters = true)
         private PlainTextKeyedDataFormat value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

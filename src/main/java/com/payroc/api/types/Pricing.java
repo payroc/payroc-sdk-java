@@ -107,6 +107,7 @@ public final class Pricing {
     @JsonIgnoreProperties("type")
     private static final class IntentValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private PricingTemplate value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -146,6 +147,7 @@ public final class Pricing {
     @JsonIgnoreProperties("type")
     private static final class AgreementValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private PricingAgreement value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

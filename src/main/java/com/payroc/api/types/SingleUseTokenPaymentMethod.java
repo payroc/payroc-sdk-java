@@ -91,6 +91,7 @@ public final class SingleUseTokenPaymentMethod {
     @JsonIgnoreProperties("type")
     private static final class CardValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private CardPayload value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

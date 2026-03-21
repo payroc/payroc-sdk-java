@@ -90,6 +90,7 @@ public final class PaymentMethodsItem {
     @JsonIgnoreProperties("type")
     private static final class AchValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private PaymentMethodAch value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

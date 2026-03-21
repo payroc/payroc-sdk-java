@@ -151,6 +151,7 @@ public final class PaymentAdjustmentAdjustmentsItem {
     @JsonIgnoreProperties("type")
     private static final class OrderValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private OrderAdjustment value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -190,6 +191,7 @@ public final class PaymentAdjustmentAdjustmentsItem {
     @JsonIgnoreProperties("type")
     private static final class StatusValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private StatusAdjustment value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -229,6 +231,7 @@ public final class PaymentAdjustmentAdjustmentsItem {
     @JsonIgnoreProperties("type")
     private static final class CustomerValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private CustomerAdjustment value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -268,6 +271,7 @@ public final class PaymentAdjustmentAdjustmentsItem {
     @JsonIgnoreProperties("type")
     private static final class SignatureValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private SignatureAdjustment value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

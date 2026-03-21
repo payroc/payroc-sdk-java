@@ -107,6 +107,7 @@ public final class Tiered4FeesAmex {
     @JsonIgnoreProperties("type")
     private static final class OptBlueValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private Tiered4AmexOptBlue value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -146,6 +147,7 @@ public final class Tiered4FeesAmex {
     @JsonIgnoreProperties("type")
     private static final class DirectValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private Tiered4AmexDirect value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

@@ -90,6 +90,7 @@ public final class Notification {
     @JsonIgnoreProperties("type")
     private static final class WebhookValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private Webhook value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

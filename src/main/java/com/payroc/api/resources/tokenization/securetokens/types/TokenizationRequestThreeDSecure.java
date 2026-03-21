@@ -113,6 +113,7 @@ public final class TokenizationRequestThreeDSecure {
     @JsonIgnoreProperties("type")
     private static final class GatewayThreeDSecureValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private GatewayThreeDSecure value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -152,6 +153,7 @@ public final class TokenizationRequestThreeDSecure {
     @JsonIgnoreProperties("type")
     private static final class ThirdPartyThreeDSecureValue implements Value {
         @JsonUnwrapped
+        @JsonIgnoreProperties(value = "type", allowSetters = true)
         private ThirdPartyThreeDSecure value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

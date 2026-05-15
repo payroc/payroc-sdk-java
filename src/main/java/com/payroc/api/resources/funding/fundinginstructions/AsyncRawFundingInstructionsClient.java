@@ -539,6 +539,11 @@ public class AsyncRawFundingInstructionsClient {
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FourHundredFour.class),
                                         response));
                                 return;
+                            case 409:
+                                future.completeExceptionally(new ConflictError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FourHundredNine.class),
+                                        response));
+                                return;
                             case 500:
                                 future.completeExceptionally(new InternalServerError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FiveHundred.class),
@@ -661,6 +666,11 @@ public class AsyncRawFundingInstructionsClient {
                             case 404:
                                 future.completeExceptionally(new NotFoundError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FourHundredFour.class),
+                                        response));
+                                return;
+                            case 409:
+                                future.completeExceptionally(new ConflictError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FourHundredNine.class),
                                         response));
                                 return;
                             case 500:

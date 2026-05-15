@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.payroc.api.core.ObjectMappers;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = ProcessingTerminalFeaturesEbt.Deserializer.class)
@@ -82,13 +83,19 @@ public final class ProcessingTerminalFeaturesEbt {
         public ProcessingTerminalFeaturesEbt deserialize(JsonParser p, DeserializationContext context)
                 throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, EbtEnabled.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("enabled")
+                    && ((Map<?, ?>) value).containsKey("ebtType")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, EbtEnabled.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, EbtDisabled.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("enabled")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, EbtDisabled.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

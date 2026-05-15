@@ -493,6 +493,11 @@ public class AsyncRawProcessingAccountsClient {
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
                                         response));
                                 return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FourHundredFour.class),
+                                        response));
+                                return;
                             case 406:
                                 future.completeExceptionally(new NotAcceptableError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FourHundredSix.class),

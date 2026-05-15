@@ -434,6 +434,10 @@ public class RawProcessingAccountsClient {
                     case 403:
                         throw new ForbiddenError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
+                    case 404:
+                        throw new NotFoundError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FourHundredFour.class),
+                                response);
                     case 406:
                         throw new NotAcceptableError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FourHundredSix.class),

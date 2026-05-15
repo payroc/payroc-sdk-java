@@ -10,11 +10,11 @@ public final class ListSubscriptionsRequestStatus {
     public static final ListSubscriptionsRequestStatus COMPLETED =
             new ListSubscriptionsRequestStatus(Value.COMPLETED, "completed");
 
-    public static final ListSubscriptionsRequestStatus CANCELLED =
-            new ListSubscriptionsRequestStatus(Value.CANCELLED, "cancelled");
-
     public static final ListSubscriptionsRequestStatus SUSPENDED =
             new ListSubscriptionsRequestStatus(Value.SUSPENDED, "suspended");
+
+    public static final ListSubscriptionsRequestStatus CANCELLED =
+            new ListSubscriptionsRequestStatus(Value.CANCELLED, "cancelled");
 
     public static final ListSubscriptionsRequestStatus ACTIVE =
             new ListSubscriptionsRequestStatus(Value.ACTIVE, "active");
@@ -54,10 +54,10 @@ public final class ListSubscriptionsRequestStatus {
         switch (value) {
             case COMPLETED:
                 return visitor.visitCompleted();
-            case CANCELLED:
-                return visitor.visitCancelled();
             case SUSPENDED:
                 return visitor.visitSuspended();
+            case CANCELLED:
+                return visitor.visitCancelled();
             case ACTIVE:
                 return visitor.visitActive();
             case UNKNOWN:
@@ -71,10 +71,10 @@ public final class ListSubscriptionsRequestStatus {
         switch (value) {
             case "completed":
                 return COMPLETED;
-            case "cancelled":
-                return CANCELLED;
             case "suspended":
                 return SUSPENDED;
+            case "cancelled":
+                return CANCELLED;
             case "active":
                 return ACTIVE;
             default:

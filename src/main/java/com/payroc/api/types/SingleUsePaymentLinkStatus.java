@@ -10,10 +10,10 @@ public final class SingleUsePaymentLinkStatus {
     public static final SingleUsePaymentLinkStatus COMPLETED =
             new SingleUsePaymentLinkStatus(Value.COMPLETED, "completed");
 
+    public static final SingleUsePaymentLinkStatus EXPIRED = new SingleUsePaymentLinkStatus(Value.EXPIRED, "expired");
+
     public static final SingleUsePaymentLinkStatus DEACTIVATED =
             new SingleUsePaymentLinkStatus(Value.DEACTIVATED, "deactivated");
-
-    public static final SingleUsePaymentLinkStatus EXPIRED = new SingleUsePaymentLinkStatus(Value.EXPIRED, "expired");
 
     public static final SingleUsePaymentLinkStatus ACTIVE = new SingleUsePaymentLinkStatus(Value.ACTIVE, "active");
 
@@ -52,10 +52,10 @@ public final class SingleUsePaymentLinkStatus {
         switch (value) {
             case COMPLETED:
                 return visitor.visitCompleted();
-            case DEACTIVATED:
-                return visitor.visitDeactivated();
             case EXPIRED:
                 return visitor.visitExpired();
+            case DEACTIVATED:
+                return visitor.visitDeactivated();
             case ACTIVE:
                 return visitor.visitActive();
             case UNKNOWN:
@@ -69,10 +69,10 @@ public final class SingleUsePaymentLinkStatus {
         switch (value) {
             case "completed":
                 return COMPLETED;
-            case "deactivated":
-                return DEACTIVATED;
             case "expired":
                 return EXPIRED;
+            case "deactivated":
+                return DEACTIVATED;
             case "active":
                 return ACTIVE;
             default:

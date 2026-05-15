@@ -9,19 +9,19 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class ProcessingAccountStatus {
     public static final ProcessingAccountStatus APPROVED = new ProcessingAccountStatus(Value.APPROVED, "approved");
 
-    public static final ProcessingAccountStatus SUBJECT_TO = new ProcessingAccountStatus(Value.SUBJECT_TO, "subjectTo");
-
     public static final ProcessingAccountStatus DORMANT = new ProcessingAccountStatus(Value.DORMANT, "dormant");
 
     public static final ProcessingAccountStatus PENDING = new ProcessingAccountStatus(Value.PENDING, "pending");
+
+    public static final ProcessingAccountStatus SUBJECT_TO = new ProcessingAccountStatus(Value.SUBJECT_TO, "subjectTo");
+
+    public static final ProcessingAccountStatus NON_PROCESSING =
+            new ProcessingAccountStatus(Value.NON_PROCESSING, "nonProcessing");
 
     public static final ProcessingAccountStatus CANCELLED = new ProcessingAccountStatus(Value.CANCELLED, "cancelled");
 
     public static final ProcessingAccountStatus TERMINATED =
             new ProcessingAccountStatus(Value.TERMINATED, "terminated");
-
-    public static final ProcessingAccountStatus NON_PROCESSING =
-            new ProcessingAccountStatus(Value.NON_PROCESSING, "nonProcessing");
 
     public static final ProcessingAccountStatus ENTERED = new ProcessingAccountStatus(Value.ENTERED, "entered");
 
@@ -62,18 +62,18 @@ public final class ProcessingAccountStatus {
         switch (value) {
             case APPROVED:
                 return visitor.visitApproved();
-            case SUBJECT_TO:
-                return visitor.visitSubjectTo();
             case DORMANT:
                 return visitor.visitDormant();
             case PENDING:
                 return visitor.visitPending();
+            case SUBJECT_TO:
+                return visitor.visitSubjectTo();
+            case NON_PROCESSING:
+                return visitor.visitNonProcessing();
             case CANCELLED:
                 return visitor.visitCancelled();
             case TERMINATED:
                 return visitor.visitTerminated();
-            case NON_PROCESSING:
-                return visitor.visitNonProcessing();
             case ENTERED:
                 return visitor.visitEntered();
             case REJECTED:
@@ -89,18 +89,18 @@ public final class ProcessingAccountStatus {
         switch (value) {
             case "approved":
                 return APPROVED;
-            case "subjectTo":
-                return SUBJECT_TO;
             case "dormant":
                 return DORMANT;
             case "pending":
                 return PENDING;
+            case "subjectTo":
+                return SUBJECT_TO;
+            case "nonProcessing":
+                return NON_PROCESSING;
             case "cancelled":
                 return CANCELLED;
             case "terminated":
                 return TERMINATED;
-            case "nonProcessing":
-                return NON_PROCESSING;
             case "entered":
                 return ENTERED;
             case "rejected":

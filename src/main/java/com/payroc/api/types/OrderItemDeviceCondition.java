@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class OrderItemDeviceCondition {
+    public static final OrderItemDeviceCondition NEW = new OrderItemDeviceCondition(Value.NEW, "new");
+
     public static final OrderItemDeviceCondition REFURBISHED =
             new OrderItemDeviceCondition(Value.REFURBISHED, "refurbished");
-
-    public static final OrderItemDeviceCondition NEW = new OrderItemDeviceCondition(Value.NEW, "new");
 
     private final Value value;
 
@@ -45,10 +45,10 @@ public final class OrderItemDeviceCondition {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case REFURBISHED:
-                return visitor.visitRefurbished();
             case NEW:
                 return visitor.visitNew();
+            case REFURBISHED:
+                return visitor.visitRefurbished();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -58,10 +58,10 @@ public final class OrderItemDeviceCondition {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static OrderItemDeviceCondition valueOf(String value) {
         switch (value) {
-            case "refurbished":
-                return REFURBISHED;
             case "new":
                 return NEW;
+            case "refurbished":
+                return REFURBISHED;
             default:
                 return new OrderItemDeviceCondition(Value.UNKNOWN, value);
         }

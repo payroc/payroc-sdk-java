@@ -19,13 +19,13 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ProcessingTerminalTaxesItem.Builder.class)
 public final class ProcessingTerminalTaxesItem {
-    private final float taxRate;
+    private final double taxRate;
 
     private final String taxLabel;
 
     private final Map<String, Object> additionalProperties;
 
-    private ProcessingTerminalTaxesItem(float taxRate, String taxLabel, Map<String, Object> additionalProperties) {
+    private ProcessingTerminalTaxesItem(double taxRate, String taxLabel, Map<String, Object> additionalProperties) {
         this.taxRate = taxRate;
         this.taxLabel = taxLabel;
         this.additionalProperties = additionalProperties;
@@ -35,7 +35,7 @@ public final class ProcessingTerminalTaxesItem {
      * @return Rate of tax that the terminal applies to each transaction.
      */
     @JsonProperty("taxRate")
-    public float getTaxRate() {
+    public double getTaxRate() {
         return taxRate;
     }
 
@@ -80,7 +80,7 @@ public final class ProcessingTerminalTaxesItem {
         /**
          * <p>Rate of tax that the terminal applies to each transaction.</p>
          */
-        TaxLabelStage taxRate(float taxRate);
+        TaxLabelStage taxRate(double taxRate);
 
         Builder from(ProcessingTerminalTaxesItem other);
     }
@@ -102,7 +102,7 @@ public final class ProcessingTerminalTaxesItem {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TaxRateStage, TaxLabelStage, _FinalStage {
-        private float taxRate;
+        private double taxRate;
 
         private String taxLabel;
 
@@ -125,7 +125,7 @@ public final class ProcessingTerminalTaxesItem {
          */
         @java.lang.Override
         @JsonSetter("taxRate")
-        public TaxLabelStage taxRate(float taxRate) {
+        public TaxLabelStage taxRate(double taxRate) {
             this.taxRate = taxRate;
             return this;
         }

@@ -13,11 +13,11 @@ public final class TransactionResultResponseCode {
 
     public static final TransactionResultResponseCode C = new TransactionResultResponseCode(Value.C, "C");
 
-    public static final TransactionResultResponseCode D = new TransactionResultResponseCode(Value.D, "D");
-
     public static final TransactionResultResponseCode E = new TransactionResultResponseCode(Value.E, "E");
 
     public static final TransactionResultResponseCode P = new TransactionResultResponseCode(Value.P, "P");
+
+    public static final TransactionResultResponseCode D = new TransactionResultResponseCode(Value.D, "D");
 
     private final Value value;
 
@@ -58,12 +58,12 @@ public final class TransactionResultResponseCode {
                 return visitor.visitR();
             case C:
                 return visitor.visitC();
-            case D:
-                return visitor.visitD();
             case E:
                 return visitor.visitE();
             case P:
                 return visitor.visitP();
+            case D:
+                return visitor.visitD();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -79,12 +79,12 @@ public final class TransactionResultResponseCode {
                 return R;
             case "C":
                 return C;
-            case "D":
-                return D;
             case "E":
                 return E;
             case "P":
                 return P;
+            case "D":
+                return D;
             default:
                 return new TransactionResultResponseCode(Value.UNKNOWN, value);
         }

@@ -12,23 +12,23 @@ public final class SchemasTimezone {
 
     public static final SchemasTimezone AMERICA_PHOENIX = new SchemasTimezone(Value.AMERICA_PHOENIX, "America/Phoenix");
 
-    public static final SchemasTimezone AMERICA_NEW_YORK =
-            new SchemasTimezone(Value.AMERICA_NEW_YORK, "America/New_York");
-
     public static final SchemasTimezone PACIFIC_MIDWAY = new SchemasTimezone(Value.PACIFIC_MIDWAY, "Pacific/Midway");
 
     public static final SchemasTimezone AMERICA_ANCHORAGE =
             new SchemasTimezone(Value.AMERICA_ANCHORAGE, "America/Anchorage");
 
-    public static final SchemasTimezone AMERICA_LOS_ANGELES =
-            new SchemasTimezone(Value.AMERICA_LOS_ANGELES, "America/Los_Angeles");
+    public static final SchemasTimezone AMERICA_DENVER = new SchemasTimezone(Value.AMERICA_DENVER, "America/Denver");
 
     public static final SchemasTimezone AMERICA_INDIANA_INDIANAPOLIS =
             new SchemasTimezone(Value.AMERICA_INDIANA_INDIANAPOLIS, "America/Indiana/Indianapolis");
 
-    public static final SchemasTimezone AMERICA_DENVER = new SchemasTimezone(Value.AMERICA_DENVER, "America/Denver");
-
     public static final SchemasTimezone AMERICA_CHICAGO = new SchemasTimezone(Value.AMERICA_CHICAGO, "America/Chicago");
+
+    public static final SchemasTimezone AMERICA_NEW_YORK =
+            new SchemasTimezone(Value.AMERICA_NEW_YORK, "America/New_York");
+
+    public static final SchemasTimezone AMERICA_LOS_ANGELES =
+            new SchemasTimezone(Value.AMERICA_LOS_ANGELES, "America/Los_Angeles");
 
     private final Value value;
 
@@ -66,20 +66,20 @@ public final class SchemasTimezone {
                 return visitor.visitPacificHonolulu();
             case AMERICA_PHOENIX:
                 return visitor.visitAmericaPhoenix();
-            case AMERICA_NEW_YORK:
-                return visitor.visitAmericaNewYork();
             case PACIFIC_MIDWAY:
                 return visitor.visitPacificMidway();
             case AMERICA_ANCHORAGE:
                 return visitor.visitAmericaAnchorage();
-            case AMERICA_LOS_ANGELES:
-                return visitor.visitAmericaLosAngeles();
-            case AMERICA_INDIANA_INDIANAPOLIS:
-                return visitor.visitAmericaIndianaIndianapolis();
             case AMERICA_DENVER:
                 return visitor.visitAmericaDenver();
+            case AMERICA_INDIANA_INDIANAPOLIS:
+                return visitor.visitAmericaIndianaIndianapolis();
             case AMERICA_CHICAGO:
                 return visitor.visitAmericaChicago();
+            case AMERICA_NEW_YORK:
+                return visitor.visitAmericaNewYork();
+            case AMERICA_LOS_ANGELES:
+                return visitor.visitAmericaLosAngeles();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -93,20 +93,20 @@ public final class SchemasTimezone {
                 return PACIFIC_HONOLULU;
             case "America/Phoenix":
                 return AMERICA_PHOENIX;
-            case "America/New_York":
-                return AMERICA_NEW_YORK;
             case "Pacific/Midway":
                 return PACIFIC_MIDWAY;
             case "America/Anchorage":
                 return AMERICA_ANCHORAGE;
-            case "America/Los_Angeles":
-                return AMERICA_LOS_ANGELES;
-            case "America/Indiana/Indianapolis":
-                return AMERICA_INDIANA_INDIANAPOLIS;
             case "America/Denver":
                 return AMERICA_DENVER;
+            case "America/Indiana/Indianapolis":
+                return AMERICA_INDIANA_INDIANAPOLIS;
             case "America/Chicago":
                 return AMERICA_CHICAGO;
+            case "America/New_York":
+                return AMERICA_NEW_YORK;
+            case "America/Los_Angeles":
+                return AMERICA_LOS_ANGELES;
             default:
                 return new SchemasTimezone(Value.UNKNOWN, value);
         }

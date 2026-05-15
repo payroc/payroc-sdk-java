@@ -452,6 +452,10 @@ public class RawFundingInstructionsClient {
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FourHundredFour.class),
                                 response);
+                    case 409:
+                        throw new ConflictError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FourHundredNine.class),
+                                response);
                     case 500:
                         throw new InternalServerError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FiveHundred.class), response);
@@ -553,6 +557,10 @@ public class RawFundingInstructionsClient {
                     case 404:
                         throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FourHundredFour.class),
+                                response);
+                    case 409:
+                        throw new ConflictError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, FourHundredNine.class),
                                 response);
                     case 500:
                         throw new InternalServerError(

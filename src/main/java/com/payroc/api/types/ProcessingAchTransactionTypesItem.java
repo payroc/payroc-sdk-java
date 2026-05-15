@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ProcessingAchTransactionTypesItem {
-    public static final ProcessingAchTransactionTypesItem OTHER =
-            new ProcessingAchTransactionTypesItem(Value.OTHER, "other");
-
     public static final ProcessingAchTransactionTypesItem WEB_INITIATED_PAYMENT =
             new ProcessingAchTransactionTypesItem(Value.WEB_INITIATED_PAYMENT, "webInitiatedPayment");
+
+    public static final ProcessingAchTransactionTypesItem OTHER =
+            new ProcessingAchTransactionTypesItem(Value.OTHER, "other");
 
     public static final ProcessingAchTransactionTypesItem PREARRANGED_PAYMENT =
             new ProcessingAchTransactionTypesItem(Value.PREARRANGED_PAYMENT, "prearrangedPayment");
@@ -55,10 +55,10 @@ public final class ProcessingAchTransactionTypesItem {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case OTHER:
-                return visitor.visitOther();
             case WEB_INITIATED_PAYMENT:
                 return visitor.visitWebInitiatedPayment();
+            case OTHER:
+                return visitor.visitOther();
             case PREARRANGED_PAYMENT:
                 return visitor.visitPrearrangedPayment();
             case CORP_CASH_DISBURSEMENT:
@@ -74,10 +74,10 @@ public final class ProcessingAchTransactionTypesItem {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ProcessingAchTransactionTypesItem valueOf(String value) {
         switch (value) {
-            case "other":
-                return OTHER;
             case "webInitiatedPayment":
                 return WEB_INITIATED_PAYMENT;
+            case "other":
+                return OTHER;
             case "prearrangedPayment":
                 return PREARRANGED_PAYMENT;
             case "corpCashDisbursement":

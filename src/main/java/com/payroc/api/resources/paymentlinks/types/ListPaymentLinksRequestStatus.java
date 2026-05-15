@@ -10,11 +10,11 @@ public final class ListPaymentLinksRequestStatus {
     public static final ListPaymentLinksRequestStatus COMPLETED =
             new ListPaymentLinksRequestStatus(Value.COMPLETED, "completed");
 
-    public static final ListPaymentLinksRequestStatus DEACTIVATED =
-            new ListPaymentLinksRequestStatus(Value.DEACTIVATED, "deactivated");
-
     public static final ListPaymentLinksRequestStatus EXPIRED =
             new ListPaymentLinksRequestStatus(Value.EXPIRED, "expired");
+
+    public static final ListPaymentLinksRequestStatus DEACTIVATED =
+            new ListPaymentLinksRequestStatus(Value.DEACTIVATED, "deactivated");
 
     public static final ListPaymentLinksRequestStatus ACTIVE =
             new ListPaymentLinksRequestStatus(Value.ACTIVE, "active");
@@ -54,10 +54,10 @@ public final class ListPaymentLinksRequestStatus {
         switch (value) {
             case COMPLETED:
                 return visitor.visitCompleted();
-            case DEACTIVATED:
-                return visitor.visitDeactivated();
             case EXPIRED:
                 return visitor.visitExpired();
+            case DEACTIVATED:
+                return visitor.visitDeactivated();
             case ACTIVE:
                 return visitor.visitActive();
             case UNKNOWN:
@@ -71,10 +71,10 @@ public final class ListPaymentLinksRequestStatus {
         switch (value) {
             case "completed":
                 return COMPLETED;
-            case "deactivated":
-                return DEACTIVATED;
             case "expired":
                 return EXPIRED;
+            case "deactivated":
+                return DEACTIVATED;
             case "active":
                 return ACTIVE;
             default:

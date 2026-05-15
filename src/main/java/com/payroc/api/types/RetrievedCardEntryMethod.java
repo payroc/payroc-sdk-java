@@ -12,15 +12,15 @@ public final class RetrievedCardEntryMethod {
     public static final RetrievedCardEntryMethod CONTACTLESS_MSR =
             new RetrievedCardEntryMethod(Value.CONTACTLESS_MSR, "contactlessMsr");
 
+    public static final RetrievedCardEntryMethod KEYED = new RetrievedCardEntryMethod(Value.KEYED, "keyed");
+
     public static final RetrievedCardEntryMethod CONTACTLESS_ICC =
             new RetrievedCardEntryMethod(Value.CONTACTLESS_ICC, "contactlessIcc");
 
-    public static final RetrievedCardEntryMethod KEYED = new RetrievedCardEntryMethod(Value.KEYED, "keyed");
-
-    public static final RetrievedCardEntryMethod SWIPED = new RetrievedCardEntryMethod(Value.SWIPED, "swiped");
-
     public static final RetrievedCardEntryMethod SWIPED_FALLBACK =
             new RetrievedCardEntryMethod(Value.SWIPED_FALLBACK, "swipedFallback");
+
+    public static final RetrievedCardEntryMethod SWIPED = new RetrievedCardEntryMethod(Value.SWIPED, "swiped");
 
     private final Value value;
 
@@ -59,14 +59,14 @@ public final class RetrievedCardEntryMethod {
                 return visitor.visitIcc();
             case CONTACTLESS_MSR:
                 return visitor.visitContactlessMsr();
-            case CONTACTLESS_ICC:
-                return visitor.visitContactlessIcc();
             case KEYED:
                 return visitor.visitKeyed();
-            case SWIPED:
-                return visitor.visitSwiped();
+            case CONTACTLESS_ICC:
+                return visitor.visitContactlessIcc();
             case SWIPED_FALLBACK:
                 return visitor.visitSwipedFallback();
+            case SWIPED:
+                return visitor.visitSwiped();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -80,14 +80,14 @@ public final class RetrievedCardEntryMethod {
                 return ICC;
             case "contactlessMsr":
                 return CONTACTLESS_MSR;
-            case "contactlessIcc":
-                return CONTACTLESS_ICC;
             case "keyed":
                 return KEYED;
-            case "swiped":
-                return SWIPED;
+            case "contactlessIcc":
+                return CONTACTLESS_ICC;
             case "swipedFallback":
                 return SWIPED_FALLBACK;
+            case "swiped":
+                return SWIPED;
             default:
                 return new RetrievedCardEntryMethod(Value.UNKNOWN, value);
         }

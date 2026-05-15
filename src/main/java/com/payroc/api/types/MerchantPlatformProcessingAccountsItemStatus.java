@@ -13,23 +13,23 @@ public final class MerchantPlatformProcessingAccountsItemStatus {
     public static final MerchantPlatformProcessingAccountsItemStatus FAILED =
             new MerchantPlatformProcessingAccountsItemStatus(Value.FAILED, "failed");
 
-    public static final MerchantPlatformProcessingAccountsItemStatus SUBJECT_TO =
-            new MerchantPlatformProcessingAccountsItemStatus(Value.SUBJECT_TO, "subjectTo");
-
     public static final MerchantPlatformProcessingAccountsItemStatus DORMANT =
             new MerchantPlatformProcessingAccountsItemStatus(Value.DORMANT, "dormant");
 
     public static final MerchantPlatformProcessingAccountsItemStatus PENDING =
             new MerchantPlatformProcessingAccountsItemStatus(Value.PENDING, "pending");
 
+    public static final MerchantPlatformProcessingAccountsItemStatus SUBJECT_TO =
+            new MerchantPlatformProcessingAccountsItemStatus(Value.SUBJECT_TO, "subjectTo");
+
+    public static final MerchantPlatformProcessingAccountsItemStatus NON_PROCESSING =
+            new MerchantPlatformProcessingAccountsItemStatus(Value.NON_PROCESSING, "nonProcessing");
+
     public static final MerchantPlatformProcessingAccountsItemStatus CANCELLED =
             new MerchantPlatformProcessingAccountsItemStatus(Value.CANCELLED, "cancelled");
 
     public static final MerchantPlatformProcessingAccountsItemStatus TERMINATED =
             new MerchantPlatformProcessingAccountsItemStatus(Value.TERMINATED, "terminated");
-
-    public static final MerchantPlatformProcessingAccountsItemStatus NON_PROCESSING =
-            new MerchantPlatformProcessingAccountsItemStatus(Value.NON_PROCESSING, "nonProcessing");
 
     public static final MerchantPlatformProcessingAccountsItemStatus ENTERED =
             new MerchantPlatformProcessingAccountsItemStatus(Value.ENTERED, "entered");
@@ -74,18 +74,18 @@ public final class MerchantPlatformProcessingAccountsItemStatus {
                 return visitor.visitApproved();
             case FAILED:
                 return visitor.visitFailed();
-            case SUBJECT_TO:
-                return visitor.visitSubjectTo();
             case DORMANT:
                 return visitor.visitDormant();
             case PENDING:
                 return visitor.visitPending();
+            case SUBJECT_TO:
+                return visitor.visitSubjectTo();
+            case NON_PROCESSING:
+                return visitor.visitNonProcessing();
             case CANCELLED:
                 return visitor.visitCancelled();
             case TERMINATED:
                 return visitor.visitTerminated();
-            case NON_PROCESSING:
-                return visitor.visitNonProcessing();
             case ENTERED:
                 return visitor.visitEntered();
             case REJECTED:
@@ -103,18 +103,18 @@ public final class MerchantPlatformProcessingAccountsItemStatus {
                 return APPROVED;
             case "failed":
                 return FAILED;
-            case "subjectTo":
-                return SUBJECT_TO;
             case "dormant":
                 return DORMANT;
             case "pending":
                 return PENDING;
+            case "subjectTo":
+                return SUBJECT_TO;
+            case "nonProcessing":
+                return NON_PROCESSING;
             case "cancelled":
                 return CANCELLED;
             case "terminated":
                 return TERMINATED;
-            case "nonProcessing":
-                return NON_PROCESSING;
             case "entered":
                 return ENTERED;
             case "rejected":

@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class DeviceCategory {
-    public static final DeviceCategory UNATTENDED = new DeviceCategory(Value.UNATTENDED, "unattended");
-
     public static final DeviceCategory ATTENDED = new DeviceCategory(Value.ATTENDED, "attended");
+
+    public static final DeviceCategory UNATTENDED = new DeviceCategory(Value.UNATTENDED, "unattended");
 
     private final Value value;
 
@@ -43,10 +43,10 @@ public final class DeviceCategory {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case UNATTENDED:
-                return visitor.visitUnattended();
             case ATTENDED:
                 return visitor.visitAttended();
+            case UNATTENDED:
+                return visitor.visitUnattended();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -56,10 +56,10 @@ public final class DeviceCategory {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static DeviceCategory valueOf(String value) {
         switch (value) {
-            case "unattended":
-                return UNATTENDED;
             case "attended":
                 return ATTENDED;
+            case "unattended":
+                return UNATTENDED;
             default:
                 return new DeviceCategory(Value.UNKNOWN, value);
         }

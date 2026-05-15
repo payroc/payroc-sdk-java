@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class FundingAccountUse {
-    public static final FundingAccountUse DEBIT = new FundingAccountUse(Value.DEBIT, "debit");
-
     public static final FundingAccountUse CREDIT_AND_DEBIT =
             new FundingAccountUse(Value.CREDIT_AND_DEBIT, "creditAndDebit");
+
+    public static final FundingAccountUse DEBIT = new FundingAccountUse(Value.DEBIT, "debit");
 
     public static final FundingAccountUse CREDIT = new FundingAccountUse(Value.CREDIT, "credit");
 
@@ -46,10 +46,10 @@ public final class FundingAccountUse {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case DEBIT:
-                return visitor.visitDebit();
             case CREDIT_AND_DEBIT:
                 return visitor.visitCreditAndDebit();
+            case DEBIT:
+                return visitor.visitDebit();
             case CREDIT:
                 return visitor.visitCredit();
             case UNKNOWN:
@@ -61,10 +61,10 @@ public final class FundingAccountUse {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static FundingAccountUse valueOf(String value) {
         switch (value) {
-            case "debit":
-                return DEBIT;
             case "creditAndDebit":
                 return CREDIT_AND_DEBIT;
+            case "debit":
+                return DEBIT;
             case "credit":
                 return CREDIT;
             default:

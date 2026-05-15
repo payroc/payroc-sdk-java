@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class PaymentPlanBaseType {
-    public static final PaymentPlanBaseType MANUAL = new PaymentPlanBaseType(Value.MANUAL, "manual");
-
     public static final PaymentPlanBaseType AUTOMATIC = new PaymentPlanBaseType(Value.AUTOMATIC, "automatic");
+
+    public static final PaymentPlanBaseType MANUAL = new PaymentPlanBaseType(Value.MANUAL, "manual");
 
     private final Value value;
 
@@ -43,10 +43,10 @@ public final class PaymentPlanBaseType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case MANUAL:
-                return visitor.visitManual();
             case AUTOMATIC:
                 return visitor.visitAutomatic();
+            case MANUAL:
+                return visitor.visitManual();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -56,10 +56,10 @@ public final class PaymentPlanBaseType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static PaymentPlanBaseType valueOf(String value) {
         switch (value) {
-            case "manual":
-                return MANUAL;
             case "automatic":
                 return AUTOMATIC;
+            case "manual":
+                return MANUAL;
             default:
                 return new PaymentPlanBaseType(Value.UNKNOWN, value);
         }

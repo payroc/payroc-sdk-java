@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class SubscriptionType {
-    public static final SubscriptionType MANUAL = new SubscriptionType(Value.MANUAL, "manual");
-
     public static final SubscriptionType AUTOMATIC = new SubscriptionType(Value.AUTOMATIC, "automatic");
+
+    public static final SubscriptionType MANUAL = new SubscriptionType(Value.MANUAL, "manual");
 
     private final Value value;
 
@@ -43,10 +43,10 @@ public final class SubscriptionType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case MANUAL:
-                return visitor.visitManual();
             case AUTOMATIC:
                 return visitor.visitAutomatic();
+            case MANUAL:
+                return visitor.visitManual();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -56,10 +56,10 @@ public final class SubscriptionType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static SubscriptionType valueOf(String value) {
         switch (value) {
-            case "manual":
-                return MANUAL;
             case "automatic":
                 return AUTOMATIC;
+            case "manual":
+                return MANUAL;
             default:
                 return new SubscriptionType(Value.UNKNOWN, value);
         }

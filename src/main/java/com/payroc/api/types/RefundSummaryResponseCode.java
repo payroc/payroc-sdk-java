@@ -13,11 +13,11 @@ public final class RefundSummaryResponseCode {
 
     public static final RefundSummaryResponseCode C = new RefundSummaryResponseCode(Value.C, "C");
 
-    public static final RefundSummaryResponseCode D = new RefundSummaryResponseCode(Value.D, "D");
-
     public static final RefundSummaryResponseCode E = new RefundSummaryResponseCode(Value.E, "E");
 
     public static final RefundSummaryResponseCode P = new RefundSummaryResponseCode(Value.P, "P");
+
+    public static final RefundSummaryResponseCode D = new RefundSummaryResponseCode(Value.D, "D");
 
     private final Value value;
 
@@ -58,12 +58,12 @@ public final class RefundSummaryResponseCode {
                 return visitor.visitR();
             case C:
                 return visitor.visitC();
-            case D:
-                return visitor.visitD();
             case E:
                 return visitor.visitE();
             case P:
                 return visitor.visitP();
+            case D:
+                return visitor.visitD();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -79,12 +79,12 @@ public final class RefundSummaryResponseCode {
                 return R;
             case "C":
                 return C;
-            case "D":
-                return D;
             case "E":
                 return E;
             case "P":
                 return P;
+            case "D":
+                return D;
             default:
                 return new RefundSummaryResponseCode(Value.UNKNOWN, value);
         }

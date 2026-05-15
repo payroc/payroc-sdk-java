@@ -13,6 +13,7 @@ import com.payroc.api.core.ObjectMappers;
 import com.payroc.api.types.PricingAgreementUs40;
 import com.payroc.api.types.PricingAgreementUs50;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(using = GetProcessingAccountPricingAgreementProcessingAccountsResponse.Deserializer.class)
@@ -86,13 +87,23 @@ public final class GetProcessingAccountPricingAgreementProcessingAccountsRespons
         public GetProcessingAccountPricingAgreementProcessingAccountsResponse deserialize(
                 JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, PricingAgreementUs40.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("country")
+                    && ((Map<?, ?>) value).containsKey("version")
+                    && ((Map<?, ?>) value).containsKey("base")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, PricingAgreementUs40.class));
+                } catch (RuntimeException e) {
+                }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, PricingAgreementUs50.class));
-            } catch (RuntimeException e) {
+            if (value instanceof Map<?, ?>
+                    && ((Map<?, ?>) value).containsKey("country")
+                    && ((Map<?, ?>) value).containsKey("version")
+                    && ((Map<?, ?>) value).containsKey("base")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, PricingAgreementUs50.class));
+                } catch (RuntimeException e) {
+                }
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

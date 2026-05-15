@@ -13,11 +13,11 @@ public final class PaymentSummaryResponseCode {
 
     public static final PaymentSummaryResponseCode C = new PaymentSummaryResponseCode(Value.C, "C");
 
-    public static final PaymentSummaryResponseCode D = new PaymentSummaryResponseCode(Value.D, "D");
-
     public static final PaymentSummaryResponseCode E = new PaymentSummaryResponseCode(Value.E, "E");
 
     public static final PaymentSummaryResponseCode P = new PaymentSummaryResponseCode(Value.P, "P");
+
+    public static final PaymentSummaryResponseCode D = new PaymentSummaryResponseCode(Value.D, "D");
 
     private final Value value;
 
@@ -58,12 +58,12 @@ public final class PaymentSummaryResponseCode {
                 return visitor.visitR();
             case C:
                 return visitor.visitC();
-            case D:
-                return visitor.visitD();
             case E:
                 return visitor.visitE();
             case P:
                 return visitor.visitP();
+            case D:
+                return visitor.visitD();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -79,12 +79,12 @@ public final class PaymentSummaryResponseCode {
                 return R;
             case "C":
                 return C;
-            case "D":
-                return D;
             case "E":
                 return E;
             case "P":
                 return P;
+            case "D":
+                return D;
             default:
                 return new PaymentSummaryResponseCode(Value.UNKNOWN, value);
         }

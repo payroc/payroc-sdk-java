@@ -52,9 +52,9 @@ public final class KeyedCardDetails {
      * @return Polymorphic object that contains payment card details that the merchant manually entered into the device.
      * <p>The value of the dataFormat parameter determines which variant you should use:</p>
      * <ul>
-     * <li><code>fullyEncrypted</code> - Some payment card details are encrypted.</li>
-     * <li><code>partiallyEncrypted</code> - Payment card details are in plain text.</li>
-     * <li><code>plainText</code> - All payment card details are encrypted.</li>
+     * <li><code>fullyEncrypted</code> - All payment card details are encrypted.</li>
+     * <li><code>partiallyEncrypted</code> - Some payment card details are encrypted.</li>
+     * <li><code>plainText</code> - Payment card details are in plain text.</li>
      * </ul>
      */
     @JsonProperty("keyedData")
@@ -130,9 +130,9 @@ public final class KeyedCardDetails {
          * <p>Polymorphic object that contains payment card details that the merchant manually entered into the device.</p>
          * <p>The value of the dataFormat parameter determines which variant you should use:</p>
          * <ul>
-         * <li><code>fullyEncrypted</code> - Some payment card details are encrypted.</li>
-         * <li><code>partiallyEncrypted</code> - Payment card details are in plain text.</li>
-         * <li><code>plainText</code> - All payment card details are encrypted.</li>
+         * <li><code>fullyEncrypted</code> - All payment card details are encrypted.</li>
+         * <li><code>partiallyEncrypted</code> - Some payment card details are encrypted.</li>
+         * <li><code>plainText</code> - Payment card details are in plain text.</li>
          * </ul>
          */
         _FinalStage keyedData(@NotNull KeyedCardDetailsKeyedData keyedData);
@@ -204,16 +204,16 @@ public final class KeyedCardDetails {
          * <p>Polymorphic object that contains payment card details that the merchant manually entered into the device.</p>
          * <p>The value of the dataFormat parameter determines which variant you should use:</p>
          * <ul>
-         * <li><code>fullyEncrypted</code> - Some payment card details are encrypted.</li>
-         * <li><code>partiallyEncrypted</code> - Payment card details are in plain text.</li>
-         * <li><code>plainText</code> - All payment card details are encrypted.</li>
+         * <li><code>fullyEncrypted</code> - All payment card details are encrypted.</li>
+         * <li><code>partiallyEncrypted</code> - Some payment card details are encrypted.</li>
+         * <li><code>plainText</code> - Payment card details are in plain text.</li>
          * </ul>
          * <p>Polymorphic object that contains payment card details that the merchant manually entered into the device.</p>
          * <p>The value of the dataFormat parameter determines which variant you should use:</p>
          * <ul>
-         * <li><code>fullyEncrypted</code> - Some payment card details are encrypted.</li>
-         * <li><code>partiallyEncrypted</code> - Payment card details are in plain text.</li>
-         * <li><code>plainText</code> - All payment card details are encrypted.</li>
+         * <li><code>fullyEncrypted</code> - All payment card details are encrypted.</li>
+         * <li><code>partiallyEncrypted</code> - Some payment card details are encrypted.</li>
+         * <li><code>plainText</code> - Payment card details are in plain text.</li>
          * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

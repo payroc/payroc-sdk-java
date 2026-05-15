@@ -15,6 +15,9 @@ public final class DisputeStatusStatus {
     public static final DisputeStatusStatus ISSUER_REVERSAL =
             new DisputeStatusStatus(Value.ISSUER_REVERSAL, "issuerReversal");
 
+    public static final DisputeStatusStatus PREARBITRATION_ACCEPTED =
+            new DisputeStatusStatus(Value.PREARBITRATION_ACCEPTED, "prearbitrationAccepted");
+
     public static final DisputeStatusStatus COMPLIANCE_LOST =
             new DisputeStatusStatus(Value.COMPLIANCE_LOST, "complianceLost");
 
@@ -24,22 +27,11 @@ public final class DisputeStatusStatus {
     public static final DisputeStatusStatus ARBITRATION_LOST =
             new DisputeStatusStatus(Value.ARBITRATION_LOST, "arbitrationLost");
 
-    public static final DisputeStatusStatus PREARBITRATION_ACCEPTED =
-            new DisputeStatusStatus(Value.PREARBITRATION_ACCEPTED, "prearbitrationAccepted");
-
-    public static final DisputeStatusStatus NEW = new DisputeStatusStatus(Value.NEW, "new");
-
     public static final DisputeStatusStatus REPRESENTMENT_FAILED =
             new DisputeStatusStatus(Value.REPRESENTMENT_FAILED, "representmentFailed");
 
     public static final DisputeStatusStatus REPRESENTMENT_RECEIVED =
             new DisputeStatusStatus(Value.REPRESENTMENT_RECEIVED, "representmentReceived");
-
-    public static final DisputeStatusStatus PREARBITRATION_IN_PROCESS =
-            new DisputeStatusStatus(Value.PREARBITRATION_IN_PROCESS, "prearbitrationInProcess");
-
-    public static final DisputeStatusStatus PRECOMPLIANCE_ACCEPTED =
-            new DisputeStatusStatus(Value.PRECOMPLIANCE_ACCEPTED, "precomplianceAccepted");
 
     public static final DisputeStatusStatus PREARBITRATION_DECLINED =
             new DisputeStatusStatus(Value.PREARBITRATION_DECLINED, "prearbitrationDeclined");
@@ -52,22 +44,30 @@ public final class DisputeStatusStatus {
     public static final DisputeStatusStatus REPRESENTMENT_PAID =
             new DisputeStatusStatus(Value.REPRESENTMENT_PAID, "representmentPaid");
 
+    public static final DisputeStatusStatus NEW = new DisputeStatusStatus(Value.NEW, "new");
+
+    public static final DisputeStatusStatus PREARBITRATION_IN_PROCESS =
+            new DisputeStatusStatus(Value.PREARBITRATION_IN_PROCESS, "prearbitrationInProcess");
+
+    public static final DisputeStatusStatus PRECOMPLIANCE_ACCEPTED =
+            new DisputeStatusStatus(Value.PRECOMPLIANCE_ACCEPTED, "precomplianceAccepted");
+
     public static final DisputeStatusStatus ARBITRATION_FUNDS_TO_BE_RETURNED =
             new DisputeStatusStatus(Value.ARBITRATION_FUNDS_TO_BE_RETURNED, "arbitrationFundsToBeReturned");
 
     public static final DisputeStatusStatus PRECOMPLIANCE_DECLINED =
             new DisputeStatusStatus(Value.PRECOMPLIANCE_DECLINED, "precomplianceDeclined");
 
+    public static final DisputeStatusStatus PRECOMPLIANCE_IN_PROCESS =
+            new DisputeStatusStatus(Value.PRECOMPLIANCE_IN_PROCESS, "precomplianceInProcess");
+
+    public static final DisputeStatusStatus REJECTED = new DisputeStatusStatus(Value.REJECTED, "rejected");
+
     public static final DisputeStatusStatus ARBITRATION_SETTLED_PARTIAL_AMOUNT =
             new DisputeStatusStatus(Value.ARBITRATION_SETTLED_PARTIAL_AMOUNT, "arbitrationSettledPartialAmount");
 
     public static final DisputeStatusStatus COMPLIANCE_FILED_WITH_CARD_BAND =
             new DisputeStatusStatus(Value.COMPLIANCE_FILED_WITH_CARD_BAND, "complianceFiledWithCardBand");
-
-    public static final DisputeStatusStatus PRECOMPLIANCE_IN_PROCESS =
-            new DisputeStatusStatus(Value.PRECOMPLIANCE_IN_PROCESS, "precomplianceInProcess");
-
-    public static final DisputeStatusStatus REJECTED = new DisputeStatusStatus(Value.REJECTED, "rejected");
 
     private final Value value;
 
@@ -107,24 +107,18 @@ public final class DisputeStatusStatus {
                 return visitor.visitStand();
             case ISSUER_REVERSAL:
                 return visitor.visitIssuerReversal();
+            case PREARBITRATION_ACCEPTED:
+                return visitor.visitPrearbitrationAccepted();
             case COMPLIANCE_LOST:
                 return visitor.visitComplianceLost();
             case ARBITRATION_FILED_WITH_CARD_BAND:
                 return visitor.visitArbitrationFiledWithCardBand();
             case ARBITRATION_LOST:
                 return visitor.visitArbitrationLost();
-            case PREARBITRATION_ACCEPTED:
-                return visitor.visitPrearbitrationAccepted();
-            case NEW:
-                return visitor.visitNew();
             case REPRESENTMENT_FAILED:
                 return visitor.visitRepresentmentFailed();
             case REPRESENTMENT_RECEIVED:
                 return visitor.visitRepresentmentReceived();
-            case PREARBITRATION_IN_PROCESS:
-                return visitor.visitPrearbitrationInProcess();
-            case PRECOMPLIANCE_ACCEPTED:
-                return visitor.visitPrecomplianceAccepted();
             case PREARBITRATION_DECLINED:
                 return visitor.visitPrearbitrationDeclined();
             case COMPLIANCE_SETTLED_PARTIAL_AMOUNT:
@@ -133,18 +127,24 @@ public final class DisputeStatusStatus {
                 return visitor.visitInvalid();
             case REPRESENTMENT_PAID:
                 return visitor.visitRepresentmentPaid();
+            case NEW:
+                return visitor.visitNew();
+            case PREARBITRATION_IN_PROCESS:
+                return visitor.visitPrearbitrationInProcess();
+            case PRECOMPLIANCE_ACCEPTED:
+                return visitor.visitPrecomplianceAccepted();
             case ARBITRATION_FUNDS_TO_BE_RETURNED:
                 return visitor.visitArbitrationFundsToBeReturned();
             case PRECOMPLIANCE_DECLINED:
                 return visitor.visitPrecomplianceDeclined();
-            case ARBITRATION_SETTLED_PARTIAL_AMOUNT:
-                return visitor.visitArbitrationSettledPartialAmount();
-            case COMPLIANCE_FILED_WITH_CARD_BAND:
-                return visitor.visitComplianceFiledWithCardBand();
             case PRECOMPLIANCE_IN_PROCESS:
                 return visitor.visitPrecomplianceInProcess();
             case REJECTED:
                 return visitor.visitRejected();
+            case ARBITRATION_SETTLED_PARTIAL_AMOUNT:
+                return visitor.visitArbitrationSettledPartialAmount();
+            case COMPLIANCE_FILED_WITH_CARD_BAND:
+                return visitor.visitComplianceFiledWithCardBand();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -160,24 +160,18 @@ public final class DisputeStatusStatus {
                 return STAND;
             case "issuerReversal":
                 return ISSUER_REVERSAL;
+            case "prearbitrationAccepted":
+                return PREARBITRATION_ACCEPTED;
             case "complianceLost":
                 return COMPLIANCE_LOST;
             case "arbitrationFiledWithCardBand":
                 return ARBITRATION_FILED_WITH_CARD_BAND;
             case "arbitrationLost":
                 return ARBITRATION_LOST;
-            case "prearbitrationAccepted":
-                return PREARBITRATION_ACCEPTED;
-            case "new":
-                return NEW;
             case "representmentFailed":
                 return REPRESENTMENT_FAILED;
             case "representmentReceived":
                 return REPRESENTMENT_RECEIVED;
-            case "prearbitrationInProcess":
-                return PREARBITRATION_IN_PROCESS;
-            case "precomplianceAccepted":
-                return PRECOMPLIANCE_ACCEPTED;
             case "prearbitrationDeclined":
                 return PREARBITRATION_DECLINED;
             case "complianceSettledPartialAmount":
@@ -186,18 +180,24 @@ public final class DisputeStatusStatus {
                 return INVALID;
             case "representmentPaid":
                 return REPRESENTMENT_PAID;
+            case "new":
+                return NEW;
+            case "prearbitrationInProcess":
+                return PREARBITRATION_IN_PROCESS;
+            case "precomplianceAccepted":
+                return PRECOMPLIANCE_ACCEPTED;
             case "arbitrationFundsToBeReturned":
                 return ARBITRATION_FUNDS_TO_BE_RETURNED;
             case "precomplianceDeclined":
                 return PRECOMPLIANCE_DECLINED;
-            case "arbitrationSettledPartialAmount":
-                return ARBITRATION_SETTLED_PARTIAL_AMOUNT;
-            case "complianceFiledWithCardBand":
-                return COMPLIANCE_FILED_WITH_CARD_BAND;
             case "precomplianceInProcess":
                 return PRECOMPLIANCE_IN_PROCESS;
             case "rejected":
                 return REJECTED;
+            case "arbitrationSettledPartialAmount":
+                return ARBITRATION_SETTLED_PARTIAL_AMOUNT;
+            case "complianceFiledWithCardBand":
+                return COMPLIANCE_FILED_WITH_CARD_BAND;
             default:
                 return new DisputeStatusStatus(Value.UNKNOWN, value);
         }

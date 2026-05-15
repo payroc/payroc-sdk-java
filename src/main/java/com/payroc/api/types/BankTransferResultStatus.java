@@ -11,11 +11,11 @@ public final class BankTransferResultStatus {
 
     public static final BankTransferResultStatus REVERSAL = new BankTransferResultStatus(Value.REVERSAL, "reversal");
 
-    public static final BankTransferResultStatus COMPLETE = new BankTransferResultStatus(Value.COMPLETE, "complete");
-
     public static final BankTransferResultStatus PENDING = new BankTransferResultStatus(Value.PENDING, "pending");
 
     public static final BankTransferResultStatus ADMIN = new BankTransferResultStatus(Value.ADMIN, "admin");
+
+    public static final BankTransferResultStatus COMPLETE = new BankTransferResultStatus(Value.COMPLETE, "complete");
 
     public static final BankTransferResultStatus RETURNED = new BankTransferResultStatus(Value.RETURNED, "returned");
 
@@ -58,12 +58,12 @@ public final class BankTransferResultStatus {
                 return visitor.visitDeclined();
             case REVERSAL:
                 return visitor.visitReversal();
-            case COMPLETE:
-                return visitor.visitComplete();
             case PENDING:
                 return visitor.visitPending();
             case ADMIN:
                 return visitor.visitAdmin();
+            case COMPLETE:
+                return visitor.visitComplete();
             case RETURNED:
                 return visitor.visitReturned();
             case READY:
@@ -81,12 +81,12 @@ public final class BankTransferResultStatus {
                 return DECLINED;
             case "reversal":
                 return REVERSAL;
-            case "complete":
-                return COMPLETE;
             case "pending":
                 return PENDING;
             case "admin":
                 return ADMIN;
+            case "complete":
+                return COMPLETE;
             case "returned":
                 return RETURNED;
             case "ready":

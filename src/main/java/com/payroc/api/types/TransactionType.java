@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class TransactionType {
-    public static final TransactionType RETURN = new TransactionType(Value.RETURN, "return");
-
     public static final TransactionType CAPTURE = new TransactionType(Value.CAPTURE, "capture");
+
+    public static final TransactionType RETURN = new TransactionType(Value.RETURN, "return");
 
     private final Value value;
 
@@ -43,10 +43,10 @@ public final class TransactionType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case RETURN:
-                return visitor.visitReturn();
             case CAPTURE:
                 return visitor.visitCapture();
+            case RETURN:
+                return visitor.visitReturn();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -56,10 +56,10 @@ public final class TransactionType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static TransactionType valueOf(String value) {
         switch (value) {
-            case "return":
-                return RETURN;
             case "capture":
                 return CAPTURE;
+            case "return":
+                return RETURN;
             default:
                 return new TransactionType(Value.UNKNOWN, value);
         }

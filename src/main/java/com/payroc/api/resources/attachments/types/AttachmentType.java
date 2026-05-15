@@ -11,19 +11,19 @@ public final class AttachmentType {
 
     public static final AttachmentType TAX_DOCUMENTS = new AttachmentType(Value.TAX_DOCUMENTS, "taxDocuments");
 
-    public static final AttachmentType PROOF_OF_BUSINESS =
-            new AttachmentType(Value.PROOF_OF_BUSINESS, "proofOfBusiness");
-
     public static final AttachmentType MERCHANT_STATEMENTS =
             new AttachmentType(Value.MERCHANT_STATEMENTS, "merchantStatements");
 
-    public static final AttachmentType PERSONAL_IDENTIFICATION =
-            new AttachmentType(Value.PERSONAL_IDENTIFICATION, "personalIdentification");
+    public static final AttachmentType PROOF_OF_BUSINESS =
+            new AttachmentType(Value.PROOF_OF_BUSINESS, "proofOfBusiness");
 
     public static final AttachmentType FINANCIAL_STATEMENTS =
             new AttachmentType(Value.FINANCIAL_STATEMENTS, "financialStatements");
 
     public static final AttachmentType BANKING_EVIDENCE = new AttachmentType(Value.BANKING_EVIDENCE, "bankingEvidence");
+
+    public static final AttachmentType PERSONAL_IDENTIFICATION =
+            new AttachmentType(Value.PERSONAL_IDENTIFICATION, "personalIdentification");
 
     public static final AttachmentType MPA_OR_AMENDMENT = new AttachmentType(Value.MPA_OR_AMENDMENT, "mpaOrAmendment");
 
@@ -66,16 +66,16 @@ public final class AttachmentType {
                 return visitor.visitOther();
             case TAX_DOCUMENTS:
                 return visitor.visitTaxDocuments();
-            case PROOF_OF_BUSINESS:
-                return visitor.visitProofOfBusiness();
             case MERCHANT_STATEMENTS:
                 return visitor.visitMerchantStatements();
-            case PERSONAL_IDENTIFICATION:
-                return visitor.visitPersonalIdentification();
+            case PROOF_OF_BUSINESS:
+                return visitor.visitProofOfBusiness();
             case FINANCIAL_STATEMENTS:
                 return visitor.visitFinancialStatements();
             case BANKING_EVIDENCE:
                 return visitor.visitBankingEvidence();
+            case PERSONAL_IDENTIFICATION:
+                return visitor.visitPersonalIdentification();
             case MPA_OR_AMENDMENT:
                 return visitor.visitMpaOrAmendment();
             case QUESTIONNAIRES_AND_LICENSES:
@@ -93,16 +93,16 @@ public final class AttachmentType {
                 return OTHER;
             case "taxDocuments":
                 return TAX_DOCUMENTS;
-            case "proofOfBusiness":
-                return PROOF_OF_BUSINESS;
             case "merchantStatements":
                 return MERCHANT_STATEMENTS;
-            case "personalIdentification":
-                return PERSONAL_IDENTIFICATION;
+            case "proofOfBusiness":
+                return PROOF_OF_BUSINESS;
             case "financialStatements":
                 return FINANCIAL_STATEMENTS;
             case "bankingEvidence":
                 return BANKING_EVIDENCE;
+            case "personalIdentification":
+                return PERSONAL_IDENTIFICATION;
             case "mpaOrAmendment":
                 return MPA_OR_AMENDMENT;
             case "questionnairesAndLicenses":

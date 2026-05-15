@@ -11,9 +11,9 @@ public final class SecurityCheckCvvResult {
 
     public static final SecurityCheckCvvResult N = new SecurityCheckCvvResult(Value.N, "N");
 
-    public static final SecurityCheckCvvResult U = new SecurityCheckCvvResult(Value.U, "U");
-
     public static final SecurityCheckCvvResult P = new SecurityCheckCvvResult(Value.P, "P");
+
+    public static final SecurityCheckCvvResult U = new SecurityCheckCvvResult(Value.U, "U");
 
     private final Value value;
 
@@ -52,10 +52,10 @@ public final class SecurityCheckCvvResult {
                 return visitor.visitM();
             case N:
                 return visitor.visitN();
-            case U:
-                return visitor.visitU();
             case P:
                 return visitor.visitP();
+            case U:
+                return visitor.visitU();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -69,10 +69,10 @@ public final class SecurityCheckCvvResult {
                 return M;
             case "N":
                 return N;
-            case "U":
-                return U;
             case "P":
                 return P;
+            case "U":
+                return U;
             default:
                 return new SecurityCheckCvvResult(Value.UNKNOWN, value);
         }

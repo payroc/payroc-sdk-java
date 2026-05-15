@@ -14,10 +14,6 @@ public final class TransactionStatus {
 
     public static final TransactionStatus HELD_AUDITED = new TransactionStatus(Value.HELD_AUDITED, "heldAudited");
 
-    public static final TransactionStatus NEW = new TransactionStatus(Value.NEW, "new");
-
-    public static final TransactionStatus HELD = new TransactionStatus(Value.HELD, "held");
-
     public static final TransactionStatus PULL = new TransactionStatus(Value.PULL, "pull");
 
     public static final TransactionStatus HOLD_FOR_SETTLEMENT_DUPLICATE =
@@ -25,20 +21,24 @@ public final class TransactionStatus {
 
     public static final TransactionStatus HOLD_LONG_TERM = new TransactionStatus(Value.HOLD_LONG_TERM, "holdLongTerm");
 
-    public static final TransactionStatus RELEASE = new TransactionStatus(Value.RELEASE, "release");
+    public static final TransactionStatus NEW = new TransactionStatus(Value.NEW, "new");
+
+    public static final TransactionStatus HELD = new TransactionStatus(Value.HELD, "held");
 
     public static final TransactionStatus HELD_RELEASED_AUDITED =
             new TransactionStatus(Value.HELD_RELEASED_AUDITED, "heldReleasedAudited");
+
+    public static final TransactionStatus RELEASE = new TransactionStatus(Value.RELEASE, "release");
 
     public static final TransactionStatus PAID = new TransactionStatus(Value.PAID, "paid");
 
     public static final TransactionStatus PAID_BY_THIRD_PARTY =
             new TransactionStatus(Value.PAID_BY_THIRD_PARTY, "paidByThirdParty");
 
+    public static final TransactionStatus FULL_SUSPENSE = new TransactionStatus(Value.FULL_SUSPENSE, "fullSuspense");
+
     public static final TransactionStatus PARTIAL_RELEASE =
             new TransactionStatus(Value.PARTIAL_RELEASE, "partialRelease");
-
-    public static final TransactionStatus FULL_SUSPENSE = new TransactionStatus(Value.FULL_SUSPENSE, "fullSuspense");
 
     private final Value value;
 
@@ -78,28 +78,28 @@ public final class TransactionStatus {
                 return visitor.visitHoldForSettlement30Days();
             case HELD_AUDITED:
                 return visitor.visitHeldAudited();
-            case NEW:
-                return visitor.visitNew();
-            case HELD:
-                return visitor.visitHeld();
             case PULL:
                 return visitor.visitPull();
             case HOLD_FOR_SETTLEMENT_DUPLICATE:
                 return visitor.visitHoldForSettlementDuplicate();
             case HOLD_LONG_TERM:
                 return visitor.visitHoldLongTerm();
-            case RELEASE:
-                return visitor.visitRelease();
+            case NEW:
+                return visitor.visitNew();
+            case HELD:
+                return visitor.visitHeld();
             case HELD_RELEASED_AUDITED:
                 return visitor.visitHeldReleasedAudited();
+            case RELEASE:
+                return visitor.visitRelease();
             case PAID:
                 return visitor.visitPaid();
             case PAID_BY_THIRD_PARTY:
                 return visitor.visitPaidByThirdParty();
-            case PARTIAL_RELEASE:
-                return visitor.visitPartialRelease();
             case FULL_SUSPENSE:
                 return visitor.visitFullSuspense();
+            case PARTIAL_RELEASE:
+                return visitor.visitPartialRelease();
             case _UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -115,28 +115,28 @@ public final class TransactionStatus {
                 return HOLD_FOR_SETTLEMENT_30_DAYS;
             case "heldAudited":
                 return HELD_AUDITED;
-            case "new":
-                return NEW;
-            case "held":
-                return HELD;
             case "pull":
                 return PULL;
             case "holdForSettlementDuplicate":
                 return HOLD_FOR_SETTLEMENT_DUPLICATE;
             case "holdLongTerm":
                 return HOLD_LONG_TERM;
-            case "release":
-                return RELEASE;
+            case "new":
+                return NEW;
+            case "held":
+                return HELD;
             case "heldReleasedAudited":
                 return HELD_RELEASED_AUDITED;
+            case "release":
+                return RELEASE;
             case "paid":
                 return PAID;
             case "paidByThirdParty":
                 return PAID_BY_THIRD_PARTY;
-            case "partialRelease":
-                return PARTIAL_RELEASE;
             case "fullSuspense":
                 return FULL_SUSPENSE;
+            case "partialRelease":
+                return PARTIAL_RELEASE;
             default:
                 return new TransactionStatus(Value._UNKNOWN, value);
         }

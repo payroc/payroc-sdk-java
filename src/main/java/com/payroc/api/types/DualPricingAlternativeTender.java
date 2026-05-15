@@ -9,10 +9,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class DualPricingAlternativeTender {
     public static final DualPricingAlternativeTender CARD = new DualPricingAlternativeTender(Value.CARD, "card");
 
+    public static final DualPricingAlternativeTender CASH = new DualPricingAlternativeTender(Value.CASH, "cash");
+
     public static final DualPricingAlternativeTender BANK_TRANSFER =
             new DualPricingAlternativeTender(Value.BANK_TRANSFER, "bankTransfer");
-
-    public static final DualPricingAlternativeTender CASH = new DualPricingAlternativeTender(Value.CASH, "cash");
 
     private final Value value;
 
@@ -49,10 +49,10 @@ public final class DualPricingAlternativeTender {
         switch (value) {
             case CARD:
                 return visitor.visitCard();
-            case BANK_TRANSFER:
-                return visitor.visitBankTransfer();
             case CASH:
                 return visitor.visitCash();
+            case BANK_TRANSFER:
+                return visitor.visitBankTransfer();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -64,10 +64,10 @@ public final class DualPricingAlternativeTender {
         switch (value) {
             case "card":
                 return CARD;
-            case "bankTransfer":
-                return BANK_TRANSFER;
             case "cash":
                 return CASH;
+            case "bankTransfer":
+                return BANK_TRANSFER;
             default:
                 return new DualPricingAlternativeTender(Value.UNKNOWN, value);
         }

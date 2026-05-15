@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class SubscriptionStateStatus {
     public static final SubscriptionStateStatus COMPLETED = new SubscriptionStateStatus(Value.COMPLETED, "completed");
 
-    public static final SubscriptionStateStatus CANCELLED = new SubscriptionStateStatus(Value.CANCELLED, "cancelled");
-
     public static final SubscriptionStateStatus SUSPENDED = new SubscriptionStateStatus(Value.SUSPENDED, "suspended");
+
+    public static final SubscriptionStateStatus CANCELLED = new SubscriptionStateStatus(Value.CANCELLED, "cancelled");
 
     public static final SubscriptionStateStatus ACTIVE = new SubscriptionStateStatus(Value.ACTIVE, "active");
 
@@ -50,10 +50,10 @@ public final class SubscriptionStateStatus {
         switch (value) {
             case COMPLETED:
                 return visitor.visitCompleted();
-            case CANCELLED:
-                return visitor.visitCancelled();
             case SUSPENDED:
                 return visitor.visitSuspended();
+            case CANCELLED:
+                return visitor.visitCancelled();
             case ACTIVE:
                 return visitor.visitActive();
             case UNKNOWN:
@@ -67,10 +67,10 @@ public final class SubscriptionStateStatus {
         switch (value) {
             case "completed":
                 return COMPLETED;
-            case "cancelled":
-                return CANCELLED;
             case "suspended":
                 return SUSPENDED;
+            case "cancelled":
+                return CANCELLED;
             case "active":
                 return ACTIVE;
             default:

@@ -612,7 +612,7 @@ client.hostedFields().create(
 
 Version of the Hosted Fields JavaScript library that you are using.  
 
-The current production version is `1.6.0.172441`.
+The current production version is `1.7.0.261471`.
     
 </dd>
 </dl>
@@ -772,6 +772,7 @@ In the response, our gateway returns information about the attachment including 
 ```java
 client.attachments().uploadToProcessingAccount(
     "38765",
+    null,
     UploadAttachment
         .builder()
         .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9324")
@@ -831,9 +832,9 @@ client.attachments().uploadToProcessingAccount(
 
 Use this method to retrieve the details of an attachment.  
 
-To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the method that you used to upload the attachment.  
+To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the [Upload Attachment to Processing Account](https://docs.payroc.com/api/schema/boarding/processing-accounts/upload-to-processing-account) method.  
 
-Our gateway returns information about the attachment, including its upload status and the entity that the attachment is linked to. Our gateway doesn't return the file that you uploaded.
+Our gateway returns information about the attachment, including its upload status and the entity that the attachment is linked to. Our gateway doesn't return the file that you uploaded.  
 </dd>
 </dl>
 </dd>
@@ -868,7 +869,7 @@ client.attachments().retrieve(
 <dl>
 <dd>
 
-**attachmentId:** `String` — Unique identifier of the attachment
+**attachmentId:** `String` — Unique identifier of the attachment.
     
 </dd>
 </dl>
@@ -985,6 +986,12 @@ client.bankTransferPayments().payments().list(
     ListPaymentsRequest
         .builder()
         .processingTerminalId("1234001")
+        .type(
+            Arrays.asList(ListPaymentsRequestTypeItem.PAYMENT)
+        )
+        .status(
+            Arrays.asList(ListPaymentsRequestStatusItem.READY)
+        )
         .orderId("OrderRef6543")
         .nameOnAccount("Sarah%20Hazel%20Hopper")
         .last4("7890")
@@ -1730,6 +1737,12 @@ client.bankTransferPayments().refunds().list(
     ListRefundsRequest
         .builder()
         .processingTerminalId("1234001")
+        .type(
+            Arrays.asList(ListRefundsRequestTypeItem.REFUND)
+        )
+        .status(
+            Arrays.asList(ListRefundsRequestStatusItem.READY)
+        )
         .orderId("OrderRef6543")
         .nameOnAccount("Sarah%20Hazel%20Hopper")
         .last4("7062")
@@ -4883,7 +4896,7 @@ client.boarding().processingAccounts().createTerminalOrder(
                                     Arrays.asList(
                                         OrderItemSolutionSetupTaxesItem
                                             .builder()
-                                            .taxRate(6f)
+                                            .taxRate(6.0)
                                             .taxLabel("Sales Tax")
                                             .build()
                                     )
@@ -5584,6 +5597,15 @@ For each transaction, we also return the paymentId and an optional secureTokenId
 client.cardPayments().payments().list(
     ListPaymentsRequest
         .builder()
+        .tipMode(
+            Arrays.asList(ListPaymentsRequestTipModeItem.NO_TIP, ListPaymentsRequestTipModeItem.PROMPTED)
+        )
+        .type(
+            Arrays.asList(ListPaymentsRequestTypeItem.SALE, ListPaymentsRequestTypeItem.PRE_AUTHORIZATION)
+        )
+        .status(
+            Arrays.asList(ListPaymentsRequestStatusItem.ACCEPTED, ListPaymentsRequestStatusItem.READY, ListPaymentsRequestStatusItem.COMPLETE)
+        )
         .processingTerminalId("1234001")
         .orderId("OrderRef6543")
         .operator("Jane")
@@ -6637,6 +6659,9 @@ For referenced refunds, our gateway also returns details about the payment that 
 client.cardPayments().refunds().list(
     ListRefundsRequest
         .builder()
+        .status(
+            Arrays.asList(ListRefundsRequestStatusItem.ACCEPTED, ListRefundsRequestStatusItem.READY, ListRefundsRequestStatusItem.COMPLETE)
+        )
         .processingTerminalId("1234001")
         .orderId("OrderRef6543")
         .operator("Jane")
@@ -11480,6 +11505,72 @@ client.payrocCloud().signatures().retrieve(
 <dd>
 
 **signatureId:** `String` — Unique identifier that we assigned to the signature.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## PayrocCloud ClosedLoopReads
+<details><summary><code>client.payrocCloud.closedLoopReads.retrieve(closedLoopReadId) -> ClosedLoopResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use this method to retrieve information that a payment device captured from a closed-loop card.  
+
+A closed-loop card is a type of card that a customer can use only with a specific merchant. Each time a payment device captures information from a closed-loop card, we store the information as a closed-loop read.  
+
+Our gateway returns the following information from a closed-loop read:  
+-	Date that the payment device captured the information.
+-	Unstructured payload from the card.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.payrocCloud().closedLoopReads().retrieve(
+    "JDN4ILZB0T",
+    RetrieveClosedLoopReadsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**closedLoopReadId:** `String` — Unique identifier that we assigned to the closed-loop read.
     
 </dd>
 </dl>

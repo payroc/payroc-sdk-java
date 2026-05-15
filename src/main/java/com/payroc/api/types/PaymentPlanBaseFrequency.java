@@ -11,12 +11,12 @@ public final class PaymentPlanBaseFrequency {
 
     public static final PaymentPlanBaseFrequency QUARTERLY = new PaymentPlanBaseFrequency(Value.QUARTERLY, "quarterly");
 
+    public static final PaymentPlanBaseFrequency WEEKLY = new PaymentPlanBaseFrequency(Value.WEEKLY, "weekly");
+
     public static final PaymentPlanBaseFrequency FORTNIGHTLY =
             new PaymentPlanBaseFrequency(Value.FORTNIGHTLY, "fortnightly");
 
     public static final PaymentPlanBaseFrequency MONTHLY = new PaymentPlanBaseFrequency(Value.MONTHLY, "monthly");
-
-    public static final PaymentPlanBaseFrequency WEEKLY = new PaymentPlanBaseFrequency(Value.WEEKLY, "weekly");
 
     private final Value value;
 
@@ -55,12 +55,12 @@ public final class PaymentPlanBaseFrequency {
                 return visitor.visitYearly();
             case QUARTERLY:
                 return visitor.visitQuarterly();
+            case WEEKLY:
+                return visitor.visitWeekly();
             case FORTNIGHTLY:
                 return visitor.visitFortnightly();
             case MONTHLY:
                 return visitor.visitMonthly();
-            case WEEKLY:
-                return visitor.visitWeekly();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -74,12 +74,12 @@ public final class PaymentPlanBaseFrequency {
                 return YEARLY;
             case "quarterly":
                 return QUARTERLY;
+            case "weekly":
+                return WEEKLY;
             case "fortnightly":
                 return FORTNIGHTLY;
             case "monthly":
                 return MONTHLY;
-            case "weekly":
-                return WEEKLY;
             default:
                 return new PaymentPlanBaseFrequency(Value.UNKNOWN, value);
         }

@@ -7,26 +7,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class CardSummaryType {
-    public static final CardSummaryType MASTER_CARD = new CardSummaryType(Value.MASTER_CARD, "masterCard");
-
     public static final CardSummaryType PRIVATE_LABEL = new CardSummaryType(Value.PRIVATE_LABEL, "privateLabel");
 
     public static final CardSummaryType AMEX_OPT_BLUE = new CardSummaryType(Value.AMEX_OPT_BLUE, "amexOptBlue");
 
-    public static final CardSummaryType VOYAGER = new CardSummaryType(Value.VOYAGER, "voyager");
+    public static final CardSummaryType MASTER_CARD = new CardSummaryType(Value.MASTER_CARD, "masterCard");
 
     public static final CardSummaryType UNKNOWN = new CardSummaryType(Value.UNKNOWN, "unknown");
 
-    public static final CardSummaryType WRIGHT_EXPRESS = new CardSummaryType(Value.WRIGHT_EXPRESS, "wrightExpress");
+    public static final CardSummaryType VOYAGER = new CardSummaryType(Value.VOYAGER, "voyager");
 
-    public static final CardSummaryType DEBIT = new CardSummaryType(Value.DEBIT, "debit");
+    public static final CardSummaryType WRIGHT_EXPRESS = new CardSummaryType(Value.WRIGHT_EXPRESS, "wrightExpress");
 
     public static final CardSummaryType AMEX = new CardSummaryType(Value.AMEX, "amex");
 
-    public static final CardSummaryType DISCOVER = new CardSummaryType(Value.DISCOVER, "discover");
+    public static final CardSummaryType DEBIT = new CardSummaryType(Value.DEBIT, "debit");
 
     public static final CardSummaryType DISCOVER_RETAINED =
             new CardSummaryType(Value.DISCOVER_RETAINED, "discoverRetained");
+
+    public static final CardSummaryType DISCOVER = new CardSummaryType(Value.DISCOVER, "discover");
+
+    public static final CardSummaryType DINERS_CLUB = new CardSummaryType(Value.DINERS_CLUB, "dinersClub");
 
     public static final CardSummaryType VISA = new CardSummaryType(Value.VISA, "visa");
 
@@ -37,8 +39,6 @@ public final class CardSummaryType {
     public static final CardSummaryType JCB_NON_SETTLED = new CardSummaryType(Value.JCB_NON_SETTLED, "jcbNonSettled");
 
     public static final CardSummaryType FUELMAN = new CardSummaryType(Value.FUELMAN, "fuelman");
-
-    public static final CardSummaryType DINERS_CLUB = new CardSummaryType(Value.DINERS_CLUB, "dinersClub");
 
     private final Value value;
 
@@ -72,26 +72,28 @@ public final class CardSummaryType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case MASTER_CARD:
-                return visitor.visitMasterCard();
             case PRIVATE_LABEL:
                 return visitor.visitPrivateLabel();
             case AMEX_OPT_BLUE:
                 return visitor.visitAmexOptBlue();
-            case VOYAGER:
-                return visitor.visitVoyager();
+            case MASTER_CARD:
+                return visitor.visitMasterCard();
             case UNKNOWN:
                 return visitor.visitUnknown();
+            case VOYAGER:
+                return visitor.visitVoyager();
             case WRIGHT_EXPRESS:
                 return visitor.visitWrightExpress();
-            case DEBIT:
-                return visitor.visitDebit();
             case AMEX:
                 return visitor.visitAmex();
-            case DISCOVER:
-                return visitor.visitDiscover();
+            case DEBIT:
+                return visitor.visitDebit();
             case DISCOVER_RETAINED:
                 return visitor.visitDiscoverRetained();
+            case DISCOVER:
+                return visitor.visitDiscover();
+            case DINERS_CLUB:
+                return visitor.visitDinersClub();
             case VISA:
                 return visitor.visitVisa();
             case EBT:
@@ -102,8 +104,6 @@ public final class CardSummaryType {
                 return visitor.visitJcbNonSettled();
             case FUELMAN:
                 return visitor.visitFuelman();
-            case DINERS_CLUB:
-                return visitor.visitDinersClub();
             case _UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -113,26 +113,28 @@ public final class CardSummaryType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static CardSummaryType valueOf(String value) {
         switch (value) {
-            case "masterCard":
-                return MASTER_CARD;
             case "privateLabel":
                 return PRIVATE_LABEL;
             case "amexOptBlue":
                 return AMEX_OPT_BLUE;
-            case "voyager":
-                return VOYAGER;
+            case "masterCard":
+                return MASTER_CARD;
             case "unknown":
                 return UNKNOWN;
+            case "voyager":
+                return VOYAGER;
             case "wrightExpress":
                 return WRIGHT_EXPRESS;
-            case "debit":
-                return DEBIT;
             case "amex":
                 return AMEX;
-            case "discover":
-                return DISCOVER;
+            case "debit":
+                return DEBIT;
             case "discoverRetained":
                 return DISCOVER_RETAINED;
+            case "discover":
+                return DISCOVER;
+            case "dinersClub":
+                return DINERS_CLUB;
             case "visa":
                 return VISA;
             case "ebt":
@@ -143,8 +145,6 @@ public final class CardSummaryType {
                 return JCB_NON_SETTLED;
             case "fuelman":
                 return FUELMAN;
-            case "dinersClub":
-                return DINERS_CLUB;
             default:
                 return new CardSummaryType(Value._UNKNOWN, value);
         }

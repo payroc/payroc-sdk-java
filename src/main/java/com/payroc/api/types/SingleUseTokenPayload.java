@@ -91,6 +91,7 @@ public final class SingleUseTokenPayload {
      * <li><code>ccd</code> – Corporate credit card or debit card transaction.</li>
      * <li><code>ppd</code> – Pre-arranged transaction.</li>
      * </ul>
+     * <p><strong>Note:</strong> This field is mandatory when the single-use token represents ACH bank account details.</p>
      */
     @JsonProperty("secCode")
     public Optional<SingleUseTokenPayloadSecCode> getSecCode() {
@@ -178,6 +179,7 @@ public final class SingleUseTokenPayload {
          * <li><code>ccd</code> – Corporate credit card or debit card transaction.</li>
          * <li><code>ppd</code> – Pre-arranged transaction.</li>
          * </ul>
+         * <p><strong>Note:</strong> This field is mandatory when the single-use token represents ACH bank account details.</p>
          */
         _FinalStage secCode(Optional<SingleUseTokenPayloadSecCode> secCode);
 
@@ -231,6 +233,7 @@ public final class SingleUseTokenPayload {
          * <li><code>ccd</code> – Corporate credit card or debit card transaction.</li>
          * <li><code>ppd</code> – Pre-arranged transaction.</li>
          * </ul>
+         * <p><strong>Note:</strong> This field is mandatory when the single-use token represents ACH bank account details.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -247,6 +250,7 @@ public final class SingleUseTokenPayload {
          * <li><code>ccd</code> – Corporate credit card or debit card transaction.</li>
          * <li><code>ppd</code> – Pre-arranged transaction.</li>
          * </ul>
+         * <p><strong>Note:</strong> This field is mandatory when the single-use token represents ACH bank account details.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "secCode", nulls = Nulls.SKIP)

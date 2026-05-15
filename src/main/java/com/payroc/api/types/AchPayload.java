@@ -65,6 +65,7 @@ public final class AchPayload {
      * <li><code>ccd</code> – Corporate credit card or debit card transaction.</li>
      * <li><code>ppd</code> – Pre-arranged transaction.</li>
      * </ul>
+     * <p><strong>Note:</strong> This field is mandatory for ACH payments and unreferenced refunds.</p>
      */
     @JsonProperty("secCode")
     public Optional<AchPayloadSecCode> getSecCode() {
@@ -176,6 +177,7 @@ public final class AchPayload {
          * <li><code>ccd</code> – Corporate credit card or debit card transaction.</li>
          * <li><code>ppd</code> – Pre-arranged transaction.</li>
          * </ul>
+         * <p><strong>Note:</strong> This field is mandatory for ACH payments and unreferenced refunds.</p>
          */
         _FinalStage secCode(Optional<AchPayloadSecCode> secCode);
 
@@ -256,6 +258,7 @@ public final class AchPayload {
          * <li><code>ccd</code> – Corporate credit card or debit card transaction.</li>
          * <li><code>ppd</code> – Pre-arranged transaction.</li>
          * </ul>
+         * <p><strong>Note:</strong> This field is mandatory for ACH payments and unreferenced refunds.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -272,6 +275,7 @@ public final class AchPayload {
          * <li><code>ccd</code> – Corporate credit card or debit card transaction.</li>
          * <li><code>ppd</code> – Pre-arranged transaction.</li>
          * </ul>
+         * <p><strong>Note:</strong> This field is mandatory for ACH payments and unreferenced refunds.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "secCode", nulls = Nulls.SKIP)

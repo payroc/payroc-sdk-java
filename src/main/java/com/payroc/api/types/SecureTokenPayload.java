@@ -65,6 +65,7 @@ public final class SecureTokenPayload {
      * <li><code>ccd</code> – Corporate credit card or debit card transaction.</li>
      * <li><code>ppd</code> – Pre-arranged transaction.</li>
      * </ul>
+     * <p><strong>Note:</strong> This field is mandatory when the secure token represents ACH bank account details.</p>
      */
     @JsonProperty("secCode")
     public Optional<SecureTokenPayloadSecCode> getSecCode() {
@@ -132,6 +133,7 @@ public final class SecureTokenPayload {
          * <li><code>ccd</code> – Corporate credit card or debit card transaction.</li>
          * <li><code>ppd</code> – Pre-arranged transaction.</li>
          * </ul>
+         * <p><strong>Note:</strong> This field is mandatory when the secure token represents ACH bank account details.</p>
          */
         _FinalStage secCode(Optional<SecureTokenPayloadSecCode> secCode);
 
@@ -179,6 +181,7 @@ public final class SecureTokenPayload {
          * <li><code>ccd</code> – Corporate credit card or debit card transaction.</li>
          * <li><code>ppd</code> – Pre-arranged transaction.</li>
          * </ul>
+         * <p><strong>Note:</strong> This field is mandatory when the secure token represents ACH bank account details.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -195,6 +198,7 @@ public final class SecureTokenPayload {
          * <li><code>ccd</code> – Corporate credit card or debit card transaction.</li>
          * <li><code>ppd</code> – Pre-arranged transaction.</li>
          * </ul>
+         * <p><strong>Note:</strong> This field is mandatory when the secure token represents ACH bank account details.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "secCode", nulls = Nulls.SKIP)

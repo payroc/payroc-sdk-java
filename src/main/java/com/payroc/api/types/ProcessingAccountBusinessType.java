@@ -18,11 +18,11 @@ public final class ProcessingAccountBusinessType {
     public static final ProcessingAccountBusinessType NOT_FOR_PROFIT =
             new ProcessingAccountBusinessType(Value.NOT_FOR_PROFIT, "notForProfit");
 
-    public static final ProcessingAccountBusinessType LODGING =
-            new ProcessingAccountBusinessType(Value.LODGING, "lodging");
-
     public static final ProcessingAccountBusinessType RETAIL =
             new ProcessingAccountBusinessType(Value.RETAIL, "retail");
+
+    public static final ProcessingAccountBusinessType LODGING =
+            new ProcessingAccountBusinessType(Value.LODGING, "lodging");
 
     private final Value value;
 
@@ -65,10 +65,10 @@ public final class ProcessingAccountBusinessType {
                 return visitor.visitRestaurant();
             case NOT_FOR_PROFIT:
                 return visitor.visitNotForProfit();
-            case LODGING:
-                return visitor.visitLodging();
             case RETAIL:
                 return visitor.visitRetail();
+            case LODGING:
+                return visitor.visitLodging();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -86,10 +86,10 @@ public final class ProcessingAccountBusinessType {
                 return RESTAURANT;
             case "notForProfit":
                 return NOT_FOR_PROFIT;
-            case "lodging":
-                return LODGING;
             case "retail":
                 return RETAIL;
+            case "lodging":
+                return LODGING;
             default:
                 return new ProcessingAccountBusinessType(Value.UNKNOWN, value);
         }

@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class BaseUsAnnualFeeBillInMonth {
-    public static final BaseUsAnnualFeeBillInMonth JUNE = new BaseUsAnnualFeeBillInMonth(Value.JUNE, "june");
-
     public static final BaseUsAnnualFeeBillInMonth DECEMBER =
             new BaseUsAnnualFeeBillInMonth(Value.DECEMBER, "december");
+
+    public static final BaseUsAnnualFeeBillInMonth JUNE = new BaseUsAnnualFeeBillInMonth(Value.JUNE, "june");
 
     private final Value value;
 
@@ -45,10 +45,10 @@ public final class BaseUsAnnualFeeBillInMonth {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case JUNE:
-                return visitor.visitJune();
             case DECEMBER:
                 return visitor.visitDecember();
+            case JUNE:
+                return visitor.visitJune();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -58,10 +58,10 @@ public final class BaseUsAnnualFeeBillInMonth {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static BaseUsAnnualFeeBillInMonth valueOf(String value) {
         switch (value) {
-            case "june":
-                return JUNE;
             case "december":
                 return DECEMBER;
+            case "june":
+                return JUNE;
             default:
                 return new BaseUsAnnualFeeBillInMonth(Value.UNKNOWN, value);
         }

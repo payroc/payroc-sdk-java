@@ -56,7 +56,7 @@ public final class HostedFieldsCreateSessionRequest {
 
     /**
      * @return Version of the Hosted Fields JavaScript library that you are using.
-     * <p>The current production version is <code>1.6.0.172441</code>.</p>
+     * <p>The current production version is <code>1.7.0.261471</code>.</p>
      */
     @JsonProperty("libVersion")
     public String getLibVersion() {
@@ -128,7 +128,7 @@ public final class HostedFieldsCreateSessionRequest {
     public interface LibVersionStage {
         /**
          * <p>Version of the Hosted Fields JavaScript library that you are using.</p>
-         * <p>The current production version is <code>1.6.0.172441</code>.</p>
+         * <p>The current production version is <code>1.7.0.261471</code>.</p>
          */
         ScenarioStage libVersion(@NotNull String libVersion);
     }
@@ -197,9 +197,9 @@ public final class HostedFieldsCreateSessionRequest {
 
         /**
          * <p>Version of the Hosted Fields JavaScript library that you are using.</p>
-         * <p>The current production version is <code>1.6.0.172441</code>.</p>
+         * <p>The current production version is <code>1.7.0.261471</code>.</p>
          * <p>Version of the Hosted Fields JavaScript library that you are using.</p>
-         * <p>The current production version is <code>1.6.0.172441</code>.</p>
+         * <p>The current production version is <code>1.7.0.261471</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -7,13 +7,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class SecurityCheckAvsResult {
+    public static final SecurityCheckAvsResult X = new SecurityCheckAvsResult(Value.X, "X");
+
     public static final SecurityCheckAvsResult A = new SecurityCheckAvsResult(Value.A, "A");
 
     public static final SecurityCheckAvsResult R = new SecurityCheckAvsResult(Value.R, "R");
 
     public static final SecurityCheckAvsResult G = new SecurityCheckAvsResult(Value.G, "G");
-
-    public static final SecurityCheckAvsResult X = new SecurityCheckAvsResult(Value.X, "X");
 
     public static final SecurityCheckAvsResult S = new SecurityCheckAvsResult(Value.S, "S");
 
@@ -62,14 +62,14 @@ public final class SecurityCheckAvsResult {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case X:
+                return visitor.visitX();
             case A:
                 return visitor.visitA();
             case R:
                 return visitor.visitR();
             case G:
                 return visitor.visitG();
-            case X:
-                return visitor.visitX();
             case S:
                 return visitor.visitS();
             case Y:
@@ -93,14 +93,14 @@ public final class SecurityCheckAvsResult {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static SecurityCheckAvsResult valueOf(String value) {
         switch (value) {
+            case "X":
+                return X;
             case "A":
                 return A;
             case "R":
                 return R;
             case "G":
                 return G;
-            case "X":
-                return X;
             case "S":
                 return S;
             case "Y":

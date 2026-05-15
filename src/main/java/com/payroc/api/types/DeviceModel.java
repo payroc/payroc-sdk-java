@@ -12,28 +12,19 @@ public final class DeviceModel {
 
     public static final DeviceModel PAX_E_700 = new DeviceModel(Value.PAX_E_700, "paxE700");
 
-    public static final DeviceModel INGENICO_L_7000 = new DeviceModel(Value.INGENICO_L_7000, "ingenicoL7000");
-
     public static final DeviceModel BBPOS_CHP_2_X = new DeviceModel(Value.BBPOS_CHP_2_X, "bbposChp2x");
 
-    public static final DeviceModel UIC_BEZEL_8 = new DeviceModel(Value.UIC_BEZEL_8, "uicBezel8");
+    public static final DeviceModel INGENICO_L_7000 = new DeviceModel(Value.INGENICO_L_7000, "ingenicoL7000");
 
     public static final DeviceModel INGENICO_IPP_320 = new DeviceModel(Value.INGENICO_IPP_320, "ingenicoIpp320");
 
-    public static final DeviceModel PAX_A_920 = new DeviceModel(Value.PAX_A_920, "paxA920");
+    public static final DeviceModel UIC_BEZEL_8 = new DeviceModel(Value.UIC_BEZEL_8, "uicBezel8");
 
     public static final DeviceModel IDTECH_VP_6800 = new DeviceModel(Value.IDTECH_VP_6800, "idtechVp6800");
 
     public static final DeviceModel PAX_E_800 = new DeviceModel(Value.PAX_E_800, "paxE800");
 
-    public static final DeviceModel INGENICO_AXIUM_DX_4000 =
-            new DeviceModel(Value.INGENICO_AXIUM_DX_4000, "ingenicoAxiumDx4000");
-
-    public static final DeviceModel BBPOS_CHP_3_X = new DeviceModel(Value.BBPOS_CHP_3_X, "bbposChp3x");
-
-    public static final DeviceModel BBPOS_RAMBLER = new DeviceModel(Value.BBPOS_RAMBLER, "bbposRambler");
-
-    public static final DeviceModel IDTECH_VP_6300 = new DeviceModel(Value.IDTECH_VP_6300, "idtechVp6300");
+    public static final DeviceModel PAX_A_920 = new DeviceModel(Value.PAX_A_920, "paxA920");
 
     public static final DeviceModel GENERIC_CTLS_MSR = new DeviceModel(Value.GENERIC_CTLS_MSR, "genericCtlsMsr");
 
@@ -44,27 +35,32 @@ public final class DeviceModel {
     public static final DeviceModel INGENICO_AXIUM_EX_8000 =
             new DeviceModel(Value.INGENICO_AXIUM_EX_8000, "ingenicoAxiumEx8000");
 
+    public static final DeviceModel INGENICO_AXIUM_DX_4000 =
+            new DeviceModel(Value.INGENICO_AXIUM_DX_4000, "ingenicoAxiumDx4000");
+
+    public static final DeviceModel BBPOS_CHP_3_X = new DeviceModel(Value.BBPOS_CHP_3_X, "bbposChp3x");
+
+    public static final DeviceModel BBPOS_RAMBLER = new DeviceModel(Value.BBPOS_RAMBLER, "bbposRambler");
+
+    public static final DeviceModel IDTECH_VP_6300 = new DeviceModel(Value.IDTECH_VP_6300, "idtechVp6300");
+
+    public static final DeviceModel INGENICO_IPP_350 = new DeviceModel(Value.INGENICO_IPP_350, "ingenicoIpp350");
+
     public static final DeviceModel IDTECH_VP_5300 = new DeviceModel(Value.IDTECH_VP_5300, "idtechVp5300");
 
     public static final DeviceModel PAX_IM_30 = new DeviceModel(Value.PAX_IM_30, "paxIm30");
 
-    public static final DeviceModel INGENICO_IPP_350 = new DeviceModel(Value.INGENICO_IPP_350, "ingenicoIpp350");
-
     public static final DeviceModel IDTECH_VP_3300 = new DeviceModel(Value.IDTECH_VP_3300, "idtechVp3300");
-
-    public static final DeviceModel PAX_A_80 = new DeviceModel(Value.PAX_A_80, "paxA80");
 
     public static final DeviceModel IDTECH_AUGUSTA = new DeviceModel(Value.IDTECH_AUGUSTA, "idtechAugusta");
 
-    public static final DeviceModel BBPOS_CHP = new DeviceModel(Value.BBPOS_CHP, "bbposChp");
+    public static final DeviceModel PAX_A_80 = new DeviceModel(Value.PAX_A_80, "paxA80");
 
-    public static final DeviceModel INGENICO_IUC_285 = new DeviceModel(Value.INGENICO_IUC_285, "ingenicoIuc285");
+    public static final DeviceModel BBPOS_CHP = new DeviceModel(Value.BBPOS_CHP, "bbposChp");
 
     public static final DeviceModel PAX_A_920_PRO = new DeviceModel(Value.PAX_A_920_PRO, "paxA920Pro");
 
-    public static final DeviceModel BBPOS_WP_2 = new DeviceModel(Value.BBPOS_WP_2, "bbposWp2");
-
-    public static final DeviceModel INGENICO_S_7000 = new DeviceModel(Value.INGENICO_S_7000, "ingenicoS7000");
+    public static final DeviceModel INGENICO_IUC_285 = new DeviceModel(Value.INGENICO_IUC_285, "ingenicoIuc285");
 
     public static final DeviceModel BBPOS_WP_3 = new DeviceModel(Value.BBPOS_WP_3, "bbposWp3");
 
@@ -72,15 +68,19 @@ public final class DeviceModel {
 
     public static final DeviceModel IDTECH_SREDKEY = new DeviceModel(Value.IDTECH_SREDKEY, "idtechSredkey");
 
+    public static final DeviceModel BBPOS_WP_2 = new DeviceModel(Value.BBPOS_WP_2, "bbposWp2");
+
+    public static final DeviceModel INGENICO_S_7000 = new DeviceModel(Value.INGENICO_S_7000, "ingenicoS7000");
+
     public static final DeviceModel IDTECH_MINISMART = new DeviceModel(Value.IDTECH_MINISMART, "idtechMinismart");
 
     public static final DeviceModel INGENICO_S_5000 = new DeviceModel(Value.INGENICO_S_5000, "ingenicoS5000");
 
     public static final DeviceModel INGENICO_S_4000 = new DeviceModel(Value.INGENICO_S_4000, "ingenicoS4000");
 
-    public static final DeviceModel INGENICO_S_3000 = new DeviceModel(Value.INGENICO_S_3000, "ingenicoS3000");
-
     public static final DeviceModel UIC_680 = new DeviceModel(Value.UIC_680, "uic680");
+
+    public static final DeviceModel INGENICO_S_3000 = new DeviceModel(Value.INGENICO_S_3000, "ingenicoS3000");
 
     public static final DeviceModel INGENICO_S_2000 = new DeviceModel(Value.INGENICO_S_2000, "ingenicoS2000");
 
@@ -123,28 +123,20 @@ public final class DeviceModel {
                 return visitor.visitIngenicoAxiumDx8000();
             case PAX_E_700:
                 return visitor.visitPaxE700();
-            case INGENICO_L_7000:
-                return visitor.visitIngenicoL7000();
             case BBPOS_CHP_2_X:
                 return visitor.visitBbposChp2X();
-            case UIC_BEZEL_8:
-                return visitor.visitUicBezel8();
+            case INGENICO_L_7000:
+                return visitor.visitIngenicoL7000();
             case INGENICO_IPP_320:
                 return visitor.visitIngenicoIpp320();
-            case PAX_A_920:
-                return visitor.visitPaxA920();
+            case UIC_BEZEL_8:
+                return visitor.visitUicBezel8();
             case IDTECH_VP_6800:
                 return visitor.visitIdtechVp6800();
             case PAX_E_800:
                 return visitor.visitPaxE800();
-            case INGENICO_AXIUM_DX_4000:
-                return visitor.visitIngenicoAxiumDx4000();
-            case BBPOS_CHP_3_X:
-                return visitor.visitBbposChp3X();
-            case BBPOS_RAMBLER:
-                return visitor.visitBbposRambler();
-            case IDTECH_VP_6300:
-                return visitor.visitIdtechVp6300();
+            case PAX_A_920:
+                return visitor.visitPaxA920();
             case GENERIC_CTLS_MSR:
                 return visitor.visitGenericCtlsMsr();
             case INGENICO_ICT_220:
@@ -153,44 +145,52 @@ public final class DeviceModel {
                 return visitor.visitIngenicoL3000();
             case INGENICO_AXIUM_EX_8000:
                 return visitor.visitIngenicoAxiumEx8000();
+            case INGENICO_AXIUM_DX_4000:
+                return visitor.visitIngenicoAxiumDx4000();
+            case BBPOS_CHP_3_X:
+                return visitor.visitBbposChp3X();
+            case BBPOS_RAMBLER:
+                return visitor.visitBbposRambler();
+            case IDTECH_VP_6300:
+                return visitor.visitIdtechVp6300();
+            case INGENICO_IPP_350:
+                return visitor.visitIngenicoIpp350();
             case IDTECH_VP_5300:
                 return visitor.visitIdtechVp5300();
             case PAX_IM_30:
                 return visitor.visitPaxIm30();
-            case INGENICO_IPP_350:
-                return visitor.visitIngenicoIpp350();
             case IDTECH_VP_3300:
                 return visitor.visitIdtechVp3300();
-            case PAX_A_80:
-                return visitor.visitPaxA80();
             case IDTECH_AUGUSTA:
                 return visitor.visitIdtechAugusta();
+            case PAX_A_80:
+                return visitor.visitPaxA80();
             case BBPOS_CHP:
                 return visitor.visitBbposChp();
-            case INGENICO_IUC_285:
-                return visitor.visitIngenicoIuc285();
             case PAX_A_920_PRO:
                 return visitor.visitPaxA920Pro();
-            case BBPOS_WP_2:
-                return visitor.visitBbposWp2();
-            case INGENICO_S_7000:
-                return visitor.visitIngenicoS7000();
+            case INGENICO_IUC_285:
+                return visitor.visitIngenicoIuc285();
             case BBPOS_WP_3:
                 return visitor.visitBbposWp3();
             case PAX_E_500:
                 return visitor.visitPaxE500();
             case IDTECH_SREDKEY:
                 return visitor.visitIdtechSredkey();
+            case BBPOS_WP_2:
+                return visitor.visitBbposWp2();
+            case INGENICO_S_7000:
+                return visitor.visitIngenicoS7000();
             case IDTECH_MINISMART:
                 return visitor.visitIdtechMinismart();
             case INGENICO_S_5000:
                 return visitor.visitIngenicoS5000();
             case INGENICO_S_4000:
                 return visitor.visitIngenicoS4000();
-            case INGENICO_S_3000:
-                return visitor.visitIngenicoS3000();
             case UIC_680:
                 return visitor.visitUic680();
+            case INGENICO_S_3000:
+                return visitor.visitIngenicoS3000();
             case INGENICO_S_2000:
                 return visitor.visitIngenicoS2000();
             case GENERIC_MSR:
@@ -210,28 +210,20 @@ public final class DeviceModel {
                 return INGENICO_AXIUM_DX_8000;
             case "paxE700":
                 return PAX_E_700;
-            case "ingenicoL7000":
-                return INGENICO_L_7000;
             case "bbposChp2x":
                 return BBPOS_CHP_2_X;
-            case "uicBezel8":
-                return UIC_BEZEL_8;
+            case "ingenicoL7000":
+                return INGENICO_L_7000;
             case "ingenicoIpp320":
                 return INGENICO_IPP_320;
-            case "paxA920":
-                return PAX_A_920;
+            case "uicBezel8":
+                return UIC_BEZEL_8;
             case "idtechVp6800":
                 return IDTECH_VP_6800;
             case "paxE800":
                 return PAX_E_800;
-            case "ingenicoAxiumDx4000":
-                return INGENICO_AXIUM_DX_4000;
-            case "bbposChp3x":
-                return BBPOS_CHP_3_X;
-            case "bbposRambler":
-                return BBPOS_RAMBLER;
-            case "idtechVp6300":
-                return IDTECH_VP_6300;
+            case "paxA920":
+                return PAX_A_920;
             case "genericCtlsMsr":
                 return GENERIC_CTLS_MSR;
             case "ingenicoIct220":
@@ -240,44 +232,52 @@ public final class DeviceModel {
                 return INGENICO_L_3000;
             case "ingenicoAxiumEx8000":
                 return INGENICO_AXIUM_EX_8000;
+            case "ingenicoAxiumDx4000":
+                return INGENICO_AXIUM_DX_4000;
+            case "bbposChp3x":
+                return BBPOS_CHP_3_X;
+            case "bbposRambler":
+                return BBPOS_RAMBLER;
+            case "idtechVp6300":
+                return IDTECH_VP_6300;
+            case "ingenicoIpp350":
+                return INGENICO_IPP_350;
             case "idtechVp5300":
                 return IDTECH_VP_5300;
             case "paxIm30":
                 return PAX_IM_30;
-            case "ingenicoIpp350":
-                return INGENICO_IPP_350;
             case "idtechVp3300":
                 return IDTECH_VP_3300;
-            case "paxA80":
-                return PAX_A_80;
             case "idtechAugusta":
                 return IDTECH_AUGUSTA;
+            case "paxA80":
+                return PAX_A_80;
             case "bbposChp":
                 return BBPOS_CHP;
-            case "ingenicoIuc285":
-                return INGENICO_IUC_285;
             case "paxA920Pro":
                 return PAX_A_920_PRO;
-            case "bbposWp2":
-                return BBPOS_WP_2;
-            case "ingenicoS7000":
-                return INGENICO_S_7000;
+            case "ingenicoIuc285":
+                return INGENICO_IUC_285;
             case "bbposWp3":
                 return BBPOS_WP_3;
             case "paxE500":
                 return PAX_E_500;
             case "idtechSredkey":
                 return IDTECH_SREDKEY;
+            case "bbposWp2":
+                return BBPOS_WP_2;
+            case "ingenicoS7000":
+                return INGENICO_S_7000;
             case "idtechMinismart":
                 return IDTECH_MINISMART;
             case "ingenicoS5000":
                 return INGENICO_S_5000;
             case "ingenicoS4000":
                 return INGENICO_S_4000;
-            case "ingenicoS3000":
-                return INGENICO_S_3000;
             case "uic680":
                 return UIC_680;
+            case "ingenicoS3000":
+                return INGENICO_S_3000;
             case "ingenicoS2000":
                 return INGENICO_S_2000;
             case "genericMsr":

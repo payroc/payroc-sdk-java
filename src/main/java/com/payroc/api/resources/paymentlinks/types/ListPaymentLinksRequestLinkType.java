@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ListPaymentLinksRequestLinkType {
-    public static final ListPaymentLinksRequestLinkType MULTI_USE =
-            new ListPaymentLinksRequestLinkType(Value.MULTI_USE, "multiUse");
-
     public static final ListPaymentLinksRequestLinkType SINGLE_USE =
             new ListPaymentLinksRequestLinkType(Value.SINGLE_USE, "singleUse");
+
+    public static final ListPaymentLinksRequestLinkType MULTI_USE =
+            new ListPaymentLinksRequestLinkType(Value.MULTI_USE, "multiUse");
 
     private final Value value;
 
@@ -46,10 +46,10 @@ public final class ListPaymentLinksRequestLinkType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case MULTI_USE:
-                return visitor.visitMultiUse();
             case SINGLE_USE:
                 return visitor.visitSingleUse();
+            case MULTI_USE:
+                return visitor.visitMultiUse();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -59,10 +59,10 @@ public final class ListPaymentLinksRequestLinkType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ListPaymentLinksRequestLinkType valueOf(String value) {
         switch (value) {
-            case "multiUse":
-                return MULTI_USE;
             case "singleUse":
                 return SINGLE_USE;
+            case "multiUse":
+                return MULTI_USE;
             default:
                 return new ListPaymentLinksRequestLinkType(Value.UNKNOWN, value);
         }

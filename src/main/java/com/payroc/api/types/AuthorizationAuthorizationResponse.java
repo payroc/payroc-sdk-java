@@ -7,6 +7,151 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class AuthorizationAuthorizationResponse {
+    public static final AuthorizationAuthorizationResponse PICK_UP_CARD =
+            new AuthorizationAuthorizationResponse(Value.PICK_UP_CARD, "pickUpCard");
+
+    public static final AuthorizationAuthorizationResponse UNKNOWN =
+            new AuthorizationAuthorizationResponse(Value.UNKNOWN, "unknown");
+
+    public static final AuthorizationAuthorizationResponse INVALID_BILLER_INFORMATION =
+            new AuthorizationAuthorizationResponse(Value.INVALID_BILLER_INFORMATION, "invalidBillerInformation");
+
+    public static final AuthorizationAuthorizationResponse INVALID_MERCHANT =
+            new AuthorizationAuthorizationResponse(Value.INVALID_MERCHANT, "invalidMerchant");
+
+    public static final AuthorizationAuthorizationResponse APPROVE_VIP =
+            new AuthorizationAuthorizationResponse(Value.APPROVE_VIP, "approveVip");
+
+    public static final AuthorizationAuthorizationResponse DUPLICATE_TRANSMISSION_DETECTED =
+            new AuthorizationAuthorizationResponse(
+                    Value.DUPLICATE_TRANSMISSION_DETECTED, "duplicateTransmissionDetected");
+
+    public static final AuthorizationAuthorizationResponse REVERSAL_DATA_INCONSISTENT =
+            new AuthorizationAuthorizationResponse(Value.REVERSAL_DATA_INCONSISTENT, "reversalDataInconsistent");
+
+    public static final AuthorizationAuthorizationResponse INCORRECT_CVV =
+            new AuthorizationAuthorizationResponse(Value.INCORRECT_CVV, "incorrectCvv");
+
+    public static final AuthorizationAuthorizationResponse CONTACT_CARD_ISSUER =
+            new AuthorizationAuthorizationResponse(Value.CONTACT_CARD_ISSUER, "contactCardIssuer");
+
+    public static final AuthorizationAuthorizationResponse DENY =
+            new AuthorizationAuthorizationResponse(Value.DENY, "deny");
+
+    public static final AuthorizationAuthorizationResponse INELIGIBLE_FOR_RESUBMISSION =
+            new AuthorizationAuthorizationResponse(Value.INELIGIBLE_FOR_RESUBMISSION, "ineligibleForResubmission");
+
+    public static final AuthorizationAuthorizationResponse NO_CHECKING_ACCOUNT =
+            new AuthorizationAuthorizationResponse(Value.NO_CHECKING_ACCOUNT, "noCheckingAccount");
+
+    public static final AuthorizationAuthorizationResponse DENY_ACCOUNT_CANCELED =
+            new AuthorizationAuthorizationResponse(Value.DENY_ACCOUNT_CANCELED, "denyAccountCanceled");
+
+    public static final AuthorizationAuthorizationResponse REFER_TO_CARD_ISSUER_SPECIAL_CONDITION =
+            new AuthorizationAuthorizationResponse(
+                    Value.REFER_TO_CARD_ISSUER_SPECIAL_CONDITION, "referToCardIssuerSpecialCondition");
+
+    public static final AuthorizationAuthorizationResponse REVERSAL =
+            new AuthorizationAuthorizationResponse(Value.REVERSAL, "reversal");
+
+    public static final AuthorizationAuthorizationResponse REVOKE_ALL_AUTHORIZATIONS_ORDER =
+            new AuthorizationAuthorizationResponse(
+                    Value.REVOKE_ALL_AUTHORIZATIONS_ORDER, "revokeAllAuthorizationsOrder");
+
+    public static final AuthorizationAuthorizationResponse CRYPTOGRAPHIC_FAILURE =
+            new AuthorizationAuthorizationResponse(Value.CRYPTOGRAPHIC_FAILURE, "cryptographicFailure");
+
+    public static final AuthorizationAuthorizationResponse DENY_PICK_UP_CARD =
+            new AuthorizationAuthorizationResponse(Value.DENY_PICK_UP_CARD, "denyPickUpCard");
+
+    public static final AuthorizationAuthorizationResponse PIN_ENTRY_TRIES_EXCEEDED =
+            new AuthorizationAuthorizationResponse(Value.PIN_ENTRY_TRIES_EXCEEDED, "pinEntryTriesExceeded");
+
+    public static final AuthorizationAuthorizationResponse DENY_NEW_CARD_ISSUED =
+            new AuthorizationAuthorizationResponse(Value.DENY_NEW_CARD_ISSUED, "denyNewCardIssued");
+
+    public static final AuthorizationAuthorizationResponse ISSUER_UNAVAILABLE =
+            new AuthorizationAuthorizationResponse(Value.ISSUER_UNAVAILABLE, "issuerUnavailable");
+
+    public static final AuthorizationAuthorizationResponse FUNCTION_NOT_SUPPORTED =
+            new AuthorizationAuthorizationResponse(Value.FUNCTION_NOT_SUPPORTED, "functionNotSupported");
+
+    public static final AuthorizationAuthorizationResponse PARTIAL_AUTHORIZATION =
+            new AuthorizationAuthorizationResponse(Value.PARTIAL_AUTHORIZATION, "partialAuthorization");
+
+    public static final AuthorizationAuthorizationResponse ACTIVITY_COUNT_LIMIT_EXCEEDED =
+            new AuthorizationAuthorizationResponse(Value.ACTIVITY_COUNT_LIMIT_EXCEEDED, "activityCountLimitExceeded");
+
+    public static final AuthorizationAuthorizationResponse ERROR =
+            new AuthorizationAuthorizationResponse(Value.ERROR, "error");
+
+    public static final AuthorizationAuthorizationResponse NO_ACTION_TAKEN =
+            new AuthorizationAuthorizationResponse(Value.NO_ACTION_TAKEN, "noActionTaken");
+
+    public static final AuthorizationAuthorizationResponse DESTINATION_CANNOT_BE_FOUND_FOR_ROUTING =
+            new AuthorizationAuthorizationResponse(
+                    Value.DESTINATION_CANNOT_BE_FOUND_FOR_ROUTING, "destinationCannotBeFoundForRouting");
+
+    public static final AuthorizationAuthorizationResponse INVALID_RESPONSE =
+            new AuthorizationAuthorizationResponse(Value.INVALID_RESPONSE, "invalidResponse");
+
+    public static final AuthorizationAuthorizationResponse UNSAFE_PIN =
+            new AuthorizationAuthorizationResponse(Value.UNSAFE_PIN, "unsafePin");
+
+    public static final AuthorizationAuthorizationResponse NO_SAVINGS_ACCOUNT =
+            new AuthorizationAuthorizationResponse(Value.NO_SAVINGS_ACCOUNT, "noSavingsAccount");
+
+    public static final AuthorizationAuthorizationResponse ISSUER_NOT_AVAILABLE =
+            new AuthorizationAuthorizationResponse(Value.ISSUER_NOT_AVAILABLE, "issuerNotAvailable");
+
+    public static final AuthorizationAuthorizationResponse PIN_CHANGE_REQUEST_DECLINED =
+            new AuthorizationAuthorizationResponse(Value.PIN_CHANGE_REQUEST_DECLINED, "pinChangeRequestDeclined");
+
+    public static final AuthorizationAuthorizationResponse TRANSACTION_NOT_ALLOWED_AT_MERCHANT =
+            new AuthorizationAuthorizationResponse(
+                    Value.TRANSACTION_NOT_ALLOWED_AT_MERCHANT, "transactionNotAllowedAtMerchant");
+
+    public static final AuthorizationAuthorizationResponse ALREADY_REVERSED =
+            new AuthorizationAuthorizationResponse(Value.ALREADY_REVERSED, "alreadyReversed");
+
+    public static final AuthorizationAuthorizationResponse NO_CREDIT_ACCOUNT =
+            new AuthorizationAuthorizationResponse(Value.NO_CREDIT_ACCOUNT, "noCreditAccount");
+
+    public static final AuthorizationAuthorizationResponse HONOR_WITH_ID =
+            new AuthorizationAuthorizationResponse(Value.HONOR_WITH_ID, "honorWithId");
+
+    public static final AuthorizationAuthorizationResponse PIN_NOT_CHANGED =
+            new AuthorizationAuthorizationResponse(Value.PIN_NOT_CHANGED, "pinNotChanged");
+
+    public static final AuthorizationAuthorizationResponse TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER =
+            new AuthorizationAuthorizationResponse(
+                    Value.TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER, "transactionNotPermittedToCardholder");
+
+    public static final AuthorizationAuthorizationResponse EXCEEDS_WITHDRAWAL_AMOUNT_LIMIT =
+            new AuthorizationAuthorizationResponse(
+                    Value.EXCEEDS_WITHDRAWAL_AMOUNT_LIMIT, "exceedsWithdrawalAmountLimit");
+
+    public static final AuthorizationAuthorizationResponse INVALID_ACCOUNT =
+            new AuthorizationAuthorizationResponse(Value.INVALID_ACCOUNT, "invalidAccount");
+
+    public static final AuthorizationAuthorizationResponse TRANSACTION_NOT_PERMITTED =
+            new AuthorizationAuthorizationResponse(Value.TRANSACTION_NOT_PERMITTED, "transactionNotPermitted");
+
+    public static final AuthorizationAuthorizationResponse PICK_UP_CARD_SPECIAL_CONDITION =
+            new AuthorizationAuthorizationResponse(Value.PICK_UP_CARD_SPECIAL_CONDITION, "pickUpCardSpecialCondition");
+
+    public static final AuthorizationAuthorizationResponse INVALID_CARD_SECURITY_CODE =
+            new AuthorizationAuthorizationResponse(Value.INVALID_CARD_SECURITY_CODE, "invalidCardSecurityCode");
+
+    public static final AuthorizationAuthorizationResponse SUCCESSFUL =
+            new AuthorizationAuthorizationResponse(Value.SUCCESSFUL, "successful");
+
+    public static final AuthorizationAuthorizationResponse REENTER_TRANSACTION =
+            new AuthorizationAuthorizationResponse(Value.REENTER_TRANSACTION, "reenterTransaction");
+
+    public static final AuthorizationAuthorizationResponse INSUFFICIENT_FUNDS =
+            new AuthorizationAuthorizationResponse(Value.INSUFFICIENT_FUNDS, "insufficientFunds");
+
     public static final AuthorizationAuthorizationResponse INVALID_ACCOUNT_NUMBER =
             new AuthorizationAuthorizationResponse(Value.INVALID_ACCOUNT_NUMBER, "invalidAccountNumber");
 
@@ -14,26 +159,23 @@ public final class AuthorizationAuthorizationResponse {
             new AuthorizationAuthorizationResponse(
                     Value.CASH_REQUEST_EXCEEDS_ISSUER_LIMIT, "cashRequestExceedsIssuerLimit");
 
-    public static final AuthorizationAuthorizationResponse CARD_TYPE_VERIFICATION_ERROR =
-            new AuthorizationAuthorizationResponse(Value.CARD_TYPE_VERIFICATION_ERROR, "cardTypeVerificationError");
-
-    public static final AuthorizationAuthorizationResponse UNABLE_TO_GO_ONLINE =
-            new AuthorizationAuthorizationResponse(Value.UNABLE_TO_GO_ONLINE, "unableToGoOnline");
-
     public static final AuthorizationAuthorizationResponse FILE_TEMPORARILY_UNAVAILABLE =
             new AuthorizationAuthorizationResponse(Value.FILE_TEMPORARILY_UNAVAILABLE, "fileTemporarilyUnavailable");
 
     public static final AuthorizationAuthorizationResponse SUSPECT_FRAUD =
             new AuthorizationAuthorizationResponse(Value.SUSPECT_FRAUD, "suspectFraud");
 
-    public static final AuthorizationAuthorizationResponse NO_FINANCIAL_IMPACT =
-            new AuthorizationAuthorizationResponse(Value.NO_FINANCIAL_IMPACT, "noFinancialImpact");
+    public static final AuthorizationAuthorizationResponse CARD_TYPE_VERIFICATION_ERROR =
+            new AuthorizationAuthorizationResponse(Value.CARD_TYPE_VERIFICATION_ERROR, "cardTypeVerificationError");
+
+    public static final AuthorizationAuthorizationResponse UNABLE_TO_GO_ONLINE =
+            new AuthorizationAuthorizationResponse(Value.UNABLE_TO_GO_ONLINE, "unableToGoOnline");
 
     public static final AuthorizationAuthorizationResponse CID_VERIFICATION_ERROR =
             new AuthorizationAuthorizationResponse(Value.CID_VERIFICATION_ERROR, "cidVerificationError");
 
-    public static final AuthorizationAuthorizationResponse UNABLE_TO_LOCATE_RECORD_IN_FILE =
-            new AuthorizationAuthorizationResponse(Value.UNABLE_TO_LOCATE_RECORD_IN_FILE, "unableToLocateRecordInFile");
+    public static final AuthorizationAuthorizationResponse NO_FINANCIAL_IMPACT =
+            new AuthorizationAuthorizationResponse(Value.NO_FINANCIAL_IMPACT, "noFinancialImpact");
 
     public static final AuthorizationAuthorizationResponse INCORRECT_PIN =
             new AuthorizationAuthorizationResponse(Value.INCORRECT_PIN, "incorrectPin");
@@ -41,6 +183,12 @@ public final class AuthorizationAuthorizationResponse {
     public static final AuthorizationAuthorizationResponse TRANSACTION_AMOUNT_EXCEEDS_APPROVAL_AMOUNT =
             new AuthorizationAuthorizationResponse(
                     Value.TRANSACTION_AMOUNT_EXCEEDS_APPROVAL_AMOUNT, "transactionAmountExceedsApprovalAmount");
+
+    public static final AuthorizationAuthorizationResponse UNABLE_TO_LOCATE_RECORD_IN_FILE =
+            new AuthorizationAuthorizationResponse(Value.UNABLE_TO_LOCATE_RECORD_IN_FILE, "unableToLocateRecordInFile");
+
+    public static final AuthorizationAuthorizationResponse APPROVE_WITH_ID =
+            new AuthorizationAuthorizationResponse(Value.APPROVE_WITH_ID, "approveWithId");
 
     public static final AuthorizationAuthorizationResponse CASH_SERVICE_NOT_AVAILABLE =
             new AuthorizationAuthorizationResponse(Value.CASH_SERVICE_NOT_AVAILABLE, "cashServiceNotAvailable");
@@ -52,24 +200,21 @@ public final class AuthorizationAuthorizationResponse {
             new AuthorizationAuthorizationResponse(
                     Value.TRANSACTION_CANNOT_BE_COMPLETED, "transactionCannotBeCompleted");
 
-    public static final AuthorizationAuthorizationResponse APPROVE_WITH_ID =
-            new AuthorizationAuthorizationResponse(Value.APPROVE_WITH_ID, "approveWithId");
+    public static final AuthorizationAuthorizationResponse TRANSACTION_NOT_ALLOWED_AT_TERMINAL =
+            new AuthorizationAuthorizationResponse(
+                    Value.TRANSACTION_NOT_ALLOWED_AT_TERMINAL, "transactionNotAllowedAtTerminal");
 
     public static final AuthorizationAuthorizationResponse NO_SUCH_ISSUER =
             new AuthorizationAuthorizationResponse(Value.NO_SUCH_ISSUER, "noSuchIssuer");
 
-    public static final AuthorizationAuthorizationResponse TRANSACTION_NOT_ALLOWED_AT_TERMINAL =
-            new AuthorizationAuthorizationResponse(
-                    Value.TRANSACTION_NOT_ALLOWED_AT_TERMINAL, "transactionNotAllowedAtTerminal");
+    public static final AuthorizationAuthorizationResponse CANNOT_VERIFY_PIN =
+            new AuthorizationAuthorizationResponse(Value.CANNOT_VERIFY_PIN, "cannotVerifyPin");
 
     public static final AuthorizationAuthorizationResponse EXPIRED_CARD =
             new AuthorizationAuthorizationResponse(Value.EXPIRED_CARD, "expiredCard");
 
     public static final AuthorizationAuthorizationResponse FORMAT_ERROR =
             new AuthorizationAuthorizationResponse(Value.FORMAT_ERROR, "formatError");
-
-    public static final AuthorizationAuthorizationResponse CANNOT_VERIFY_PIN =
-            new AuthorizationAuthorizationResponse(Value.CANNOT_VERIFY_PIN, "cannotVerifyPin");
 
     public static final AuthorizationAuthorizationResponse REFER_TO_CARD_ISSUER =
             new AuthorizationAuthorizationResponse(Value.REFER_TO_CARD_ISSUER, "referToCardIssuer");
@@ -92,6 +237,9 @@ public final class AuthorizationAuthorizationResponse {
     public static final AuthorizationAuthorizationResponse CARD_AUTHENTICATION_FAILED =
             new AuthorizationAuthorizationResponse(Value.CARD_AUTHENTICATION_FAILED, "cardAuthenticationFailed");
 
+    public static final AuthorizationAuthorizationResponse INVALID_TRANSACTION =
+            new AuthorizationAuthorizationResponse(Value.INVALID_TRANSACTION, "invalidTransaction");
+
     public static final AuthorizationAuthorizationResponse SCHEDULED_TRANSACTIONSTOPPED_BY_CARDHOLDER =
             new AuthorizationAuthorizationResponse(
                     Value.SCHEDULED_TRANSACTIONSTOPPED_BY_CARDHOLDER, "scheduledTransactionstoppedByCardholder");
@@ -108,9 +256,6 @@ public final class AuthorizationAuthorizationResponse {
     public static final AuthorizationAuthorizationResponse SYSTEM_MALFUNCTION =
             new AuthorizationAuthorizationResponse(Value.SYSTEM_MALFUNCTION, "systemMalfunction");
 
-    public static final AuthorizationAuthorizationResponse INVALID_TRANSACTION =
-            new AuthorizationAuthorizationResponse(Value.INVALID_TRANSACTION, "invalidTransaction");
-
     public static final AuthorizationAuthorizationResponse DO_NOT_HONOR =
             new AuthorizationAuthorizationResponse(Value.DO_NOT_HONOR, "doNotHonor");
 
@@ -123,15 +268,15 @@ public final class AuthorizationAuthorizationResponse {
     public static final AuthorizationAuthorizationResponse ISSUER_TIMEOUT =
             new AuthorizationAuthorizationResponse(Value.ISSUER_TIMEOUT, "issuerTimeout");
 
-    public static final AuthorizationAuthorizationResponse INVALID_AUTHORIZATION_LIFE_CYCLE =
-            new AuthorizationAuthorizationResponse(
-                    Value.INVALID_AUTHORIZATION_LIFE_CYCLE, "invalidAuthorizationLifeCycle");
-
     public static final AuthorizationAuthorizationResponse PARTIAL_APPROVAL =
             new AuthorizationAuthorizationResponse(Value.PARTIAL_APPROVAL, "partialApproval");
 
     public static final AuthorizationAuthorizationResponse DENY_CLOSED_MERCHANT =
             new AuthorizationAuthorizationResponse(Value.DENY_CLOSED_MERCHANT, "denyClosedMerchant");
+
+    public static final AuthorizationAuthorizationResponse INVALID_AUTHORIZATION_LIFE_CYCLE =
+            new AuthorizationAuthorizationResponse(
+                    Value.INVALID_AUTHORIZATION_LIFE_CYCLE, "invalidAuthorizationLifeCycle");
 
     public static final AuthorizationAuthorizationResponse UNABLE_TO_VERIFY_PIN =
             new AuthorizationAuthorizationResponse(Value.UNABLE_TO_VERIFY_PIN, "unableToVerifyPin");
@@ -147,151 +292,6 @@ public final class AuthorizationAuthorizationResponse {
 
     public static final AuthorizationAuthorizationResponse INVALID_CURRENCY_CODE =
             new AuthorizationAuthorizationResponse(Value.INVALID_CURRENCY_CODE, "invalidCurrencyCode");
-
-    public static final AuthorizationAuthorizationResponse PICK_UP_CARD =
-            new AuthorizationAuthorizationResponse(Value.PICK_UP_CARD, "pickUpCard");
-
-    public static final AuthorizationAuthorizationResponse INVALID_BILLER_INFORMATION =
-            new AuthorizationAuthorizationResponse(Value.INVALID_BILLER_INFORMATION, "invalidBillerInformation");
-
-    public static final AuthorizationAuthorizationResponse INVALID_MERCHANT =
-            new AuthorizationAuthorizationResponse(Value.INVALID_MERCHANT, "invalidMerchant");
-
-    public static final AuthorizationAuthorizationResponse APPROVE_VIP =
-            new AuthorizationAuthorizationResponse(Value.APPROVE_VIP, "approveVip");
-
-    public static final AuthorizationAuthorizationResponse DUPLICATE_TRANSMISSION_DETECTED =
-            new AuthorizationAuthorizationResponse(
-                    Value.DUPLICATE_TRANSMISSION_DETECTED, "duplicateTransmissionDetected");
-
-    public static final AuthorizationAuthorizationResponse UNKNOWN =
-            new AuthorizationAuthorizationResponse(Value.UNKNOWN, "unknown");
-
-    public static final AuthorizationAuthorizationResponse REVERSAL_DATA_INCONSISTENT =
-            new AuthorizationAuthorizationResponse(Value.REVERSAL_DATA_INCONSISTENT, "reversalDataInconsistent");
-
-    public static final AuthorizationAuthorizationResponse DENY =
-            new AuthorizationAuthorizationResponse(Value.DENY, "deny");
-
-    public static final AuthorizationAuthorizationResponse INCORRECT_CVV =
-            new AuthorizationAuthorizationResponse(Value.INCORRECT_CVV, "incorrectCvv");
-
-    public static final AuthorizationAuthorizationResponse CONTACT_CARD_ISSUER =
-            new AuthorizationAuthorizationResponse(Value.CONTACT_CARD_ISSUER, "contactCardIssuer");
-
-    public static final AuthorizationAuthorizationResponse REFER_TO_CARD_ISSUER_SPECIAL_CONDITION =
-            new AuthorizationAuthorizationResponse(
-                    Value.REFER_TO_CARD_ISSUER_SPECIAL_CONDITION, "referToCardIssuerSpecialCondition");
-
-    public static final AuthorizationAuthorizationResponse REVERSAL =
-            new AuthorizationAuthorizationResponse(Value.REVERSAL, "reversal");
-
-    public static final AuthorizationAuthorizationResponse INELIGIBLE_FOR_RESUBMISSION =
-            new AuthorizationAuthorizationResponse(Value.INELIGIBLE_FOR_RESUBMISSION, "ineligibleForResubmission");
-
-    public static final AuthorizationAuthorizationResponse NO_CHECKING_ACCOUNT =
-            new AuthorizationAuthorizationResponse(Value.NO_CHECKING_ACCOUNT, "noCheckingAccount");
-
-    public static final AuthorizationAuthorizationResponse DENY_ACCOUNT_CANCELED =
-            new AuthorizationAuthorizationResponse(Value.DENY_ACCOUNT_CANCELED, "denyAccountCanceled");
-
-    public static final AuthorizationAuthorizationResponse DENY_NEW_CARD_ISSUED =
-            new AuthorizationAuthorizationResponse(Value.DENY_NEW_CARD_ISSUED, "denyNewCardIssued");
-
-    public static final AuthorizationAuthorizationResponse ISSUER_UNAVAILABLE =
-            new AuthorizationAuthorizationResponse(Value.ISSUER_UNAVAILABLE, "issuerUnavailable");
-
-    public static final AuthorizationAuthorizationResponse REVOKE_ALL_AUTHORIZATIONS_ORDER =
-            new AuthorizationAuthorizationResponse(
-                    Value.REVOKE_ALL_AUTHORIZATIONS_ORDER, "revokeAllAuthorizationsOrder");
-
-    public static final AuthorizationAuthorizationResponse CRYPTOGRAPHIC_FAILURE =
-            new AuthorizationAuthorizationResponse(Value.CRYPTOGRAPHIC_FAILURE, "cryptographicFailure");
-
-    public static final AuthorizationAuthorizationResponse DENY_PICK_UP_CARD =
-            new AuthorizationAuthorizationResponse(Value.DENY_PICK_UP_CARD, "denyPickUpCard");
-
-    public static final AuthorizationAuthorizationResponse PIN_ENTRY_TRIES_EXCEEDED =
-            new AuthorizationAuthorizationResponse(Value.PIN_ENTRY_TRIES_EXCEEDED, "pinEntryTriesExceeded");
-
-    public static final AuthorizationAuthorizationResponse PARTIAL_AUTHORIZATION =
-            new AuthorizationAuthorizationResponse(Value.PARTIAL_AUTHORIZATION, "partialAuthorization");
-
-    public static final AuthorizationAuthorizationResponse ACTIVITY_COUNT_LIMIT_EXCEEDED =
-            new AuthorizationAuthorizationResponse(Value.ACTIVITY_COUNT_LIMIT_EXCEEDED, "activityCountLimitExceeded");
-
-    public static final AuthorizationAuthorizationResponse ERROR =
-            new AuthorizationAuthorizationResponse(Value.ERROR, "error");
-
-    public static final AuthorizationAuthorizationResponse FUNCTION_NOT_SUPPORTED =
-            new AuthorizationAuthorizationResponse(Value.FUNCTION_NOT_SUPPORTED, "functionNotSupported");
-
-    public static final AuthorizationAuthorizationResponse DESTINATION_CANNOT_BE_FOUND_FOR_ROUTING =
-            new AuthorizationAuthorizationResponse(
-                    Value.DESTINATION_CANNOT_BE_FOUND_FOR_ROUTING, "destinationCannotBeFoundForRouting");
-
-    public static final AuthorizationAuthorizationResponse INVALID_RESPONSE =
-            new AuthorizationAuthorizationResponse(Value.INVALID_RESPONSE, "invalidResponse");
-
-    public static final AuthorizationAuthorizationResponse UNSAFE_PIN =
-            new AuthorizationAuthorizationResponse(Value.UNSAFE_PIN, "unsafePin");
-
-    public static final AuthorizationAuthorizationResponse NO_ACTION_TAKEN =
-            new AuthorizationAuthorizationResponse(Value.NO_ACTION_TAKEN, "noActionTaken");
-
-    public static final AuthorizationAuthorizationResponse NO_SAVINGS_ACCOUNT =
-            new AuthorizationAuthorizationResponse(Value.NO_SAVINGS_ACCOUNT, "noSavingsAccount");
-
-    public static final AuthorizationAuthorizationResponse PIN_CHANGE_REQUEST_DECLINED =
-            new AuthorizationAuthorizationResponse(Value.PIN_CHANGE_REQUEST_DECLINED, "pinChangeRequestDeclined");
-
-    public static final AuthorizationAuthorizationResponse TRANSACTION_NOT_ALLOWED_AT_MERCHANT =
-            new AuthorizationAuthorizationResponse(
-                    Value.TRANSACTION_NOT_ALLOWED_AT_MERCHANT, "transactionNotAllowedAtMerchant");
-
-    public static final AuthorizationAuthorizationResponse ISSUER_NOT_AVAILABLE =
-            new AuthorizationAuthorizationResponse(Value.ISSUER_NOT_AVAILABLE, "issuerNotAvailable");
-
-    public static final AuthorizationAuthorizationResponse HONOR_WITH_ID =
-            new AuthorizationAuthorizationResponse(Value.HONOR_WITH_ID, "honorWithId");
-
-    public static final AuthorizationAuthorizationResponse PIN_NOT_CHANGED =
-            new AuthorizationAuthorizationResponse(Value.PIN_NOT_CHANGED, "pinNotChanged");
-
-    public static final AuthorizationAuthorizationResponse ALREADY_REVERSED =
-            new AuthorizationAuthorizationResponse(Value.ALREADY_REVERSED, "alreadyReversed");
-
-    public static final AuthorizationAuthorizationResponse NO_CREDIT_ACCOUNT =
-            new AuthorizationAuthorizationResponse(Value.NO_CREDIT_ACCOUNT, "noCreditAccount");
-
-    public static final AuthorizationAuthorizationResponse TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER =
-            new AuthorizationAuthorizationResponse(
-                    Value.TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER, "transactionNotPermittedToCardholder");
-
-    public static final AuthorizationAuthorizationResponse TRANSACTION_NOT_PERMITTED =
-            new AuthorizationAuthorizationResponse(Value.TRANSACTION_NOT_PERMITTED, "transactionNotPermitted");
-
-    public static final AuthorizationAuthorizationResponse EXCEEDS_WITHDRAWAL_AMOUNT_LIMIT =
-            new AuthorizationAuthorizationResponse(
-                    Value.EXCEEDS_WITHDRAWAL_AMOUNT_LIMIT, "exceedsWithdrawalAmountLimit");
-
-    public static final AuthorizationAuthorizationResponse INVALID_ACCOUNT =
-            new AuthorizationAuthorizationResponse(Value.INVALID_ACCOUNT, "invalidAccount");
-
-    public static final AuthorizationAuthorizationResponse SUCCESSFUL =
-            new AuthorizationAuthorizationResponse(Value.SUCCESSFUL, "successful");
-
-    public static final AuthorizationAuthorizationResponse PICK_UP_CARD_SPECIAL_CONDITION =
-            new AuthorizationAuthorizationResponse(Value.PICK_UP_CARD_SPECIAL_CONDITION, "pickUpCardSpecialCondition");
-
-    public static final AuthorizationAuthorizationResponse INVALID_CARD_SECURITY_CODE =
-            new AuthorizationAuthorizationResponse(Value.INVALID_CARD_SECURITY_CODE, "invalidCardSecurityCode");
-
-    public static final AuthorizationAuthorizationResponse REENTER_TRANSACTION =
-            new AuthorizationAuthorizationResponse(Value.REENTER_TRANSACTION, "reenterTransaction");
-
-    public static final AuthorizationAuthorizationResponse INSUFFICIENT_FUNDS =
-            new AuthorizationAuthorizationResponse(Value.INSUFFICIENT_FUNDS, "insufficientFunds");
 
     private final Value value;
 
@@ -326,46 +326,138 @@ public final class AuthorizationAuthorizationResponse {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case PICK_UP_CARD:
+                return visitor.visitPickUpCard();
+            case UNKNOWN:
+                return visitor.visitUnknown();
+            case INVALID_BILLER_INFORMATION:
+                return visitor.visitInvalidBillerInformation();
+            case INVALID_MERCHANT:
+                return visitor.visitInvalidMerchant();
+            case APPROVE_VIP:
+                return visitor.visitApproveVip();
+            case DUPLICATE_TRANSMISSION_DETECTED:
+                return visitor.visitDuplicateTransmissionDetected();
+            case REVERSAL_DATA_INCONSISTENT:
+                return visitor.visitReversalDataInconsistent();
+            case INCORRECT_CVV:
+                return visitor.visitIncorrectCvv();
+            case CONTACT_CARD_ISSUER:
+                return visitor.visitContactCardIssuer();
+            case DENY:
+                return visitor.visitDeny();
+            case INELIGIBLE_FOR_RESUBMISSION:
+                return visitor.visitIneligibleForResubmission();
+            case NO_CHECKING_ACCOUNT:
+                return visitor.visitNoCheckingAccount();
+            case DENY_ACCOUNT_CANCELED:
+                return visitor.visitDenyAccountCanceled();
+            case REFER_TO_CARD_ISSUER_SPECIAL_CONDITION:
+                return visitor.visitReferToCardIssuerSpecialCondition();
+            case REVERSAL:
+                return visitor.visitReversal();
+            case REVOKE_ALL_AUTHORIZATIONS_ORDER:
+                return visitor.visitRevokeAllAuthorizationsOrder();
+            case CRYPTOGRAPHIC_FAILURE:
+                return visitor.visitCryptographicFailure();
+            case DENY_PICK_UP_CARD:
+                return visitor.visitDenyPickUpCard();
+            case PIN_ENTRY_TRIES_EXCEEDED:
+                return visitor.visitPinEntryTriesExceeded();
+            case DENY_NEW_CARD_ISSUED:
+                return visitor.visitDenyNewCardIssued();
+            case ISSUER_UNAVAILABLE:
+                return visitor.visitIssuerUnavailable();
+            case FUNCTION_NOT_SUPPORTED:
+                return visitor.visitFunctionNotSupported();
+            case PARTIAL_AUTHORIZATION:
+                return visitor.visitPartialAuthorization();
+            case ACTIVITY_COUNT_LIMIT_EXCEEDED:
+                return visitor.visitActivityCountLimitExceeded();
+            case ERROR:
+                return visitor.visitError();
+            case NO_ACTION_TAKEN:
+                return visitor.visitNoActionTaken();
+            case DESTINATION_CANNOT_BE_FOUND_FOR_ROUTING:
+                return visitor.visitDestinationCannotBeFoundForRouting();
+            case INVALID_RESPONSE:
+                return visitor.visitInvalidResponse();
+            case UNSAFE_PIN:
+                return visitor.visitUnsafePin();
+            case NO_SAVINGS_ACCOUNT:
+                return visitor.visitNoSavingsAccount();
+            case ISSUER_NOT_AVAILABLE:
+                return visitor.visitIssuerNotAvailable();
+            case PIN_CHANGE_REQUEST_DECLINED:
+                return visitor.visitPinChangeRequestDeclined();
+            case TRANSACTION_NOT_ALLOWED_AT_MERCHANT:
+                return visitor.visitTransactionNotAllowedAtMerchant();
+            case ALREADY_REVERSED:
+                return visitor.visitAlreadyReversed();
+            case NO_CREDIT_ACCOUNT:
+                return visitor.visitNoCreditAccount();
+            case HONOR_WITH_ID:
+                return visitor.visitHonorWithId();
+            case PIN_NOT_CHANGED:
+                return visitor.visitPinNotChanged();
+            case TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER:
+                return visitor.visitTransactionNotPermittedToCardholder();
+            case EXCEEDS_WITHDRAWAL_AMOUNT_LIMIT:
+                return visitor.visitExceedsWithdrawalAmountLimit();
+            case INVALID_ACCOUNT:
+                return visitor.visitInvalidAccount();
+            case TRANSACTION_NOT_PERMITTED:
+                return visitor.visitTransactionNotPermitted();
+            case PICK_UP_CARD_SPECIAL_CONDITION:
+                return visitor.visitPickUpCardSpecialCondition();
+            case INVALID_CARD_SECURITY_CODE:
+                return visitor.visitInvalidCardSecurityCode();
+            case SUCCESSFUL:
+                return visitor.visitSuccessful();
+            case REENTER_TRANSACTION:
+                return visitor.visitReenterTransaction();
+            case INSUFFICIENT_FUNDS:
+                return visitor.visitInsufficientFunds();
             case INVALID_ACCOUNT_NUMBER:
                 return visitor.visitInvalidAccountNumber();
             case CASH_REQUEST_EXCEEDS_ISSUER_LIMIT:
                 return visitor.visitCashRequestExceedsIssuerLimit();
-            case CARD_TYPE_VERIFICATION_ERROR:
-                return visitor.visitCardTypeVerificationError();
-            case UNABLE_TO_GO_ONLINE:
-                return visitor.visitUnableToGoOnline();
             case FILE_TEMPORARILY_UNAVAILABLE:
                 return visitor.visitFileTemporarilyUnavailable();
             case SUSPECT_FRAUD:
                 return visitor.visitSuspectFraud();
-            case NO_FINANCIAL_IMPACT:
-                return visitor.visitNoFinancialImpact();
+            case CARD_TYPE_VERIFICATION_ERROR:
+                return visitor.visitCardTypeVerificationError();
+            case UNABLE_TO_GO_ONLINE:
+                return visitor.visitUnableToGoOnline();
             case CID_VERIFICATION_ERROR:
                 return visitor.visitCidVerificationError();
-            case UNABLE_TO_LOCATE_RECORD_IN_FILE:
-                return visitor.visitUnableToLocateRecordInFile();
+            case NO_FINANCIAL_IMPACT:
+                return visitor.visitNoFinancialImpact();
             case INCORRECT_PIN:
                 return visitor.visitIncorrectPin();
             case TRANSACTION_AMOUNT_EXCEEDS_APPROVAL_AMOUNT:
                 return visitor.visitTransactionAmountExceedsApprovalAmount();
+            case UNABLE_TO_LOCATE_RECORD_IN_FILE:
+                return visitor.visitUnableToLocateRecordInFile();
+            case APPROVE_WITH_ID:
+                return visitor.visitApproveWithId();
             case CASH_SERVICE_NOT_AVAILABLE:
                 return visitor.visitCashServiceNotAvailable();
             case FORCE_STIP:
                 return visitor.visitForceStip();
             case TRANSACTION_CANNOT_BE_COMPLETED:
                 return visitor.visitTransactionCannotBeCompleted();
-            case APPROVE_WITH_ID:
-                return visitor.visitApproveWithId();
-            case NO_SUCH_ISSUER:
-                return visitor.visitNoSuchIssuer();
             case TRANSACTION_NOT_ALLOWED_AT_TERMINAL:
                 return visitor.visitTransactionNotAllowedAtTerminal();
+            case NO_SUCH_ISSUER:
+                return visitor.visitNoSuchIssuer();
+            case CANNOT_VERIFY_PIN:
+                return visitor.visitCannotVerifyPin();
             case EXPIRED_CARD:
                 return visitor.visitExpiredCard();
             case FORMAT_ERROR:
                 return visitor.visitFormatError();
-            case CANNOT_VERIFY_PIN:
-                return visitor.visitCannotVerifyPin();
             case REFER_TO_CARD_ISSUER:
                 return visitor.visitReferToCardIssuer();
             case DECLINE_CVV_2_FAILURE:
@@ -380,6 +472,8 @@ public final class AuthorizationAuthorizationResponse {
                 return visitor.visitSecurityViolation();
             case CARD_AUTHENTICATION_FAILED:
                 return visitor.visitCardAuthenticationFailed();
+            case INVALID_TRANSACTION:
+                return visitor.visitInvalidTransaction();
             case SCHEDULED_TRANSACTIONSTOPPED_BY_CARDHOLDER:
                 return visitor.visitScheduledTransactionstoppedByCardholder();
             case SURCHARGE_AMOUNT_NOT_PERMITTED:
@@ -390,8 +484,6 @@ public final class AuthorizationAuthorizationResponse {
                 return visitor.visitNoCardRecord();
             case SYSTEM_MALFUNCTION:
                 return visitor.visitSystemMalfunction();
-            case INVALID_TRANSACTION:
-                return visitor.visitInvalidTransaction();
             case DO_NOT_HONOR:
                 return visitor.visitDoNotHonor();
             case FORWARD_TO_ISSUER:
@@ -400,12 +492,12 @@ public final class AuthorizationAuthorizationResponse {
                 return visitor.visitInvalidAmount();
             case ISSUER_TIMEOUT:
                 return visitor.visitIssuerTimeout();
-            case INVALID_AUTHORIZATION_LIFE_CYCLE:
-                return visitor.visitInvalidAuthorizationLifeCycle();
             case PARTIAL_APPROVAL:
                 return visitor.visitPartialApproval();
             case DENY_CLOSED_MERCHANT:
                 return visitor.visitDenyClosedMerchant();
+            case INVALID_AUTHORIZATION_LIFE_CYCLE:
+                return visitor.visitInvalidAuthorizationLifeCycle();
             case UNABLE_TO_VERIFY_PIN:
                 return visitor.visitUnableToVerifyPin();
             case UNACCEPTABLE_PIN:
@@ -416,98 +508,6 @@ public final class AuthorizationAuthorizationResponse {
                 return visitor.visitPinCryptographicErrorFound();
             case INVALID_CURRENCY_CODE:
                 return visitor.visitInvalidCurrencyCode();
-            case PICK_UP_CARD:
-                return visitor.visitPickUpCard();
-            case INVALID_BILLER_INFORMATION:
-                return visitor.visitInvalidBillerInformation();
-            case INVALID_MERCHANT:
-                return visitor.visitInvalidMerchant();
-            case APPROVE_VIP:
-                return visitor.visitApproveVip();
-            case DUPLICATE_TRANSMISSION_DETECTED:
-                return visitor.visitDuplicateTransmissionDetected();
-            case UNKNOWN:
-                return visitor.visitUnknown();
-            case REVERSAL_DATA_INCONSISTENT:
-                return visitor.visitReversalDataInconsistent();
-            case DENY:
-                return visitor.visitDeny();
-            case INCORRECT_CVV:
-                return visitor.visitIncorrectCvv();
-            case CONTACT_CARD_ISSUER:
-                return visitor.visitContactCardIssuer();
-            case REFER_TO_CARD_ISSUER_SPECIAL_CONDITION:
-                return visitor.visitReferToCardIssuerSpecialCondition();
-            case REVERSAL:
-                return visitor.visitReversal();
-            case INELIGIBLE_FOR_RESUBMISSION:
-                return visitor.visitIneligibleForResubmission();
-            case NO_CHECKING_ACCOUNT:
-                return visitor.visitNoCheckingAccount();
-            case DENY_ACCOUNT_CANCELED:
-                return visitor.visitDenyAccountCanceled();
-            case DENY_NEW_CARD_ISSUED:
-                return visitor.visitDenyNewCardIssued();
-            case ISSUER_UNAVAILABLE:
-                return visitor.visitIssuerUnavailable();
-            case REVOKE_ALL_AUTHORIZATIONS_ORDER:
-                return visitor.visitRevokeAllAuthorizationsOrder();
-            case CRYPTOGRAPHIC_FAILURE:
-                return visitor.visitCryptographicFailure();
-            case DENY_PICK_UP_CARD:
-                return visitor.visitDenyPickUpCard();
-            case PIN_ENTRY_TRIES_EXCEEDED:
-                return visitor.visitPinEntryTriesExceeded();
-            case PARTIAL_AUTHORIZATION:
-                return visitor.visitPartialAuthorization();
-            case ACTIVITY_COUNT_LIMIT_EXCEEDED:
-                return visitor.visitActivityCountLimitExceeded();
-            case ERROR:
-                return visitor.visitError();
-            case FUNCTION_NOT_SUPPORTED:
-                return visitor.visitFunctionNotSupported();
-            case DESTINATION_CANNOT_BE_FOUND_FOR_ROUTING:
-                return visitor.visitDestinationCannotBeFoundForRouting();
-            case INVALID_RESPONSE:
-                return visitor.visitInvalidResponse();
-            case UNSAFE_PIN:
-                return visitor.visitUnsafePin();
-            case NO_ACTION_TAKEN:
-                return visitor.visitNoActionTaken();
-            case NO_SAVINGS_ACCOUNT:
-                return visitor.visitNoSavingsAccount();
-            case PIN_CHANGE_REQUEST_DECLINED:
-                return visitor.visitPinChangeRequestDeclined();
-            case TRANSACTION_NOT_ALLOWED_AT_MERCHANT:
-                return visitor.visitTransactionNotAllowedAtMerchant();
-            case ISSUER_NOT_AVAILABLE:
-                return visitor.visitIssuerNotAvailable();
-            case HONOR_WITH_ID:
-                return visitor.visitHonorWithId();
-            case PIN_NOT_CHANGED:
-                return visitor.visitPinNotChanged();
-            case ALREADY_REVERSED:
-                return visitor.visitAlreadyReversed();
-            case NO_CREDIT_ACCOUNT:
-                return visitor.visitNoCreditAccount();
-            case TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER:
-                return visitor.visitTransactionNotPermittedToCardholder();
-            case TRANSACTION_NOT_PERMITTED:
-                return visitor.visitTransactionNotPermitted();
-            case EXCEEDS_WITHDRAWAL_AMOUNT_LIMIT:
-                return visitor.visitExceedsWithdrawalAmountLimit();
-            case INVALID_ACCOUNT:
-                return visitor.visitInvalidAccount();
-            case SUCCESSFUL:
-                return visitor.visitSuccessful();
-            case PICK_UP_CARD_SPECIAL_CONDITION:
-                return visitor.visitPickUpCardSpecialCondition();
-            case INVALID_CARD_SECURITY_CODE:
-                return visitor.visitInvalidCardSecurityCode();
-            case REENTER_TRANSACTION:
-                return visitor.visitReenterTransaction();
-            case INSUFFICIENT_FUNDS:
-                return visitor.visitInsufficientFunds();
             case _UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -517,46 +517,138 @@ public final class AuthorizationAuthorizationResponse {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static AuthorizationAuthorizationResponse valueOf(String value) {
         switch (value) {
+            case "pickUpCard":
+                return PICK_UP_CARD;
+            case "unknown":
+                return UNKNOWN;
+            case "invalidBillerInformation":
+                return INVALID_BILLER_INFORMATION;
+            case "invalidMerchant":
+                return INVALID_MERCHANT;
+            case "approveVip":
+                return APPROVE_VIP;
+            case "duplicateTransmissionDetected":
+                return DUPLICATE_TRANSMISSION_DETECTED;
+            case "reversalDataInconsistent":
+                return REVERSAL_DATA_INCONSISTENT;
+            case "incorrectCvv":
+                return INCORRECT_CVV;
+            case "contactCardIssuer":
+                return CONTACT_CARD_ISSUER;
+            case "deny":
+                return DENY;
+            case "ineligibleForResubmission":
+                return INELIGIBLE_FOR_RESUBMISSION;
+            case "noCheckingAccount":
+                return NO_CHECKING_ACCOUNT;
+            case "denyAccountCanceled":
+                return DENY_ACCOUNT_CANCELED;
+            case "referToCardIssuerSpecialCondition":
+                return REFER_TO_CARD_ISSUER_SPECIAL_CONDITION;
+            case "reversal":
+                return REVERSAL;
+            case "revokeAllAuthorizationsOrder":
+                return REVOKE_ALL_AUTHORIZATIONS_ORDER;
+            case "cryptographicFailure":
+                return CRYPTOGRAPHIC_FAILURE;
+            case "denyPickUpCard":
+                return DENY_PICK_UP_CARD;
+            case "pinEntryTriesExceeded":
+                return PIN_ENTRY_TRIES_EXCEEDED;
+            case "denyNewCardIssued":
+                return DENY_NEW_CARD_ISSUED;
+            case "issuerUnavailable":
+                return ISSUER_UNAVAILABLE;
+            case "functionNotSupported":
+                return FUNCTION_NOT_SUPPORTED;
+            case "partialAuthorization":
+                return PARTIAL_AUTHORIZATION;
+            case "activityCountLimitExceeded":
+                return ACTIVITY_COUNT_LIMIT_EXCEEDED;
+            case "error":
+                return ERROR;
+            case "noActionTaken":
+                return NO_ACTION_TAKEN;
+            case "destinationCannotBeFoundForRouting":
+                return DESTINATION_CANNOT_BE_FOUND_FOR_ROUTING;
+            case "invalidResponse":
+                return INVALID_RESPONSE;
+            case "unsafePin":
+                return UNSAFE_PIN;
+            case "noSavingsAccount":
+                return NO_SAVINGS_ACCOUNT;
+            case "issuerNotAvailable":
+                return ISSUER_NOT_AVAILABLE;
+            case "pinChangeRequestDeclined":
+                return PIN_CHANGE_REQUEST_DECLINED;
+            case "transactionNotAllowedAtMerchant":
+                return TRANSACTION_NOT_ALLOWED_AT_MERCHANT;
+            case "alreadyReversed":
+                return ALREADY_REVERSED;
+            case "noCreditAccount":
+                return NO_CREDIT_ACCOUNT;
+            case "honorWithId":
+                return HONOR_WITH_ID;
+            case "pinNotChanged":
+                return PIN_NOT_CHANGED;
+            case "transactionNotPermittedToCardholder":
+                return TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER;
+            case "exceedsWithdrawalAmountLimit":
+                return EXCEEDS_WITHDRAWAL_AMOUNT_LIMIT;
+            case "invalidAccount":
+                return INVALID_ACCOUNT;
+            case "transactionNotPermitted":
+                return TRANSACTION_NOT_PERMITTED;
+            case "pickUpCardSpecialCondition":
+                return PICK_UP_CARD_SPECIAL_CONDITION;
+            case "invalidCardSecurityCode":
+                return INVALID_CARD_SECURITY_CODE;
+            case "successful":
+                return SUCCESSFUL;
+            case "reenterTransaction":
+                return REENTER_TRANSACTION;
+            case "insufficientFunds":
+                return INSUFFICIENT_FUNDS;
             case "invalidAccountNumber":
                 return INVALID_ACCOUNT_NUMBER;
             case "cashRequestExceedsIssuerLimit":
                 return CASH_REQUEST_EXCEEDS_ISSUER_LIMIT;
-            case "cardTypeVerificationError":
-                return CARD_TYPE_VERIFICATION_ERROR;
-            case "unableToGoOnline":
-                return UNABLE_TO_GO_ONLINE;
             case "fileTemporarilyUnavailable":
                 return FILE_TEMPORARILY_UNAVAILABLE;
             case "suspectFraud":
                 return SUSPECT_FRAUD;
-            case "noFinancialImpact":
-                return NO_FINANCIAL_IMPACT;
+            case "cardTypeVerificationError":
+                return CARD_TYPE_VERIFICATION_ERROR;
+            case "unableToGoOnline":
+                return UNABLE_TO_GO_ONLINE;
             case "cidVerificationError":
                 return CID_VERIFICATION_ERROR;
-            case "unableToLocateRecordInFile":
-                return UNABLE_TO_LOCATE_RECORD_IN_FILE;
+            case "noFinancialImpact":
+                return NO_FINANCIAL_IMPACT;
             case "incorrectPin":
                 return INCORRECT_PIN;
             case "transactionAmountExceedsApprovalAmount":
                 return TRANSACTION_AMOUNT_EXCEEDS_APPROVAL_AMOUNT;
+            case "unableToLocateRecordInFile":
+                return UNABLE_TO_LOCATE_RECORD_IN_FILE;
+            case "approveWithId":
+                return APPROVE_WITH_ID;
             case "cashServiceNotAvailable":
                 return CASH_SERVICE_NOT_AVAILABLE;
             case "forceStip":
                 return FORCE_STIP;
             case "transactionCannotBeCompleted":
                 return TRANSACTION_CANNOT_BE_COMPLETED;
-            case "approveWithId":
-                return APPROVE_WITH_ID;
-            case "noSuchIssuer":
-                return NO_SUCH_ISSUER;
             case "transactionNotAllowedAtTerminal":
                 return TRANSACTION_NOT_ALLOWED_AT_TERMINAL;
+            case "noSuchIssuer":
+                return NO_SUCH_ISSUER;
+            case "cannotVerifyPin":
+                return CANNOT_VERIFY_PIN;
             case "expiredCard":
                 return EXPIRED_CARD;
             case "formatError":
                 return FORMAT_ERROR;
-            case "cannotVerifyPin":
-                return CANNOT_VERIFY_PIN;
             case "referToCardIssuer":
                 return REFER_TO_CARD_ISSUER;
             case "declineCvv2Failure":
@@ -571,6 +663,8 @@ public final class AuthorizationAuthorizationResponse {
                 return SECURITY_VIOLATION;
             case "cardAuthenticationFailed":
                 return CARD_AUTHENTICATION_FAILED;
+            case "invalidTransaction":
+                return INVALID_TRANSACTION;
             case "scheduledTransactionstoppedByCardholder":
                 return SCHEDULED_TRANSACTIONSTOPPED_BY_CARDHOLDER;
             case "surchargeAmountNotPermitted":
@@ -581,8 +675,6 @@ public final class AuthorizationAuthorizationResponse {
                 return NO_CARD_RECORD;
             case "systemMalfunction":
                 return SYSTEM_MALFUNCTION;
-            case "invalidTransaction":
-                return INVALID_TRANSACTION;
             case "doNotHonor":
                 return DO_NOT_HONOR;
             case "forwardToIssuer":
@@ -591,12 +683,12 @@ public final class AuthorizationAuthorizationResponse {
                 return INVALID_AMOUNT;
             case "issuerTimeout":
                 return ISSUER_TIMEOUT;
-            case "invalidAuthorizationLifeCycle":
-                return INVALID_AUTHORIZATION_LIFE_CYCLE;
             case "partialApproval":
                 return PARTIAL_APPROVAL;
             case "denyClosedMerchant":
                 return DENY_CLOSED_MERCHANT;
+            case "invalidAuthorizationLifeCycle":
+                return INVALID_AUTHORIZATION_LIFE_CYCLE;
             case "unableToVerifyPin":
                 return UNABLE_TO_VERIFY_PIN;
             case "unacceptablePin":
@@ -607,98 +699,6 @@ public final class AuthorizationAuthorizationResponse {
                 return PIN_CRYPTOGRAPHIC_ERROR_FOUND;
             case "invalidCurrencyCode":
                 return INVALID_CURRENCY_CODE;
-            case "pickUpCard":
-                return PICK_UP_CARD;
-            case "invalidBillerInformation":
-                return INVALID_BILLER_INFORMATION;
-            case "invalidMerchant":
-                return INVALID_MERCHANT;
-            case "approveVip":
-                return APPROVE_VIP;
-            case "duplicateTransmissionDetected":
-                return DUPLICATE_TRANSMISSION_DETECTED;
-            case "unknown":
-                return UNKNOWN;
-            case "reversalDataInconsistent":
-                return REVERSAL_DATA_INCONSISTENT;
-            case "deny":
-                return DENY;
-            case "incorrectCvv":
-                return INCORRECT_CVV;
-            case "contactCardIssuer":
-                return CONTACT_CARD_ISSUER;
-            case "referToCardIssuerSpecialCondition":
-                return REFER_TO_CARD_ISSUER_SPECIAL_CONDITION;
-            case "reversal":
-                return REVERSAL;
-            case "ineligibleForResubmission":
-                return INELIGIBLE_FOR_RESUBMISSION;
-            case "noCheckingAccount":
-                return NO_CHECKING_ACCOUNT;
-            case "denyAccountCanceled":
-                return DENY_ACCOUNT_CANCELED;
-            case "denyNewCardIssued":
-                return DENY_NEW_CARD_ISSUED;
-            case "issuerUnavailable":
-                return ISSUER_UNAVAILABLE;
-            case "revokeAllAuthorizationsOrder":
-                return REVOKE_ALL_AUTHORIZATIONS_ORDER;
-            case "cryptographicFailure":
-                return CRYPTOGRAPHIC_FAILURE;
-            case "denyPickUpCard":
-                return DENY_PICK_UP_CARD;
-            case "pinEntryTriesExceeded":
-                return PIN_ENTRY_TRIES_EXCEEDED;
-            case "partialAuthorization":
-                return PARTIAL_AUTHORIZATION;
-            case "activityCountLimitExceeded":
-                return ACTIVITY_COUNT_LIMIT_EXCEEDED;
-            case "error":
-                return ERROR;
-            case "functionNotSupported":
-                return FUNCTION_NOT_SUPPORTED;
-            case "destinationCannotBeFoundForRouting":
-                return DESTINATION_CANNOT_BE_FOUND_FOR_ROUTING;
-            case "invalidResponse":
-                return INVALID_RESPONSE;
-            case "unsafePin":
-                return UNSAFE_PIN;
-            case "noActionTaken":
-                return NO_ACTION_TAKEN;
-            case "noSavingsAccount":
-                return NO_SAVINGS_ACCOUNT;
-            case "pinChangeRequestDeclined":
-                return PIN_CHANGE_REQUEST_DECLINED;
-            case "transactionNotAllowedAtMerchant":
-                return TRANSACTION_NOT_ALLOWED_AT_MERCHANT;
-            case "issuerNotAvailable":
-                return ISSUER_NOT_AVAILABLE;
-            case "honorWithId":
-                return HONOR_WITH_ID;
-            case "pinNotChanged":
-                return PIN_NOT_CHANGED;
-            case "alreadyReversed":
-                return ALREADY_REVERSED;
-            case "noCreditAccount":
-                return NO_CREDIT_ACCOUNT;
-            case "transactionNotPermittedToCardholder":
-                return TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER;
-            case "transactionNotPermitted":
-                return TRANSACTION_NOT_PERMITTED;
-            case "exceedsWithdrawalAmountLimit":
-                return EXCEEDS_WITHDRAWAL_AMOUNT_LIMIT;
-            case "invalidAccount":
-                return INVALID_ACCOUNT;
-            case "successful":
-                return SUCCESSFUL;
-            case "pickUpCardSpecialCondition":
-                return PICK_UP_CARD_SPECIAL_CONDITION;
-            case "invalidCardSecurityCode":
-                return INVALID_CARD_SECURITY_CODE;
-            case "reenterTransaction":
-                return REENTER_TRANSACTION;
-            case "insufficientFunds":
-                return INSUFFICIENT_FUNDS;
             default:
                 return new AuthorizationAuthorizationResponse(Value._UNKNOWN, value);
         }

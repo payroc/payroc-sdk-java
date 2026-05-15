@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class DeviceInstructionStatus {
     public static final DeviceInstructionStatus FAILURE = new DeviceInstructionStatus(Value.FAILURE, "failure");
 
-    public static final DeviceInstructionStatus COMPLETED = new DeviceInstructionStatus(Value.COMPLETED, "completed");
-
     public static final DeviceInstructionStatus CANCELED = new DeviceInstructionStatus(Value.CANCELED, "canceled");
 
     public static final DeviceInstructionStatus IN_PROGRESS =
             new DeviceInstructionStatus(Value.IN_PROGRESS, "inProgress");
+
+    public static final DeviceInstructionStatus COMPLETED = new DeviceInstructionStatus(Value.COMPLETED, "completed");
 
     private final Value value;
 
@@ -51,12 +51,12 @@ public final class DeviceInstructionStatus {
         switch (value) {
             case FAILURE:
                 return visitor.visitFailure();
-            case COMPLETED:
-                return visitor.visitCompleted();
             case CANCELED:
                 return visitor.visitCanceled();
             case IN_PROGRESS:
                 return visitor.visitInProgress();
+            case COMPLETED:
+                return visitor.visitCompleted();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -68,12 +68,12 @@ public final class DeviceInstructionStatus {
         switch (value) {
             case "failure":
                 return FAILURE;
-            case "completed":
-                return COMPLETED;
             case "canceled":
                 return CANCELED;
             case "inProgress":
                 return IN_PROGRESS;
+            case "completed":
+                return COMPLETED;
             default:
                 return new DeviceInstructionStatus(Value.UNKNOWN, value);
         }

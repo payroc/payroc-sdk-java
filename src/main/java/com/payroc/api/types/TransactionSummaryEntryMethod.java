@@ -10,14 +10,20 @@ public final class TransactionSummaryEntryMethod {
     public static final TransactionSummaryEntryMethod SCANNED_CHECK_READER =
             new TransactionSummaryEntryMethod(Value.SCANNED_CHECK_READER, "scannedCheckReader");
 
-    public static final TransactionSummaryEntryMethod SMART_CHIP_READ =
-            new TransactionSummaryEntryMethod(Value.SMART_CHIP_READ, "smartChipRead");
-
     public static final TransactionSummaryEntryMethod CREDENTIAL_ON_FILE =
             new TransactionSummaryEntryMethod(Value.CREDENTIAL_ON_FILE, "credentialOnFile");
 
     public static final TransactionSummaryEntryMethod UNKNOWN =
             new TransactionSummaryEntryMethod(Value.UNKNOWN, "unknown");
+
+    public static final TransactionSummaryEntryMethod SMART_CHIP_READ =
+            new TransactionSummaryEntryMethod(Value.SMART_CHIP_READ, "smartChipRead");
+
+    public static final TransactionSummaryEntryMethod SWIPED_FALLBACK =
+            new TransactionSummaryEntryMethod(Value.SWIPED_FALLBACK, "swipedFallback");
+
+    public static final TransactionSummaryEntryMethod CONTACTLESS_CHIP =
+            new TransactionSummaryEntryMethod(Value.CONTACTLESS_CHIP, "contactlessChip");
 
     public static final TransactionSummaryEntryMethod ECOMMERCE =
             new TransactionSummaryEntryMethod(Value.ECOMMERCE, "ecommerce");
@@ -27,12 +33,6 @@ public final class TransactionSummaryEntryMethod {
 
     public static final TransactionSummaryEntryMethod SWIPED =
             new TransactionSummaryEntryMethod(Value.SWIPED, "swiped");
-
-    public static final TransactionSummaryEntryMethod SWIPED_FALLBACK =
-            new TransactionSummaryEntryMethod(Value.SWIPED_FALLBACK, "swipedFallback");
-
-    public static final TransactionSummaryEntryMethod CONTACTLESS_CHIP =
-            new TransactionSummaryEntryMethod(Value.CONTACTLESS_CHIP, "contactlessChip");
 
     public static final TransactionSummaryEntryMethod MANUALLY_ENTERED_FALLBACK =
             new TransactionSummaryEntryMethod(Value.MANUALLY_ENTERED_FALLBACK, "manuallyEnteredFallback");
@@ -81,22 +81,22 @@ public final class TransactionSummaryEntryMethod {
         switch (value) {
             case SCANNED_CHECK_READER:
                 return visitor.visitScannedCheckReader();
-            case SMART_CHIP_READ:
-                return visitor.visitSmartChipRead();
             case CREDENTIAL_ON_FILE:
                 return visitor.visitCredentialOnFile();
             case UNKNOWN:
                 return visitor.visitUnknown();
+            case SMART_CHIP_READ:
+                return visitor.visitSmartChipRead();
+            case SWIPED_FALLBACK:
+                return visitor.visitSwipedFallback();
+            case CONTACTLESS_CHIP:
+                return visitor.visitContactlessChip();
             case ECOMMERCE:
                 return visitor.visitEcommerce();
             case MANUALLY_ENTERED:
                 return visitor.visitManuallyEntered();
             case SWIPED:
                 return visitor.visitSwiped();
-            case SWIPED_FALLBACK:
-                return visitor.visitSwipedFallback();
-            case CONTACTLESS_CHIP:
-                return visitor.visitContactlessChip();
             case MANUALLY_ENTERED_FALLBACK:
                 return visitor.visitManuallyEnteredFallback();
             case SWIPED_ERROR:
@@ -116,22 +116,22 @@ public final class TransactionSummaryEntryMethod {
         switch (value) {
             case "scannedCheckReader":
                 return SCANNED_CHECK_READER;
-            case "smartChipRead":
-                return SMART_CHIP_READ;
             case "credentialOnFile":
                 return CREDENTIAL_ON_FILE;
             case "unknown":
                 return UNKNOWN;
+            case "smartChipRead":
+                return SMART_CHIP_READ;
+            case "swipedFallback":
+                return SWIPED_FALLBACK;
+            case "contactlessChip":
+                return CONTACTLESS_CHIP;
             case "ecommerce":
                 return ECOMMERCE;
             case "manuallyEntered":
                 return MANUALLY_ENTERED;
             case "swiped":
                 return SWIPED;
-            case "swipedFallback":
-                return SWIPED_FALLBACK;
-            case "contactlessChip":
-                return CONTACTLESS_CHIP;
             case "manuallyEnteredFallback":
                 return MANUALLY_ENTERED_FALLBACK;
             case "swipedError":

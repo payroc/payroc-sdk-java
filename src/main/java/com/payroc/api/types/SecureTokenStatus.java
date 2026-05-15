@@ -17,11 +17,11 @@ public final class SecureTokenStatus {
 
     public static final SecureTokenStatus NOT_VALIDATED = new SecureTokenStatus(Value.NOT_VALIDATED, "notValidated");
 
-    public static final SecureTokenStatus ISSUE_NUMBER_VALIDATED =
-            new SecureTokenStatus(Value.ISSUE_NUMBER_VALIDATED, "issueNumberValidated");
-
     public static final SecureTokenStatus CARD_NUMBER_VALIDATED =
             new SecureTokenStatus(Value.CARD_NUMBER_VALIDATED, "cardNumberValidated");
+
+    public static final SecureTokenStatus ISSUE_NUMBER_VALIDATED =
+            new SecureTokenStatus(Value.ISSUE_NUMBER_VALIDATED, "issueNumberValidated");
 
     private final Value value;
 
@@ -63,10 +63,10 @@ public final class SecureTokenStatus {
                 return visitor.visitBankAccountValidated();
             case NOT_VALIDATED:
                 return visitor.visitNotValidated();
-            case ISSUE_NUMBER_VALIDATED:
-                return visitor.visitIssueNumberValidated();
             case CARD_NUMBER_VALIDATED:
                 return visitor.visitCardNumberValidated();
+            case ISSUE_NUMBER_VALIDATED:
+                return visitor.visitIssueNumberValidated();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -84,10 +84,10 @@ public final class SecureTokenStatus {
                 return BANK_ACCOUNT_VALIDATED;
             case "notValidated":
                 return NOT_VALIDATED;
-            case "issueNumberValidated":
-                return ISSUE_NUMBER_VALIDATED;
             case "cardNumberValidated":
                 return CARD_NUMBER_VALIDATED;
+            case "issueNumberValidated":
+                return ISSUE_NUMBER_VALIDATED;
             default:
                 return new SecureTokenStatus(Value.UNKNOWN, value);
         }

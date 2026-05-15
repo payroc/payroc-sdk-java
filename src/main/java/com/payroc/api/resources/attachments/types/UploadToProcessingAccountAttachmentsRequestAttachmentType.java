@@ -13,16 +13,12 @@ public final class UploadToProcessingAccountAttachmentsRequestAttachmentType {
     public static final UploadToProcessingAccountAttachmentsRequestAttachmentType TAX_DOCUMENTS =
             new UploadToProcessingAccountAttachmentsRequestAttachmentType(Value.TAX_DOCUMENTS, "taxDocuments");
 
-    public static final UploadToProcessingAccountAttachmentsRequestAttachmentType PROOF_OF_BUSINESS =
-            new UploadToProcessingAccountAttachmentsRequestAttachmentType(Value.PROOF_OF_BUSINESS, "proofOfBusiness");
-
     public static final UploadToProcessingAccountAttachmentsRequestAttachmentType MERCHANT_STATEMENTS =
             new UploadToProcessingAccountAttachmentsRequestAttachmentType(
                     Value.MERCHANT_STATEMENTS, "merchantStatements");
 
-    public static final UploadToProcessingAccountAttachmentsRequestAttachmentType PERSONAL_IDENTIFICATION =
-            new UploadToProcessingAccountAttachmentsRequestAttachmentType(
-                    Value.PERSONAL_IDENTIFICATION, "personalIdentification");
+    public static final UploadToProcessingAccountAttachmentsRequestAttachmentType PROOF_OF_BUSINESS =
+            new UploadToProcessingAccountAttachmentsRequestAttachmentType(Value.PROOF_OF_BUSINESS, "proofOfBusiness");
 
     public static final UploadToProcessingAccountAttachmentsRequestAttachmentType FINANCIAL_STATEMENTS =
             new UploadToProcessingAccountAttachmentsRequestAttachmentType(
@@ -30,6 +26,10 @@ public final class UploadToProcessingAccountAttachmentsRequestAttachmentType {
 
     public static final UploadToProcessingAccountAttachmentsRequestAttachmentType BANKING_EVIDENCE =
             new UploadToProcessingAccountAttachmentsRequestAttachmentType(Value.BANKING_EVIDENCE, "bankingEvidence");
+
+    public static final UploadToProcessingAccountAttachmentsRequestAttachmentType PERSONAL_IDENTIFICATION =
+            new UploadToProcessingAccountAttachmentsRequestAttachmentType(
+                    Value.PERSONAL_IDENTIFICATION, "personalIdentification");
 
     public static final UploadToProcessingAccountAttachmentsRequestAttachmentType MPA_OR_AMENDMENT =
             new UploadToProcessingAccountAttachmentsRequestAttachmentType(Value.MPA_OR_AMENDMENT, "mpaOrAmendment");
@@ -76,16 +76,16 @@ public final class UploadToProcessingAccountAttachmentsRequestAttachmentType {
                 return visitor.visitOther();
             case TAX_DOCUMENTS:
                 return visitor.visitTaxDocuments();
-            case PROOF_OF_BUSINESS:
-                return visitor.visitProofOfBusiness();
             case MERCHANT_STATEMENTS:
                 return visitor.visitMerchantStatements();
-            case PERSONAL_IDENTIFICATION:
-                return visitor.visitPersonalIdentification();
+            case PROOF_OF_BUSINESS:
+                return visitor.visitProofOfBusiness();
             case FINANCIAL_STATEMENTS:
                 return visitor.visitFinancialStatements();
             case BANKING_EVIDENCE:
                 return visitor.visitBankingEvidence();
+            case PERSONAL_IDENTIFICATION:
+                return visitor.visitPersonalIdentification();
             case MPA_OR_AMENDMENT:
                 return visitor.visitMpaOrAmendment();
             case QUESTIONNAIRES_AND_LICENSES:
@@ -103,16 +103,16 @@ public final class UploadToProcessingAccountAttachmentsRequestAttachmentType {
                 return OTHER;
             case "taxDocuments":
                 return TAX_DOCUMENTS;
-            case "proofOfBusiness":
-                return PROOF_OF_BUSINESS;
             case "merchantStatements":
                 return MERCHANT_STATEMENTS;
-            case "personalIdentification":
-                return PERSONAL_IDENTIFICATION;
+            case "proofOfBusiness":
+                return PROOF_OF_BUSINESS;
             case "financialStatements":
                 return FINANCIAL_STATEMENTS;
             case "bankingEvidence":
                 return BANKING_EVIDENCE;
+            case "personalIdentification":
+                return PERSONAL_IDENTIFICATION;
             case "mpaOrAmendment":
                 return MPA_OR_AMENDMENT;
             case "questionnairesAndLicenses":

@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ProcessingMonthsOfOperationItem {
+    public static final ProcessingMonthsOfOperationItem JUL = new ProcessingMonthsOfOperationItem(Value.JUL, "jul");
+
     public static final ProcessingMonthsOfOperationItem JAN = new ProcessingMonthsOfOperationItem(Value.JAN, "jan");
 
     public static final ProcessingMonthsOfOperationItem FEB = new ProcessingMonthsOfOperationItem(Value.FEB, "feb");
@@ -15,13 +17,11 @@ public final class ProcessingMonthsOfOperationItem {
 
     public static final ProcessingMonthsOfOperationItem OCT = new ProcessingMonthsOfOperationItem(Value.OCT, "oct");
 
-    public static final ProcessingMonthsOfOperationItem JUL = new ProcessingMonthsOfOperationItem(Value.JUL, "jul");
+    public static final ProcessingMonthsOfOperationItem APR = new ProcessingMonthsOfOperationItem(Value.APR, "apr");
 
     public static final ProcessingMonthsOfOperationItem MAY = new ProcessingMonthsOfOperationItem(Value.MAY, "may");
 
     public static final ProcessingMonthsOfOperationItem AUG = new ProcessingMonthsOfOperationItem(Value.AUG, "aug");
-
-    public static final ProcessingMonthsOfOperationItem APR = new ProcessingMonthsOfOperationItem(Value.APR, "apr");
 
     public static final ProcessingMonthsOfOperationItem JUN = new ProcessingMonthsOfOperationItem(Value.JUN, "jun");
 
@@ -64,6 +64,8 @@ public final class ProcessingMonthsOfOperationItem {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case JUL:
+                return visitor.visitJul();
             case JAN:
                 return visitor.visitJan();
             case FEB:
@@ -72,14 +74,12 @@ public final class ProcessingMonthsOfOperationItem {
                 return visitor.visitMar();
             case OCT:
                 return visitor.visitOct();
-            case JUL:
-                return visitor.visitJul();
+            case APR:
+                return visitor.visitApr();
             case MAY:
                 return visitor.visitMay();
             case AUG:
                 return visitor.visitAug();
-            case APR:
-                return visitor.visitApr();
             case JUN:
                 return visitor.visitJun();
             case SEP:
@@ -97,6 +97,8 @@ public final class ProcessingMonthsOfOperationItem {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ProcessingMonthsOfOperationItem valueOf(String value) {
         switch (value) {
+            case "jul":
+                return JUL;
             case "jan":
                 return JAN;
             case "feb":
@@ -105,14 +107,12 @@ public final class ProcessingMonthsOfOperationItem {
                 return MAR;
             case "oct":
                 return OCT;
-            case "jul":
-                return JUL;
+            case "apr":
+                return APR;
             case "may":
                 return MAY;
             case "aug":
                 return AUG;
-            case "apr":
-                return APR;
             case "jun":
                 return JUN;
             case "sep":

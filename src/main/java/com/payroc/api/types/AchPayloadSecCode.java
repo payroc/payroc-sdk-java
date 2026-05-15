@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class AchPayloadSecCode {
-    public static final AchPayloadSecCode CCD = new AchPayloadSecCode(Value.CCD, "ccd");
-
     public static final AchPayloadSecCode WEB = new AchPayloadSecCode(Value.WEB, "web");
+
+    public static final AchPayloadSecCode CCD = new AchPayloadSecCode(Value.CCD, "ccd");
 
     public static final AchPayloadSecCode PPD = new AchPayloadSecCode(Value.PPD, "ppd");
 
@@ -47,10 +47,10 @@ public final class AchPayloadSecCode {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case CCD:
-                return visitor.visitCcd();
             case WEB:
                 return visitor.visitWeb();
+            case CCD:
+                return visitor.visitCcd();
             case PPD:
                 return visitor.visitPpd();
             case TEL:
@@ -64,10 +64,10 @@ public final class AchPayloadSecCode {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static AchPayloadSecCode valueOf(String value) {
         switch (value) {
-            case "ccd":
-                return CCD;
             case "web":
                 return WEB;
+            case "ccd":
+                return CCD;
             case "ppd":
                 return PPD;
             case "tel":

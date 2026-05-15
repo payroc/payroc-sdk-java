@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class FundingRecipientRecipientType {
+    public static final FundingRecipientRecipientType SOLE_PROPRIETOR =
+            new FundingRecipientRecipientType(Value.SOLE_PROPRIETOR, "soleProprietor");
+
     public static final FundingRecipientRecipientType PUBLIC_LLC =
             new FundingRecipientRecipientType(Value.PUBLIC_LLC, "publicLlc");
 
@@ -15,9 +18,6 @@ public final class FundingRecipientRecipientType {
 
     public static final FundingRecipientRecipientType GOVERNMENT =
             new FundingRecipientRecipientType(Value.GOVERNMENT, "government");
-
-    public static final FundingRecipientRecipientType SOLE_PROPRIETOR =
-            new FundingRecipientRecipientType(Value.SOLE_PROPRIETOR, "soleProprietor");
 
     public static final FundingRecipientRecipientType PUBLIC_CORPORATION =
             new FundingRecipientRecipientType(Value.PUBLIC_CORPORATION, "publicCorporation");
@@ -67,14 +67,14 @@ public final class FundingRecipientRecipientType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case SOLE_PROPRIETOR:
+                return visitor.visitSoleProprietor();
             case PUBLIC_LLC:
                 return visitor.visitPublicLlc();
             case NON_PROFIT:
                 return visitor.visitNonProfit();
             case GOVERNMENT:
                 return visitor.visitGovernment();
-            case SOLE_PROPRIETOR:
-                return visitor.visitSoleProprietor();
             case PUBLIC_CORPORATION:
                 return visitor.visitPublicCorporation();
             case PRIVATE_LLC:
@@ -94,14 +94,14 @@ public final class FundingRecipientRecipientType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static FundingRecipientRecipientType valueOf(String value) {
         switch (value) {
+            case "soleProprietor":
+                return SOLE_PROPRIETOR;
             case "publicLlc":
                 return PUBLIC_LLC;
             case "nonProfit":
                 return NON_PROFIT;
             case "government":
                 return GOVERNMENT;
-            case "soleProprietor":
-                return SOLE_PROPRIETOR;
             case "publicCorporation":
                 return PUBLIC_CORPORATION;
             case "privateLlc":

@@ -11,21 +11,21 @@ public final class RefundSummaryStatus {
 
     public static final RefundSummaryStatus REVERSAL = new RefundSummaryStatus(Value.REVERSAL, "reversal");
 
+    public static final RefundSummaryStatus PENDING = new RefundSummaryStatus(Value.PENDING, "pending");
+
+    public static final RefundSummaryStatus ADMIN = new RefundSummaryStatus(Value.ADMIN, "admin");
+
     public static final RefundSummaryStatus COMPLETE = new RefundSummaryStatus(Value.COMPLETE, "complete");
 
     public static final RefundSummaryStatus PICKUP = new RefundSummaryStatus(Value.PICKUP, "pickup");
 
-    public static final RefundSummaryStatus PENDING = new RefundSummaryStatus(Value.PENDING, "pending");
-
-    public static final RefundSummaryStatus ADMIN = new RefundSummaryStatus(Value.ADMIN, "admin");
+    public static final RefundSummaryStatus EXPIRED = new RefundSummaryStatus(Value.EXPIRED, "expired");
 
     public static final RefundSummaryStatus RETURNED = new RefundSummaryStatus(Value.RETURNED, "returned");
 
     public static final RefundSummaryStatus READY = new RefundSummaryStatus(Value.READY, "ready");
 
     public static final RefundSummaryStatus ACCEPTED = new RefundSummaryStatus(Value.ACCEPTED, "accepted");
-
-    public static final RefundSummaryStatus EXPIRED = new RefundSummaryStatus(Value.EXPIRED, "expired");
 
     public static final RefundSummaryStatus REFERRAL = new RefundSummaryStatus(Value.REFERRAL, "referral");
 
@@ -65,22 +65,22 @@ public final class RefundSummaryStatus {
                 return visitor.visitDeclined();
             case REVERSAL:
                 return visitor.visitReversal();
-            case COMPLETE:
-                return visitor.visitComplete();
-            case PICKUP:
-                return visitor.visitPickup();
             case PENDING:
                 return visitor.visitPending();
             case ADMIN:
                 return visitor.visitAdmin();
+            case COMPLETE:
+                return visitor.visitComplete();
+            case PICKUP:
+                return visitor.visitPickup();
+            case EXPIRED:
+                return visitor.visitExpired();
             case RETURNED:
                 return visitor.visitReturned();
             case READY:
                 return visitor.visitReady();
             case ACCEPTED:
                 return visitor.visitAccepted();
-            case EXPIRED:
-                return visitor.visitExpired();
             case REFERRAL:
                 return visitor.visitReferral();
             case UNKNOWN:
@@ -96,22 +96,22 @@ public final class RefundSummaryStatus {
                 return DECLINED;
             case "reversal":
                 return REVERSAL;
-            case "complete":
-                return COMPLETE;
-            case "pickup":
-                return PICKUP;
             case "pending":
                 return PENDING;
             case "admin":
                 return ADMIN;
+            case "complete":
+                return COMPLETE;
+            case "pickup":
+                return PICKUP;
+            case "expired":
+                return EXPIRED;
             case "returned":
                 return RETURNED;
             case "ready":
                 return READY;
             case "accepted":
                 return ACCEPTED;
-            case "expired":
-                return EXPIRED;
             case "referral":
                 return REFERRAL;
             default:

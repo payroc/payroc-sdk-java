@@ -13,11 +13,11 @@ public final class BalanceResponseCode {
 
     public static final BalanceResponseCode C = new BalanceResponseCode(Value.C, "C");
 
-    public static final BalanceResponseCode D = new BalanceResponseCode(Value.D, "D");
-
     public static final BalanceResponseCode E = new BalanceResponseCode(Value.E, "E");
 
     public static final BalanceResponseCode P = new BalanceResponseCode(Value.P, "P");
+
+    public static final BalanceResponseCode D = new BalanceResponseCode(Value.D, "D");
 
     private final Value value;
 
@@ -57,12 +57,12 @@ public final class BalanceResponseCode {
                 return visitor.visitR();
             case C:
                 return visitor.visitC();
-            case D:
-                return visitor.visitD();
             case E:
                 return visitor.visitE();
             case P:
                 return visitor.visitP();
+            case D:
+                return visitor.visitD();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -78,12 +78,12 @@ public final class BalanceResponseCode {
                 return R;
             case "C":
                 return C;
-            case "D":
-                return D;
             case "E":
                 return E;
             case "P":
                 return P;
+            case "D":
+                return D;
             default:
                 return new BalanceResponseCode(Value.UNKNOWN, value);
         }

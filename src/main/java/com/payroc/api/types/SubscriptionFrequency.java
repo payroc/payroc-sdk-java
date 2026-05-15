@@ -11,11 +11,11 @@ public final class SubscriptionFrequency {
 
     public static final SubscriptionFrequency QUARTERLY = new SubscriptionFrequency(Value.QUARTERLY, "quarterly");
 
+    public static final SubscriptionFrequency WEEKLY = new SubscriptionFrequency(Value.WEEKLY, "weekly");
+
     public static final SubscriptionFrequency FORTNIGHTLY = new SubscriptionFrequency(Value.FORTNIGHTLY, "fortnightly");
 
     public static final SubscriptionFrequency MONTHLY = new SubscriptionFrequency(Value.MONTHLY, "monthly");
-
-    public static final SubscriptionFrequency WEEKLY = new SubscriptionFrequency(Value.WEEKLY, "weekly");
 
     private final Value value;
 
@@ -54,12 +54,12 @@ public final class SubscriptionFrequency {
                 return visitor.visitYearly();
             case QUARTERLY:
                 return visitor.visitQuarterly();
+            case WEEKLY:
+                return visitor.visitWeekly();
             case FORTNIGHTLY:
                 return visitor.visitFortnightly();
             case MONTHLY:
                 return visitor.visitMonthly();
-            case WEEKLY:
-                return visitor.visitWeekly();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -73,12 +73,12 @@ public final class SubscriptionFrequency {
                 return YEARLY;
             case "quarterly":
                 return QUARTERLY;
+            case "weekly":
+                return WEEKLY;
             case "fortnightly":
                 return FORTNIGHTLY;
             case "monthly":
                 return MONTHLY;
-            case "weekly":
-                return WEEKLY;
             default:
                 return new SubscriptionFrequency(Value.UNKNOWN, value);
         }

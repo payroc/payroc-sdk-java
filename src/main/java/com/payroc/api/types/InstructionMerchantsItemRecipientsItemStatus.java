@@ -16,11 +16,11 @@ public final class InstructionMerchantsItemRecipientsItemStatus {
     public static final InstructionMerchantsItemRecipientsItemStatus ON_HOLD =
             new InstructionMerchantsItemRecipientsItemStatus(Value.ON_HOLD, "onHold");
 
-    public static final InstructionMerchantsItemRecipientsItemStatus ACCEPTED =
-            new InstructionMerchantsItemRecipientsItemStatus(Value.ACCEPTED, "accepted");
-
     public static final InstructionMerchantsItemRecipientsItemStatus FUNDED =
             new InstructionMerchantsItemRecipientsItemStatus(Value.FUNDED, "funded");
+
+    public static final InstructionMerchantsItemRecipientsItemStatus ACCEPTED =
+            new InstructionMerchantsItemRecipientsItemStatus(Value.ACCEPTED, "accepted");
 
     public static final InstructionMerchantsItemRecipientsItemStatus RELEASED =
             new InstructionMerchantsItemRecipientsItemStatus(Value.RELEASED, "released");
@@ -67,10 +67,10 @@ public final class InstructionMerchantsItemRecipientsItemStatus {
                 return visitor.visitPending();
             case ON_HOLD:
                 return visitor.visitOnHold();
-            case ACCEPTED:
-                return visitor.visitAccepted();
             case FUNDED:
                 return visitor.visitFunded();
+            case ACCEPTED:
+                return visitor.visitAccepted();
             case RELEASED:
                 return visitor.visitReleased();
             case REJECTED:
@@ -90,10 +90,10 @@ public final class InstructionMerchantsItemRecipientsItemStatus {
                 return PENDING;
             case "onHold":
                 return ON_HOLD;
-            case "accepted":
-                return ACCEPTED;
             case "funded":
                 return FUNDED;
+            case "accepted":
+                return ACCEPTED;
             case "released":
                 return RELEASED;
             case "rejected":

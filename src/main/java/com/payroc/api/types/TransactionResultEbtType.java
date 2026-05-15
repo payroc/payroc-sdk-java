@@ -7,11 +7,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class TransactionResultEbtType {
+    public static final TransactionResultEbtType CASH_PURCHASE =
+            new TransactionResultEbtType(Value.CASH_PURCHASE, "cashPurchase");
+
     public static final TransactionResultEbtType FOOD_STAMP_PURCHASE =
             new TransactionResultEbtType(Value.FOOD_STAMP_PURCHASE, "foodStampPurchase");
 
-    public static final TransactionResultEbtType CASH_PURCHASE =
-            new TransactionResultEbtType(Value.CASH_PURCHASE, "cashPurchase");
+    public static final TransactionResultEbtType CASH_PURCHASE_WITH_CASHBACK =
+            new TransactionResultEbtType(Value.CASH_PURCHASE_WITH_CASHBACK, "cashPurchaseWithCashback");
 
     public static final TransactionResultEbtType FOOD_STAMP_VOUCHER_PURCHASE =
             new TransactionResultEbtType(Value.FOOD_STAMP_VOUCHER_PURCHASE, "foodStampVoucherPurchase");
@@ -19,20 +22,17 @@ public final class TransactionResultEbtType {
     public static final TransactionResultEbtType FOOD_STAMP_BALANCE_INQUIRY =
             new TransactionResultEbtType(Value.FOOD_STAMP_BALANCE_INQUIRY, "foodStampBalanceInquiry");
 
-    public static final TransactionResultEbtType CASH_PURCHASE_WITH_CASHBACK =
-            new TransactionResultEbtType(Value.CASH_PURCHASE_WITH_CASHBACK, "cashPurchaseWithCashback");
+    public static final TransactionResultEbtType FOOD_STAMP_VOUCHER_RETURN =
+            new TransactionResultEbtType(Value.FOOD_STAMP_VOUCHER_RETURN, "foodStampVoucherReturn");
 
     public static final TransactionResultEbtType CASH_BALANCE_INQUIRY =
             new TransactionResultEbtType(Value.CASH_BALANCE_INQUIRY, "cashBalanceInquiry");
 
-    public static final TransactionResultEbtType FOOD_STAMP_VOUCHER_RETURN =
-            new TransactionResultEbtType(Value.FOOD_STAMP_VOUCHER_RETURN, "foodStampVoucherReturn");
+    public static final TransactionResultEbtType FOOD_STAMP_RETURN =
+            new TransactionResultEbtType(Value.FOOD_STAMP_RETURN, "foodStampReturn");
 
     public static final TransactionResultEbtType CASH_WITHDRAWAL =
             new TransactionResultEbtType(Value.CASH_WITHDRAWAL, "cashWithdrawal");
-
-    public static final TransactionResultEbtType FOOD_STAMP_RETURN =
-            new TransactionResultEbtType(Value.FOOD_STAMP_RETURN, "foodStampReturn");
 
     private final Value value;
 
@@ -67,24 +67,24 @@ public final class TransactionResultEbtType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case FOOD_STAMP_PURCHASE:
-                return visitor.visitFoodStampPurchase();
             case CASH_PURCHASE:
                 return visitor.visitCashPurchase();
+            case FOOD_STAMP_PURCHASE:
+                return visitor.visitFoodStampPurchase();
+            case CASH_PURCHASE_WITH_CASHBACK:
+                return visitor.visitCashPurchaseWithCashback();
             case FOOD_STAMP_VOUCHER_PURCHASE:
                 return visitor.visitFoodStampVoucherPurchase();
             case FOOD_STAMP_BALANCE_INQUIRY:
                 return visitor.visitFoodStampBalanceInquiry();
-            case CASH_PURCHASE_WITH_CASHBACK:
-                return visitor.visitCashPurchaseWithCashback();
-            case CASH_BALANCE_INQUIRY:
-                return visitor.visitCashBalanceInquiry();
             case FOOD_STAMP_VOUCHER_RETURN:
                 return visitor.visitFoodStampVoucherReturn();
-            case CASH_WITHDRAWAL:
-                return visitor.visitCashWithdrawal();
+            case CASH_BALANCE_INQUIRY:
+                return visitor.visitCashBalanceInquiry();
             case FOOD_STAMP_RETURN:
                 return visitor.visitFoodStampReturn();
+            case CASH_WITHDRAWAL:
+                return visitor.visitCashWithdrawal();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -94,24 +94,24 @@ public final class TransactionResultEbtType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static TransactionResultEbtType valueOf(String value) {
         switch (value) {
-            case "foodStampPurchase":
-                return FOOD_STAMP_PURCHASE;
             case "cashPurchase":
                 return CASH_PURCHASE;
+            case "foodStampPurchase":
+                return FOOD_STAMP_PURCHASE;
+            case "cashPurchaseWithCashback":
+                return CASH_PURCHASE_WITH_CASHBACK;
             case "foodStampVoucherPurchase":
                 return FOOD_STAMP_VOUCHER_PURCHASE;
             case "foodStampBalanceInquiry":
                 return FOOD_STAMP_BALANCE_INQUIRY;
-            case "cashPurchaseWithCashback":
-                return CASH_PURCHASE_WITH_CASHBACK;
-            case "cashBalanceInquiry":
-                return CASH_BALANCE_INQUIRY;
             case "foodStampVoucherReturn":
                 return FOOD_STAMP_VOUCHER_RETURN;
-            case "cashWithdrawal":
-                return CASH_WITHDRAWAL;
+            case "cashBalanceInquiry":
+                return CASH_BALANCE_INQUIRY;
             case "foodStampReturn":
                 return FOOD_STAMP_RETURN;
+            case "cashWithdrawal":
+                return CASH_WITHDRAWAL;
             default:
                 return new TransactionResultEbtType(Value.UNKNOWN, value);
         }

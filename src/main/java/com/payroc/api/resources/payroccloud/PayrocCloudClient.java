@@ -5,6 +5,7 @@ package com.payroc.api.resources.payroccloud;
 
 import com.payroc.api.core.ClientOptions;
 import com.payroc.api.core.Suppliers;
+import com.payroc.api.resources.payroccloud.closedloopreads.ClosedLoopReadsClient;
 import com.payroc.api.resources.payroccloud.paymentinstructions.PaymentInstructionsClient;
 import com.payroc.api.resources.payroccloud.refundinstructions.RefundInstructionsClient;
 import com.payroc.api.resources.payroccloud.signatureinstructions.SignatureInstructionsClient;
@@ -22,12 +23,15 @@ public class PayrocCloudClient {
 
     protected final Supplier<SignaturesClient> signaturesClient;
 
+    protected final Supplier<ClosedLoopReadsClient> closedLoopReadsClient;
+
     public PayrocCloudClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.paymentInstructionsClient = Suppliers.memoize(() -> new PaymentInstructionsClient(clientOptions));
         this.refundInstructionsClient = Suppliers.memoize(() -> new RefundInstructionsClient(clientOptions));
         this.signatureInstructionsClient = Suppliers.memoize(() -> new SignatureInstructionsClient(clientOptions));
         this.signaturesClient = Suppliers.memoize(() -> new SignaturesClient(clientOptions));
+        this.closedLoopReadsClient = Suppliers.memoize(() -> new ClosedLoopReadsClient(clientOptions));
     }
 
     public PaymentInstructionsClient paymentInstructions() {
@@ -44,5 +48,9 @@ public class PayrocCloudClient {
 
     public SignaturesClient signatures() {
         return this.signaturesClient.get();
+    }
+
+    public ClosedLoopReadsClient closedLoopReads() {
+        return this.closedLoopReadsClient.get();
     }
 }

@@ -13,13 +13,13 @@ public final class ListRefundsRequestStatusItem {
     public static final ListRefundsRequestStatusItem REVERSAL =
             new ListRefundsRequestStatusItem(Value.REVERSAL, "reversal");
 
-    public static final ListRefundsRequestStatusItem COMPLETE =
-            new ListRefundsRequestStatusItem(Value.COMPLETE, "complete");
-
     public static final ListRefundsRequestStatusItem PENDING =
             new ListRefundsRequestStatusItem(Value.PENDING, "pending");
 
     public static final ListRefundsRequestStatusItem ADMIN = new ListRefundsRequestStatusItem(Value.ADMIN, "admin");
+
+    public static final ListRefundsRequestStatusItem COMPLETE =
+            new ListRefundsRequestStatusItem(Value.COMPLETE, "complete");
 
     public static final ListRefundsRequestStatusItem RETURNED =
             new ListRefundsRequestStatusItem(Value.RETURNED, "returned");
@@ -63,12 +63,12 @@ public final class ListRefundsRequestStatusItem {
                 return visitor.visitDeclined();
             case REVERSAL:
                 return visitor.visitReversal();
-            case COMPLETE:
-                return visitor.visitComplete();
             case PENDING:
                 return visitor.visitPending();
             case ADMIN:
                 return visitor.visitAdmin();
+            case COMPLETE:
+                return visitor.visitComplete();
             case RETURNED:
                 return visitor.visitReturned();
             case READY:
@@ -86,12 +86,12 @@ public final class ListRefundsRequestStatusItem {
                 return DECLINED;
             case "reversal":
                 return REVERSAL;
-            case "complete":
-                return COMPLETE;
             case "pending":
                 return PENDING;
             case "admin":
                 return ADMIN;
+            case "complete":
+                return COMPLETE;
             case "returned":
                 return RETURNED;
             case "ready":

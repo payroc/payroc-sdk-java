@@ -21,10 +21,27 @@ public class GlobalFixture {
     }
 
     private static PayrocApiClient createClient(String apiKey) {
+        Environment environment = getCustomEnvironment();
         return PayrocApiClient.builder()
                 .apiKey(apiKey)
-                .environment(Environment.UAT)
+                .environment(environment)
                 .build();
+    }
+
+    private static Environment getCustomEnvironment() {
+        String apiBaseUrl = System.getenv("PAYROC_API_BASE_URL");
+        String identityBaseUrl = System.getenv("PAYROC_IDENTITY_BASE_URL");
+
+        // If custom URLs are provided, use them
+        if (apiBaseUrl != null && !apiBaseUrl.isEmpty() && identityBaseUrl != null && !identityBaseUrl.isEmpty()) {
+            return Environment.custom()
+                    .api(apiBaseUrl)
+                    .identity(identityBaseUrl)
+                    .build();
+        }
+
+        // Otherwise, fall back to UAT
+        return Environment.UAT;
     }
 
     private static String getEnvWithFallback(String name, String fallbackName) {

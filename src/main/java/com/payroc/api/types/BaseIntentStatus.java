@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class BaseIntentStatus {
     public static final BaseIntentStatus PENDING_REVIEW = new BaseIntentStatus(Value.PENDING_REVIEW, "pendingReview");
 
-    public static final BaseIntentStatus ACTIVE = new BaseIntentStatus(Value.ACTIVE, "active");
-
     public static final BaseIntentStatus REJECTED = new BaseIntentStatus(Value.REJECTED, "rejected");
+
+    public static final BaseIntentStatus ACTIVE = new BaseIntentStatus(Value.ACTIVE, "active");
 
     private final Value value;
 
@@ -47,10 +47,10 @@ public final class BaseIntentStatus {
         switch (value) {
             case PENDING_REVIEW:
                 return visitor.visitPendingReview();
-            case ACTIVE:
-                return visitor.visitActive();
             case REJECTED:
                 return visitor.visitRejected();
+            case ACTIVE:
+                return visitor.visitActive();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -62,10 +62,10 @@ public final class BaseIntentStatus {
         switch (value) {
             case "pendingReview":
                 return PENDING_REVIEW;
-            case "active":
-                return ACTIVE;
             case "rejected":
                 return REJECTED;
+            case "active":
+                return ACTIVE;
             default:
                 return new BaseIntentStatus(Value.UNKNOWN, value);
         }

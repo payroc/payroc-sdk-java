@@ -7,16 +7,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class SupportedOperationsItem {
+    public static final SupportedOperationsItem FULLY_REVERSE =
+            new SupportedOperationsItem(Value.FULLY_REVERSE, "fullyReverse");
+
+    public static final SupportedOperationsItem ADJUST_TIP = new SupportedOperationsItem(Value.ADJUST_TIP, "adjustTip");
+
     public static final SupportedOperationsItem INCREMENT_AUTHORIZATION =
             new SupportedOperationsItem(Value.INCREMENT_AUTHORIZATION, "incrementAuthorization");
 
     public static final SupportedOperationsItem PARTIALLY_REVERSE =
             new SupportedOperationsItem(Value.PARTIALLY_REVERSE, "partiallyReverse");
-
-    public static final SupportedOperationsItem FULLY_REVERSE =
-            new SupportedOperationsItem(Value.FULLY_REVERSE, "fullyReverse");
-
-    public static final SupportedOperationsItem ADJUST_TIP = new SupportedOperationsItem(Value.ADJUST_TIP, "adjustTip");
 
     public static final SupportedOperationsItem CAPTURE = new SupportedOperationsItem(Value.CAPTURE, "capture");
 
@@ -64,14 +64,14 @@ public final class SupportedOperationsItem {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case INCREMENT_AUTHORIZATION:
-                return visitor.visitIncrementAuthorization();
-            case PARTIALLY_REVERSE:
-                return visitor.visitPartiallyReverse();
             case FULLY_REVERSE:
                 return visitor.visitFullyReverse();
             case ADJUST_TIP:
                 return visitor.visitAdjustTip();
+            case INCREMENT_AUTHORIZATION:
+                return visitor.visitIncrementAuthorization();
+            case PARTIALLY_REVERSE:
+                return visitor.visitPartiallyReverse();
             case CAPTURE:
                 return visitor.visitCapture();
             case SET_AS_READY:
@@ -91,14 +91,14 @@ public final class SupportedOperationsItem {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static SupportedOperationsItem valueOf(String value) {
         switch (value) {
-            case "incrementAuthorization":
-                return INCREMENT_AUTHORIZATION;
-            case "partiallyReverse":
-                return PARTIALLY_REVERSE;
             case "fullyReverse":
                 return FULLY_REVERSE;
             case "adjustTip":
                 return ADJUST_TIP;
+            case "incrementAuthorization":
+                return INCREMENT_AUTHORIZATION;
+            case "partiallyReverse":
+                return PARTIALLY_REVERSE;
             case "capture":
                 return CAPTURE;
             case "setAsReady":

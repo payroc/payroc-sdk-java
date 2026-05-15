@@ -10,11 +10,11 @@ public final class ListPaymentsRequestTipModeItem {
     public static final ListPaymentsRequestTipModeItem PROMPTED =
             new ListPaymentsRequestTipModeItem(Value.PROMPTED, "prompted");
 
-    public static final ListPaymentsRequestTipModeItem ADJUSTED =
-            new ListPaymentsRequestTipModeItem(Value.ADJUSTED, "adjusted");
-
     public static final ListPaymentsRequestTipModeItem NO_TIP =
             new ListPaymentsRequestTipModeItem(Value.NO_TIP, "noTip");
+
+    public static final ListPaymentsRequestTipModeItem ADJUSTED =
+            new ListPaymentsRequestTipModeItem(Value.ADJUSTED, "adjusted");
 
     private final Value value;
 
@@ -51,10 +51,10 @@ public final class ListPaymentsRequestTipModeItem {
         switch (value) {
             case PROMPTED:
                 return visitor.visitPrompted();
-            case ADJUSTED:
-                return visitor.visitAdjusted();
             case NO_TIP:
                 return visitor.visitNoTip();
+            case ADJUSTED:
+                return visitor.visitAdjusted();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -66,10 +66,10 @@ public final class ListPaymentsRequestTipModeItem {
         switch (value) {
             case "prompted":
                 return PROMPTED;
-            case "adjusted":
-                return ADJUSTED;
             case "noTip":
                 return NO_TIP;
+            case "adjusted":
+                return ADJUSTED;
             default:
                 return new ListPaymentsRequestTipModeItem(Value.UNKNOWN, value);
         }

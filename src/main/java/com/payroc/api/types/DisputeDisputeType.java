@@ -10,10 +10,10 @@ public final class DisputeDisputeType {
     public static final DisputeDisputeType FIRST_DISPUTE_WITH_REVERSAL =
             new DisputeDisputeType(Value.FIRST_DISPUTE_WITH_REVERSAL, "firstDisputeWithReversal");
 
+    public static final DisputeDisputeType FIRST_DISPUTE = new DisputeDisputeType(Value.FIRST_DISPUTE, "firstDispute");
+
     public static final DisputeDisputeType ISSUER_REVERSAL =
             new DisputeDisputeType(Value.ISSUER_REVERSAL, "issuerReversal");
-
-    public static final DisputeDisputeType FIRST_DISPUTE = new DisputeDisputeType(Value.FIRST_DISPUTE, "firstDispute");
 
     public static final DisputeDisputeType PREARBITRATION =
             new DisputeDisputeType(Value.PREARBITRATION, "prearbitration");
@@ -52,10 +52,10 @@ public final class DisputeDisputeType {
         switch (value) {
             case FIRST_DISPUTE_WITH_REVERSAL:
                 return visitor.visitFirstDisputeWithReversal();
-            case ISSUER_REVERSAL:
-                return visitor.visitIssuerReversal();
             case FIRST_DISPUTE:
                 return visitor.visitFirstDispute();
+            case ISSUER_REVERSAL:
+                return visitor.visitIssuerReversal();
             case PREARBITRATION:
                 return visitor.visitPrearbitration();
             case UNKNOWN:
@@ -69,10 +69,10 @@ public final class DisputeDisputeType {
         switch (value) {
             case "firstDisputeWithReversal":
                 return FIRST_DISPUTE_WITH_REVERSAL;
-            case "issuerReversal":
-                return ISSUER_REVERSAL;
             case "firstDispute":
                 return FIRST_DISPUTE;
+            case "issuerReversal":
+                return ISSUER_REVERSAL;
             case "prearbitration":
                 return PREARBITRATION;
             default:

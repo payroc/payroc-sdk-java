@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class InstructionStatus {
-    public static final InstructionStatus COMPLETED = new InstructionStatus(Value.COMPLETED, "completed");
-
     public static final InstructionStatus PENDING = new InstructionStatus(Value.PENDING, "pending");
+
+    public static final InstructionStatus COMPLETED = new InstructionStatus(Value.COMPLETED, "completed");
 
     public static final InstructionStatus ACCEPTED = new InstructionStatus(Value.ACCEPTED, "accepted");
 
@@ -45,10 +45,10 @@ public final class InstructionStatus {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case COMPLETED:
-                return visitor.visitCompleted();
             case PENDING:
                 return visitor.visitPending();
+            case COMPLETED:
+                return visitor.visitCompleted();
             case ACCEPTED:
                 return visitor.visitAccepted();
             case UNKNOWN:
@@ -60,10 +60,10 @@ public final class InstructionStatus {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static InstructionStatus valueOf(String value) {
         switch (value) {
-            case "completed":
-                return COMPLETED;
             case "pending":
                 return PENDING;
+            case "completed":
+                return COMPLETED;
             case "accepted":
                 return ACCEPTED;
             default:

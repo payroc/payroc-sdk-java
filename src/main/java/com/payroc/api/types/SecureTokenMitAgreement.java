@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class SecureTokenMitAgreement {
-    public static final SecureTokenMitAgreement RECURRING = new SecureTokenMitAgreement(Value.RECURRING, "recurring");
-
     public static final SecureTokenMitAgreement INSTALLMENT =
             new SecureTokenMitAgreement(Value.INSTALLMENT, "installment");
+
+    public static final SecureTokenMitAgreement RECURRING = new SecureTokenMitAgreement(Value.RECURRING, "recurring");
 
     public static final SecureTokenMitAgreement UNSCHEDULED =
             new SecureTokenMitAgreement(Value.UNSCHEDULED, "unscheduled");
@@ -48,10 +48,10 @@ public final class SecureTokenMitAgreement {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case RECURRING:
-                return visitor.visitRecurring();
             case INSTALLMENT:
                 return visitor.visitInstallment();
+            case RECURRING:
+                return visitor.visitRecurring();
             case UNSCHEDULED:
                 return visitor.visitUnscheduled();
             case UNKNOWN:
@@ -63,10 +63,10 @@ public final class SecureTokenMitAgreement {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static SecureTokenMitAgreement valueOf(String value) {
         switch (value) {
-            case "recurring":
-                return RECURRING;
             case "installment":
                 return INSTALLMENT;
+            case "recurring":
+                return RECURRING;
             case "unscheduled":
                 return UNSCHEDULED;
             default:

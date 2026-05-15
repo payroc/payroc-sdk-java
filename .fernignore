@@ -17,9 +17,14 @@ README.md
 .github/CODEOWNERS
 .previewignore
 SECURITY.md
+CLAUDE.md
+**/CLAUDE.md
 
 # Custom pagination implementation
 src/main/java/com/payroc/api/core/pagination/Page.java
 src/main/java/com/payroc/api/core/pagination/PayrocPager.java
 src/main/java/com/payroc/api/core/pagination/AsyncPayrocPager.java
 src/test/java/com/payroc/api/core/pagination/
+
+# Prevent Fern from regenerating GitHub Actions workflows
+.github/workflows/**

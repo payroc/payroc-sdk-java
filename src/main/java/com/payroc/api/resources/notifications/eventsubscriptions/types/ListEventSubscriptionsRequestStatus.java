@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ListEventSubscriptionsRequestStatus {
-    public static final ListEventSubscriptionsRequestStatus REGISTERED =
-            new ListEventSubscriptionsRequestStatus(Value.REGISTERED, "registered");
-
     public static final ListEventSubscriptionsRequestStatus FAILED =
             new ListEventSubscriptionsRequestStatus(Value.FAILED, "failed");
+
+    public static final ListEventSubscriptionsRequestStatus REGISTERED =
+            new ListEventSubscriptionsRequestStatus(Value.REGISTERED, "registered");
 
     public static final ListEventSubscriptionsRequestStatus SUSPENDED =
             new ListEventSubscriptionsRequestStatus(Value.SUSPENDED, "suspended");
@@ -49,10 +49,10 @@ public final class ListEventSubscriptionsRequestStatus {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case REGISTERED:
-                return visitor.visitRegistered();
             case FAILED:
                 return visitor.visitFailed();
+            case REGISTERED:
+                return visitor.visitRegistered();
             case SUSPENDED:
                 return visitor.visitSuspended();
             case UNKNOWN:
@@ -64,10 +64,10 @@ public final class ListEventSubscriptionsRequestStatus {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ListEventSubscriptionsRequestStatus valueOf(String value) {
         switch (value) {
-            case "registered":
-                return REGISTERED;
             case "failed":
                 return FAILED;
+            case "registered":
+                return REGISTERED;
             case "suspended":
                 return SUSPENDED;
             default:

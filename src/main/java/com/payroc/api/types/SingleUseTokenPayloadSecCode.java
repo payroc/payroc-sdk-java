@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class SingleUseTokenPayloadSecCode {
-    public static final SingleUseTokenPayloadSecCode CCD = new SingleUseTokenPayloadSecCode(Value.CCD, "ccd");
-
     public static final SingleUseTokenPayloadSecCode WEB = new SingleUseTokenPayloadSecCode(Value.WEB, "web");
+
+    public static final SingleUseTokenPayloadSecCode CCD = new SingleUseTokenPayloadSecCode(Value.CCD, "ccd");
 
     public static final SingleUseTokenPayloadSecCode PPD = new SingleUseTokenPayloadSecCode(Value.PPD, "ppd");
 
@@ -48,10 +48,10 @@ public final class SingleUseTokenPayloadSecCode {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case CCD:
-                return visitor.visitCcd();
             case WEB:
                 return visitor.visitWeb();
+            case CCD:
+                return visitor.visitCcd();
             case PPD:
                 return visitor.visitPpd();
             case TEL:
@@ -65,10 +65,10 @@ public final class SingleUseTokenPayloadSecCode {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static SingleUseTokenPayloadSecCode valueOf(String value) {
         switch (value) {
-            case "ccd":
-                return CCD;
             case "web":
                 return WEB;
+            case "ccd":
+                return CCD;
             case "ppd":
                 return PPD;
             case "tel":

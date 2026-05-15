@@ -11,19 +11,19 @@ public final class TransactionResultStatus {
 
     public static final TransactionResultStatus REVERSAL = new TransactionResultStatus(Value.REVERSAL, "reversal");
 
-    public static final TransactionResultStatus COMPLETE = new TransactionResultStatus(Value.COMPLETE, "complete");
-
-    public static final TransactionResultStatus PICKUP = new TransactionResultStatus(Value.PICKUP, "pickup");
-
     public static final TransactionResultStatus PENDING = new TransactionResultStatus(Value.PENDING, "pending");
 
     public static final TransactionResultStatus ADMIN = new TransactionResultStatus(Value.ADMIN, "admin");
 
+    public static final TransactionResultStatus COMPLETE = new TransactionResultStatus(Value.COMPLETE, "complete");
+
+    public static final TransactionResultStatus PICKUP = new TransactionResultStatus(Value.PICKUP, "pickup");
+
+    public static final TransactionResultStatus EXPIRED = new TransactionResultStatus(Value.EXPIRED, "expired");
+
     public static final TransactionResultStatus READY = new TransactionResultStatus(Value.READY, "ready");
 
     public static final TransactionResultStatus ACCEPTED = new TransactionResultStatus(Value.ACCEPTED, "accepted");
-
-    public static final TransactionResultStatus EXPIRED = new TransactionResultStatus(Value.EXPIRED, "expired");
 
     public static final TransactionResultStatus REFERRAL = new TransactionResultStatus(Value.REFERRAL, "referral");
 
@@ -64,20 +64,20 @@ public final class TransactionResultStatus {
                 return visitor.visitDeclined();
             case REVERSAL:
                 return visitor.visitReversal();
-            case COMPLETE:
-                return visitor.visitComplete();
-            case PICKUP:
-                return visitor.visitPickup();
             case PENDING:
                 return visitor.visitPending();
             case ADMIN:
                 return visitor.visitAdmin();
+            case COMPLETE:
+                return visitor.visitComplete();
+            case PICKUP:
+                return visitor.visitPickup();
+            case EXPIRED:
+                return visitor.visitExpired();
             case READY:
                 return visitor.visitReady();
             case ACCEPTED:
                 return visitor.visitAccepted();
-            case EXPIRED:
-                return visitor.visitExpired();
             case REFERRAL:
                 return visitor.visitReferral();
             case UNKNOWN:
@@ -93,20 +93,20 @@ public final class TransactionResultStatus {
                 return DECLINED;
             case "reversal":
                 return REVERSAL;
-            case "complete":
-                return COMPLETE;
-            case "pickup":
-                return PICKUP;
             case "pending":
                 return PENDING;
             case "admin":
                 return ADMIN;
+            case "complete":
+                return COMPLETE;
+            case "pickup":
+                return PICKUP;
+            case "expired":
+                return EXPIRED;
             case "ready":
                 return READY;
             case "accepted":
                 return ACCEPTED;
-            case "expired":
-                return EXPIRED;
             case "referral":
                 return REFERRAL;
             default:

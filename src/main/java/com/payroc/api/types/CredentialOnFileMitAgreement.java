@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class CredentialOnFileMitAgreement {
-    public static final CredentialOnFileMitAgreement RECURRING =
-            new CredentialOnFileMitAgreement(Value.RECURRING, "recurring");
-
     public static final CredentialOnFileMitAgreement INSTALLMENT =
             new CredentialOnFileMitAgreement(Value.INSTALLMENT, "installment");
+
+    public static final CredentialOnFileMitAgreement RECURRING =
+            new CredentialOnFileMitAgreement(Value.RECURRING, "recurring");
 
     public static final CredentialOnFileMitAgreement UNSCHEDULED =
             new CredentialOnFileMitAgreement(Value.UNSCHEDULED, "unscheduled");
@@ -49,10 +49,10 @@ public final class CredentialOnFileMitAgreement {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case RECURRING:
-                return visitor.visitRecurring();
             case INSTALLMENT:
                 return visitor.visitInstallment();
+            case RECURRING:
+                return visitor.visitRecurring();
             case UNSCHEDULED:
                 return visitor.visitUnscheduled();
             case UNKNOWN:
@@ -64,10 +64,10 @@ public final class CredentialOnFileMitAgreement {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static CredentialOnFileMitAgreement valueOf(String value) {
         switch (value) {
-            case "recurring":
-                return RECURRING;
             case "installment":
                 return INSTALLMENT;
+            case "recurring":
+                return RECURRING;
             case "unscheduled":
                 return UNSCHEDULED;
             default:

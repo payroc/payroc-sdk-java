@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ProcessingTerminalFeaturesEnhancedProcessingTransactionDataLevel {
-    public static final ProcessingTerminalFeaturesEnhancedProcessingTransactionDataLevel LEVEL_2 =
-            new ProcessingTerminalFeaturesEnhancedProcessingTransactionDataLevel(Value.LEVEL_2, "level2");
-
     public static final ProcessingTerminalFeaturesEnhancedProcessingTransactionDataLevel LEVEL_3 =
             new ProcessingTerminalFeaturesEnhancedProcessingTransactionDataLevel(Value.LEVEL_3, "level3");
+
+    public static final ProcessingTerminalFeaturesEnhancedProcessingTransactionDataLevel LEVEL_2 =
+            new ProcessingTerminalFeaturesEnhancedProcessingTransactionDataLevel(Value.LEVEL_2, "level2");
 
     private final Value value;
 
@@ -47,10 +47,10 @@ public final class ProcessingTerminalFeaturesEnhancedProcessingTransactionDataLe
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case LEVEL_2:
-                return visitor.visitLevel2();
             case LEVEL_3:
                 return visitor.visitLevel3();
+            case LEVEL_2:
+                return visitor.visitLevel2();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -60,10 +60,10 @@ public final class ProcessingTerminalFeaturesEnhancedProcessingTransactionDataLe
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ProcessingTerminalFeaturesEnhancedProcessingTransactionDataLevel valueOf(String value) {
         switch (value) {
-            case "level2":
-                return LEVEL_2;
             case "level3":
                 return LEVEL_3;
+            case "level2":
+                return LEVEL_2;
             default:
                 return new ProcessingTerminalFeaturesEnhancedProcessingTransactionDataLevel(Value.UNKNOWN, value);
         }

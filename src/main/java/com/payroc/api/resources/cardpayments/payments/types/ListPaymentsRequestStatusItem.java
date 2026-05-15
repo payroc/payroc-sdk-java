@@ -13,24 +13,24 @@ public final class ListPaymentsRequestStatusItem {
     public static final ListPaymentsRequestStatusItem REVERSAL =
             new ListPaymentsRequestStatusItem(Value.REVERSAL, "reversal");
 
+    public static final ListPaymentsRequestStatusItem PENDING =
+            new ListPaymentsRequestStatusItem(Value.PENDING, "pending");
+
+    public static final ListPaymentsRequestStatusItem ADMIN = new ListPaymentsRequestStatusItem(Value.ADMIN, "admin");
+
     public static final ListPaymentsRequestStatusItem COMPLETE =
             new ListPaymentsRequestStatusItem(Value.COMPLETE, "complete");
 
     public static final ListPaymentsRequestStatusItem PICKUP =
             new ListPaymentsRequestStatusItem(Value.PICKUP, "pickup");
 
-    public static final ListPaymentsRequestStatusItem PENDING =
-            new ListPaymentsRequestStatusItem(Value.PENDING, "pending");
-
-    public static final ListPaymentsRequestStatusItem ADMIN = new ListPaymentsRequestStatusItem(Value.ADMIN, "admin");
+    public static final ListPaymentsRequestStatusItem EXPIRED =
+            new ListPaymentsRequestStatusItem(Value.EXPIRED, "expired");
 
     public static final ListPaymentsRequestStatusItem READY = new ListPaymentsRequestStatusItem(Value.READY, "ready");
 
     public static final ListPaymentsRequestStatusItem ACCEPTED =
             new ListPaymentsRequestStatusItem(Value.ACCEPTED, "accepted");
-
-    public static final ListPaymentsRequestStatusItem EXPIRED =
-            new ListPaymentsRequestStatusItem(Value.EXPIRED, "expired");
 
     public static final ListPaymentsRequestStatusItem REFERRAL =
             new ListPaymentsRequestStatusItem(Value.REFERRAL, "referral");
@@ -72,20 +72,20 @@ public final class ListPaymentsRequestStatusItem {
                 return visitor.visitDeclined();
             case REVERSAL:
                 return visitor.visitReversal();
-            case COMPLETE:
-                return visitor.visitComplete();
-            case PICKUP:
-                return visitor.visitPickup();
             case PENDING:
                 return visitor.visitPending();
             case ADMIN:
                 return visitor.visitAdmin();
+            case COMPLETE:
+                return visitor.visitComplete();
+            case PICKUP:
+                return visitor.visitPickup();
+            case EXPIRED:
+                return visitor.visitExpired();
             case READY:
                 return visitor.visitReady();
             case ACCEPTED:
                 return visitor.visitAccepted();
-            case EXPIRED:
-                return visitor.visitExpired();
             case REFERRAL:
                 return visitor.visitReferral();
             case UNKNOWN:
@@ -101,20 +101,20 @@ public final class ListPaymentsRequestStatusItem {
                 return DECLINED;
             case "reversal":
                 return REVERSAL;
-            case "complete":
-                return COMPLETE;
-            case "pickup":
-                return PICKUP;
             case "pending":
                 return PENDING;
             case "admin":
                 return ADMIN;
+            case "complete":
+                return COMPLETE;
+            case "pickup":
+                return PICKUP;
+            case "expired":
+                return EXPIRED;
             case "ready":
                 return READY;
             case "accepted":
                 return ACCEPTED;
-            case "expired":
-                return EXPIRED;
             case "referral":
                 return REFERRAL;
             default:

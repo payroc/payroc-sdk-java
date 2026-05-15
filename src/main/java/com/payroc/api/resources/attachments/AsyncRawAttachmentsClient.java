@@ -622,7 +622,7 @@ public class AsyncRawAttachmentsClient {
 
     /**
      * Use this method to retrieve the details of an attachment.
-     * <p>To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the method that you used to upload the attachment.</p>
+     * <p>To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/upload-to-processing-account">Upload Attachment to Processing Account</a> method.</p>
      * <p>Our gateway returns information about the attachment, including its upload status and the entity that the attachment is linked to. Our gateway doesn't return the file that you uploaded.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<Attachment>> retrieve(String attachmentId) {
@@ -631,7 +631,7 @@ public class AsyncRawAttachmentsClient {
 
     /**
      * Use this method to retrieve the details of an attachment.
-     * <p>To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the method that you used to upload the attachment.</p>
+     * <p>To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/upload-to-processing-account">Upload Attachment to Processing Account</a> method.</p>
      * <p>Our gateway returns information about the attachment, including its upload status and the entity that the attachment is linked to. Our gateway doesn't return the file that you uploaded.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<Attachment>> retrieve(
@@ -641,7 +641,7 @@ public class AsyncRawAttachmentsClient {
 
     /**
      * Use this method to retrieve the details of an attachment.
-     * <p>To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the method that you used to upload the attachment.</p>
+     * <p>To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/upload-to-processing-account">Upload Attachment to Processing Account</a> method.</p>
      * <p>Our gateway returns information about the attachment, including its upload status and the entity that the attachment is linked to. Our gateway doesn't return the file that you uploaded.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<Attachment>> retrieve(
@@ -651,7 +651,7 @@ public class AsyncRawAttachmentsClient {
 
     /**
      * Use this method to retrieve the details of an attachment.
-     * <p>To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the method that you used to upload the attachment.</p>
+     * <p>To retrieve the details of an attachment you need its attachmentId. Our gateway returned the attachmentId in the response of the <a href="https://docs.payroc.com/api/schema/boarding/processing-accounts/upload-to-processing-account">Upload Attachment to Processing Account</a> method.</p>
      * <p>Our gateway returns information about the attachment, including its upload status and the entity that the attachment is linked to. Our gateway doesn't return the file that you uploaded.</p>
      */
     public CompletableFuture<PayrocApiHttpResponse<Attachment>> retrieve(

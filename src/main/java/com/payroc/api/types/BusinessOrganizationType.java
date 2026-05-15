@@ -7,14 +7,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class BusinessOrganizationType {
+    public static final BusinessOrganizationType SOLE_PROPRIETOR =
+            new BusinessOrganizationType(Value.SOLE_PROPRIETOR, "soleProprietor");
+
     public static final BusinessOrganizationType PUBLIC_LLC =
             new BusinessOrganizationType(Value.PUBLIC_LLC, "publicLlc");
 
     public static final BusinessOrganizationType NON_PROFIT =
             new BusinessOrganizationType(Value.NON_PROFIT, "nonProfit");
-
-    public static final BusinessOrganizationType SOLE_PROPRIETOR =
-            new BusinessOrganizationType(Value.SOLE_PROPRIETOR, "soleProprietor");
 
     public static final BusinessOrganizationType PUBLIC_CORPORATION =
             new BusinessOrganizationType(Value.PUBLIC_CORPORATION, "publicCorporation");
@@ -64,12 +64,12 @@ public final class BusinessOrganizationType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case SOLE_PROPRIETOR:
+                return visitor.visitSoleProprietor();
             case PUBLIC_LLC:
                 return visitor.visitPublicLlc();
             case NON_PROFIT:
                 return visitor.visitNonProfit();
-            case SOLE_PROPRIETOR:
-                return visitor.visitSoleProprietor();
             case PUBLIC_CORPORATION:
                 return visitor.visitPublicCorporation();
             case PRIVATE_LLC:
@@ -89,12 +89,12 @@ public final class BusinessOrganizationType {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static BusinessOrganizationType valueOf(String value) {
         switch (value) {
+            case "soleProprietor":
+                return SOLE_PROPRIETOR;
             case "publicLlc":
                 return PUBLIC_LLC;
             case "nonProfit":
                 return NON_PROFIT;
-            case "soleProprietor":
-                return SOLE_PROPRIETOR;
             case "publicCorporation":
                 return PUBLIC_CORPORATION;
             case "privateLlc":

@@ -24,14 +24,18 @@ public final class CustomizationOptions {
 
     private final Optional<CustomizationOptionsEntryMethod> entryMethod;
 
+    private final Optional<CustomizationOptionsClosedLoopOptions> closedLoopOptions;
+
     private final Map<String, Object> additionalProperties;
 
     private CustomizationOptions(
             Optional<EbtDetails> ebtDetails,
             Optional<CustomizationOptionsEntryMethod> entryMethod,
+            Optional<CustomizationOptionsClosedLoopOptions> closedLoopOptions,
             Map<String, Object> additionalProperties) {
         this.ebtDetails = ebtDetails;
         this.entryMethod = entryMethod;
+        this.closedLoopOptions = closedLoopOptions;
         this.additionalProperties = additionalProperties;
     }
 
@@ -53,6 +57,14 @@ public final class CustomizationOptions {
         return entryMethod;
     }
 
+    /**
+     * @return Polymorphic object that indicates the type of closed-loop card that the merchant accepts.
+     */
+    @JsonProperty("closedLoopOptions")
+    public Optional<CustomizationOptionsClosedLoopOptions> getClosedLoopOptions() {
+        return closedLoopOptions;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -65,12 +77,14 @@ public final class CustomizationOptions {
     }
 
     private boolean equalTo(CustomizationOptions other) {
-        return ebtDetails.equals(other.ebtDetails) && entryMethod.equals(other.entryMethod);
+        return ebtDetails.equals(other.ebtDetails)
+                && entryMethod.equals(other.entryMethod)
+                && closedLoopOptions.equals(other.closedLoopOptions);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.ebtDetails, this.entryMethod);
+        return Objects.hash(this.ebtDetails, this.entryMethod, this.closedLoopOptions);
     }
 
     @java.lang.Override
@@ -88,6 +102,8 @@ public final class CustomizationOptions {
 
         private Optional<CustomizationOptionsEntryMethod> entryMethod = Optional.empty();
 
+        private Optional<CustomizationOptionsClosedLoopOptions> closedLoopOptions = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -96,6 +112,7 @@ public final class CustomizationOptions {
         public Builder from(CustomizationOptions other) {
             ebtDetails(other.getEbtDetails());
             entryMethod(other.getEntryMethod());
+            closedLoopOptions(other.getClosedLoopOptions());
             return this;
         }
 
@@ -129,8 +146,22 @@ public final class CustomizationOptions {
             return this;
         }
 
+        /**
+         * <p>Polymorphic object that indicates the type of closed-loop card that the merchant accepts.</p>
+         */
+        @JsonSetter(value = "closedLoopOptions", nulls = Nulls.SKIP)
+        public Builder closedLoopOptions(Optional<CustomizationOptionsClosedLoopOptions> closedLoopOptions) {
+            this.closedLoopOptions = closedLoopOptions;
+            return this;
+        }
+
+        public Builder closedLoopOptions(CustomizationOptionsClosedLoopOptions closedLoopOptions) {
+            this.closedLoopOptions = Optional.ofNullable(closedLoopOptions);
+            return this;
+        }
+
         public CustomizationOptions build() {
-            return new CustomizationOptions(ebtDetails, entryMethod, additionalProperties);
+            return new CustomizationOptions(ebtDetails, entryMethod, closedLoopOptions, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {
